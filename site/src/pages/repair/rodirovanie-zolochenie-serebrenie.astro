@@ -1,0 +1,1386 @@
+---
+import InnerPage from "../../layouts/InnerPage.astro";
+import SanityPriceTable from "../../components/SanityPriceTable.astro";
+
+const repairLinks = [
+  { label: "Уменьшение колец", href: "/repair/umenshenie-kolecz" },
+  { label: "Увеличение колец", href: "/repair/uvelichenie-kolecz" },
+  {
+    label: "Пайка цепочек и браслетов",
+    href: "/repair/pajka-cepochek-brasletov-i-lozhek",
+  },
+  { label: "Лазерная пайка", href: "/repair/lazernaja-pajka" },
+  { label: "Ремонт и замена замков", href: "/repair/remont-i-zamena-zamkov" },
+  { label: "Закрепка камней", href: "/repair/zakrepka-kamnej" },
+  { label: "Перевязка бус", href: "/repair/perevjazka-bus-i-brasletov" },
+  {
+    label: "Родирование, золочение",
+    href: "/repair/rodirovanie-zolochenie-serebrenie",
+  },
+  { label: "Дополнительные услуги", href: "/repair/dopolnitelnye-uslugi" },
+];
+
+const crumbs = [
+  { label: "Главная", href: "/" },
+  { label: "Ремонт украшений", href: "/repair" },
+  { label: "Родирование, золочение, серебрение" },
+];
+
+const guarantees = [
+  {
+    num: "01",
+    title: "Гарантия 1 год",
+    text: "Выдаём письменную гарантию на каждое изделие.",
+  },
+  {
+    num: "02",
+    title: "Мастера с образованием",
+    text: "Все ювелиры с высшим профильным образованием. Стаж — от 8 до 40 лет.",
+  },
+  {
+    num: "03",
+    title: "Камни и эмаль в безопасности",
+    text: "Закрываем вставки, эмаль и чернение защитным лаком перед процедурой. Ничто не пострадает.",
+  },
+  {
+    num: "04",
+    title: "Проверка перед выдачей",
+    text: "Проверяем равномерность и блеск покрытия. Получаете украшение как новое.",
+  },
+];
+
+const faqs = [
+  {
+    q: "Можно ли родировать украшение с камнями?",
+    a: "Да. Большинство камней — бриллианты, фианиты, топазы, сапфиры, рубины, изумруды — процедуру переносят нормально. Перед родированием мастер закрывает их специальным лаком. Исключение — камни с карбонатной структурой: малахит, бирюза, жемчуг, перламутр. Они боятся кислот. Если такой камень нельзя закрыть лаком, мастер вынет его, проведёт покрытие и вставит обратно. Это увеличивает стоимость, но результат будет правильным.",
+  },
+  {
+    q: "Сколько держится родирование на обручальном кольце?",
+    a: "При ежедневной носке — 2–3 года. Если снимаете кольцо на ночь и перед физической работой — 5–7 лет. Срок зависит от того, насколько активно кольцо контактирует с поверхностями: руль автомобиля, ключи, соседние украшения.",
+  },
+  {
+    q: "Можно ли изменить цвет украшения при родировании?",
+    a: "Да. Серебряное кольцо можем покрыть жёлтым или красным золотом. Золотое украшение — белым родием. Можно сделать чёрное родирование для контрастного эффекта. Если нужно изменить цвет только части украшения — закрываем остальные фрагменты лаком и работаем прицельно.",
+  },
+  {
+    q: "Что такое чёрное родирование?",
+    a: "Покрытие чёрным родием — специальный вид гальваники, который даёт матово-угольный или зеркально-чёрный эффект. Популярно для мужских украшений, изделий в стиле готики или винтажа. Стойкость чёрного родия немного ниже белого — тонкий слой, зато крайне эффектный вид.",
+  },
+  {
+    q: "Родированное серебро — это то же самое, что белое золото?",
+    a: "Внешне — да. Оба металла после родирования дают идентичный холодный серебристый блеск. Визуально их не отличить. Разница в металле основы: серебро 925 пробы легче и дешевле. Без родирования само по себе белое золото имеет лёгкий желтоватый оттенок — именно родий придаёт ему «платиновый» вид.",
+  },
+  {
+    q: "Можно ли родировать изделия из латуни или меди?",
+    a: "Да, но потребуется дополнительный шаг. Латунь и медь плохо держат родий и золото — нужен промежуточный слой серебра или никеля. Без него позолота сойдёт за несколько дней. С промежуточным слоем покрытие держится как на драгоценном металле.",
+  },
+  {
+    q: "Как часто нужно обновлять родирование?",
+    a: "Зависит от типа украшения. Кольца при активной носке — раз в 1–2 года. Серьги и кулоны — раз в 3–5 лет или по необходимости. Признак того, что пора: серебро потемнело, на белом золоте проступил желтоватый оттенок, украшение потеряло блеск или видны царапины.",
+  },
+];
+
+const processSteps = [
+  {
+    num: "01",
+    title: "Подготовка изделия",
+    text: "Мастер осматривает украшение, удаляет старое покрытие (если нужно), шлифует и полирует поверхность. Это важный этап: если на металле остались царапины — родий их не скроет, а подчеркнёт.",
+  },
+  {
+    num: "02",
+    title: "Защита элементов",
+    text: "Камни, эмаль, чернение и фрагменты, которые не нужно покрывать, закрываем специальным лаком. Он защищает их от воздействия химических растворов.",
+  },
+  {
+    num: "03",
+    title: "Обезжиривание и активация",
+    text: "Украшение погружаем в раствор для удаления жировых следов, потом в слабую кислоту на несколько секунд — для лучшего сцепления металлов.",
+  },
+  {
+    num: "04",
+    title: "Гальваническое покрытие",
+    text: "Изделие опускаем в ванну с раствором солей родия, золота или серебра. Подключаем электрический ток: атомы драгоценного металла равномерно оседают на поверхности. Толщина покрытия для кольца — 0,75–1 мкм, для серёг — 0,1–0,25 мкм. Делать слой толще нельзя — из-за твёрдости родия он начнёт трескаться.",
+  },
+  {
+    num: "05",
+    title: "Финишная обработка",
+    text: "Снимаем защитный лак, промываем украшение в дистиллированной воде, сушим и проверяем качество покрытия.",
+  },
+];
+---
+
+<InnerPage
+  title="Родирование, золочение, серебрение"
+  description="Родирование, золочение и серебрение в Санкт-Петербурге. Обновим покрытие колец, серёг, цепочек. Гладкое кольцо — за 1 час. Гарантия 1 год."
+  crumbs={crumbs}
+  sidebarLinks={repairLinks}
+  sidebarTitle="Услуги ремонта"
+  activeHref="/repair/rodirovanie-zolochenie-serebrenie"
+>
+  <div class="rg">
+
+    <!-- ── Hero ── -->
+    <div class="rg__hero">
+      <div class="rg__hero-content">
+        <p class="rg__hero-label">
+          Ювелирная мастерская «Артель» · Санкт-Петербург
+        </p>
+        <h1 class="rg__title">Родирование, золочение, серебрение</h1>
+        <p class="rg__lead">
+          Родирование, золочение и серебрение — это гальваническое покрытие
+          ювелирных изделий защитным слоем металла. Восстановим покрытие
+          украшений: кольца, серьги и цепочки будут блестеть как новые.
+          Работаем с серебром, золотом, платиной и белым золотом.
+        </p>
+        <div class="rg__hero-cta">
+          <a
+            href="https://wa.me/+79319616090?text=Здравствуйте%2C%20хочу%20родировать%20украшение%2C%20отправляю%20фото"
+            class="btn btn--primary"
+            target="_blank"
+            rel="noopener"
+          >
+            Прислать фото украшения
+          </a>
+          <p class="rg__hero-hint">
+            Рассчитаем стоимость за 10 минут
+          </p>
+        </div>
+      </div>
+
+      <div class="rg__hero-image">
+        <div class="rg__hero-img-placeholder">
+          <span>Фото — мастер наносит гальваническое покрытие на кольцо</span>
+        </div>
+      </div>
+
+      <div class="rg__hero-stats">
+        <div class="rg__hero-stat">
+          <span class="rg__hero-stat-num">1</span>
+          <div class="rg__hero-stat-info">
+            <span class="rg__hero-stat-unit">час</span>
+            <span class="rg__hero-stat-label">на гладкое кольцо</span>
+          </div>
+        </div>
+        <span class="rg__hero-stat-sep" aria-hidden="true"></span>
+        <div class="rg__hero-stat">
+          <span class="rg__hero-stat-num">1</span>
+          <div class="rg__hero-stat-info">
+            <span class="rg__hero-stat-unit">год</span>
+            <span class="rg__hero-stat-label">гарантия на работу</span>
+          </div>
+        </div>
+        <span class="rg__hero-stat-sep" aria-hidden="true"></span>
+        <div class="rg__hero-stat">
+          <span class="rg__hero-stat-num">8–40</span>
+          <div class="rg__hero-stat-info">
+            <span class="rg__hero-stat-unit">лет</span>
+            <span class="rg__hero-stat-label">стаж мастеров</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Почему темнеет / желтеет ── -->
+    <div class="rg__section rg__section--warm">
+      <p class="rg__label">Зачем нужно покрытие</p>
+      <h2 class="rg__section-title">Почему темнеет серебро и желтеет белое золото</h2>
+      <div class="rg__reasons">
+        <div class="rg__reason">
+          <div class="rg__reason-title">Серебро темнеет</div>
+          <p class="rg__reason-text">
+            Из-за реакции с сероводородом в воздухе и на коже. В ювелирных
+            сплавах 925 пробы содержится 7,5% меди — она окисляется быстрее
+            серебра и усиливает потемнение. Украшение покрывается тёмным налётом
+            за несколько месяцев.
+          </p>
+        </div>
+        <div class="rg__reason">
+          <div class="rg__reason-title">Белое золото желтеет</div>
+          <p class="rg__reason-text">
+            Потому что родиевое покрытие стирается от трения. Кольцо царапается
+            о руль машины, ключи в кармане, соседние украшения. За 2–3 года
+            активной носки защитный слой стирается, и проступает желтоватый
+            оттенок золотого сплава.
+          </p>
+        </div>
+        <div class="rg__reason rg__reason--solution">
+          <div class="rg__reason-title">Решение</div>
+          <p class="rg__reason-text">
+            Родирование создаёт защитный барьер между металлом и агрессивной
+            средой. Серебро не темнеет, белое золото сохраняет холодный блеск
+            3–5 лет. Родий — драгоценный металл платиновой группы, в 7–10 раз
+            дороже золота и в 2,5 раза тверже. Мировые бренды — Tiffany&nbsp;&amp;&nbsp;Co,
+            Dior, Gucci — используют родирование для серебряных коллекций.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Prices ── -->
+    <SanityPriceTable slug="repair-plating" />
+
+    <!-- ── Виды покрытий ── -->
+    <div class="rg__section">
+      <p class="rg__label">Варианты</p>
+      <h2 class="rg__section-title">Какого цвета можно сделать покрытие</h2>
+      <p class="rg__section-lead">
+        Гальваника меняет не только состояние, но и цвет украшения. Вы можете
+        обновить родной вид или полностью переделать украшение.
+      </p>
+      <div class="rg__cases">
+        <div class="rg__case">
+          <div class="rg__card-img">
+            <span>Фото — кольцо до и после белого родирования</span>
+          </div>
+          <span class="rg__case-num">01</span>
+          <div class="rg__case-title">Белое родирование</div>
+          <p class="rg__case-text">
+            Холодный серебристый блеск. Наносится на серебро и белое золото
+            для защиты и восстановления вида. После родирования серебро
+            не отличить от белого золота. Держится 2–5 лет в зависимости
+            от типа украшения.
+          </p>
+        </div>
+        <div class="rg__case">
+          <div class="rg__card-img">
+            <span>Фото — серебряное кольцо с жёлтым позолотой</span>
+          </div>
+          <span class="rg__case-num">02</span>
+          <div class="rg__case-title">Жёлтое или розовое золочение</div>
+          <p class="rg__case-text">
+            Покрытие золотом 585 или 999 пробы — классический жёлтый или
+            тёплый розово-красный оттенок. Украшение выглядит как золотое
+            по доступной цене. Позолота держится 2–5 лет при аккуратной носке.
+          </p>
+        </div>
+        <div class="rg__case">
+          <div class="rg__card-img">
+            <span>Фото — серебряное кольцо с чёрным родированием</span>
+          </div>
+          <span class="rg__case-num">03</span>
+          <div class="rg__case-title">Чёрное родирование</div>
+          <p class="rg__case-text">
+            Покрытие чёрным родием для контрастного эффекта. Популярно для
+            мужских украшений и изделий в винтажном или готическом стиле.
+            Даёт матово-угольный или зеркально-чёрный вид.
+          </p>
+        </div>
+        <div class="rg__case">
+          <div class="rg__card-img">
+            <span>Фото — серебряные серьги с серебрением крупным планом</span>
+          </div>
+          <span class="rg__case-num">04</span>
+          <div class="rg__case-title">Серебрение</div>
+          <p class="rg__case-text">
+            Покрытие тонким слоем серебра. Используется для восстановления
+            потускневших изделий из недрагоценных сплавов или как промежуточный
+            слой перед нанесением золота или родия.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── От чего зависит цена ── -->
+    <div class="rg__section">
+      <p class="rg__label">Стоимость работы</p>
+      <h2 class="rg__section-title">От чего зависит цена?</h2>
+      <p class="rg__section-lead">
+        Цена родирования, золочения или серебрения зависит от площади покрытия,
+        сложности работы, состояния украшения и металла основы.
+      </p>
+      <div class="rg__cases rg__cases--3col">
+        <div class="rg__case">
+          <span class="rg__case-num">01</span>
+          <div class="rg__case-title">Украшение крупное</div>
+          <p class="rg__case-text">
+            Массивная цепочка со сложным плетением или широкий браслет примут
+            на себя больше материала для гальванического покрытия.
+          </p>
+        </div>
+        <div class="rg__case">
+          <span class="rg__case-num">02</span>
+          <div class="rg__case-title">Изделие старое и изношенное</div>
+          <p class="rg__case-text">
+            Перед нанесением родия мастер удалит царапины, вмятины и потемнения.
+            Дополнительные шлифовка и полировка нужны, чтобы покрытие легло
+            ровно и держалось дольше.
+          </p>
+        </div>
+        <div class="rg__case">
+          <span class="rg__case-num">03</span>
+          <div class="rg__case-title">Украшение из нескольких металлов</div>
+          <p class="rg__case-text">
+            Например, кольцо из белого и красного золота, а родировать нужно
+            только белую часть. Ювелир закроет нужные фрагменты лаком, нанесёт
+            покрытие, потом снимет лак.
+          </p>
+        </div>
+        <div class="rg__case">
+          <span class="rg__case-num">04</span>
+          <div class="rg__case-title">Сложная работа с камнями</div>
+          <p class="rg__case-text">
+            На кольце россыпь мелких камней, а покрыть родием нужно только
+            тонкую оправу между ними. Мастер работает гальваническим
+            карандашом. Процесс медленный: важно не задеть вставки.
+          </p>
+        </div>
+        <div class="rg__case">
+          <span class="rg__case-num">05</span>
+          <div class="rg__case-title">Украшение из недрагоценного металла</div>
+          <p class="rg__case-text">
+            Латунь и медь плохо держат родий и золото. Сначала мастер покроет
+            изделие серебром или никелем, потом нанесёт финишное покрытие.
+            Без промежуточного слоя позолота сойдёт за несколько дней.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Сколько держится покрытие ── -->
+    <div class="rg__section">
+      <p class="rg__label">Срок службы</p>
+      <h2 class="rg__section-title">Сколько держится родирование и золочение</h2>
+      <p class="rg__section-lead">
+        При активном использовании срок зависит от того, насколько часто
+        украшение контактирует с поверхностями.
+      </p>
+      <div class="rg__durability">
+        <div class="rg__dur-item">
+          <div class="rg__dur-num">2–3</div>
+          <div class="rg__dur-unit">года</div>
+          <div class="rg__dur-title">Кольца</div>
+          <p class="rg__dur-text">Постоянно контактируют с поверхностями — руль, клавиатура, ключи.</p>
+        </div>
+        <div class="rg__dur-item">
+          <div class="rg__dur-num">3–5</div>
+          <div class="rg__dur-unit">лет</div>
+          <div class="rg__dur-title">Браслеты и цепочки</div>
+          <p class="rg__dur-text">Звенья трутся друг о друга, но меньший контакт с твёрдыми поверхностями.</p>
+        </div>
+        <div class="rg__dur-item">
+          <div class="rg__dur-num">5–10</div>
+          <div class="rg__dur-unit">лет</div>
+          <div class="rg__dur-title">Серьги и кулоны</div>
+          <p class="rg__dur-text">Минимальное трение. При аккуратной носке и правильном хранении — долгие годы.</p>
+        </div>
+      </div>
+      <div class="rg__durability-signs">
+        <div class="rg__signs-title">Признаки того, что пора обновить покрытие:</div>
+        <ul class="rg__signs-list">
+          <li>Серебро потемнело или покрылось налётом</li>
+          <li>На белом золоте проступил желтоватый оттенок</li>
+          <li>Украшение потеряло холодный блеск</li>
+          <li>Видны царапины и потёртости</li>
+          <li>Кончики зубцов оправы изменили цвет</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ── Как делаем ── -->
+    <div class="rg__section">
+      <p class="rg__label">Технология</p>
+      <h2 class="rg__section-title">Как мы делаем родирование</h2>
+      <div class="rg__process">
+        {
+          processSteps.map((step) => (
+            <div class="rg__process-step">
+              <div class="rg__process-num">{step.num}</div>
+              <div class="rg__process-title">{step.title}</div>
+              <p class="rg__process-text">{step.text}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+
+    <!-- ── Уход ── -->
+    <div class="rg__section rg__section--warm">
+      <p class="rg__label">После процедуры</p>
+      <h2 class="rg__section-title">Как ухаживать за родированными украшениями</h2>
+      <div class="rg__care">
+        <div class="rg__care-col">
+          <div class="rg__care-col-title">Что делать</div>
+          <ul class="rg__care-list rg__care-list--do">
+            <li>Протирайте мягкой тканью после каждой носки</li>
+            <li>Храните в отдельных мешочках или ячейках шкатулки</li>
+            <li>Снимайте перед уборкой, мытьём посуды, походом в бассейн</li>
+            <li>Надевайте после нанесения крема и макияжа</li>
+          </ul>
+        </div>
+        <div class="rg__care-col">
+          <div class="rg__care-col-title">Чего нельзя</div>
+          <ul class="rg__care-list rg__care-list--dont">
+            <li>Чистить абразивами — зубной пастой, содой, порошками</li>
+            <li>Использовать жёсткие щётки — они царапают родий</li>
+            <li>Носить несколько украшений на одной руке — трутся</li>
+            <li>Допускать контакт с бытовой химией и парфюмом</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Сроки ── -->
+    <div class="rg__deadline">
+      <div class="rg__deadline-time">
+        <span class="rg__deadline-num">1</span>
+        <span class="rg__deadline-unit">час</span>
+      </div>
+      <div class="rg__deadline-divider" aria-hidden="true"></div>
+      <div class="rg__deadline-body">
+        <p class="rg__label">Время выполнения</p>
+        <h2 class="rg__deadline-title">Сроки</h2>
+        <p class="rg__deadline-text">
+          Гладкое кольцо покрываем за <strong>1 час в вашем присутствии</strong>.
+          Если на украшении вставки, гравировка или сложная форма —
+          работа займёт <strong>один день</strong>.
+          Точный срок мастер называет на консультации.
+        </p>
+      </div>
+    </div>
+
+    <!-- ── Гарантии ── -->
+    <div class="rg__section">
+      <p class="rg__label">Обязательства</p>
+      <h2 class="rg__section-title">Наши гарантии</h2>
+      <div class="rg__guarantees">
+        {
+          guarantees.map((g) => (
+            <div class="rg__guarantee">
+              <div class="rg__guarantee-num">{g.num}</div>
+              <div class="rg__guarantee-title">{g.title}</div>
+              <div class="rg__guarantee-text">{g.text}</div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+
+    <!-- ── FAQ ── -->
+    <div class="rg__section">
+      <p class="rg__label">Вопросы и ответы</p>
+      <h2 class="rg__section-title">Частые вопросы</h2>
+      <div class="rg__faq">
+        {
+          faqs.map((item, i) => (
+            <div class="rg__faq-item">
+              <button
+                class="rg__faq-q"
+                type="button"
+                aria-expanded="false"
+                aria-controls={`rg-faq-panel-${i}`}
+              >
+                <span class="rg__faq-q-index">{String(i + 1).padStart(2, "0")}</span>
+                <span class="rg__faq-q-text">{item.q}</span>
+                <span class="rg__faq-icon" aria-hidden="true">+</span>
+              </button>
+              <div class="rg__faq-a" id={`rg-faq-panel-${i}`} role="region">
+                <div class="rg__faq-a-inner">
+                  <p>{item.a}</p>
+                </div>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+
+  </div>
+</InnerPage>
+
+<script>
+  document.querySelectorAll<HTMLElement>('.rg__faq-item').forEach(item => {
+    const btn = item.querySelector<HTMLButtonElement>('.rg__faq-q')!;
+    const answer = item.querySelector<HTMLElement>('.rg__faq-a')!;
+
+    btn.addEventListener('click', () => {
+      if (item.classList.contains('is-open')) {
+        item.classList.add('is-closing');
+        item.classList.remove('is-open');
+        btn.setAttribute('aria-expanded', 'false');
+        answer.addEventListener('transitionend', () => {
+          item.classList.remove('is-closing');
+        }, { once: true });
+      } else {
+        item.classList.remove('is-closing');
+        item.classList.add('is-open');
+        btn.setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
+</script>
+
+<style>
+  .rg {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-64);
+  }
+
+  /* ── Hero ── */
+  .rg__hero {
+    background: linear-gradient(
+      154.68deg,
+      var(--color-gold-300) 0%,
+      var(--color-gold-600) 100%
+    );
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr auto;
+    overflow: hidden;
+  }
+
+  .rg__hero-content {
+    grid-column: 1;
+    grid-row: 1;
+    padding: var(--spacing-48);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-24);
+  }
+
+  .rg__hero-image {
+    grid-column: 2;
+    grid-row: 1 / 3;
+    position: relative;
+    min-height: 380px;
+  }
+
+  .rg__hero-img-placeholder {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.10);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .rg__hero-img-placeholder span {
+    font-family: var(--font-body);
+    font-size: var(--font-size-sm);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: rgba(0, 0, 0, 0.35);
+    text-align: center;
+    padding: 0 var(--spacing-24);
+  }
+
+  .rg__hero-stats {
+    grid-column: 1;
+    grid-row: 2;
+    display: flex;
+    align-items: center;
+    gap: 0;
+    padding: var(--spacing-24) var(--spacing-48);
+    border-top: 1px solid var(--color-gold-600);
+  }
+
+  .rg__hero-stat {
+    display: flex;
+    align-items: baseline;
+    gap: var(--spacing-8);
+    flex: 1;
+  }
+
+  .rg__hero-stat-num {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-h3);
+    font-weight: 600;
+    font-style: italic;
+    color: var(--color-dark-900);
+    line-height: 1;
+  }
+
+  .rg__hero-stat-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .rg__hero-stat-unit {
+    font-family: var(--font-body);
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-dark-900);
+  }
+
+  .rg__hero-stat-label {
+    font-family: var(--font-body);
+    font-size: var(--font-size-sm);
+    color: var(--color-gold-900);
+    line-height: 1.3;
+    white-space: nowrap;
+  }
+
+  .rg__hero-stat-sep {
+    width: 1px;
+    height: 40px;
+    background: var(--color-gold-600);
+    flex-shrink: 0;
+    margin: 0 var(--spacing-24);
+  }
+
+  .rg__hero-label {
+    font-family: var(--font-body);
+    font-size: var(--font-size-sm);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-gold-900);
+  }
+
+  .rg__title {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-h2);
+    font-weight: 600;
+    color: var(--color-dark-900);
+    line-height: 1;
+  }
+
+  .rg__lead {
+    font-family: var(--font-body);
+    font-size: var(--font-size-lg);
+    line-height: 1.6;
+    color: var(--color-text-muted);
+  }
+
+  .rg__hero-cta {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-24);
+    margin-top: auto;
+  }
+
+  .rg__hero-hint {
+    font-family: var(--font-body);
+    font-size: var(--font-size-sm);
+    color: var(--color-gold-900);
+    line-height: 1.4;
+    max-width: 160px;
+  }
+
+  /* ── Section ── */
+  .rg__section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-24);
+  }
+
+  .rg__section--warm {
+    background: var(--color-gold-600);
+    border-radius: var(--radius-sm);
+    padding: var(--spacing-48);
+  }
+
+  .rg__label {
+    font-family: var(--font-body);
+    font-size: var(--font-size-sm);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-gold-900);
+  }
+
+  .rg__section-title {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-h3);
+    font-weight: 600;
+    color: var(--color-dark-900);
+    line-height: 1.05;
+    margin-top: calc(var(--spacing-24) * -1);
+  }
+
+  .rg__section-lead {
+    font-family: var(--font-body);
+    font-size: var(--font-size-lg);
+    line-height: 1.7;
+    color: var(--color-text-muted);
+    max-width: 640px;
+  }
+
+  /* ── Reasons ── */
+  .rg__reasons {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: var(--spacing-24);
+  }
+
+  .rg__reason {
+    background-color: var(--color-white);
+    border: 1px solid var(--color-gold-600);
+    border-radius: var(--radius-sm);
+    padding: var(--spacing-32);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-16);
+  }
+
+  .rg__reason--solution {
+    border-left: 3px solid var(--color-gold-900);
+  }
+
+  .rg__reason-title {
+    font-family: var(--font-body);
+    font-size: var(--font-size-base);
+    font-weight: 500;
+    color: var(--color-dark-900);
+    line-height: 1.3;
+  }
+
+  .rg__reason-text {
+    font-family: var(--font-body);
+    font-size: var(--font-size-base);
+    line-height: 1.6;
+    color: var(--color-text-muted);
+  }
+
+  /* ── Cases ── */
+  .rg__cases {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--spacing-24);
+  }
+
+  .rg__cases--3col {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .rg__case {
+    background-color: var(--color-white);
+    border: 1px solid var(--color-gold-600);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-16);
+    transition: transform 200ms ease, box-shadow 200ms ease;
+  }
+
+  .rg__case:not(:has(.rg__card-img)) {
+    padding: var(--spacing-32);
+  }
+
+  .rg__case:has(.rg__card-img) .rg__case-num,
+  .rg__case:has(.rg__card-img) .rg__case-title,
+  .rg__case:has(.rg__card-img) .rg__case-text {
+    padding: 0 var(--spacing-32);
+  }
+
+  .rg__case:has(.rg__card-img) .rg__case-text {
+    padding-bottom: var(--spacing-32);
+  }
+
+  .rg__case:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(199, 125, 23, 0.18);
+  }
+
+  .rg__card-img {
+    width: 100%;
+    height: 160px;
+    background: rgba(0, 0, 0, 0.06);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .rg__card-img span {
+    font-family: var(--font-body);
+    font-size: var(--font-size-sm);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: rgba(0, 0, 0, 0.30);
+    text-align: center;
+    padding: 0 var(--spacing-16);
+  }
+
+  .rg__case-num {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-h4);
+    font-weight: 600;
+    font-style: italic;
+    color: var(--color-gold-600);
+    line-height: 1;
+  }
+
+  .rg__case-title {
+    font-family: var(--font-body);
+    font-size: var(--font-size-base);
+    font-weight: 500;
+    color: var(--color-dark-900);
+    line-height: 1.3;
+  }
+
+  .rg__case-text {
+    font-family: var(--font-body);
+    font-size: var(--font-size-base);
+    line-height: 1.6;
+    color: var(--color-text-muted);
+  }
+
+  /* ── Durability ── */
+  .rg__durability {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--spacing-24);
+  }
+
+  .rg__dur-item {
+    background-color: var(--color-white);
+    border: 1px solid var(--color-gold-600);
+    border-radius: var(--radius-sm);
+    padding: var(--spacing-32);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-8);
+  }
+
+  .rg__dur-num {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-h2);
+    font-weight: 600;
+    font-style: italic;
+    color: var(--color-gold-600);
+    line-height: 1;
+  }
+
+  .rg__dur-unit {
+    font-family: var(--font-body);
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-gold-900);
+    margin-top: calc(var(--spacing-8) * -1);
+  }
+
+  .rg__dur-title {
+    font-family: var(--font-body);
+    font-size: var(--font-size-base);
+    font-weight: 500;
+    color: var(--color-dark-900);
+    line-height: 1.3;
+    margin-top: var(--spacing-8);
+  }
+
+  .rg__dur-text {
+    font-family: var(--font-body);
+    font-size: var(--font-size-base);
+    line-height: 1.6;
+    color: var(--color-text-muted);
+  }
+
+  .rg__durability-signs {
+    background: var(--color-gold-300);
+    border-radius: var(--radius-sm);
+    padding: var(--spacing-32);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-16);
+  }
+
+  .rg__signs-title {
+    font-family: var(--font-body);
+    font-size: var(--font-size-base);
+    font-weight: 500;
+    color: var(--color-dark-900);
+  }
+
+  .rg__signs-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-8) var(--spacing-32);
+  }
+
+  .rg__signs-list li {
+    font-family: var(--font-body);
+    font-size: var(--font-size-base);
+    color: var(--color-text-muted);
+    line-height: 1.5;
+    padding-left: var(--spacing-16);
+    position: relative;
+  }
+
+  .rg__signs-list li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--color-gold-900);
+  }
+
+  /* ── Process ── */
+  .rg__process {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: var(--spacing-24);
+  }
+
+  .rg__process-step {
+    background-color: var(--color-white);
+    border: 1px solid var(--color-gold-600);
+    border-radius: var(--radius-sm);
+    padding: var(--spacing-32);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-16);
+  }
+
+  .rg__process-num {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-h4);
+    font-weight: 600;
+    font-style: italic;
+    color: var(--color-gold-600);
+    line-height: 1;
+  }
+
+  .rg__process-title {
+    font-family: var(--font-body);
+    font-size: var(--font-size-base);
+    font-weight: 500;
+    color: var(--color-dark-900);
+    line-height: 1.3;
+  }
+
+  .rg__process-text {
+    font-family: var(--font-body);
+    font-size: var(--font-size-base);
+    line-height: 1.6;
+    color: var(--color-text-muted);
+  }
+
+  /* ── Care ── */
+  .rg__care {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-24);
+  }
+
+  .rg__care-col {
+    background: var(--color-white);
+    border: 1px solid var(--color-gold-600);
+    border-radius: var(--radius-sm);
+    padding: var(--spacing-32);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-16);
+  }
+
+  .rg__care-col-title {
+    font-family: var(--font-body);
+    font-size: var(--font-size-base);
+    font-weight: 500;
+    color: var(--color-dark-900);
+  }
+
+  .rg__care-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-8);
+  }
+
+  .rg__care-list li {
+    font-family: var(--font-body);
+    font-size: var(--font-size-base);
+    color: var(--color-text-muted);
+    line-height: 1.5;
+    padding-left: var(--spacing-24);
+    position: relative;
+  }
+
+  .rg__care-list--do li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--color-gold-900);
+    font-weight: 500;
+  }
+
+  .rg__care-list--dont li::before {
+    content: '✗';
+    position: absolute;
+    left: 0;
+    color: var(--color-gold-900);
+    font-weight: 500;
+  }
+
+  /* ── Deadline spotlight ── */
+  .rg__deadline {
+    background: var(--color-dark-900);
+    border-radius: var(--radius-sm);
+    padding: var(--spacing-48);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-48);
+  }
+
+  .rg__deadline-time {
+    display: flex;
+    align-items: baseline;
+    gap: var(--spacing-8);
+    flex-shrink: 0;
+  }
+
+  .rg__deadline-num {
+    font-family: var(--font-heading);
+    font-size: 96px;
+    font-weight: 600;
+    font-style: italic;
+    color: var(--color-gold-600);
+    line-height: 1;
+  }
+
+  .rg__deadline-unit {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-h3);
+    font-weight: 600;
+    font-style: italic;
+    color: var(--color-gold-600);
+    line-height: 1;
+  }
+
+  .rg__deadline-divider {
+    width: 1px;
+    height: 80px;
+    background: rgba(240, 219, 190, 0.2);
+    flex-shrink: 0;
+  }
+
+  .rg__deadline-body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-8);
+  }
+
+  .rg__deadline-body .rg__label {
+    color: var(--color-gold-600);
+  }
+
+  .rg__deadline-title {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-h3);
+    font-weight: 600;
+    color: var(--color-gold-600);
+    line-height: 1.05;
+  }
+
+  .rg__deadline-text {
+    font-family: var(--font-body);
+    font-size: var(--font-size-base);
+    line-height: 1.7;
+    color: rgba(252, 248, 243, 0.7);
+    max-width: 560px;
+  }
+
+  .rg__deadline-text strong {
+    color: var(--color-gold-600);
+    font-weight: 500;
+  }
+
+  /* ── Guarantees ── */
+  .rg__guarantees {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    background-color: var(--color-white);
+    border: 1px solid var(--color-gold-600);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+  }
+
+  .rg__guarantee {
+    padding: var(--spacing-32);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-16);
+    position: relative;
+    transition: background-color 200ms ease;
+  }
+
+  .rg__guarantee:hover {
+    background-color: var(--color-gold-300);
+  }
+
+  .rg__guarantee + .rg__guarantee::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: var(--spacing-32);
+    bottom: var(--spacing-32);
+    width: 1px;
+    background: var(--color-gold-600);
+  }
+
+  .rg__guarantee-num {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-h2);
+    font-weight: 600;
+    font-style: italic;
+    color: var(--color-gold-600);
+    line-height: 1;
+  }
+
+  .rg__guarantee-title {
+    font-family: var(--font-body);
+    font-size: var(--font-size-lg);
+    font-weight: 400;
+    color: var(--color-dark-900);
+    line-height: 1.3;
+  }
+
+  .rg__guarantee-text {
+    font-family: var(--font-body);
+    font-size: var(--font-size-base);
+    line-height: 1.5;
+    color: var(--color-text-muted);
+  }
+
+  /* ── FAQ ── */
+  .rg__faq {
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid var(--color-gold-600);
+  }
+
+  .rg__faq-item {
+    border-bottom: 1px solid var(--color-gold-600);
+  }
+
+  .rg__faq-q {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-16);
+    width: 100%;
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    padding: var(--spacing-24) 0;
+  }
+
+  .rg__faq-q-index {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-h4);
+    font-weight: 600;
+    font-style: italic;
+    color: var(--color-gold-600);
+    line-height: 1;
+    flex-shrink: 0;
+    width: 44px;
+    transition: color 200ms ease;
+  }
+
+  .rg__faq-item.is-open .rg__faq-q-index {
+    color: var(--color-gold-900);
+  }
+
+  .rg__faq-q-text {
+    flex: 1;
+    font-family: var(--font-body);
+    font-size: var(--font-size-lg);
+    font-weight: 500;
+    color: var(--color-dark-900);
+    line-height: 1.4;
+  }
+
+  .rg__faq-icon {
+    font-size: 24px;
+    color: var(--color-gold-900);
+    flex-shrink: 0;
+    display: inline-block;
+    transition: transform 0.42s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .rg__faq-item.is-open .rg__faq-icon { transform: rotate(45deg); }
+  .rg__faq-item.is-closing .rg__faq-icon {
+    transform: rotate(0deg);
+    transition: transform 0.22s ease-in;
+  }
+
+  .rg__faq-a {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.42s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .rg__faq-item.is-open .rg__faq-a { grid-template-rows: 1fr; }
+  .rg__faq-item.is-closing .rg__faq-a {
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.22s ease-in;
+  }
+
+  .rg__faq-a-inner {
+    overflow: hidden;
+    padding-left: 60px;
+    padding-bottom: 0;
+    max-width: 680px;
+    transition: padding-bottom 0.42s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .rg__faq-item.is-open .rg__faq-a-inner {
+    padding-bottom: var(--spacing-24);
+  }
+
+  .rg__faq-item.is-closing .rg__faq-a-inner {
+    padding-bottom: 0;
+    transition: padding-bottom 0.22s ease-in;
+  }
+
+  .rg__faq-a-inner p {
+    font-family: var(--font-body);
+    font-size: var(--font-size-base);
+    line-height: 1.7;
+    color: var(--color-text-muted);
+    opacity: 0;
+    transition: opacity 0.12s ease;
+  }
+
+  .rg__faq-item.is-open .rg__faq-a-inner p {
+    opacity: 1;
+    transition: opacity 0.28s ease 0.16s;
+  }
+
+  .rg__faq-item.is-closing .rg__faq-a-inner p {
+    opacity: 0;
+    transition: opacity 0.1s ease;
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 1200px) {
+    .rg__process {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  @media (max-width: 1024px) {
+    .rg__cases {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .rg__cases--3col {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 760px) {
+    .rg {
+      gap: var(--spacing-48);
+    }
+
+    .rg__hero,
+    .rg__deadline,
+    .rg__section--warm {
+      margin-left: calc(var(--spacing-16) * -1);
+      margin-right: calc(var(--spacing-16) * -1);
+    }
+
+    .rg__hero {
+      grid-template-columns: 1fr;
+      grid-template-rows: 220px auto auto;
+    }
+    .rg__hero-image {
+      grid-column: 1;
+      grid-row: 1;
+      min-height: unset;
+    }
+    .rg__hero-content {
+      grid-column: 1;
+      grid-row: 2;
+      padding: var(--spacing-32) var(--spacing-16);
+    }
+    .rg__hero-stats {
+      grid-column: 1;
+      grid-row: 3;
+      padding: var(--spacing-16);
+      flex-wrap: wrap;
+      gap: var(--spacing-16);
+    }
+    .rg__hero-stat-sep {
+      display: none;
+    }
+    .rg__hero-stat {
+      flex: 0 0 auto;
+    }
+    .rg__hero-cta {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .rg__title {
+      font-size: var(--font-size-h3);
+    }
+
+    .rg__section-title {
+      font-size: var(--font-size-h4);
+    }
+    .rg__section--warm {
+      border-radius: 0;
+      padding: var(--spacing-32) var(--spacing-16);
+    }
+
+    .rg__reasons,
+    .rg__cases,
+    .rg__cases--3col,
+    .rg__durability,
+    .rg__process,
+    .rg__care {
+      grid-template-columns: 1fr;
+    }
+
+    .rg__deadline {
+      border-radius: 0;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--spacing-24);
+      padding: var(--spacing-32) var(--spacing-16);
+    }
+    .rg__deadline-divider {
+      width: 40px;
+      height: 1px;
+    }
+    .rg__deadline-num {
+      font-size: 72px;
+    }
+
+    .rg__guarantees {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .rg__guarantee + .rg__guarantee::before {
+      display: none;
+    }
+    .rg__guarantee:nth-child(odd) {
+      border-right: 1px solid var(--color-gold-600);
+    }
+    .rg__guarantee:nth-child(1),
+    .rg__guarantee:nth-child(2) {
+      border-bottom: 1px solid var(--color-gold-600);
+    }
+
+    .rg__faq-q-index {
+      width: 32px;
+      font-size: var(--font-size-h6, 25px);
+    }
+    .rg__faq-a-inner {
+      padding-left: 48px;
+    }
+  }
+
+  @media (max-width: 500px) {
+    .rg__guarantees {
+      grid-template-columns: 1fr;
+    }
+    .rg__guarantee:nth-child(odd) {
+      border-right: none;
+    }
+    .rg__guarantee + .rg__guarantee {
+      border-top: 1px solid var(--color-gold-600);
+    }
+    .rg__guarantee:nth-child(1),
+    .rg__guarantee:nth-child(2) {
+      border-bottom: none;
+    }
+  }
+</style>

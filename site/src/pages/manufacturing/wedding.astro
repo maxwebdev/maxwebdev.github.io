@@ -1,0 +1,1610 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import HeaderDropdown from "../../components/HeaderDropdown.astro";
+import Footer from "../../components/Footer.astro";
+
+const portfolioImages = [
+  { src: "/images/portfolio/01.jpg", alt: "Обручальные кольца с гравировкой", tall: false },
+  { src: "/images/portfolio/02.jpg", alt: "Обручальные кольца из белого золота", tall: false },
+  { src: "/images/portfolio/03.jpg", alt: "Кольцо с бриллиантом", tall: false },
+  { src: "/images/portfolio/04.jpg", alt: "Классические обручальные кольца", tall: true },
+  { src: "/images/portfolio/05.jpg", alt: "Парные кольца с гравировкой", tall: true },
+  { src: "/images/portfolio/06.jpg", alt: "Кольцо из розового золота с бриллиантами", tall: false },
+  { src: "/images/portfolio/07.jpg", alt: "Кольцо с сапфиром", tall: false },
+  { src: "/images/portfolio/08.jpg", alt: "Современные обручальные кольца", tall: false },
+  { src: "/images/portfolio/09.jpg", alt: "Кольцо с россыпью бриллиантов", tall: false },
+  { src: "/images/portfolio/10.jpg", alt: "Золотые обручальные кольца", tall: true },
+  { src: "/images/portfolio/11.jpg", alt: "Обручальные кольца из платины", tall: false },
+  { src: "/images/portfolio/12.jpg", alt: "Обручальные кольца минимализм", tall: false },
+  { src: "/images/portfolio/13.jpg", alt: "Обручальные кольца", tall: false },
+];
+
+const reviews = [
+  {
+    name: "Анна",
+    meta: "Санкт-Петербург · Обручальные кольца парные Золото 585 проба",
+    text: "Огромное спасибо ювелирам Артель. Сопроводили наш заказ на обручальные кольца от хотелок и словесных описаний до готовых изделий. Учли все пожелания. Каждую деталь, каждую мелочь. Сделали даже раньше чем мы ожидали. Ни каких переживаний перед свадьбой, что не успеем. Результат превзошёл наши ожидания. Настоящие профессионалы своего дела. Рекомендую",
+    avatar: "/images/avatar-anna.svg",
+  },
+  {
+    name: "Kseniya Luckina",
+    meta: "Санкт-Петербург · Обручальные Кольца белое Золото 585 проба",
+    text: "Спасибо за наши чудесные кольца. Всё изготовили в срок. Вежливые и терпеливые сотрудники",
+    avatar: "/images/avatar-kseniya.svg",
+  },
+  {
+    name: "Мария Орлова",
+    meta: "Москва · Обручальные Кольца Новые с датой свадьбы",
+    text: "Встретили на сайте объявление о подобных изделиях.. рискнули обратиться т.к мечтали о гравировке на обручальных кольцах.. к нам приехали на дом, померяли размерчик пальчиков.. заключили договор, внесли мы не значительную предоплату.. и стали ждать! Нам присылали несколько вариантов под наши желания на согласование в итоге получили то что хотели! Получились чудесные обручалочки, которые надеюсь не придётся снимать никогда! Спасибо мастерам за сбывшуюся мечту!",
+    avatar: "/images/avatar-maria-o.svg",
+  },
+  {
+    name: "Мария",
+    meta: "Санкт-Петербург · Обручальное кольцо золото свадебное Новое",
+    text: "Колечки изготовили в обозначенный срок, вежливы, отзывчивы, у нас например были необходимость сделать кольцо размером не 17, а 17,2, мы даже не догадывались что так можно (в магазинах предлагали либо 17, либо 17,5), в общем клиентоориентированы. Изделие получилось аккуратным и ажурным, но при этом надежное. Соответственно, идеально подходит для ношения всю оставшуюся жизнь. Спасибо!",
+    avatar: "/images/avatar-maria.svg",
+  },
+];
+
+const reasons = [
+  { num: "01", title: "15 лет мастерства", text: "С 2009 года — более 10 000 украшений. Показываем производство без фильтров: от искр на верстаке до закрепки камней под микроскопом. Реальное производство, а не перекупленный товар." },
+  { num: "02", title: "Собственное производство", text: "Все изделия создаются в нашей мастерской в Санкт-Петербурге. Никаких посредников, никаких скрытых наценок. Вы платите только за работу и материалы." },
+  { num: "03", title: "3D-моделирование без доплат", text: "Создаём цифровую модель вашего кольца до начала производства. Вносите любые правки, пока модель вас полностью не устроит — это входит в стоимость." },
+  { num: "04", title: "Гарантия пробирной палаты", text: "Все изделия проходят государственную пробирную инспекцию. Вы получаете официальное клеймо, подтверждающее подлинность и пробу металла." },
+  { num: "05", title: "Индивидуальный размер", text: "Каждое кольцо создаётся под ваш размер. Если размер изменится — бесплатная корректировка в течение 1 года после получения изделия." },
+  { num: "06", title: "Сертификаты на камни", text: "На все бриллианты и драгоценные камни предоставляются геммологические сертификаты с описанием характеристик. Вы знаете именно то, что покупаете." },
+  { num: "07", title: "Фиксированный срок — 21 рабочий день", text: "С момента утверждения 3D-модели. Без бесконечных переносов и «скоро будет готово». Если до свадьбы меньше месяца — обсудим срочное изготовление." },
+];
+
+const metals = [
+  { label: "Белое золото", img: "/images/material-white-gold.jpg" },
+  { label: "Жёлтое золото", img: "/images/material-yellow-gold.jpg" },
+  { label: "Розовое золото", img: "/images/material-rose-gold.jpg" },
+  { label: "Платина", img: "/images/material-platinum.jpg" },
+  { label: "Серебро", img: "/images/material-silver.jpg" },
+];
+
+const stones = [
+  { label: "Бриллианты", img: "/images/material-diamonds.jpg" },
+  { label: "Рубины", img: "/images/material-rubies.jpg" },
+  { label: "Изумруды", img: "/images/material-emeralds.jpg" },
+  { label: "Сапфиры", img: "/images/material-sapphires.jpg" },
+  { label: "Бриллианты лабораторные", img: "/images/material-lab-diamonds.jpg" },
+];
+
+const ringStyles = [
+  { label: "Классический", img: "/images/style-classic.jpg" },
+  { label: "Современный", img: "/images/style-modern.jpg" },
+  { label: "Минимализм", img: "/images/style-minimal.jpg" },
+  { label: "Тематические", img: "/images/style-thematic.jpg" },
+];
+
+const steps = [
+  { img: "/images/step-01.jpg", alt: "Обсуждение эскиза с ювелиром", title: "Вы рассказываете идею", desc: "Отправьте фото, ссылку на Pinterest, эскиз на салфетке — или просто опишите словами. Вместе с мастером подберёте металл, камни, стиль. Можно прийти в мастерскую или обсудить дистанционно." },
+  { img: "/images/step-02.jpg", alt: "Создание эскиза украшения", title: "Эскиз и мерки", desc: "Создаём эскиз, учитывая все ваши пожелания. Снимаем мерки. Если вы далеко — вышлем размерное кольцо почтой. После одобрения эскиз передаётся 3D-модельеру." },
+  { img: "/images/step-03.jpg", alt: "3D-моделирование кольца на компьютере", title: "3D-модель и точная стоимость", desc: "3D-модельер создаёт цифровую модель кольца. На её основе рассчитываем точную стоимость, вес и срок. Вносите любые правки — без ограничений. Производство начинается только после вашего утверждения." },
+  { img: "/images/step-04.jpg", alt: "Производство кольца в ювелирной мастерской", title: "Производство", desc: "Утверждённая модель печатается на 3D-принтере (восковка), отливается в металле. Ювелиры собирают, спаивают, обрабатывают, полируют и закрепляют камни." },
+  { img: "/images/step-05.jpg", alt: "Постановка государственного клейма пробирной палаты", title: "Пробирная палата", desc: "Готовое изделие отправляется в государственную Пробирную палату. Проверяется проба металла, наносится официальное клеймо." },
+  { img: "/images/step-06.jpg", alt: "Вручение готового кольца клиенту", title: "Вручение", desc: "Приглашаем на примерку в мастерскую. Если вы из другого города — отправим СДЭК с полной страховкой. Вместе с кольцами вы получаете гарантию и сертификаты на камни." },
+];
+
+const prices = [
+  { type: "Классические гладкие", metal: "Золото 585", price: "от 25 000 ₽" },
+  { type: "С гравировкой", metal: "Золото 585", price: "от 30 000 ₽" },
+  { type: "С бриллиантами", metal: "Золото 585", price: "от 45 000 ₽" },
+  { type: "Классические гладкие", metal: "Платина 950", price: "от 55 000 ₽" },
+  { type: "С бриллиантами", metal: "Платина 950", price: "от 75 000 ₽" },
+];
+
+const faqs = [
+  { q: "Безопасно ли вносить предоплату?", a: "Да. Мы заключаем официальный договор с указанием сроков, стоимости и описания изделия. Предоплата фиксируется в договоре. Производство начинается только после вашего утверждения 3D-модели." },
+  { q: "Успеете ли вы к дате моей свадьбы?", a: "Стандартный срок — 21 рабочий день с момента утверждения 3D-модели. Дата готовности фиксируется в договоре. Если до свадьбы меньше месяца — обсудим срочное изготовление. Напишите нам с датой свадьбы, и мы скажем, успеваем ли." },
+  { q: "Можно заказать дистанционно из другого города?", a: "Да, около 30% наших заказов — дистанционные. Высылаем размерное кольцо почтой, все согласования проводим в мессенджере с фото и 3D-рендерами. Готовые кольца отправляем СДЭК с полной страховкой." },
+  { q: "Что если размер кольца не подойдёт?", a: "Мы изготавливаем кольца с точностью до 0,1 мм (например, 17,2 — а не только стандартные 17 или 17,5, как в магазинах)." },
+  { q: "Из чего складывается цена?", a: "Стоимость = металл (по биржевой цене) + камни (если есть) + работа мастера. Никаких скрытых наценок. 3D-моделирование и правки включены в стоимость. Точную цену назовём за 30 минут после получения вашего фото или эскиза." },
+  { q: "Можно ли переплавить своё старое золото в обручальные кольца?", a: "Да, это одна из наших ключевых услуг. Экономия 40–60% — вы платите только за работу. Золото взвешиваем при вас, рассчитываем, достаточно ли металла. Новое изделие проходит Пробирную палату и получает государственное клеймо." },
+  { q: "А что если результат мне не понравится?", a: "Мы специально создали процесс, который исключает такой риск. Вы утверждаете 3D-модель с неограниченными правками до начала производства. Вы видите будущее кольцо в деталях ещё до того, как мастер начнёт работу. Производство стартует только после вашего «да»." },
+];
+---
+
+<Layout title="Обручальные кольца на заказ — Артель">
+  <link rel="preload" href="/images/hero-rings.webp" as="image" type="image/webp" slot="head" />
+  <meta name="description" content="Изготовление обручальных колец на заказ в Санкт-Петербурге. Собственное производство, 3D-моделирование, государственное клеймо. 21 рабочий день. С 2009 года." slot="head" />
+
+  <HeaderDropdown />
+
+  <main>
+
+    <!-- ── Hero ── -->
+    <section class="wr-hero" aria-labelledby="wr-hero-title">
+      <div class="wr-wrap">
+        <p class="wr-hero__label">
+          <span>Ювелирная мастерская «Артель»</span>
+          {' · '}
+          <span>Санкт-Петербург</span>
+          {' · '}
+          <span>С 2009 года</span>
+        </p>
+        <div class="wr-hero__layout">
+          <div class="wr-hero__texts">
+            <h1 class="wr-hero__title" id="wr-hero-title">
+              Обручальные кольца, созданные <em>именно для вас</em> — а не из витрины
+            </h1>
+            <p class="wr-hero__desc">
+              Покажите нам фото, эскиз или просто расскажите идею — мы создадим кольца, которых больше ни у кого не будет. Собственное производство, 3D‑модель до начала работы, государственное клеймо.
+            </p>
+            <div class="wr-hero__buttons">
+              <a href="https://wa.me/+79319616090?text=Здравствуйте%2C%20хочу%20заказать%20обручальные%20кольца" class="btn btn--primary" target="_blank" rel="noopener">
+                Обсудить дизайн с мастером
+              </a>
+              <a href="#wr-portfolio" class="btn btn--outline">Посмотреть работы</a>
+            </div>
+          </div>
+          <div class="wr-hero__image">
+            <picture>
+              <source srcset="/images/hero-rings.webp" type="image/webp" />
+              <img
+                src="/images/hero-rings.png"
+                alt="Обручальные кольца из розового золота — пример работы мастерской"
+                width="600"
+                height="629"
+                fetchpriority="high"
+                decoding="sync"
+              />
+            </picture>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Stats bar ── -->
+    <section class="wr-stats" aria-label="Ключевые показатели мастерской">
+      <div class="wr-wrap wr-stats__inner">
+        <div class="wr-stats__item">
+          <span class="wr-stats__num">15+</span>
+          <span class="wr-stats__text">Лет мастерства</span>
+        </div>
+        <span class="wr-stats__sep" aria-hidden="true"></span>
+        <div class="wr-stats__item">
+          <span class="wr-stats__num">10 000+</span>
+          <span class="wr-stats__text">Изделий создано</span>
+        </div>
+        <span class="wr-stats__sep" aria-hidden="true"></span>
+        <div class="wr-stats__item">
+          <span class="wr-stats__num">21 рабочий день</span>
+          <span class="wr-stats__text">От эскиза до кольца</span>
+        </div>
+        <span class="wr-stats__sep" aria-hidden="true"></span>
+        <div class="wr-stats__item">
+          <span class="wr-stats__num">100%</span>
+          <span class="wr-stats__text">Пробирная палата</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Portfolio ── -->
+    <section class="wr-section" id="wr-portfolio" aria-labelledby="wr-portfolio-title">
+      <div class="wr-wrap">
+        <div class="wr-section__header">
+          <h2 class="wr-section__title" id="wr-portfolio-title">
+            Портфолио.<br />Обручальные кольца
+          </h2>
+          <p class="wr-section__subtitle">
+            С 2009 года — более 10 000 изделий в разных стилях и металлах. Белое золото 585, платина 950, индивидуальные комплекты.
+          </p>
+        </div>
+        <div class="wr-portfolio__grid">
+          {portfolioImages.map((img) => (
+            <div class={`wr-portfolio__item${img.tall ? " wr-portfolio__item--tall" : ""}`}>
+              <img src={img.src} alt={img.alt} loading="lazy" />
+            </div>
+          ))}
+        </div>
+        <div class="wr-section__cta">
+          <a href="https://wa.me/+79319616090?text=Здравствуйте%2C%20хочу%20заказать%20обручальные%20кольца" class="btn btn--outline" target="_blank" rel="noopener">
+            Обсудить дизайн с мастером
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Ratings ── -->
+    <section class="wr-section" aria-labelledby="wr-ratings-title">
+      <div class="wr-wrap">
+        <div class="wr-section__header">
+          <h2 class="wr-section__title" id="wr-ratings-title">5.0 на всех площадках</h2>
+          <p class="wr-section__subtitle">Более 400 реальных отзывов — на Яндекс.Картах, Avito и 2ГИС. Нажмите, чтобы прочитать все</p>
+        </div>
+        <div class="wr-ratings">
+          <a href="https://2gis.ru/spb/search/%D1%8E%D0%B2%D0%B5%D0%BB%D0%B8%D1%80%D0%BD%D0%B0%D1%8F%20%D0%BC%D0%B0%D1%81%D1%82%D0%B5%D1%80%D1%81%D0%BA%D0%B0%D1%8F%20%D0%B0%D1%80%D1%82%D0%B5%D0%BB%D1%8C/firm/70000001080478563" class="wr-rating__card" target="_blank" rel="noopener noreferrer" aria-label="5.0 — Отзывы на 2ГИС">
+            <p class="wr-rating__score">5.0</p>
+            <img src="/images/stars-5.svg" alt="5 звёзд из 5" width="100" height="16" />
+            <img src="/images/logo-2gis.svg" alt="2ГИС" class="wr-rating__logo" loading="lazy" />
+          </a>
+          <a href="https://yandex.com/maps/-/CPRlvS77" class="wr-rating__card" target="_blank" rel="noopener noreferrer" aria-label="5.0 — Отзывы на Яндекс">
+            <p class="wr-rating__score">5.0</p>
+            <img src="/images/stars-5.svg" alt="5 звёзд из 5" width="100" height="16" />
+            <img src="/images/logo-yandex.svg" alt="Яндекс" class="wr-rating__logo" loading="lazy" />
+          </a>
+          <a href="https://www.avito.ru/user/758e9098c95b634176cb7ddec6fd2ab5/profile/all?src=sharing" class="wr-rating__card" target="_blank" rel="noopener noreferrer" aria-label="5.0 — Отзывы на Avito">
+            <p class="wr-rating__score">5.0</p>
+            <img src="/images/stars-5.svg" alt="5 звёзд из 5" width="100" height="16" />
+            <img src="/images/logo-avito.svg" alt="Avito" class="wr-rating__logo" loading="lazy" />
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Reviews ── -->
+    <section class="wr-section" aria-label="Отзывы клиентов">
+      <div class="wr-wrap">
+        <div class="wr-reviews">
+          {reviews.map((r) => (
+            <article class="wr-review__card">
+              <p class="wr-review__quote" aria-hidden="true">"</p>
+              <p class="wr-review__text">{r.text}</p>
+              <div class="wr-review__author">
+                <img class="wr-review__avatar" src={r.avatar} alt="" width={42} height={42} loading="lazy" aria-hidden="true" />
+                <div>
+                  <p class="wr-review__name">{r.name}</p>
+                  <p class="wr-review__meta">{r.meta}</p>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ── CTA Banner ── -->
+    <section class="wr-section" aria-labelledby="wr-cta-title">
+      <div class="wr-wrap">
+        <div class="wr-cta">
+          <h2 class="wr-cta__title" id="wr-cta-title">Узнайте стоимость ваших колец за&nbsp;30&nbsp;минут</h2>
+          <p class="wr-cta__desc">Отправьте фото, эскиз или ссылку на&nbsp;Pinterest — мастер рассчитает стоимость и&nbsp;ответит в&nbsp;мессенджере. Бесплатно, без обязательств.</p>
+          <a href="https://wa.me/+79319616090?text=Здравствуйте%2C%20хочу%20рассчитать%20стоимость%20обручальных%20колец" class="btn btn--primary" target="_blank" rel="noopener">
+            Отправить фото мастеру
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Approach ── -->
+    <section class="wr-section wr-section--light" aria-labelledby="wr-approach-title">
+      <div class="wr-wrap">
+        <div class="wr-approach">
+          <div class="wr-approach__image">
+            <img src="/images/approach-hand.jpg" alt="Мастер держит кольцо в руках" loading="lazy" />
+          </div>
+          <div class="wr-approach__content">
+            <p class="wr-label">Наш подход</p>
+            <h2 class="wr-section__title" id="wr-approach-title">
+              Вы — соавтор.
+              <em>Вместе создадим кольца, которые расскажут вашу историю</em>
+            </h2>
+            <div class="wr-approach__desc">
+              <p>В мастерской «Артель» мы объединили классическую школу ювелирного искусства и современные 3D-технологии. Вы не просто заказчик — вы участвуете на каждом этапе. Вносите правки в цифровую модель, меняйте детали, выбирайте камни — пока каждый изгиб не станет именно таким, как вы хотите.</p>
+              <p>Обручальное кольцо — единственный элемент свадьбы, который останется с вами на десятилетия. Цветы завянут, платье отправится в чехол, а тосты забудутся. Кольцо будет с вами каждое утро: за завтраком, в офисе и в путешествиях. Пусть оно будет именно вашим.</p>
+            </div>
+            <div class="wr-approach__buttons">
+              <a href="https://wa.me/+79319616090?text=Здравствуйте%2C%20хочу%20заказать%20обручальные%20кольца" class="btn btn--primary" target="_blank" rel="noopener">
+                Начать создание ваших колец
+              </a>
+              <a href="tel:+79319616090" class="btn btn--outline">Заказать звонок</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Why us ── -->
+    <section class="wr-section" aria-labelledby="wr-reasons-title">
+      <div class="wr-wrap">
+        <div class="wr-section__header">
+          <h2 class="wr-section__title" id="wr-reasons-title">Почему выбирают нас</h2>
+          <p class="wr-section__subtitle">Семь причин, которые отличают ювелирную мастерскую от сетевого магазина. Каждая из них касается качества, которое вы будете носить каждый день.</p>
+        </div>
+        <div class="wr-reasons">
+          {reasons.map((r) => (
+            <div class={`wr-reason${r.num === "07" ? " wr-reason--wide" : ""}`}>
+              <span class="wr-reason__num">{r.num}</span>
+              <div>
+                <h3 class="wr-reason__title">{r.title}</h3>
+                <p class="wr-reason__text">{r.text}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+        <p class="wr-reasons__footer">Мы создаём уникальные украшения, которые соответствуют мировым стандартам. Заказывая у нас, вы можете быть уверены в высоком качестве и справедливой цене без лишних затрат.</p>
+      </div>
+    </section>
+
+    <!-- ── Pricing ── -->
+    <section class="wr-section wr-section--gray" aria-labelledby="wr-pricing-title">
+      <div class="wr-wrap">
+        <div class="wr-section__header">
+          <h2 class="wr-section__title" id="wr-pricing-title">Сколько стоят обручальные кольца на заказ</h2>
+          <p class="wr-section__subtitle">Цена зависит от металла, веса и камней. Вот ориентиры для пары колец</p>
+        </div>
+        <div class="wr-pricing__wrap">
+          <table class="wr-pricing__table">
+            <thead>
+              <tr>
+                <th>Тип колец</th>
+                <th>Металл</th>
+                <th>Ориентир за пару</th>
+              </tr>
+            </thead>
+            <tbody>
+              {prices.map((p) => (
+                <tr>
+                  <td>{p.type}</td>
+                  <td>{p.metal}</td>
+                  <td class="wr-pricing__price">{p.price}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <div class="wr-pricing__footer">
+          <p class="wr-pricing__note">Точную стоимость рассчитаем за 30 минут по вашему эскизу или фото. 3D‑моделирование и любые правки модели — включены в стоимость.</p>
+          <a href="https://wa.me/+79319616090?text=Здравствуйте%2C%20хочу%20рассчитать%20стоимость%20обручальных%20колец" class="btn btn--primary" target="_blank" rel="noopener">
+            Рассчитать стоимость моих колец
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Old Gold (Melt) ── -->
+    <section class="wr-section wr-section--warm" aria-labelledby="wr-melt-title">
+      <div class="wr-wrap">
+        <div class="wr-melt">
+          <div class="wr-melt__content">
+            <p class="wr-label">Экономия 40–60%</p>
+            <h2 class="wr-section__title" id="wr-melt-title">Есть старое золото? Сделаем из него ваши обручальные кольца</h2>
+            <p class="wr-melt__desc">Сломанные цепочки, серьги без пары, кольца из прошлой жизни — всё это может стать вашими обручальными кольцами. Вы платите только за работу.</p>
+            <ol class="wr-melt__steps">
+              <li>Приносите золото — взвешиваем при вас</li>
+              <li>Рассчитываем, хватает ли металла (если нет — доплата только за разницу)</li>
+              <li>Переплавляем и создаём кольца по вашему дизайну</li>
+              <li>Изделие проходит Пробирную палату и получает государственное клеймо</li>
+            </ol>
+            <blockquote class="wr-melt__quote">
+              <p>«Изготовление обручальных колец из собственной платины — отдельное удовольствие, когда мастер делает ювелирный шедевр из твоего металла»</p>
+              <cite>— Светозар, отзыв на Яндекс.Картах</cite>
+            </blockquote>
+            <a href="https://wa.me/+79319616090?text=Здравствуйте%2C%20хочу%20узнать%20можно%20ли%20переплавить%20моё%20золото" class="btn btn--primary" target="_blank" rel="noopener">
+              Узнать, хватит ли моего золота
+            </a>
+          </div>
+          <div class="wr-melt__image">
+            <img src="/images/lom.jpg" alt="Мастер работает с золотом клиента" loading="lazy" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Materials ── -->
+    <section class="wr-section" aria-labelledby="wr-materials-title">
+      <div class="wr-wrap">
+        <div class="wr-section__header">
+          <h2 class="wr-section__title" id="wr-materials-title">Материал на ваш выбор</h2>
+          <p class="wr-section__subtitle">Подлинность металлов подтверждена клеймом Пробирной палаты, на все камни — геммологические сертификаты</p>
+        </div>
+        <div class="wr-materials__group">
+          {metals.map((m) => (
+            <div class="wr-material">
+              <img class="wr-material__img" src={m.img} alt={m.label} loading="lazy" />
+              <span class="wr-material__name">{m.label}</span>
+            </div>
+          ))}
+        </div>
+        <div class="wr-materials__group">
+          {stones.map((s) => (
+            <div class="wr-material">
+              <img class="wr-material__img" src={s.img} alt={s.label} loading="lazy" />
+              <span class="wr-material__name">{s.label}</span>
+            </div>
+          ))}
+        </div>
+        <p class="wr-materials__footer">Это самые популярные варианты. Мы работаем почти со всеми драгоценными металлами и подберём камень под ваш бюджет или желание.</p>
+      </div>
+    </section>
+
+    <!-- ── Ring styles ── -->
+    <section class="wr-section" aria-labelledby="wr-styles-title">
+      <div class="wr-wrap">
+        <div class="wr-section__header">
+          <h2 class="wr-section__title" id="wr-styles-title">Не знаете, какой стиль — поможем выбрать</h2>
+          <p class="wr-section__subtitle">Классика, минимализм, современный дизайн или тематические кольца — воплотим любой стиль. Покажите референс или опишите идею — мастер предложит варианты</p>
+        </div>
+        <div class="wr-styles">
+          {ringStyles.map((s) => (
+            <div class="wr-style">
+              <img class="wr-style__img" src={s.img} alt={`Кольцо в стиле: ${s.label}`} loading="lazy" />
+              <span class="wr-style__name">{s.label}</span>
+            </div>
+          ))}
+        </div>
+        <p class="wr-styles__footer">Покажите нам любой референс — фото, ссылку на Pinterest, эскиз или просто опишите словами. Мастер предложит несколько вариантов дизайна.</p>
+      </div>
+    </section>
+
+    <!-- ── Process ── -->
+    <section class="wr-section" aria-labelledby="wr-steps-title">
+      <div class="wr-wrap">
+        <div class="wr-section__header">
+          <h2 class="wr-section__title" id="wr-steps-title">Как создаются ваши кольца — 6 этапов за 21 рабочий день</h2>
+          <p class="wr-section__subtitle">Прозрачный процесс от первой встречи до готового изделия в ваших руках. Идеально начать за 2–3 месяца до свадьбы. Если до даты меньше месяца — напишите нам, обсудим срочное изготовление</p>
+        </div>
+        <ul class="wr-steps">
+          {steps.map((s) => (
+            <li class="wr-step">
+              <img class="wr-step__img" src={s.img} alt={s.alt} loading="lazy" width={283} height={283} />
+              <div class="wr-step__content">
+                <h3 class="wr-step__title">{s.title}</h3>
+                <p class="wr-step__desc">{s.desc}</p>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
+    <!-- ── Manager ── -->
+    <section class="wr-manager" id="manager" aria-labelledby="wr-manager-title">
+      <div class="wr-wrap wr-manager__inner">
+        <div class="wr-manager__header">
+          <h2 class="wr-manager__title" id="wr-manager-title">Ваш менеджер</h2>
+          <p class="wr-manager__subtitle">Поможет определиться с дизайном и рассчитает стоимость за один разговор</p>
+        </div>
+        <div class="wr-manager__body">
+          <div class="wr-manager__photo">
+            <img src="/images/manager-marina.jpg" alt="Марина Дмитриченко — ювелирный эксперт мастерской Артель" loading="lazy" width={400} height={484} />
+          </div>
+          <div class="wr-manager__info">
+            <p class="wr-manager__name">Марина <em>Дмитриченко</em></p>
+            <p class="wr-manager__bio">Ювелирный эксперт мастерской «Артель». Ответит на все вопросы о дизайне, материалах и стоимости. Ответ — в течение 30 минут.</p>
+            <div class="wr-manager__buttons">
+              <a href="https://t.me/+79319616090" class="btn btn--primary btn--icon" target="_blank" rel="noopener noreferrer">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12l-6.871 4.326-2.962-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.833.94z"/></svg>
+                Telegram
+              </a>
+              <a href="https://wa.me/+79319616090" class="btn btn--primary btn--icon" target="_blank" rel="noopener noreferrer">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                WhatsApp
+              </a>
+            </div>
+            <p class="wr-manager__phone">Или позвоните: <a href="tel:+79319616090" class="wr-manager__phone-link">+7 931 961-60-90</a></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Locations ── -->
+    <section class="wr-section wr-section--gray" id="contacts" aria-labelledby="wr-locations-title">
+      <div class="wr-wrap">
+        <div class="wr-section__header">
+          <h2 class="wr-section__title" id="wr-locations-title">Приходите в мастерскую</h2>
+        </div>
+        <div class="wr-locations">
+          <div class="wr-location">
+            <h3 class="wr-location__title">Мастерская в ТЦ Галерея</h3>
+            <address class="wr-location__address">
+              <span>Санкт-Петербург, Лиговский проспект, 30, лит. А</span>
+              <span class="wr-location__meta">м. Площадь восстания · 1 мин пешком</span>
+              <span class="wr-location__meta">C 10:00 до 19:00 без выходных</span>
+            </address>
+            <p class="wr-location__desc">Центральная мастерская. Можно заказать изделие, посмотреть примеры работ, примерить готовые кольца и обсудить дизайн.</p>
+          </div>
+          <div class="wr-location">
+            <h3 class="wr-location__title">Мастерская в ТРК Атмосфера</h3>
+            <address class="wr-location__address">
+              <span>Санкт-Петербург, Комендантская пл., д.1, Лит.А</span>
+              <span class="wr-location__meta">ТРК «Атмосфера», 0 этаж, за Кафе «Буше»</span>
+              <span class="wr-location__meta">C 10:00 до 19:00 без выходных</span>
+            </address>
+            <p class="wr-location__desc">Удобная точка в торговом центре. Консультация, приём заказов, примерка.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── FAQ ── -->
+    <section class="wr-section" aria-labelledby="wr-faq-title">
+      <div class="wr-wrap">
+        <p class="wr-label">Вопросы и ответы</p>
+        <h2 class="wr-faq__title" id="wr-faq-title">Частые вопросы</h2>
+        <div class="wr-faq">
+          {faqs.map((item, i) => (
+            <div class="wr-faq__item">
+              <button class="wr-faq__q" type="button" aria-expanded="false" aria-controls={`wr-faq-panel-${i}`}>
+                <span class="wr-faq__index">{String(i + 1).padStart(2, "0")}</span>
+                <span class="wr-faq__q-text">{item.q}</span>
+                <span class="wr-faq__icon" aria-hidden="true">+</span>
+              </button>
+              <div class="wr-faq__a" id={`wr-faq-panel-${i}`} role="region">
+                <div class="wr-faq__a-inner">
+                  <p>{item.a}</p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <Footer />
+</Layout>
+
+<script>
+  document.querySelectorAll<HTMLElement>('.wr-faq__item').forEach(item => {
+    const btn = item.querySelector<HTMLButtonElement>('.wr-faq__q')!;
+    const answer = item.querySelector<HTMLElement>('.wr-faq__a')!;
+    btn.addEventListener('click', () => {
+      if (item.classList.contains('is-open')) {
+        item.classList.add('is-closing');
+        item.classList.remove('is-open');
+        btn.setAttribute('aria-expanded', 'false');
+        answer.addEventListener('transitionend', () => item.classList.remove('is-closing'), { once: true });
+      } else {
+        item.classList.remove('is-closing');
+        item.classList.add('is-open');
+        btn.setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
+</script>
+
+<style>
+  /* ── Shared ── */
+  .wr-wrap {
+    max-width: 1400px;
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  .wr-section {
+    padding: var(--spacing-64) var(--spacing-48);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .wr-section .wr-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-48);
+  }
+
+  .wr-section--light { background: var(--color-bg-light); }
+  .wr-section--gray  { background: var(--color-bg-light); }
+  .wr-section--warm  { background: var(--color-gold-300); }
+
+  .wr-section__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: var(--spacing-48);
+  }
+
+  .wr-section__title {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-h2);
+    font-weight: 600;
+    color: var(--color-dark-900);
+    line-height: 1.05;
+    flex: 1;
+  }
+
+  .wr-section__title em {
+    font-style: italic;
+    color: var(--color-gold-900);
+  }
+
+  .wr-section__subtitle {
+    flex: 1;
+    font-family: var(--font-body);
+    font-size: var(--font-size-base);
+    line-height: 1.7;
+    color: var(--color-gold-900);
+    text-align: right;
+  }
+
+  .wr-section__cta {
+    display: flex;
+    justify-content: center;
+  }
+
+  .wr-label {
+    font-family: var(--font-body);
+    font-size: var(--font-size-sm);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-gold-900);
+  }
+
+  /* ── Hero ── */
+  .wr-hero {
+    background: linear-gradient(154.68deg, var(--color-gold-300) 0%, var(--color-gold-600) 100%);
+    padding: 0 var(--spacing-48);
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .wr-hero .wr-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .wr-hero__label {
+    font-family: var(--font-body);
+    font-size: var(--font-size-sm);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-gold-900);
+    padding-top: var(--spacing-48);
+  }
+
+  .wr-hero__layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-48);
+    align-items: stretch;
+    min-height: 520px;
+  }
+
+  .wr-hero__texts {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-24);
+    padding: var(--spacing-32) 0 var(--spacing-48);
+    justify-content: center;
+  }
+
+  .wr-hero__title {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-h1);
+    font-weight: 600;
+    color: var(--color-dark-900);
+    line-height: 1.02;
+  }
+
+  .wr-hero__title em {
+    font-style: italic;
+    color: var(--color-gold-900);
+  }
+
+  .wr-hero__desc {
+    font-family: var(--font-body);
+    font-size: var(--font-size-lg);
+    line-height: 1.6;
+    color: var(--color-text-muted);
+    max-width: 520px;
+  }
+
+  .wr-hero__buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-16);
+    margin-top: var(--spacing-8);
+  }
+
+  .wr-hero__image {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+  }
+
+  .wr-hero__image img {
+    width: 100%;
+    max-height: 629px;
+    object-fit: contain;
+    object-position: bottom center;
+  }
+
+  /* ── Stats ── */
+  .wr-stats {
+    background: var(--color-dark-900);
+    padding: var(--spacing-64) var(--spacing-48);
+    display: flex;
+    justify-content: center;
+  }
+
+  .wr-stats__inner {
+    display: flex;
+    align-items: center;
+  }
+
+  .wr-stats__item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-4);
+    align-items: center;
+    text-align: center;
+  }
+
+  .wr-stats__num {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-h3);
+    font-weight: 600;
+    color: var(--color-gold-600);
+    line-height: 1;
+  }
+
+  .wr-stats__text {
+    font-family: var(--font-body);
+    font-size: var(--font-size-sm);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-gold-600);
+  }
+
+  .wr-stats__sep {
+    width: 1px;
+    height: 56px;
+    background: var(--color-gold-600);
+    opacity: 0.3;
+    flex-shrink: 0;
+  }
+
+  /* ── Portfolio ── */
+  .wr-portfolio__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: 322px;
+    gap: var(--spacing-16);
+  }
+
+  .wr-portfolio__item {
+    overflow: hidden;
+    border-radius: var(--radius-sm);
+  }
+
+  .wr-portfolio__item--tall { grid-row: span 2; }
+
+  .wr-portfolio__item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--transition-base);
+  }
+
+  .wr-portfolio__item:hover img { transform: scale(1.03); }
+
+  /* ── Ratings ── */
+  .wr-ratings {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--spacing-24);
+  }
+
+  .wr-rating__card {
+    background: var(--color-white);
+    border: 1px solid var(--color-gold-600);
+    border-radius: var(--radius-sm);
+    padding: var(--spacing-32);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-16);
+    text-decoration: none;
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+  }
+
+  .wr-rating__card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(199, 125, 23, 0.18);
+  }
+
+  .wr-rating__score {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-h2);
+    font-weight: 600;
+    color: var(--color-dark-900);
+    line-height: 1;
+  }
+
+  .wr-rating__logo {
+    max-height: 32px;
+    width: auto;
+    object-fit: contain;
+  }
+
+  /* ── Reviews ── */
+  .wr-reviews {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-24);
+  }
+
+  .wr-review__card {
+    background: var(--color-white);
+    border-top: 2px solid var(--color-gold-600);
+    padding: var(--spacing-32);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-16);
+  }
+
+  .wr-review__quote {
+    font-family: var(--font-heading);
+    font-size: 64px;
+    font-weight: 600;
+    color: var(--color-gold-600);
+    line-height: 0.8;
+  }
+
+  .wr-review__text {
+    font-family: var(--font-body);
+    font-size: var(--font-size-base);
+    line-height: 1.7;
+    color: var(--color-text-muted);
+    flex: 1;
+  }
+
+  .wr-review__author {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-16);
+    margin-top: auto;
+  }
+
+  .wr-review__avatar {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .wr-review__name {
+    font-family: var(--font-body);
+    font-size: var(--font-size-base);
+    font-weight: 500;
+    color: var(--color-dark-900);
+    line-height: 1.3;
+  }
+
+  .wr-review__meta {
+    font-family: var(--font-body);
+    font-size: var(--font-size-sm);
+    color: var(--color-dark-600);
+    line-height: 1.4;
+  }
+
+  /* ── CTA Banner ── */
+  .wr-cta {
+    background: var(--color-gold-600);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-48);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: var(--spacing-24);
+  }
+
+  .wr-cta__title {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-h3);
+    font-weight: 600;
+    color: var(--color-dark-900);
+    line-height: 1.1;
+  }
+
+  .wr-cta__desc {
+    font-family: var(--font-body);
+    font-size: var(--font-size-h6);
+    line-height: 1.5;
+    color: var(--color-gold-900);
+    max-width: 560px;
+  }
+
+  /* ── Approach ── */
+  .wr-approach {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+  }
+
+  .wr-approach__image {
+    height: 540px;
+  }
+
+  .wr-approach__image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .wr-approach__content {
+    padding: var(--spacing-64);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-24);
+    justify-content: center;
+  }
+
+  .wr-approach__desc {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-16);
+  }
+
+  .wr-approach__desc p {
+    font-family: var(--font-body);
+    font-size: var(--font-size-base);
+    line-height: 1.7;
+    color: var(--color-text-muted);
+  }
+
+  .wr-approach__buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-16);
+    margin-top: var(--spacing-8);
+  }
+
+  /* ── Reasons ── */
+  .wr-reasons {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: var(--spacing-24);
+  }
+
+  .wr-reason {
+    background: var(--color-white);
+    border: 1px solid var(--color-gold-600);
+    border-radius: var(--radius-sm);
+    padding: var(--spacing-32);
+    display: flex;
+    gap: var(--spacing-24);
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+  }
+
+  .wr-reason:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(199, 125, 23, 0.18);
+  }
+
+  .wr-reason--wide { grid-column: 1 / -1; }
+
+  .wr-reason__num {
+    font-family: var(--font-heading);
+    font-size: 52px;
+    font-weight: 600;
+    font-style: italic;
+    color: var(--color-gold-600);
+    line-height: 1;
+    flex-shrink: 0;
+  }
+
+  .wr-reason__title {
+    font-family: var(--font-body);
+    font-size: var(--font-size-lg);
+    font-weight: 500;
+    color: var(--color-dark-900);
+    line-height: 1.3;
+    margin-bottom: var(--spacing-8);
+  }
+
+  .wr-reason__text {
+    font-family: var(--font-body);
+    font-size: var(--font-size-base);
+    line-height: 1.6;
+    color: var(--color-text-muted);
+  }
+
+  .wr-reasons__footer {
+    font-family: var(--font-body);
+    font-size: var(--font-size-base);
+    line-height: 1.7;
+    color: var(--color-text-muted);
+    max-width: 640px;
+  }
+
+  /* ── Pricing ── */
+  .wr-pricing__wrap { overflow-x: auto; }
+
+  .wr-pricing__table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: var(--font-body);
+  }
+
+  .wr-pricing__table th {
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-gold-900);
+    padding: var(--spacing-16) var(--spacing-24);
+    text-align: left;
+    border-bottom: 2px solid var(--color-gold-600);
+  }
+
+  .wr-pricing__table td {
+    font-size: var(--font-size-base);
+    color: var(--color-dark-900);
+    padding: var(--spacing-16) var(--spacing-24);
+    border-bottom: 1px solid var(--color-dark-300);
+  }
+
+  .wr-pricing__table tr:last-child td { border-bottom: none; }
+  .wr-pricing__table tbody tr:hover td { background: var(--color-white); }
+
+  .wr-pricing__price {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-h4);
+    font-weight: 600;
+    color: var(--color-gold-900) !important;
+  }
+
+  .wr-pricing__footer {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-32);
+    flex-wrap: wrap;
+  }
+
+  .wr-pricing__note {
+    flex: 1;
+    font-family: var(--font-body);
+    font-size: var(--font-size-base);
+    line-height: 1.6;
+    color: var(--color-text-muted);
+    min-width: 200px;
+  }
+
+  /* ── Melt ── */
+  .wr-melt {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+  }
+
+  .wr-melt__content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-24);
+    padding-right: var(--spacing-64);
+    justify-content: center;
+  }
+
+  .wr-melt__desc {
+    font-family: var(--font-body);
+    font-size: var(--font-size-lg);
+    line-height: 1.6;
+    color: var(--color-text-muted);
+  }
+
+  .wr-melt__steps {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-8);
+    padding-left: var(--spacing-24);
+  }
+
+  .wr-melt__steps li {
+    font-family: var(--font-body);
+    font-size: var(--font-size-base);
+    line-height: 1.6;
+    color: var(--color-text-muted);
+  }
+
+  .wr-melt__quote {
+    border-left: 3px solid var(--color-gold-900);
+    background: rgba(255, 255, 255, 0.5);
+    padding: var(--spacing-24);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  }
+
+  .wr-melt__quote p {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-lg);
+    font-style: italic;
+    color: var(--color-dark-900);
+    line-height: 1.5;
+  }
+
+  .wr-melt__quote cite {
+    display: block;
+    margin-top: var(--spacing-8);
+    font-family: var(--font-body);
+    font-size: var(--font-size-sm);
+    color: var(--color-gold-900);
+    font-style: normal;
+  }
+
+  .wr-melt__image {
+    height: 600px;
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+  }
+
+  .wr-melt__image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* ── Materials ── */
+  .wr-materials__group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-32);
+  }
+
+  .wr-material {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-8);
+  }
+
+  .wr-material__img {
+    width: 88px;
+    height: 88px;
+    border-radius: 50%;
+    object-fit: cover;
+    transition: transform var(--transition-base);
+  }
+
+  .wr-material:hover .wr-material__img { transform: scale(1.06); }
+
+  .wr-material__name {
+    font-family: var(--font-body);
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+    color: var(--color-dark-900);
+    text-align: center;
+    line-height: 1.3;
+    max-width: 88px;
+  }
+
+  .wr-materials__footer {
+    font-family: var(--font-body);
+    font-size: var(--font-size-base);
+    line-height: 1.7;
+    color: var(--color-text-muted);
+    max-width: 560px;
+  }
+
+  /* ── Styles ── */
+  .wr-styles {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--spacing-24);
+  }
+
+  .wr-style {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-16);
+  }
+
+  .wr-style__img {
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    border-radius: var(--radius-sm);
+    transition: transform var(--transition-base);
+  }
+
+  .wr-style:hover .wr-style__img { transform: scale(1.03); }
+
+  .wr-style__name {
+    font-family: var(--font-body);
+    font-size: var(--font-size-base);
+    font-weight: 500;
+    color: var(--color-dark-900);
+    text-align: center;
+  }
+
+  .wr-styles__footer {
+    font-family: var(--font-body);
+    font-size: var(--font-size-base);
+    line-height: 1.7;
+    color: var(--color-text-muted);
+    max-width: 560px;
+  }
+
+  /* ── Steps ── */
+  .wr-steps {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-98);
+    list-style: none;
+    padding: 0;
+  }
+
+  .wr-step {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-64);
+  }
+
+  .wr-step:nth-child(even) { flex-direction: row-reverse; }
+
+  .wr-step__img {
+    width: 283px;
+    height: 283px;
+    object-fit: cover;
+    border-radius: var(--radius-sm);
+    flex-shrink: 0;
+  }
+
+  .wr-step__title {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-h4);
+    font-weight: 600;
+    color: var(--color-dark-900);
+    line-height: 1.1;
+    margin-bottom: var(--spacing-16);
+  }
+
+  .wr-step__desc {
+    font-family: var(--font-body);
+    font-size: var(--font-size-lg);
+    line-height: 1.7;
+    color: var(--color-text-muted);
+    max-width: 520px;
+  }
+
+  /* ── Manager ── */
+  .wr-manager {
+    background: var(--color-dark-900);
+    padding: var(--spacing-132) var(--spacing-48);
+    display: flex;
+    justify-content: center;
+  }
+
+  .wr-manager__inner {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-48);
+  }
+
+  .wr-manager__title {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-h2);
+    font-weight: 600;
+    color: var(--color-gold-600);
+    line-height: 1;
+  }
+
+  .wr-manager__subtitle {
+    font-family: var(--font-body);
+    font-size: var(--font-size-lg);
+    color: rgba(252, 248, 243, 0.7);
+    line-height: 1.5;
+    margin-top: var(--spacing-8);
+  }
+
+  .wr-manager__body {
+    display: flex;
+    gap: var(--spacing-64);
+    align-items: flex-start;
+  }
+
+  .wr-manager__photo {
+    width: 400px;
+    flex-shrink: 0;
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+  }
+
+  .wr-manager__photo img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .wr-manager__info {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-24);
+    padding-top: var(--spacing-16);
+  }
+
+  .wr-manager__name {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-h3);
+    font-weight: 600;
+    color: var(--color-gold-600);
+    line-height: 1;
+  }
+
+  .wr-manager__name em {
+    font-style: italic;
+    color: var(--color-gold-600);
+  }
+
+  .wr-manager__bio {
+    font-family: var(--font-body);
+    font-size: var(--font-size-lg);
+    line-height: 1.6;
+    color: rgba(252, 248, 243, 0.7);
+    max-width: 440px;
+  }
+
+  .wr-manager__buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-16);
+  }
+
+  .wr-manager__phone {
+    font-family: var(--font-body);
+    font-size: var(--font-size-base);
+    color: rgba(252, 248, 243, 0.5);
+  }
+
+  .wr-manager__phone-link {
+    color: var(--color-gold-600);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+  }
+
+  .wr-manager__phone-link:hover { color: var(--color-gold-900); }
+
+  /* ── Locations ── */
+  .wr-locations {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-24);
+  }
+
+  .wr-location {
+    background: var(--color-white);
+    border: 1px solid var(--color-gold-600);
+    border-radius: var(--radius-sm);
+    padding: var(--spacing-32);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-16);
+  }
+
+  .wr-location__title {
+    font-family: var(--font-body);
+    font-size: var(--font-size-lg);
+    font-weight: 500;
+    color: var(--color-dark-900);
+    line-height: 1.3;
+  }
+
+  .wr-location__address {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-4);
+    font-style: normal;
+    font-family: var(--font-body);
+    font-size: var(--font-size-base);
+    color: var(--color-dark-900);
+    line-height: 1.5;
+  }
+
+  .wr-location__meta {
+    font-size: var(--font-size-sm);
+    color: var(--color-dark-600);
+  }
+
+  .wr-location__desc {
+    font-family: var(--font-body);
+    font-size: var(--font-size-base);
+    line-height: 1.6;
+    color: var(--color-text-muted);
+  }
+
+  /* ── FAQ ── */
+  .wr-faq__title {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-h3);
+    font-weight: 600;
+    color: var(--color-dark-900);
+    line-height: 1.05;
+    margin-top: calc(var(--spacing-8) * -1);
+    margin-bottom: var(--spacing-16);
+  }
+
+  .wr-faq {
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid var(--color-gold-600);
+  }
+
+  .wr-faq__item { border-bottom: 1px solid var(--color-gold-600); }
+
+  .wr-faq__q {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-16);
+    width: 100%;
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    padding: var(--spacing-24) 0;
+  }
+
+  .wr-faq__index {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-h4);
+    font-weight: 600;
+    font-style: italic;
+    color: var(--color-gold-600);
+    line-height: 1;
+    flex-shrink: 0;
+    width: 44px;
+    transition: color var(--transition-fast);
+  }
+
+  .wr-faq__item.is-open .wr-faq__index { color: var(--color-gold-900); }
+
+  .wr-faq__q-text {
+    flex: 1;
+    font-family: var(--font-body);
+    font-size: var(--font-size-lg);
+    font-weight: 500;
+    color: var(--color-dark-900);
+    line-height: 1.4;
+  }
+
+  .wr-faq__icon {
+    font-size: 24px;
+    color: var(--color-gold-900);
+    flex-shrink: 0;
+    display: inline-block;
+    transition: transform 0.42s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .wr-faq__item.is-open .wr-faq__icon { transform: rotate(45deg); }
+  .wr-faq__item.is-closing .wr-faq__icon {
+    transform: rotate(0deg);
+    transition: transform 0.22s ease-in;
+  }
+
+  .wr-faq__a {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.42s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .wr-faq__item.is-open .wr-faq__a { grid-template-rows: 1fr; }
+  .wr-faq__item.is-closing .wr-faq__a {
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.22s ease-in;
+  }
+
+  .wr-faq__a-inner {
+    overflow: hidden;
+    padding-left: 60px;
+    padding-bottom: 0;
+    max-width: 720px;
+    transition: padding-bottom 0.42s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .wr-faq__item.is-open .wr-faq__a-inner { padding-bottom: var(--spacing-24); }
+  .wr-faq__item.is-closing .wr-faq__a-inner {
+    padding-bottom: 0;
+    transition: padding-bottom 0.22s ease-in;
+  }
+
+  .wr-faq__a-inner p {
+    font-family: var(--font-body);
+    font-size: var(--font-size-base);
+    line-height: 1.7;
+    color: var(--color-text-muted);
+    opacity: 0;
+    transition: opacity 0.12s ease;
+  }
+
+  .wr-faq__item.is-open .wr-faq__a-inner p { opacity: 1; transition: opacity 0.28s ease 0.16s; }
+  .wr-faq__item.is-closing .wr-faq__a-inner p { opacity: 0; transition: opacity 0.1s ease; }
+
+  /* ── Responsive: tablet ── */
+  @media (max-width: 1024px) {
+    .wr-section { padding: var(--spacing-48) var(--spacing-32); }
+    .wr-hero { padding: 0 var(--spacing-32); }
+    .wr-stats { padding: var(--spacing-48) var(--spacing-32); }
+    .wr-manager { padding: var(--spacing-64) var(--spacing-32); }
+
+    .wr-section__header { flex-direction: column; gap: var(--spacing-16); }
+    .wr-section__subtitle { text-align: left; }
+
+    .wr-hero__layout { grid-template-columns: 1fr 1fr; min-height: 420px; }
+    .wr-hero__title { font-size: var(--font-size-h2); }
+
+    .wr-portfolio__grid { grid-template-columns: repeat(3, 1fr); grid-auto-rows: 240px; }
+    .wr-styles { grid-template-columns: repeat(2, 1fr); }
+
+    .wr-approach__content { padding: var(--spacing-48); }
+    .wr-melt__content { padding-right: var(--spacing-32); }
+
+    .wr-manager__photo { width: 300px; }
+    .wr-manager__body { gap: var(--spacing-48); }
+  }
+
+  /* ── Responsive: large mobile ── */
+  @media (max-width: 760px) {
+    .wr-section { padding: var(--spacing-32) var(--spacing-24); }
+    .wr-hero { padding: 0; }
+    .wr-stats { padding: var(--spacing-32) var(--spacing-24); }
+    .wr-manager { padding: var(--spacing-48) var(--spacing-24); }
+
+    .wr-hero__label { padding: var(--spacing-32) var(--spacing-24) 0; }
+    .wr-hero__layout {
+      grid-template-columns: 1fr;
+      min-height: unset;
+    }
+    .wr-hero__texts {
+      order: 2;
+      padding: var(--spacing-24) var(--spacing-24) var(--spacing-32);
+    }
+    .wr-hero__image {
+      order: 1;
+      height: 300px;
+    }
+    .wr-hero__image img { max-height: 300px; }
+    .wr-hero__title { font-size: var(--font-size-h3); }
+    .wr-hero__buttons { flex-direction: column; }
+
+    .wr-stats__inner { flex-wrap: wrap; gap: var(--spacing-16); justify-content: center; }
+    .wr-stats__sep { display: none; }
+    .wr-stats__item { flex: 0 0 auto; min-width: 120px; }
+
+    .wr-portfolio__grid { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 180px; }
+
+    .wr-ratings { grid-template-columns: 1fr; }
+    .wr-reviews { grid-template-columns: 1fr; }
+
+    .wr-cta { border-radius: 12px; padding: var(--spacing-32) var(--spacing-24); }
+    .wr-cta__title { font-size: var(--font-size-h4); }
+    .wr-cta__desc { font-size: var(--font-size-base); }
+
+    .wr-approach { grid-template-columns: 1fr; }
+    .wr-approach__image { height: 280px; }
+    .wr-approach__content { padding: var(--spacing-32) var(--spacing-24); }
+    .wr-approach__buttons { flex-direction: column; }
+
+    .wr-reasons { grid-template-columns: 1fr; }
+    .wr-reason--wide { grid-column: 1; }
+
+    .wr-pricing__footer { flex-direction: column; align-items: flex-start; }
+
+    .wr-melt { grid-template-columns: 1fr; }
+    .wr-melt__content { padding-right: 0; }
+    .wr-melt__image { height: 280px; order: -1; }
+
+    .wr-steps { gap: var(--spacing-48); }
+    .wr-step, .wr-step:nth-child(even) { flex-direction: column; }
+    .wr-step__img { width: 100%; height: 240px; }
+
+    .wr-manager__body { flex-direction: column; }
+    .wr-manager__photo { width: 240px; }
+    .wr-manager__buttons { flex-direction: column; }
+
+    .wr-locations { grid-template-columns: 1fr; }
+
+    .wr-faq__index { width: 32px; font-size: 25px; }
+    .wr-faq__a-inner { padding-left: 48px; }
+  }
+
+  /* ── Responsive: mobile ── */
+  @media (max-width: 500px) {
+    .wr-section__title { font-size: var(--font-size-h3); }
+    .wr-manager__title { font-size: var(--font-size-h3); }
+    .wr-portfolio__grid { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 150px; }
+  }
+</style>

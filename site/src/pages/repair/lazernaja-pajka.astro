@@ -1,0 +1,1047 @@
+---
+import InnerPage from "../../layouts/InnerPage.astro";
+import SanityPriceTable from "../../components/SanityPriceTable.astro";
+
+const repairLinks = [
+  { label: "Уменьшение колец", href: "/repair/umenshenie-kolecz" },
+  { label: "Увеличение колец", href: "/repair/uvelichenie-kolecz" },
+  {
+    label: "Пайка цепочек и браслетов",
+    href: "/repair/pajka-cepochek-brasletov-i-lozhek",
+  },
+  { label: "Лазерная пайка", href: "/repair/lazernaja-pajka" },
+  { label: "Ремонт и замена замков", href: "/repair/remont-i-zamena-zamkov" },
+  { label: "Закрепка камней", href: "/repair/zakrepka-kamnej" },
+  { label: "Перевязка бус", href: "/repair/perevjazka-bus-i-brasletov" },
+  {
+    label: "Родирование, золочение",
+    href: "/repair/rodirovanie-zolochenie-serebrenie",
+  },
+  { label: "Дополнительные услуги", href: "/repair/dopolnitelnye-uslugi" },
+];
+
+const crumbs = [
+  { label: "Главная", href: "/" },
+  { label: "Ремонт украшений", href: "/repair" },
+  { label: "Лазерная пайка" },
+];
+
+const guarantees = [
+  {
+    num: "01",
+    title: "Гарантия 1 год",
+    text: "Выдаём письменную гарантию на каждое изделие после лазерной пайки.",
+  },
+  {
+    num: "02",
+    title: "Мастера с образованием",
+    text: "Все ювелиры с высшим профильным образованием. Стаж — от 8 до 40 лет.",
+  },
+  {
+    num: "03",
+    title: "Шов невидим",
+    text: "После сварки лазером вы не заметите швов и неровностей. Ваше украшение будет как новое.",
+  },
+  {
+    num: "04",
+    title: "Проверка перед выдачей",
+    text: "Каждое изделие осматривается под микроскопом: проверяем все крепления камней и качество шва.",
+  },
+];
+
+const faqs = [
+  {
+    q: "Нужно ли вынимать камни перед лазерной пайкой?",
+    a: "Не всегда. Лазер работает точечно: зона нагрева — 0.2–1 мм. Бриллианты, сапфиры, рубины и большинство твёрдых камней переносят лазерную пайку прямо в оправе. Но есть исключение: если луч может отразиться от металла рядом с камнем и прожечь его — мастер аккуратно вынет камень, запаяет изделие, вернёт на место и проверит все крепежи.",
+  },
+  {
+    q: "Останется ли шов видимым после ремонта?",
+    a: "Нет. При лазерной сварке металл сплавляется напрямую без инородного припоя. После остывания поверхность становится монолитной — никакого видимого шва или цветового ореола. После полировки найти место ремонта невозможно.",
+  },
+  {
+    q: "Можно ли починить украшение с эмалью или чернением лазером?",
+    a: "Да, и это одно из главных преимуществ лазера. При горячей пайке горелкой покрытие сгорает по всему изделию. Лазерный луч нагревает только точку соединения — эмаль и декоративное покрытие рядом с местом пайки остаются нетронутыми.",
+  },
+  {
+    q: "Какие металлы поддаются лазерной пайке?",
+    a: "Все ювелирные металлы: золото (любой пробы и цвета), серебро, платина, палладий, титан, медь, нержавеющая сталь, бижутерные сплавы. Лазер позволяет даже соединять разнородные металлы — например, золото с платиной.",
+  },
+  {
+    q: "Можно ли лазером исправить раковины и пористость в литом украшении?",
+    a: "Да. Лазер точечно заполняет металлом мелкие пустоты прямо на готовом изделии, не вынимая камней. После заполнения пористость выравнивается заподлицо с поверхностью и полируется. Это особенно актуально для старинных украшений и изделий с дефектами литья.",
+  },
+  {
+    q: "Почему мастер перед пайкой закрашивает серебро маркером?",
+    a: "Серебро сильно отражает лазерный луч — луч «соскальзывает» с полированной поверхности, как со зеркала, и не прогревает металл. Тёмный маркер снижает отражательную способность: металл поглощает лазерную энергию в 20 раз эффективнее. После пайки следы маркера полностью исчезают.",
+  },
+];
+---
+
+<InnerPage
+  title="Лазерная пайка"
+  description="Лазерная пайка ювелирных украшений в Санкт-Петербурге. Работаем с камнями, эмалью, покрытиями — от 20 минут. Гарантия 1 год."
+  crumbs={crumbs}
+  sidebarLinks={repairLinks}
+  sidebarTitle="Услуги ремонта"
+  activeHref="/repair/lazernaja-pajka"
+>
+  <div class="lp">
+
+    <!-- ── Hero ── -->
+    <div class="lp__hero">
+      <div class="lp__hero-content">
+        <p class="lp__hero-label">
+          Ювелирная мастерская «Артель» · Санкт-Петербург
+        </p>
+        <h1 class="lp__title">Лазерная пайка</h1>
+        <p class="lp__lead">
+          Лазерная пайка ювелирных изделий любой сложности, в том числе с
+          камнями, эмалью и гальваническими покрытиями.
+        </p>
+        <div class="lp__hero-cta">
+          <a
+            href="https://wa.me/+79319616090?text=Здравствуйте%2C%20хочу%20отремонтировать%20украшение%20лазером%2C%20отправляю%20фото"
+            class="btn btn--primary"
+            target="_blank"
+            rel="noopener"
+          >
+            Прислать фото украшения
+          </a>
+          <p class="lp__hero-hint">
+            Ответим в течение нескольких минут и назовём цену
+          </p>
+        </div>
+      </div>
+
+      <div class="lp__hero-image">
+        <div class="lp__hero-img-placeholder">
+          <span>Фото — лазерная пайка украшения в мастерской</span>
+        </div>
+      </div>
+
+      <div class="lp__hero-stats">
+        <div class="lp__hero-stat">
+          <span class="lp__hero-stat-num">20</span>
+          <div class="lp__hero-stat-info">
+            <span class="lp__hero-stat-unit">мин</span>
+            <span class="lp__hero-stat-label">простое украшение</span>
+          </div>
+        </div>
+        <span class="lp__hero-stat-sep" aria-hidden="true"></span>
+        <div class="lp__hero-stat">
+          <span class="lp__hero-stat-num">1</span>
+          <div class="lp__hero-stat-info">
+            <span class="lp__hero-stat-unit">год</span>
+            <span class="lp__hero-stat-label">гарантия на работу</span>
+          </div>
+        </div>
+        <span class="lp__hero-stat-sep" aria-hidden="true"></span>
+        <div class="lp__hero-stat">
+          <span class="lp__hero-stat-num">8–40</span>
+          <div class="lp__hero-stat-info">
+            <span class="lp__hero-stat-unit">лет</span>
+            <span class="lp__hero-stat-label">стаж мастеров</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Prices ── -->
+    <SanityPriceTable slug="repair-laser" />
+
+    <!-- ── Когда нужна лазерная пайка ── -->
+    <div class="lp__section">
+      <p class="lp__label">Область применения</p>
+      <h2 class="lp__section-title">Когда нужна лазерная пайка</h2>
+      <div class="lp__section-lead-block">
+        <p class="lp__section-lead">
+          Горячая пайка подходит для ремонта не всегда, так как при её
+          использовании изделие прогревается целиком. Не все ювелирные
+          изделия это выдерживают. Если на украшении родий, позолота, чернение
+          или эмаль, то от высокой температуры с него полностью сойдет
+          покрытие. Изумруд, рубин и сапфир при горячей пайке поблекнут. Если
+          на ювелирном изделии сложная гравировка — припой может растечься и
+          испортить украшение. А на некоторых украшениях настолько мелкие
+          повреждения, что их просто невозможно восстановить при помощи горячей
+          пайки.
+        </p>
+        <p class="lp__section-lead">
+          Когда для ремонта нельзя использовать горячую пайку — мы используем
+          лазерную. Лазерный луч позволяет мастеру работать точечно с местом
+          повреждения украшения. Также мы используем лазерную пайку, когда у
+          поломанного ювелирного изделия хрупкие детали, чтобы не повредить
+          их. После сварки лазером вы не заметите швов и неровностей. Ваше
+          украшение будет как новое.
+        </p>
+      </div>
+      <div class="lp__cases">
+        <div class="lp__case">
+          <div class="lp__card-img">
+            <span>Фото — украшение с родиевым покрытием до/после</span>
+          </div>
+          <span class="lp__case-num">01</span>
+          <div class="lp__case-title">Покрытия: родий, позолота, чернение, эмаль</div>
+          <p class="lp__case-text">
+            Горячая горелка уничтожает покрытие по всему изделию. Лазерный
+            луч нагревает только точку шириной 0.2–1 мм — покрытие рядом
+            остаётся нетронутым.
+          </p>
+        </div>
+        <div class="lp__case">
+          <div class="lp__card-img">
+            <span>Фото — кольцо с изумрудом или сапфиром</span>
+          </div>
+          <span class="lp__case-num">02</span>
+          <div class="lp__case-title">Изумруд, рубин, сапфир и другие хрупкие камни</div>
+          <p class="lp__case-text">
+            Эти камни от нагрева горелкой обесцвечиваются или трескаются.
+            Лазер позволяет работать в 0.1 мм от камня — камень остаётся
+            в оправе.
+          </p>
+        </div>
+        <div class="lp__case">
+          <div class="lp__card-img">
+            <span>Фото — изделие со сложной гравировкой крупным планом</span>
+          </div>
+          <span class="lp__case-num">03</span>
+          <div class="lp__case-title">Гравировка и ажурная работа</div>
+          <p class="lp__case-text">
+            При горячей пайке припой может растечься и залить гравировку или
+            тонкий ажурный узор безвозвратно. Лазер работает точечно —
+            рисунок не пострадает.
+          </p>
+        </div>
+        <div class="lp__case">
+          <div class="lp__card-img">
+            <span>Фото — пружинный карабин или замок-бабочка крупно</span>
+          </div>
+          <span class="lp__case-num">04</span>
+          <div class="lp__case-title">Пружинные замки и механизмы</div>
+          <p class="lp__case-text">
+            Нагрев горелкой уничтожает упругость пружины внутри карабина или
+            серёжного замка. Лазер позволяет запаять место крепления, не
+            затрагивая пружинный механизм.
+          </p>
+        </div>
+        <div class="lp__case">
+          <div class="lp__card-img">
+            <span>Фото — раковина/пористость в литом кольце под лупой</span>
+          </div>
+          <span class="lp__case-num">05</span>
+          <div class="lp__case-title">Пористость и раковины в литье</div>
+          <p class="lp__case-text">
+            Мелкие пустоты в литом изделии лазер заполняет металлом точечно —
+            прямо на готовом украшении с уже закреплёнными камнями. После
+            выравнивания и полировки дефект исчезает.
+          </p>
+        </div>
+        <div class="lp__case">
+          <div class="lp__card-img">
+            <span>Фото — антикварное украшение с тонким узором</span>
+          </div>
+          <span class="lp__case-num">06</span>
+          <div class="lp__case-title">Антикварные и реставрационные изделия</div>
+          <p class="lp__case-text">
+            Старинные изделия часто слишком хрупкие, а их старый припой может
+            плавиться при более низкой температуре. Лазер позволяет
+            восстановить их без полного разбора украшения.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── От чего зависит цена ── -->
+    <div class="lp__section">
+      <p class="lp__label">Стоимость работы</p>
+      <h2 class="lp__section-title">От чего зависит цена?</h2>
+      <p class="lp__section-lead">
+        Цена зависит от сложности работ мастера. От рода и пробы металла
+        изделия, наличия вставок, крепежей и гравировки. От размера
+        поврежденной поверхности и количества припоя, который уйдет на сварку.
+      </p>
+      <div class="lp__methods">
+        <div class="lp__method">
+          <div class="lp__method-index">01</div>
+          <div class="lp__method-title">Украшение с камнями</div>
+          <p class="lp__method-text">
+            Лазер позволяет мастеру работать на расстоянии 0.1 мм от камня.
+            Но при ремонте некоторых украшений есть вероятность, что лазерный
+            луч отразится от металла на месте пайки и прожжет камень. Чтобы
+            этого не произошло, мастер аккуратно раскрепит и вынет камень.
+            Затем запаяет изделие, вернет камень на место и проверит все
+            крепежи на прочность. Поэтому ремонт изделий с камнями может
+            занять больше времени и стоить дороже.
+          </p>
+        </div>
+        <div class="lp__method">
+          <div class="lp__method-index">02</div>
+          <div class="lp__method-title">Толщина изделия</div>
+          <p class="lp__method-text">
+            Чем толще изделие — тем больше металла уходит на работу у
+            мастера, чтобы его проварить. Соответственно, цена выше. Например,
+            у мужских перстней обычно толстый ободок, чтобы заварить такой,
+            ювелиру придётся сделать больше швов и использовать больше
+            припоя.
+          </p>
+        </div>
+        <div class="lp__method">
+          <div class="lp__method-index">03</div>
+          <div class="lp__method-title">Мелкие и сложные повреждения</div>
+          <p class="lp__method-text">
+            На некоторых украшениях повреждения настолько мелкие, что
+            восстановить их горячей пайкой просто невозможно — зона нагрева
+            слишком широкая. Лазер работает с деталями размером в десятые доли
+            миллиметра, но такая точность требует больше времени мастера.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Сроки ── -->
+    <div class="lp__deadline">
+      <div class="lp__deadline-time">
+        <span class="lp__deadline-num">20</span>
+        <span class="lp__deadline-unit">мин</span>
+      </div>
+      <div class="lp__deadline-divider" aria-hidden="true"></div>
+      <div class="lp__deadline-body">
+        <p class="lp__label">Время выполнения</p>
+        <h2 class="lp__deadline-title">Сроки</h2>
+        <p class="lp__deadline-text">
+          Простую цепочку или кольцо, покрытые родием, мастер отремонтирует за
+          <strong>20 минут в вашем присутствии</strong>. Вы сразу можете надеть
+          украшение. Если ювелирное изделие сложное (с камнями, эмалью,
+          гравировкой, сложным плетением) — мастер сообщит срок изготовления.
+          В среднем на ремонт при помощи лазерной пайки у нас уходит
+          30 минут.
+        </p>
+      </div>
+    </div>
+
+    <!-- ── Гарантии ── -->
+    <div class="lp__section">
+      <p class="lp__label">Обязательства</p>
+      <h2 class="lp__section-title">Наши гарантии</h2>
+      <div class="lp__guarantees">
+        {
+          guarantees.map((g) => (
+            <div class="lp__guarantee">
+              <div class="lp__guarantee-num">{g.num}</div>
+              <div class="lp__guarantee-title">{g.title}</div>
+              <div class="lp__guarantee-text">{g.text}</div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+
+    <!-- ── FAQ ── -->
+    <div class="lp__section">
+      <p class="lp__label">Вопросы и ответы</p>
+      <h2 class="lp__section-title">Частые вопросы</h2>
+      <div class="lp__faq">
+        {
+          faqs.map((item, i) => (
+            <div class="lp__faq-item">
+              <button
+                class="lp__faq-q"
+                type="button"
+                aria-expanded="false"
+                aria-controls={`faq-panel-${i}`}
+              >
+                <span class="lp__faq-q-index">{String(i + 1).padStart(2, "0")}</span>
+                <span class="lp__faq-q-text">{item.q}</span>
+                <span class="lp__faq-icon" aria-hidden="true">+</span>
+              </button>
+              <div class="lp__faq-a" id={`faq-panel-${i}`} role="region">
+                <div class="lp__faq-a-inner">
+                  <p>{item.a}</p>
+                </div>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+
+  </div>
+</InnerPage>
+
+<script>
+  document.querySelectorAll<HTMLElement>('.lp__faq-item').forEach(item => {
+    const btn = item.querySelector<HTMLButtonElement>('.lp__faq-q')!;
+    const answer = item.querySelector<HTMLElement>('.lp__faq-a')!;
+
+    btn.addEventListener('click', () => {
+      if (item.classList.contains('is-open')) {
+        item.classList.add('is-closing');
+        item.classList.remove('is-open');
+        btn.setAttribute('aria-expanded', 'false');
+        answer.addEventListener('transitionend', () => {
+          item.classList.remove('is-closing');
+        }, { once: true });
+      } else {
+        item.classList.remove('is-closing');
+        item.classList.add('is-open');
+        btn.setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
+</script>
+
+<style>
+  .lp {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-64);
+  }
+
+  /* ── Hero ── */
+  .lp__hero {
+    background: linear-gradient(
+      154.68deg,
+      var(--color-gold-300) 0%,
+      var(--color-gold-600) 100%
+    );
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr auto;
+    overflow: hidden;
+  }
+
+  .lp__hero-content {
+    grid-column: 1;
+    grid-row: 1;
+    padding: var(--spacing-48);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-24);
+  }
+
+  .lp__hero-image {
+    grid-column: 2;
+    grid-row: 1 / 3;
+    position: relative;
+    min-height: 380px;
+  }
+
+  .lp__hero-img-placeholder {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.10);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .lp__hero-img-placeholder span {
+    font-family: var(--font-body);
+    font-size: var(--font-size-sm);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: rgba(0, 0, 0, 0.35);
+    text-align: center;
+    padding: 0 var(--spacing-24);
+  }
+
+  .lp__hero-stats {
+    grid-column: 1;
+    grid-row: 2;
+    display: flex;
+    align-items: center;
+    gap: 0;
+    padding: var(--spacing-24) var(--spacing-48);
+    border-top: 1px solid var(--color-gold-600);
+  }
+
+  .lp__hero-stat {
+    display: flex;
+    align-items: baseline;
+    gap: var(--spacing-8);
+    flex: 1;
+  }
+
+  .lp__hero-stat-num {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-h3);
+    font-weight: 600;
+    font-style: italic;
+    color: var(--color-dark-900);
+    line-height: 1;
+  }
+
+  .lp__hero-stat-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .lp__hero-stat-unit {
+    font-family: var(--font-body);
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-dark-900);
+  }
+
+  .lp__hero-stat-label {
+    font-family: var(--font-body);
+    font-size: var(--font-size-sm);
+    color: var(--color-gold-900);
+    line-height: 1.3;
+    white-space: nowrap;
+  }
+
+  .lp__hero-stat-sep {
+    width: 1px;
+    height: 40px;
+    background: var(--color-gold-600);
+    flex-shrink: 0;
+    margin: 0 var(--spacing-24);
+  }
+
+  .lp__hero-label {
+    font-family: var(--font-body);
+    font-size: var(--font-size-sm);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-gold-900);
+  }
+
+  .lp__title {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-h2);
+    font-weight: 600;
+    color: var(--color-dark-900);
+    line-height: 1;
+  }
+
+  .lp__lead {
+    font-family: var(--font-body);
+    font-size: var(--font-size-lg);
+    line-height: 1.6;
+    color: var(--color-text-muted);
+    max-width: 520px;
+  }
+
+  .lp__hero-cta {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-24);
+    margin-top: auto;
+  }
+
+  .lp__hero-hint {
+    font-family: var(--font-body);
+    font-size: var(--font-size-sm);
+    color: var(--color-gold-900);
+    line-height: 1.4;
+    max-width: 160px;
+  }
+
+  /* ── Section ── */
+  .lp__section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-24);
+  }
+
+  .lp__label {
+    font-family: var(--font-body);
+    font-size: var(--font-size-sm);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-gold-900);
+  }
+
+  .lp__section-title {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-h3);
+    font-weight: 600;
+    color: var(--color-dark-900);
+    line-height: 1.05;
+    margin-top: calc(var(--spacing-24) * -1);
+  }
+
+  .lp__section-lead-block {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-16);
+    max-width: 720px;
+  }
+
+  .lp__section-lead {
+    font-family: var(--font-body);
+    font-size: var(--font-size-lg);
+    line-height: 1.7;
+    color: var(--color-text-muted);
+  }
+
+  /* ── Cases ── */
+  .lp__cases {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--spacing-24);
+  }
+
+  .lp__case {
+    background-color: var(--color-white);
+    border: 1px solid var(--color-gold-600);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-16);
+    transition: transform 200ms ease, box-shadow 200ms ease;
+  }
+
+  .lp__case:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(199, 125, 23, 0.18);
+  }
+
+  .lp__card-img {
+    width: 100%;
+    height: 160px;
+    background: rgba(0, 0, 0, 0.06);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .lp__card-img span {
+    font-family: var(--font-body);
+    font-size: var(--font-size-sm);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: rgba(0, 0, 0, 0.3);
+    text-align: center;
+    padding: 0 var(--spacing-16);
+  }
+
+  .lp__case-num {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-h4);
+    font-weight: 600;
+    font-style: italic;
+    color: var(--color-gold-600);
+    line-height: 1;
+    padding: 0 var(--spacing-32);
+  }
+
+  .lp__case-title {
+    font-family: var(--font-body);
+    font-size: var(--font-size-base);
+    font-weight: 500;
+    color: var(--color-dark-900);
+    line-height: 1.3;
+    padding: 0 var(--spacing-32);
+  }
+
+  .lp__case-text {
+    font-family: var(--font-body);
+    font-size: var(--font-size-base);
+    line-height: 1.6;
+    color: var(--color-text-muted);
+    padding: 0 var(--spacing-32) var(--spacing-32);
+  }
+
+  /* ── Methods (цена) ── */
+  .lp__methods {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--spacing-24);
+  }
+
+  .lp__method {
+    background-color: var(--color-white);
+    border: 1px solid var(--color-gold-600);
+    border-radius: var(--radius-sm);
+    padding: var(--spacing-32);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-16);
+    transition: transform 200ms ease, box-shadow 200ms ease;
+  }
+
+  .lp__method:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(199, 125, 23, 0.18);
+  }
+
+  .lp__method-index {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-h4);
+    font-weight: 600;
+    font-style: italic;
+    color: var(--color-gold-600);
+    line-height: 1;
+  }
+
+  .lp__method-title {
+    font-family: var(--font-body);
+    font-size: var(--font-size-base);
+    font-weight: 500;
+    color: var(--color-dark-900);
+    line-height: 1.3;
+  }
+
+  .lp__method-text {
+    font-family: var(--font-body);
+    font-size: var(--font-size-base);
+    line-height: 1.6;
+    color: var(--color-text-muted);
+  }
+
+  /* ── Deadline spotlight ── */
+  .lp__deadline {
+    background: var(--color-dark-900);
+    border-radius: var(--radius-sm);
+    padding: var(--spacing-48);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-48);
+  }
+
+  .lp__deadline-time {
+    display: flex;
+    align-items: baseline;
+    gap: var(--spacing-8);
+    flex-shrink: 0;
+  }
+
+  .lp__deadline-num {
+    font-family: var(--font-heading);
+    font-size: 96px;
+    font-weight: 600;
+    font-style: italic;
+    color: var(--color-gold-600);
+    line-height: 1;
+  }
+
+  .lp__deadline-unit {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-h3);
+    font-weight: 600;
+    font-style: italic;
+    color: var(--color-gold-600);
+    line-height: 1;
+  }
+
+  .lp__deadline-divider {
+    width: 1px;
+    height: 80px;
+    background: rgba(240, 219, 190, 0.2);
+    flex-shrink: 0;
+  }
+
+  .lp__deadline-body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-8);
+  }
+
+  .lp__deadline-body .lp__label {
+    color: var(--color-gold-600);
+  }
+
+  .lp__deadline-title {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-h3);
+    font-weight: 600;
+    color: var(--color-gold-600);
+    line-height: 1.05;
+  }
+
+  .lp__deadline-text {
+    font-family: var(--font-body);
+    font-size: var(--font-size-base);
+    line-height: 1.7;
+    color: rgba(252, 248, 243, 0.7);
+    max-width: 560px;
+  }
+
+  .lp__deadline-text strong {
+    color: var(--color-gold-600);
+    font-weight: 500;
+  }
+
+  /* ── Guarantees ── */
+  .lp__guarantees {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    background-color: var(--color-white);
+    border: 1px solid var(--color-gold-600);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+  }
+
+  .lp__guarantee {
+    padding: var(--spacing-32);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-16);
+    position: relative;
+    transition: background-color 200ms ease;
+  }
+
+  .lp__guarantee:hover {
+    background-color: var(--color-gold-300);
+  }
+
+  .lp__guarantee + .lp__guarantee::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: var(--spacing-32);
+    bottom: var(--spacing-32);
+    width: 1px;
+    background: var(--color-gold-600);
+  }
+
+  .lp__guarantee-num {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-h2);
+    font-weight: 600;
+    font-style: italic;
+    color: var(--color-gold-600);
+    line-height: 1;
+  }
+
+  .lp__guarantee-title {
+    font-family: var(--font-body);
+    font-size: var(--font-size-lg);
+    font-weight: 400;
+    color: var(--color-dark-900);
+    line-height: 1.3;
+  }
+
+  .lp__guarantee-text {
+    font-family: var(--font-body);
+    font-size: var(--font-size-base);
+    line-height: 1.5;
+    color: var(--color-text-muted);
+  }
+
+  /* ── FAQ ── */
+  .lp__faq {
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid var(--color-gold-600);
+  }
+
+  .lp__faq-item {
+    border-bottom: 1px solid var(--color-gold-600);
+  }
+
+  .lp__faq-q {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-16);
+    width: 100%;
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    padding: var(--spacing-24) 0;
+  }
+
+  .lp__faq-q-index {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-h4);
+    font-weight: 600;
+    font-style: italic;
+    color: var(--color-gold-600);
+    line-height: 1;
+    flex-shrink: 0;
+    width: 44px;
+    transition: color 200ms ease;
+  }
+
+  .lp__faq-item.is-open .lp__faq-q-index {
+    color: var(--color-gold-900);
+  }
+
+  .lp__faq-q-text {
+    flex: 1;
+    font-family: var(--font-body);
+    font-size: var(--font-size-lg);
+    font-weight: 500;
+    color: var(--color-dark-900);
+    line-height: 1.4;
+  }
+
+  .lp__faq-icon {
+    font-size: 24px;
+    color: var(--color-gold-900);
+    flex-shrink: 0;
+    display: inline-block;
+    transition: transform 0.42s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .lp__faq-item.is-open .lp__faq-icon { transform: rotate(45deg); }
+  .lp__faq-item.is-closing .lp__faq-icon {
+    transform: rotate(0deg);
+    transition: transform 0.22s ease-in;
+  }
+
+  .lp__faq-a {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.42s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .lp__faq-item.is-open .lp__faq-a { grid-template-rows: 1fr; }
+  .lp__faq-item.is-closing .lp__faq-a {
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.22s ease-in;
+  }
+
+  .lp__faq-a-inner {
+    overflow: hidden;
+    padding-left: 60px;
+    padding-bottom: 0;
+    max-width: 680px;
+    transition: padding-bottom 0.42s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .lp__faq-item.is-open .lp__faq-a-inner {
+    padding-bottom: var(--spacing-24);
+  }
+
+  .lp__faq-item.is-closing .lp__faq-a-inner {
+    padding-bottom: 0;
+    transition: padding-bottom 0.22s ease-in;
+  }
+
+  .lp__faq-a-inner p {
+    font-family: var(--font-body);
+    font-size: var(--font-size-base);
+    line-height: 1.7;
+    color: var(--color-text-muted);
+    opacity: 0;
+    transition: opacity 0.12s ease;
+  }
+
+  .lp__faq-item.is-open .lp__faq-a-inner p {
+    opacity: 1;
+    transition: opacity 0.28s ease 0.16s;
+  }
+
+  .lp__faq-item.is-closing .lp__faq-a-inner p {
+    opacity: 0;
+    transition: opacity 0.1s ease;
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 760px) {
+    .lp {
+      gap: var(--spacing-48);
+    }
+
+    .lp__hero,
+    .lp__deadline {
+      margin-left: calc(var(--spacing-16) * -1);
+      margin-right: calc(var(--spacing-16) * -1);
+    }
+
+    .lp__hero {
+      grid-template-columns: 1fr;
+      grid-template-rows: 220px auto auto;
+    }
+    .lp__hero-image {
+      grid-column: 1;
+      grid-row: 1;
+      min-height: unset;
+    }
+    .lp__hero-content {
+      grid-column: 1;
+      grid-row: 2;
+      padding: var(--spacing-32) var(--spacing-16);
+    }
+    .lp__hero-stats {
+      grid-column: 1;
+      grid-row: 3;
+      padding: var(--spacing-16);
+      flex-wrap: wrap;
+      gap: var(--spacing-16);
+    }
+    .lp__hero-stat-sep {
+      display: none;
+    }
+    .lp__hero-stat {
+      flex: 0 0 auto;
+    }
+    .lp__hero-cta {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .lp__title {
+      font-size: var(--font-size-h3);
+    }
+
+    .lp__section-title {
+      font-size: var(--font-size-h4);
+    }
+
+    .lp__cases,
+    .lp__methods {
+      grid-template-columns: 1fr;
+    }
+
+    .lp__deadline {
+      border-radius: 0;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--spacing-24);
+      padding: var(--spacing-32) var(--spacing-16);
+    }
+    .lp__deadline-divider {
+      width: 40px;
+      height: 1px;
+    }
+    .lp__deadline-num {
+      font-size: 72px;
+    }
+
+    .lp__guarantees {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .lp__guarantee + .lp__guarantee::before {
+      display: none;
+    }
+    .lp__guarantee:nth-child(odd) {
+      border-right: 1px solid var(--color-gold-600);
+    }
+    .lp__guarantee:nth-child(1),
+    .lp__guarantee:nth-child(2) {
+      border-bottom: 1px solid var(--color-gold-600);
+    }
+
+    .lp__faq-q-index {
+      width: 32px;
+      font-size: var(--font-size-h6, 25px);
+    }
+    .lp__faq-a-inner {
+      padding-left: 48px;
+    }
+  }
+
+  @media (max-width: 500px) {
+    .lp__guarantees {
+      grid-template-columns: 1fr;
+    }
+    .lp__guarantee:nth-child(odd) {
+      border-right: none;
+    }
+    .lp__guarantee + .lp__guarantee {
+      border-top: 1px solid var(--color-gold-600);
+    }
+    .lp__guarantee:nth-child(1),
+    .lp__guarantee:nth-child(2) {
+      border-bottom: none;
+    }
+  }
+</style>

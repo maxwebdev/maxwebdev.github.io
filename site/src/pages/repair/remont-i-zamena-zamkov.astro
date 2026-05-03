@@ -1,0 +1,919 @@
+---
+import InnerPage from "../../layouts/InnerPage.astro";
+import SanityPriceTable from "../../components/SanityPriceTable.astro";
+
+const repairLinks = [
+  { label: "Уменьшение колец", href: "/repair/umenshenie-kolecz" },
+  { label: "Увеличение колец", href: "/repair/uvelichenie-kolecz" },
+  {
+    label: "Пайка цепочек и браслетов",
+    href: "/repair/pajka-cepochek-brasletov-i-lozhek",
+  },
+  { label: "Лазерная пайка", href: "/repair/lazernaja-pajka" },
+  { label: "Ремонт и замена замков", href: "/repair/remont-i-zamena-zamkov" },
+  { label: "Закрепка камней", href: "/repair/zakrepka-kamnej" },
+  { label: "Перевязка бус", href: "/repair/perevjazka-bus-i-brasletov" },
+  {
+    label: "Родирование, золочение",
+    href: "/repair/rodirovanie-zolochenie-serebrenie",
+  },
+  { label: "Дополнительные услуги", href: "/repair/dopolnitelnye-uslugi" },
+];
+
+const crumbs = [
+  { label: "Главная", href: "/" },
+  { label: "Ремонт украшений", href: "/repair" },
+  { label: "Ремонт и замена замков" },
+];
+
+const guarantees = [
+  {
+    num: "01",
+    title: "Гарантия 1 год",
+    text: "Выдаём письменную гарантию на каждую замену или ремонт замка.",
+  },
+  {
+    num: "02",
+    title: "Мастера с образованием",
+    text: "Все ювелиры с высшим профильным образованием. Стаж — от 8 до 40 лет.",
+  },
+  {
+    num: "03",
+    title: "Прочные замки",
+    text: "Устанавливаем замки, которые держат украшение при любой нагрузке. Вы не потеряете цепочку или браслет при носке.",
+  },
+  {
+    num: "04",
+    title: "Проверка перед выдачей",
+    text: "Каждое украшение проверяется на отсутствие дефектов до возврата клиенту.",
+  },
+];
+
+const locks = [
+  {
+    num: "01",
+    title: "Шпрингельный",
+    text: "Круглый замок с пружинной защёлкой. Самый распространённый, ставится на тонкие и средние цепочки. Со временем пружина теряет упругость или ржавеет от влаги. Ремонт экономически нецелесообразен — мастер заменяет замок на новый.",
+  },
+  {
+    num: "02",
+    title: "Карабин",
+    text: "Форма клешни с подпружиненным язычком. Прочнее шпрингельного, выдерживает тяжёлые цепочки и браслеты с кулонами. При износе пружины мастер заменяет её без смены корпуса. При деформации петли — полная замена карабина.",
+  },
+  {
+    num: "03",
+    title: "Коробчатый",
+    text: "Корпус-коробочка с язычком и боковыми предохранителями. Ставится на дорогие украшения и теннисные браслеты. Язычок теряет натяг — мастер регулирует зацеп или изготавливает новый. Предохранитель гнётся — выправляется плоскогубцами.",
+  },
+  {
+    num: "04",
+    title: "Тоггл (Т-замок)",
+    text: "Кольцо на одном конце и Т-образная палочка на другом. Декоративный элемент украшения. Встречается на дизайнерских браслетах и колье. При деформации — выправляется или меняется. Не рекомендуется для ценных изделий: при неправильном угле может открыться.",
+  },
+  {
+    num: "05",
+    title: "Винтовой (бочонок)",
+    text: "Два цилиндра, скручивающихся по резьбе. Эстетичный и незаметный. Применяется для жемчужных нитей и бисерных украшений. Резьба изнашивается от постоянного закручивания — замок меняется на новый.",
+  },
+  {
+    num: "06",
+    title: "Магнитный",
+    text: "Два намагниченных элемента. Удобен для людей с ограниченной подвижностью рук. Подходит только для лёгкой бижутерии — сила притяжения ослабевает со временем, а при случайном зацепе открывается. Для ценных украшений не рекомендуем.",
+  },
+];
+
+const faqs = [
+  {
+    q: "Замок перестал защёлкиваться — обязательно менять или можно починить?",
+    a: "Зависит от типа замка и характера поломки. Карабин чаще всего ремонтируется — меняем пружину или выравниваем язычок. Коробчатый замок — регулируем зацеп. Шпрингельный экономически выгоднее заменить целиком: стоимость ремонта сравнима с ценой нового. Мастер осмотрит и скажет точно — осмотр бесплатный.",
+  },
+  {
+    q: "Сколько времени занимает замена замка?",
+    a: "Простая замена — шпрингельного или карабина на цепочке — выполняется за 20 минут при вас. Если нужна работа с коробчатым замком или украшением с камнями, это займёт один день. Срок уточняем после осмотра.",
+  },
+  {
+    q: "Какой замок надёжнее — шпрингельный или карабин?",
+    a: "Карабин надёжнее: его язычок изготовлен из более толстого металла и выдерживает б&#xf3;льшую нагрузку. Шпрингельный хорош для тонких лёгких цепочек, но при тяжёлом кулоне или браслете лучше поставить карабин. Мы подберём тип замка исходя из веса и стиля украшения.",
+  },
+  {
+    q: "У меня дорогой брендовый браслет с коробчатым замком. Не повредите украшение?",
+    a: "Нет. Ювелиры работают под микроскопом, не задевая дизайн и покрытие украшения. Коробчатый замок регулируется или заменяется без пайки горелкой — только точечные механические операции. На работу выдаём письменную гарантию.",
+  },
+  {
+    q: "Можно ли выбрать тип нового замка при замене?",
+    a: "Да. Если старый замок вас не устраивал, мы поставим другой тип. Например, вместо шпрингельного — карабин, если носите тяжёлый кулон. Или вместо обычного карабина — коробчатый, если нужна максимальная надёжность. Мы объясним плюсы и минусы каждого варианта.",
+  },
+  {
+    q: "Замок пока держит, но иногда открывается сам. Стоит ли ждать, пока сломается?",
+    a: "Не стоит. Самопроизвольное открытие — признак того, что пружина уже слабеет или корпус деформировался. Цепочка или браслет могут упасть в самый неподходящий момент и потеряться. Лучше заменить замок заранее — это займёт 20 минут.",
+  },
+];
+---
+
+<InnerPage
+  title="Ремонт и замена замков"
+  description="Ремонт и замена замков на ювелирных украшениях в Санкт-Петербурге — цепочки, браслеты, колье. Шпрингельные, карабины, коробчатые замки. Гарантия 1 год."
+  crumbs={crumbs}
+  sidebarLinks={repairLinks}
+  sidebarTitle="Услуги ремонта"
+  activeHref="/repair/remont-i-zamena-zamkov"
+>
+  <div class="rz">
+
+    <!-- ── Hero ── -->
+    <div class="rz__hero">
+      <div class="rz__hero-content">
+        <p class="rz__hero-label">
+          Ювелирная мастерская «Артель» · Санкт-Петербург
+        </p>
+        <h1 class="rz__title">Ремонт и замена замков</h1>
+        <p class="rz__lead">
+          Починим сломанный замок или заменим его на новый — подходящий
+          по типу и весу украшения. Простой ремонт делаем за 20 минут при вас.
+          Мастер сначала осматривает изделие и объясняет, что именно нужно сделать.
+        </p>
+        <div class="rz__hero-cta">
+          <a
+            href="https://wa.me/+79319616090?text=Здравствуйте%2C%20хочу%20отремонтировать%20замок%20на%20украшении%2C%20отправляю%20фото"
+            class="btn btn--primary"
+            target="_blank"
+            rel="noopener"
+          >
+            Прислать фото украшения
+          </a>
+          <p class="rz__hero-hint">
+            Ответим в течение нескольких минут и назовём цену
+          </p>
+        </div>
+      </div>
+
+      <div class="rz__hero-stats">
+        <div class="rz__hero-stat">
+          <span class="rz__hero-stat-num">20</span>
+          <div class="rz__hero-stat-info">
+            <span class="rz__hero-stat-unit">мин</span>
+            <span class="rz__hero-stat-label">простой ремонт при вас</span>
+          </div>
+        </div>
+        <span class="rz__hero-stat-sep" aria-hidden="true"></span>
+        <div class="rz__hero-stat">
+          <span class="rz__hero-stat-num">1</span>
+          <div class="rz__hero-stat-info">
+            <span class="rz__hero-stat-unit">год</span>
+            <span class="rz__hero-stat-label">гарантия на работу</span>
+          </div>
+        </div>
+        <span class="rz__hero-stat-sep" aria-hidden="true"></span>
+        <div class="rz__hero-stat">
+          <span class="rz__hero-stat-num">8–40</span>
+          <div class="rz__hero-stat-info">
+            <span class="rz__hero-stat-unit">лет</span>
+            <span class="rz__hero-stat-label">стаж мастеров</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Prices ── -->
+    <SanityPriceTable slug="repair-clasps" />
+
+    <!-- ── Виды замков ── -->
+    <div class="rz__section">
+      <p class="rz__label">Что мы чиним и меняем</p>
+      <h2 class="rz__section-title">Виды замков и их ремонт</h2>
+      <p class="rz__section-lead">
+        Выбор метода зависит от типа замка и характера поломки. Одни
+        механизмы выгоднее отремонтировать, другие — заменить целиком.
+        Мастер осматривает украшение и сразу говорит, что целесообразнее.
+      </p>
+      <div class="rz__cases">
+        {locks.map((l) => (
+          <div class="rz__case">
+            <span class="rz__case-num">{l.num}</span>
+            <div class="rz__case-title">{l.title}</div>
+            <p class="rz__case-text">{l.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- ── Причины поломок ── -->
+    <div class="rz__section rz__section--warm">
+      <p class="rz__label">Почему ломаются замки</p>
+      <h2 class="rz__section-title">Причины поломок</h2>
+      <p class="rz__section-lead">
+        Понимая причину, можно выбрать не только метод ремонта, но и
+        более надёжный тип замка при замене.
+      </p>
+      <div class="rz__limits">
+        <div class="rz__limit">
+          <div class="rz__limit-title">Износ пружины</div>
+          <p class="rz__limit-text">
+            Самая частая причина. Пружина внутри замка испытывает нагрузку
+            при каждом застёгивании. Со временем она теряет упругость —
+            механизм перестаёт фиксироваться. Ускоряется при контакте с водой
+            и химией: духи, крем, хлорированная вода в бассейне.
+          </p>
+        </div>
+        <div class="rz__limit">
+          <div class="rz__limit-title">Механическое повреждение</div>
+          <p class="rz__limit-text">
+            Украшение упало или ударилось о твёрдую поверхность — корпус
+            замка деформировался. Либо сильный рывок погнул язычок карабина.
+            В таких случаях мастер выправляет геометрию или заменяет замок,
+            если восстановление невозможно.
+          </p>
+        </div>
+        <div class="rz__limit">
+          <div class="rz__limit-title">Ржавчина и окисление</div>
+          <p class="rz__limit-text">
+            Внутренняя пружина шпрингельного замка может заржаветь от влаги,
+            даже если внешний металл выглядит нормально. Особенно уязвимы
+            серебряные замки при хранении без чехла. Замок перестаёт открываться
+            или застревает — требует замены.
+          </p>
+        </div>
+        <div class="rz__limit">
+          <div class="rz__limit-title">Производственный брак</div>
+          <p class="rz__limit-text">
+            Новое украшение может не застёгиваться из-за заводского дефекта:
+            неверно откалиброванная пружина, люфт в шарнире, недостаточная
+            глубина паза в коробчатом замке. Мастер устраняет дефект или
+            ставит замок лучшего качества.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Сроки ── -->
+    <div class="rz__deadline">
+      <div class="rz__deadline-time">
+        <span class="rz__deadline-num">20</span>
+        <span class="rz__deadline-unit">мин</span>
+      </div>
+      <div class="rz__deadline-divider" aria-hidden="true"></div>
+      <div class="rz__deadline-body">
+        <p class="rz__label">Время выполнения</p>
+        <h2 class="rz__deadline-title">Сроки</h2>
+        <p class="rz__deadline-text">
+          Замена шпрингельного замка или карабина — <strong>20 минут при вас</strong>.
+          Вы уходите с починенным украшением сразу. Если нужна работа с
+          коробчатым замком, изготовление нестандартного механизма или
+          пайка на украшении с камнями — мастер уточнит срок после осмотра.
+          В среднем на такие работы уходит один день.
+        </p>
+      </div>
+    </div>
+
+    <!-- ── Гарантии ── -->
+    <div class="rz__section">
+      <p class="rz__label">Обязательства</p>
+      <h2 class="rz__section-title">Наши гарантии</h2>
+      <div class="rz__guarantees">
+        {
+          guarantees.map((g) => (
+            <div class="rz__guarantee">
+              <div class="rz__guarantee-num">{g.num}</div>
+              <div class="rz__guarantee-title">{g.title}</div>
+              <div class="rz__guarantee-text">{g.text}</div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+
+    <!-- ── FAQ ── -->
+    <div class="rz__section">
+      <p class="rz__label">Вопросы и ответы</p>
+      <h2 class="rz__section-title">Частые вопросы</h2>
+      <div class="rz__faq">
+        {
+          faqs.map((item, i) => (
+            <div class="rz__faq-item">
+              <button
+                class="rz__faq-q"
+                type="button"
+                aria-expanded="false"
+                aria-controls={`faq-panel-${i}`}
+              >
+                <span class="rz__faq-q-index">{String(i + 1).padStart(2, "0")}</span>
+                <span class="rz__faq-q-text">{item.q}</span>
+                <span class="rz__faq-icon" aria-hidden="true">+</span>
+              </button>
+              <div class="rz__faq-a" id={`faq-panel-${i}`} role="region">
+                <div class="rz__faq-a-inner">
+                  <p set:html={item.a} />
+                </div>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+
+  </div>
+</InnerPage>
+
+<script>
+  document.querySelectorAll<HTMLElement>('.rz__faq-item').forEach(item => {
+    const btn = item.querySelector<HTMLButtonElement>('.rz__faq-q')!;
+    const answer = item.querySelector<HTMLElement>('.rz__faq-a')!;
+
+    btn.addEventListener('click', () => {
+      if (item.classList.contains('is-open')) {
+        item.classList.add('is-closing');
+        item.classList.remove('is-open');
+        btn.setAttribute('aria-expanded', 'false');
+        answer.addEventListener('transitionend', () => {
+          item.classList.remove('is-closing');
+        }, { once: true });
+      } else {
+        item.classList.remove('is-closing');
+        item.classList.add('is-open');
+        btn.setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
+</script>
+
+<style>
+  .rz {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-64);
+  }
+
+  /* ── Hero ── */
+  .rz__hero {
+    background: linear-gradient(
+      154.68deg,
+      var(--color-gold-300) 0%,
+      var(--color-gold-600) 100%
+    );
+    display: flex;
+    flex-direction: column;
+  }
+
+  .rz__hero-content {
+    padding: var(--spacing-48);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-24);
+  }
+
+  .rz__hero-stats {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    padding: var(--spacing-24) var(--spacing-48);
+    border-top: 1px solid var(--color-gold-600);
+  }
+
+  .rz__hero-stat {
+    display: flex;
+    align-items: baseline;
+    gap: var(--spacing-8);
+    flex: 1;
+  }
+
+  .rz__hero-stat-num {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-h3);
+    font-weight: 600;
+    font-style: italic;
+    color: var(--color-dark-900);
+    line-height: 1;
+  }
+
+  .rz__hero-stat-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .rz__hero-stat-unit {
+    font-family: var(--font-body);
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-dark-900);
+  }
+
+  .rz__hero-stat-label {
+    font-family: var(--font-body);
+    font-size: var(--font-size-sm);
+    color: var(--color-gold-900);
+    line-height: 1.3;
+    white-space: nowrap;
+  }
+
+  .rz__hero-stat-sep {
+    width: 1px;
+    height: 40px;
+    background: var(--color-gold-600);
+    flex-shrink: 0;
+    margin: 0 var(--spacing-24);
+  }
+
+  .rz__hero-label {
+    font-family: var(--font-body);
+    font-size: var(--font-size-sm);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-gold-900);
+  }
+
+  .rz__title {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-h2);
+    font-weight: 600;
+    color: var(--color-dark-900);
+    line-height: 1;
+  }
+
+  .rz__lead {
+    font-family: var(--font-body);
+    font-size: var(--font-size-lg);
+    line-height: 1.6;
+    color: var(--color-text-muted);
+    max-width: 640px;
+  }
+
+  .rz__hero-cta {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-24);
+    margin-top: auto;
+  }
+
+  .rz__hero-hint {
+    font-family: var(--font-body);
+    font-size: var(--font-size-sm);
+    color: var(--color-gold-900);
+    line-height: 1.4;
+    max-width: 160px;
+  }
+
+  /* ── Section ── */
+  .rz__section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-24);
+  }
+
+  .rz__section--warm {
+    background: var(--color-gold-600);
+    border-radius: var(--radius-sm);
+    padding: var(--spacing-48);
+  }
+
+  .rz__label {
+    font-family: var(--font-body);
+    font-size: var(--font-size-sm);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-gold-900);
+  }
+
+  .rz__section-title {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-h3);
+    font-weight: 600;
+    color: var(--color-dark-900);
+    line-height: 1.05;
+    margin-top: calc(var(--spacing-24) * -1);
+  }
+
+  .rz__section-lead {
+    font-family: var(--font-body);
+    font-size: var(--font-size-lg);
+    line-height: 1.7;
+    color: var(--color-text-muted);
+    max-width: 640px;
+  }
+
+  /* ── Cases (lock types) ── */
+  .rz__cases {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--spacing-24);
+  }
+
+  .rz__case {
+    background-color: var(--color-white);
+    border: 1px solid var(--color-gold-600);
+    border-radius: var(--radius-sm);
+    padding: var(--spacing-32);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-16);
+    transition: transform 200ms ease, box-shadow 200ms ease;
+  }
+
+  .rz__case:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(199, 125, 23, 0.18);
+  }
+
+  .rz__case-num {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-h4);
+    font-weight: 600;
+    font-style: italic;
+    color: var(--color-gold-600);
+    line-height: 1;
+  }
+
+  .rz__case-title {
+    font-family: var(--font-body);
+    font-size: var(--font-size-base);
+    font-weight: 500;
+    color: var(--color-dark-900);
+    line-height: 1.3;
+  }
+
+  .rz__case-text {
+    font-family: var(--font-body);
+    font-size: var(--font-size-base);
+    line-height: 1.6;
+    color: var(--color-text-muted);
+  }
+
+  /* ── Limits (causes) ── */
+  .rz__limits {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-24);
+  }
+
+  .rz__limit {
+    background-color: var(--color-white);
+    border: 1px solid var(--color-gold-600);
+    border-left: 3px solid var(--color-gold-900);
+    border-radius: var(--radius-sm);
+    padding: var(--spacing-32);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-16);
+    transition: transform 200ms ease, box-shadow 200ms ease;
+  }
+
+  .rz__limit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(199, 125, 23, 0.18);
+  }
+
+  .rz__limit-title {
+    font-family: var(--font-body);
+    font-size: var(--font-size-base);
+    font-weight: 500;
+    color: var(--color-dark-900);
+    line-height: 1.3;
+  }
+
+  .rz__limit-text {
+    font-family: var(--font-body);
+    font-size: var(--font-size-base);
+    line-height: 1.6;
+    color: var(--color-text-muted);
+  }
+
+  /* ── Deadline spotlight ── */
+  .rz__deadline {
+    background: var(--color-dark-900);
+    border-radius: var(--radius-sm);
+    padding: var(--spacing-48);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-48);
+  }
+
+  .rz__deadline-time {
+    display: flex;
+    align-items: baseline;
+    gap: var(--spacing-8);
+    flex-shrink: 0;
+  }
+
+  .rz__deadline-num {
+    font-family: var(--font-heading);
+    font-size: 96px;
+    font-weight: 600;
+    font-style: italic;
+    color: var(--color-gold-600);
+    line-height: 1;
+  }
+
+  .rz__deadline-unit {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-h3);
+    font-weight: 600;
+    font-style: italic;
+    color: var(--color-gold-600);
+    line-height: 1;
+  }
+
+  .rz__deadline-divider {
+    width: 1px;
+    height: 80px;
+    background: rgba(240, 219, 190, 0.2);
+    flex-shrink: 0;
+  }
+
+  .rz__deadline-body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-8);
+  }
+
+  .rz__deadline-body .rz__label {
+    color: var(--color-gold-600);
+  }
+
+  .rz__deadline-title {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-h3);
+    font-weight: 600;
+    color: var(--color-gold-600);
+    line-height: 1.05;
+  }
+
+  .rz__deadline-text {
+    font-family: var(--font-body);
+    font-size: var(--font-size-base);
+    line-height: 1.7;
+    color: rgba(252, 248, 243, 0.7);
+    max-width: 560px;
+  }
+
+  .rz__deadline-text strong {
+    color: var(--color-gold-600);
+    font-weight: 500;
+  }
+
+  /* ── Guarantees ── */
+  .rz__guarantees {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    background-color: var(--color-white);
+    border: 1px solid var(--color-gold-600);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+  }
+
+  .rz__guarantee {
+    padding: var(--spacing-32);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-16);
+    position: relative;
+    transition: background-color 200ms ease;
+  }
+
+  .rz__guarantee:hover {
+    background-color: var(--color-gold-300);
+  }
+
+  .rz__guarantee + .rz__guarantee::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: var(--spacing-32);
+    bottom: var(--spacing-32);
+    width: 1px;
+    background: var(--color-gold-600);
+  }
+
+  .rz__guarantee-num {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-h2);
+    font-weight: 600;
+    font-style: italic;
+    color: var(--color-gold-600);
+    line-height: 1;
+  }
+
+  .rz__guarantee-title {
+    font-family: var(--font-body);
+    font-size: var(--font-size-lg);
+    font-weight: 400;
+    color: var(--color-dark-900);
+    line-height: 1.3;
+  }
+
+  .rz__guarantee-text {
+    font-family: var(--font-body);
+    font-size: var(--font-size-base);
+    line-height: 1.5;
+    color: var(--color-text-muted);
+  }
+
+  /* ── FAQ ── */
+  .rz__faq {
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid var(--color-gold-600);
+  }
+
+  .rz__faq-item {
+    border-bottom: 1px solid var(--color-gold-600);
+  }
+
+  .rz__faq-q {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-16);
+    width: 100%;
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    padding: var(--spacing-24) 0;
+  }
+
+  .rz__faq-q-index {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-h4);
+    font-weight: 600;
+    font-style: italic;
+    color: var(--color-gold-600);
+    line-height: 1;
+    flex-shrink: 0;
+    width: 44px;
+    transition: color 200ms ease;
+  }
+
+  .rz__faq-item.is-open .rz__faq-q-index {
+    color: var(--color-gold-900);
+  }
+
+  .rz__faq-q-text {
+    flex: 1;
+    font-family: var(--font-body);
+    font-size: var(--font-size-lg);
+    font-weight: 500;
+    color: var(--color-dark-900);
+    line-height: 1.4;
+  }
+
+  .rz__faq-icon {
+    font-size: 24px;
+    color: var(--color-gold-900);
+    flex-shrink: 0;
+    display: inline-block;
+    transition: transform 0.42s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .rz__faq-item.is-open .rz__faq-icon { transform: rotate(45deg); }
+  .rz__faq-item.is-closing .rz__faq-icon {
+    transform: rotate(0deg);
+    transition: transform 0.22s ease-in;
+  }
+
+  .rz__faq-a {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.42s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .rz__faq-item.is-open .rz__faq-a { grid-template-rows: 1fr; }
+  .rz__faq-item.is-closing .rz__faq-a {
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.22s ease-in;
+  }
+
+  .rz__faq-a-inner {
+    overflow: hidden;
+    padding-left: 60px;
+    padding-bottom: 0;
+    max-width: 680px;
+    transition: padding-bottom 0.42s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .rz__faq-item.is-open .rz__faq-a-inner {
+    padding-bottom: var(--spacing-24);
+  }
+
+  .rz__faq-item.is-closing .rz__faq-a-inner {
+    padding-bottom: 0;
+    transition: padding-bottom 0.22s ease-in;
+  }
+
+  .rz__faq-a-inner p {
+    font-family: var(--font-body);
+    font-size: var(--font-size-base);
+    line-height: 1.7;
+    color: var(--color-text-muted);
+    opacity: 0;
+    transition: opacity 0.12s ease;
+  }
+
+  .rz__faq-item.is-open .rz__faq-a-inner p {
+    opacity: 1;
+    transition: opacity 0.28s ease 0.16s;
+  }
+
+  .rz__faq-item.is-closing .rz__faq-a-inner p {
+    opacity: 0;
+    transition: opacity 0.1s ease;
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 760px) {
+    .rz {
+      gap: var(--spacing-48);
+    }
+
+    .rz__hero,
+    .rz__deadline,
+    .rz__section--warm {
+      margin-left: calc(var(--spacing-16) * -1);
+      margin-right: calc(var(--spacing-16) * -1);
+    }
+
+    .rz__hero-content {
+      padding: var(--spacing-32) var(--spacing-16);
+    }
+
+    .rz__hero-stats {
+      padding: var(--spacing-16);
+      flex-wrap: wrap;
+      gap: var(--spacing-16);
+    }
+
+    .rz__hero-stat-sep { display: none; }
+    .rz__hero-stat { flex: 0 0 auto; }
+
+    .rz__hero-cta {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .rz__title { font-size: var(--font-size-h3); }
+
+    .rz__section-title { font-size: var(--font-size-h4); }
+
+    .rz__section--warm {
+      border-radius: 0;
+      padding: var(--spacing-32) var(--spacing-16);
+    }
+
+    .rz__cases,
+    .rz__limits {
+      grid-template-columns: 1fr;
+    }
+
+    .rz__deadline {
+      border-radius: 0;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--spacing-24);
+      padding: var(--spacing-32) var(--spacing-16);
+    }
+
+    .rz__deadline-divider {
+      width: 40px;
+      height: 1px;
+    }
+
+    .rz__deadline-num { font-size: 72px; }
+
+    .rz__guarantees {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .rz__guarantee + .rz__guarantee::before { display: none; }
+
+    .rz__guarantee:nth-child(odd) {
+      border-right: 1px solid var(--color-gold-600);
+    }
+
+    .rz__guarantee:nth-child(1),
+    .rz__guarantee:nth-child(2) {
+      border-bottom: 1px solid var(--color-gold-600);
+    }
+
+    .rz__faq-q-index {
+      width: 32px;
+      font-size: var(--font-size-h6, 25px);
+    }
+
+    .rz__faq-a-inner { padding-left: 48px; }
+  }
+
+  @media (max-width: 500px) {
+    .rz__guarantees { grid-template-columns: 1fr; }
+
+    .rz__guarantee:nth-child(odd) { border-right: none; }
+
+    .rz__guarantee + .rz__guarantee {
+      border-top: 1px solid var(--color-gold-600);
+    }
+
+    .rz__guarantee:nth-child(1),
+    .rz__guarantee:nth-child(2) {
+      border-bottom: none;
+    }
+  }
+</style>

@@ -1,0 +1,1082 @@
+---
+import InnerPage from "../../layouts/InnerPage.astro";
+import SanityPriceTable from "../../components/SanityPriceTable.astro";
+
+const repairLinks = [
+  { label: "Уменьшение колец", href: "/repair/umenshenie-kolecz" },
+  { label: "Увеличение колец", href: "/repair/uvelichenie-kolecz" },
+  {
+    label: "Пайка цепочек и браслетов",
+    href: "/repair/pajka-cepochek-brasletov-i-lozhek",
+  },
+  { label: "Лазерная пайка", href: "/repair/lazernaja-pajka" },
+  { label: "Ремонт и замена замков", href: "/repair/remont-i-zamena-zamkov" },
+  { label: "Закрепка камней", href: "/repair/zakrepka-kamnej" },
+  { label: "Перевязка бус", href: "/repair/perevjazka-bus-i-brasletov" },
+  {
+    label: "Родирование, золочение",
+    href: "/repair/rodirovanie-zolochenie-serebrenie",
+  },
+  { label: "Дополнительные услуги", href: "/repair/dopolnitelnye-uslugi" },
+];
+
+const crumbs = [
+  { label: "Главная", href: "/" },
+  { label: "Ремонт украшений", href: "/repair" },
+  { label: "Уменьшение колец" },
+];
+
+const guarantees = [
+  {
+    num: "01",
+    title: "Гарантия 1 год",
+    text: "Выдаём письменную гарантию на каждое изделие.",
+  },
+  {
+    num: "02",
+    title: "Мастера с образованием",
+    text: "Все ювелиры с высшим профильным образованием. Стаж — от 8 до 40 лет.",
+  },
+  {
+    num: "03",
+    title: "Большой поток заказов",
+    text: "Уменьшаем 15–70 колец в неделю — в 2–3 раза больше, чем в обычной мастерской.",
+  },
+  {
+    num: "04",
+    title: "Проверка перед выдачей",
+    text: "Каждое кольцо проходит финальную проверку: без дефектов и с надёжным креплением камней.",
+  },
+];
+
+const faqs = [
+  {
+    q: "Выпадут ли камни после уменьшения?",
+    a: "При изменении диаметра шинки её кривизна меняется — это может ослабить крапаны. Поэтому после каждой работы мастер под микроскопом проверяет все крепления и при необходимости восстанавливает их. Вы получаете кольцо с гарантией на камни.",
+  },
+  {
+    q: "Будет ли виден шов на месте разреза?",
+    a: "При качественной работе — нет. Мы используем лазерную сварку: металл сплавляется на молекулярном уровне без инородного припоя. После шлифовки и полировки шов невидим. Прочность соединения достигает 90–95% от прочности исходного металла.",
+  },
+  {
+    q: "Пропадёт ли гравировка или пробирное клеймо?",
+    a: "Разрез всегда делается на «пятке» кольца — на той стороне, где нет клейма и гравировки. Если надпись идёт по всей окружности, мастер предупредит об этом до начала работы и предложит восстановить текст после пайки.",
+  },
+  {
+    q: "Кольцо велико из-за беременности — стоит ли уменьшать?",
+    a: "Нет. Во время беременности пальцы отекают из-за гормональных изменений, но через несколько месяцев после родов размер возвращается к прежнему. Если уменьшить кольцо сейчас, через полгода оно снова будет велико. Лучше носить его на цепочке или подождать — мы бесплатно проконсультируем.",
+  },
+  {
+    q: "Нужно ли снимать камни перед работой?",
+    a: "Зависит от камня и метода. Бриллианты, сапфиры, рубины переносят лазерную сварку без извлечения из оправы. Изумруды, опалы, жемчуг — хрупкие: при работе горелкой их нужно вынимать. Мы скажем об этом на консультации и включим стоимость в смету.",
+  },
+];
+---
+
+<InnerPage
+  title="Уменьшение колец"
+  description="Уменьшаем золотые и серебряные кольца в Санкт-Петербурге. Без повреждений украшения — от 20 минут. Гарантия 1 год."
+  crumbs={crumbs}
+  sidebarLinks={repairLinks}
+  sidebarTitle="Услуги ремонта"
+  activeHref="/repair/umenshenie-kolecz"
+>
+  <link rel="preload" href="/images/ring-resizing.webp" as="image" type="image/webp" slot="head" />
+  <div class="um">
+
+    <!-- ── Hero ── -->
+    <div class="um__hero">
+      <div class="um__hero-content">
+        <p class="um__hero-label">
+          Ювелирная мастерская «Артель» · Санкт-Петербург
+        </p>
+        <h1 class="um__title">Уменьшение колец</h1>
+        <p class="um__lead">
+          Мы можем уменьшить любое кольцо — вы сможете носить его и не бояться
+          потерять. Мастера не повреждают украшение при ремонте: после работы
+          оно выглядит как новое.
+        </p>
+        <div class="um__hero-cta">
+          <a
+            href="https://wa.me/+79319616090?text=Здравствуйте%2C%20хочу%20уменьшить%20кольцо%2C%20отправляю%20фото"
+            class="btn btn--primary"
+            target="_blank"
+            rel="noopener"
+          >
+            Прислать фото кольца
+          </a>
+          <p class="um__hero-hint">
+            Ответим в течение нескольких минут и назовём цену
+          </p>
+        </div>
+      </div>
+
+      <div class="um__hero-image">
+        <picture>
+          <source srcset="/images/ring-resizing.webp" type="image/webp" />
+          <img
+            src="/images/ring-resizing.png"
+            alt="Уменьшение кольца в ювелирной мастерской"
+            width="1200"
+            height="670"
+            fetchpriority="high"
+            decoding="sync"
+          />
+        </picture>
+      </div>
+
+      <div class="um__hero-stats">
+        <div class="um__hero-stat">
+          <span class="um__hero-stat-num">20</span>
+          <div class="um__hero-stat-info">
+            <span class="um__hero-stat-unit">мин</span>
+            <span class="um__hero-stat-label">на простое кольцо</span>
+          </div>
+        </div>
+        <span class="um__hero-stat-sep" aria-hidden="true"></span>
+        <div class="um__hero-stat">
+          <span class="um__hero-stat-num">1</span>
+          <div class="um__hero-stat-info">
+            <span class="um__hero-stat-unit">год</span>
+            <span class="um__hero-stat-label">гарантия на работу</span>
+          </div>
+        </div>
+        <span class="um__hero-stat-sep" aria-hidden="true"></span>
+        <div class="um__hero-stat">
+          <span class="um__hero-stat-num">8–40</span>
+          <div class="um__hero-stat-info">
+            <span class="um__hero-stat-unit">лет</span>
+            <span class="um__hero-stat-label">стаж мастеров</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Prices ── -->
+    <SanityPriceTable slug="repair-rings" />
+
+    <!-- ── От чего зависит цена ── -->
+    <div class="um__section">
+      <p class="um__label">Стоимость работы</p>
+      <h2 class="um__section-title">От чего зависит цена?</h2>
+      <p class="um__section-lead">
+        Цена зависит от сложности работы мастера, металла кольца, наличия
+        вставок и крепежей, а также от необходимости нанесения дополнительного
+        покрытия.
+      </p>
+      <div class="um__cases">
+        <div class="um__case">
+          <span class="um__case-num">01</span>
+          <div class="um__case-title">Гладкое кольцо без камней</div>
+          <p class="um__case-text">
+            Мастер аккуратно сжимает кольцо специальным устройством —
+            «буратино», затем шлифует и полирует. Простая работа, стоит
+            недорого. Этим методом можно уменьшить не более чем на 1 размер —
+            иначе профиль деформируется.
+          </p>
+        </div>
+        <div class="um__case">
+          <span class="um__case-num">02</span>
+          <div class="um__case-title">Кольцо с камнем</div>
+          <p class="um__case-text">
+            Ювелир разрезает украшение в незаметном месте, вырезает кусочек,
+            сводит концы, паяет и полирует. Затем проверяет и восстанавливает
+            все крепления, чтобы камень не выпал. Работа сложнее, цена выше.
+          </p>
+        </div>
+        <div class="um__case">
+          <span class="um__case-num">03</span>
+          <div class="um__case-title">Сапфир, изумруд, рубин, агат</div>
+          <p class="um__case-text">
+            Эти камни не выносят горячей газовой горелки: от высокой температуры
+            теряют цвет, а агат рассыпается. Для таких украшений применяем
+            лазерную пайку — зона нагрева не превышает 1 мм, камни остаются
+            в оправе.
+          </p>
+        </div>
+        <div class="um__case">
+          <span class="um__case-num">04</span>
+          <div class="um__case-title">
+            Брендовые изделия и сложная гравировка
+          </div>
+          <p class="um__case-text">
+            Работаем под микроскопом. Это тонкая работа — цена незначительно
+            увеличивается, зато ни один элемент декора не пострадает.
+          </p>
+        </div>
+        <div class="um__case">
+          <span class="um__case-num">05</span>
+          <div class="um__case-title">Белое золото</div>
+          <p class="um__case-text">
+            После любой термической обработки родиевое покрытие белого золота
+            нарушается. Мастер наносит новый слой родия — кольцо снова
+            выглядит как новое. Стоимость родирования включается в смету.
+          </p>
+        </div>
+        <div class="um__case">
+          <span class="um__case-num">06</span>
+          <div class="um__case-title">Старинные кольца и кольца с эмалью</div>
+          <p class="um__case-text">
+            Их нельзя резать или сжимать — можно испортить. Ювелир припаивает
+            внутрь дополнительный ободок из того же металла. Чем больше металла
+            уходит на изделие — тем выше цена.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Кольцо болтается, но не снимается ── -->
+    <div class="um__section">
+      <p class="um__label">Нестандартный случай</p>
+      <h2 class="um__section-title">
+        Кольцо велико у основания, но с трудом снимается через сустав
+      </h2>
+      <p class="um__section-lead">
+        Если косточка пальца заметно шире его основания — при артрите или
+        просто от природы — обычное уменьшение не поможет: кольцо перестанет
+        надеваться. В таких случаях мы используем другие методы.
+      </p>
+      <div class="um__methods">
+        <div class="um__method">
+          <div class="um__method-index">01</div>
+          <div class="um__method-title">Шарики-фиксаторы</div>
+          <p class="um__method-text">
+            Мастер впаивает две небольшие полусферы из того же металла на
+            внутреннюю сторону шинки. Они создают нужное трение у основания
+            пальца, не мешая проходить через сустав. Кольцо перестаёт
+            вращаться и болтаться. Уменьшение — до 1 размера.
+          </p>
+        </div>
+        <div class="um__method">
+          <div class="um__method-index">02</div>
+          <div class="um__method-title">Пружинная вставка</div>
+          <p class="um__method-text">
+            Внутрь шинки устанавливается металлическая пластина в форме подковы.
+            При надевании она сжимается, пропуская сустав, а затем пружинит
+            обратно и плотно облегает палец. Подходит при отёках и разнице
+            до 2 размеров. Носить удобнее, чем шарики.
+          </p>
+        </div>
+        <div class="um__method">
+          <div class="um__method-index">03</div>
+          <div class="um__method-title">Шарнирная шинка</div>
+          <p class="um__method-text">
+            Нижняя часть кольца полностью заменяется на механизм, который
+            раскрывается на петле — как браслет. Надеваете на палец, минуя
+            сустав, и защёлкиваете. Подходит при любой разнице в размерах.
+            Самое дорогое решение, но единственное, если разница больше
+            2 размеров.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Какие кольца нельзя уменьшить ── -->
+    <div class="um__section um__section--warm">
+      <p class="um__label">Ограничения</p>
+      <h2 class="um__section-title">Какие кольца уменьшить нельзя</h2>
+      <p class="um__section-lead">
+        Мы честно говорим, если работа невозможна или рискованна. Лучше
+        предупредить заранее, чем испортить украшение.
+      </p>
+      <div class="um__limits">
+        <div class="um__limit">
+          <div class="um__limit-title">Вольфрам, титан, керамика</div>
+          <p class="um__limit-text">
+            Эти материалы слишком твёрды и хрупки: вольфрам при давлении
+            рассыпается на куски, титан требует сварки в среде аргона. Изменить
+            размер невозможно. Если кольцо не подошло — только замена.
+          </p>
+        </div>
+        <div class="um__limit">
+          <div class="um__limit-title">Дорожка бесконечности (Eternity)</div>
+          <p class="um__limit-text">
+            Камни идут по всей окружности без единого пустого участка металла.
+            Негде сделать разрез, не разрушив симметрию и не выбив камни.
+            Можно установить шарики-фиксаторы или пружинную вставку.
+          </p>
+        </div>
+        <div class="um__limit">
+          <div class="um__limit-title">Закрепка в натяжении (Tension)</div>
+          <p class="um__limit-text">
+            Камень держится только давлением концов шинки. Разрезать кольцо —
+            значит снять это давление. Камень немедленно выпадет, а сама шинка
+            навсегда потеряет упругость.
+          </p>
+        </div>
+        <div class="um__limit">
+          <div class="um__limit-title">Бижутерия</div>
+          <p class="um__limit-text">
+            Точный состав сплава неизвестен. При нагреве такое кольцо может
+            расплавиться, раскрошиться или изменить цвет. Мы не беремся за
+            работу, которую не можем гарантировать.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Сроки ── -->
+    <div class="um__deadline">
+      <div class="um__deadline-time">
+        <span class="um__deadline-num">20</span>
+        <span class="um__deadline-unit">мин</span>
+      </div>
+      <div class="um__deadline-divider" aria-hidden="true"></div>
+      <div class="um__deadline-body">
+        <p class="um__label">Время выполнения</p>
+        <h2 class="um__deadline-title">Сроки</h2>
+        <p class="um__deadline-text">
+          Простое кольцо мастер уменьшит за <strong>20 минут в вашем присутствии</strong>.
+          Вы уйдёте с кольцом на пальце — как новое. Если кольцо сложное (с
+          камнями, эмалью или гравировкой) — ювелир сообщит точный срок. В среднем
+          на такие работы уходит один день.
+        </p>
+      </div>
+    </div>
+
+    <!-- ── Гарантии ── -->
+    <div class="um__section">
+      <p class="um__label">Обязательства</p>
+      <h2 class="um__section-title">Наши гарантии</h2>
+      <div class="um__guarantees">
+        {
+          guarantees.map((g) => (
+            <div class="um__guarantee">
+              <div class="um__guarantee-num">{g.num}</div>
+              <div class="um__guarantee-title">{g.title}</div>
+              <div class="um__guarantee-text">{g.text}</div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+
+    <!-- ── FAQ ── -->
+    <div class="um__section">
+      <p class="um__label">Вопросы и ответы</p>
+      <h2 class="um__section-title">Частые вопросы</h2>
+      <div class="um__faq">
+        {
+          faqs.map((item, i) => (
+            <div class="um__faq-item">
+              <button
+                class="um__faq-q"
+                type="button"
+                aria-expanded="false"
+                aria-controls={`faq-panel-${i}`}
+              >
+                <span class="um__faq-q-index">{String(i + 1).padStart(2, "0")}</span>
+                <span class="um__faq-q-text">{item.q}</span>
+                <span class="um__faq-icon" aria-hidden="true">+</span>
+              </button>
+              <div class="um__faq-a" id={`faq-panel-${i}`} role="region">
+                <div class="um__faq-a-inner">
+                  <p>{item.a}</p>
+                </div>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+
+  </div>
+</InnerPage>
+
+<script>
+  document.querySelectorAll<HTMLElement>('.um__faq-item').forEach(item => {
+    const btn = item.querySelector<HTMLButtonElement>('.um__faq-q')!;
+    const answer = item.querySelector<HTMLElement>('.um__faq-a')!;
+
+    btn.addEventListener('click', () => {
+      if (item.classList.contains('is-open')) {
+        item.classList.add('is-closing');
+        item.classList.remove('is-open');
+        btn.setAttribute('aria-expanded', 'false');
+        answer.addEventListener('transitionend', () => {
+          item.classList.remove('is-closing');
+        }, { once: true });
+      } else {
+        item.classList.remove('is-closing');
+        item.classList.add('is-open');
+        btn.setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
+</script>
+
+<style>
+  .um {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-64);
+  }
+
+  /* ── Hero ── */
+  .um__hero {
+    background: linear-gradient(
+      154.68deg,
+      var(--color-gold-300) 0%,
+      var(--color-gold-600) 100%
+    );
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr auto;
+    overflow: hidden;
+  }
+
+  .um__hero-content {
+    grid-column: 1;
+    grid-row: 1;
+    padding: var(--spacing-48);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-24);
+  }
+
+  .um__hero-image {
+    grid-column: 2;
+    grid-row: 1 / 3;
+    position: relative;
+    min-height: 380px;
+  }
+
+  .um__hero-image img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .um__hero-stats {
+    grid-column: 1;
+    grid-row: 2;
+    display: flex;
+    align-items: center;
+    gap: 0;
+    padding: var(--spacing-24) var(--spacing-48);
+    border-top: 1px solid var(--color-gold-600);
+  }
+
+  .um__hero-stat {
+    display: flex;
+    align-items: baseline;
+    gap: var(--spacing-8);
+    flex: 1;
+  }
+
+  .um__hero-stat-num {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-h3);
+    font-weight: 600;
+    font-style: italic;
+    color: var(--color-dark-900);
+    line-height: 1;
+  }
+
+  .um__hero-stat-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .um__hero-stat-unit {
+    font-family: var(--font-body);
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-dark-900);
+  }
+
+  .um__hero-stat-label {
+    font-family: var(--font-body);
+    font-size: var(--font-size-sm);
+    color: var(--color-gold-900);
+    line-height: 1.3;
+    white-space: nowrap;
+  }
+
+  .um__hero-stat-sep {
+    width: 1px;
+    height: 40px;
+    background: var(--color-gold-600);
+    flex-shrink: 0;
+    margin: 0 var(--spacing-24);
+  }
+
+  .um__hero-label {
+    font-family: var(--font-body);
+    font-size: var(--font-size-sm);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-gold-900);
+  }
+
+  .um__title {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-h2);
+    font-weight: 600;
+    color: var(--color-dark-900);
+    line-height: 1;
+  }
+
+  .um__lead {
+    font-family: var(--font-body);
+    font-size: var(--font-size-lg);
+    line-height: 1.6;
+    color: var(--color-text-muted);
+  }
+
+  .um__hero-cta {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-24);
+    margin-top: auto;
+  }
+
+  .um__hero-hint {
+    font-family: var(--font-body);
+    font-size: var(--font-size-sm);
+    color: var(--color-gold-900);
+    line-height: 1.4;
+    max-width: 160px;
+  }
+
+  /* ── Section ── */
+  .um__section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-24);
+  }
+
+  .um__section--warm {
+    background: var(--color-gold-600);
+    border-radius: var(--radius-sm);
+    padding: var(--spacing-48);
+  }
+
+  .um__label {
+    font-family: var(--font-body);
+    font-size: var(--font-size-sm);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-gold-900);
+  }
+
+  .um__section-title {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-h3);
+    font-weight: 600;
+    color: var(--color-dark-900);
+    line-height: 1.05;
+    margin-top: calc(var(--spacing-24) * -1);
+  }
+
+  .um__section-lead {
+    font-family: var(--font-body);
+    font-size: var(--font-size-lg);
+    line-height: 1.7;
+    color: var(--color-text-muted);
+    max-width: 640px;
+  }
+
+  /* ── Cases ── */
+  .um__cases {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--spacing-24);
+  }
+
+  .um__case {
+    background-color: var(--color-white);
+    border: 1px solid var(--color-gold-600);
+    border-radius: var(--radius-sm);
+    padding: var(--spacing-32);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-16);
+    transition: transform 200ms ease, box-shadow 200ms ease;
+  }
+
+  .um__case:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(199, 125, 23, 0.18);
+  }
+
+  .um__case-num {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-h4);
+    font-weight: 600;
+    font-style: italic;
+    color: var(--color-gold-600);
+    line-height: 1;
+  }
+
+  .um__case-title {
+    font-family: var(--font-body);
+    font-size: var(--font-size-base);
+    font-weight: 500;
+    color: var(--color-dark-900);
+    line-height: 1.3;
+  }
+
+  .um__case-text {
+    font-family: var(--font-body);
+    font-size: var(--font-size-base);
+    line-height: 1.6;
+    color: var(--color-text-muted);
+  }
+
+  /* ── Methods (нестандартный случай) ── */
+  .um__methods {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--spacing-24);
+  }
+
+  .um__method {
+    background-color: var(--color-white);
+    border: 1px solid var(--color-gold-600);
+    border-radius: var(--radius-sm);
+    padding: var(--spacing-32);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-16);
+    transition: transform 200ms ease, box-shadow 200ms ease;
+  }
+
+  .um__method:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(199, 125, 23, 0.18);
+  }
+
+  .um__method-index {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-h4);
+    font-weight: 600;
+    font-style: italic;
+    color: var(--color-gold-600);
+    line-height: 1;
+  }
+
+  .um__method-title {
+    font-family: var(--font-body);
+    font-size: var(--font-size-base);
+    font-weight: 500;
+    color: var(--color-dark-900);
+    line-height: 1.3;
+  }
+
+  .um__method-text {
+    font-family: var(--font-body);
+    font-size: var(--font-size-base);
+    line-height: 1.6;
+    color: var(--color-text-muted);
+  }
+
+  /* ── Limits ── */
+  .um__limits {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-24);
+  }
+
+  .um__limit {
+    background-color: var(--color-white);
+    border: 1px solid var(--color-gold-600);
+    border-left: 3px solid var(--color-gold-900);
+    border-radius: var(--radius-sm);
+    padding: var(--spacing-32);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-16);
+    transition: transform 200ms ease, box-shadow 200ms ease;
+  }
+
+  .um__limit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(199, 125, 23, 0.18);
+  }
+
+  .um__limit-title {
+    font-family: var(--font-body);
+    font-size: var(--font-size-base);
+    font-weight: 500;
+    color: var(--color-dark-900);
+    line-height: 1.3;
+  }
+
+  .um__limit-text {
+    font-family: var(--font-body);
+    font-size: var(--font-size-base);
+    line-height: 1.6;
+    color: var(--color-text-muted);
+  }
+
+  /* ── Deadline spotlight ── */
+  .um__deadline {
+    background: var(--color-dark-900);
+    border-radius: var(--radius-sm);
+    padding: var(--spacing-48);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-48);
+  }
+
+  .um__deadline-time {
+    display: flex;
+    align-items: baseline;
+    gap: var(--spacing-8);
+    flex-shrink: 0;
+  }
+
+  .um__deadline-num {
+    font-family: var(--font-heading);
+    font-size: 96px;
+    font-weight: 600;
+    font-style: italic;
+    color: var(--color-gold-600);
+    line-height: 1;
+  }
+
+  .um__deadline-unit {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-h3);
+    font-weight: 600;
+    font-style: italic;
+    color: var(--color-gold-600);
+    line-height: 1;
+  }
+
+  .um__deadline-divider {
+    width: 1px;
+    height: 80px;
+    background: rgba(240, 219, 190, 0.2);
+    flex-shrink: 0;
+  }
+
+  .um__deadline-body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-8);
+  }
+
+  .um__deadline-body .um__label {
+    color: var(--color-gold-600);
+  }
+
+  .um__deadline-title {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-h3);
+    font-weight: 600;
+    color: var(--color-gold-600);
+    line-height: 1.05;
+  }
+
+  .um__deadline-text {
+    font-family: var(--font-body);
+    font-size: var(--font-size-base);
+    line-height: 1.7;
+    color: rgba(252, 248, 243, 0.7);
+    max-width: 560px;
+  }
+
+  .um__deadline-text strong {
+    color: var(--color-gold-600);
+    font-weight: 500;
+  }
+
+  /* ── Guarantees ── */
+  .um__guarantees {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    background-color: var(--color-white);
+    border: 1px solid var(--color-gold-600);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+  }
+
+  .um__guarantee {
+    padding: var(--spacing-32);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-16);
+    position: relative;
+    transition: background-color 200ms ease;
+  }
+
+  .um__guarantee:hover {
+    background-color: var(--color-gold-300);
+  }
+
+  .um__guarantee + .um__guarantee::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: var(--spacing-32);
+    bottom: var(--spacing-32);
+    width: 1px;
+    background: var(--color-gold-600);
+  }
+
+  .um__guarantee-num {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-h2);
+    font-weight: 600;
+    font-style: italic;
+    color: var(--color-gold-600);
+    line-height: 1;
+  }
+
+  .um__guarantee-title {
+    font-family: var(--font-body);
+    font-size: var(--font-size-lg);
+    font-weight: 400;
+    color: var(--color-dark-900);
+    line-height: 1.3;
+  }
+
+  .um__guarantee-text {
+    font-family: var(--font-body);
+    font-size: var(--font-size-base);
+    line-height: 1.5;
+    color: var(--color-text-muted);
+  }
+
+  /* ── FAQ ── */
+  .um__faq {
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid var(--color-gold-600);
+  }
+
+  .um__faq-item {
+    border-bottom: 1px solid var(--color-gold-600);
+  }
+
+  .um__faq-q {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-16);
+    width: 100%;
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    padding: var(--spacing-24) 0;
+  }
+
+  .um__faq-q-index {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-h4);
+    font-weight: 600;
+    font-style: italic;
+    color: var(--color-gold-600);
+    line-height: 1;
+    flex-shrink: 0;
+    width: 44px;
+    transition: color 200ms ease;
+  }
+
+  .um__faq-item.is-open .um__faq-q-index {
+    color: var(--color-gold-900);
+  }
+
+  .um__faq-q-text {
+    flex: 1;
+    font-family: var(--font-body);
+    font-size: var(--font-size-lg);
+    font-weight: 500;
+    color: var(--color-dark-900);
+    line-height: 1.4;
+  }
+
+  .um__faq-icon {
+    font-size: 24px;
+    color: var(--color-gold-900);
+    flex-shrink: 0;
+    display: inline-block;
+    transition: transform 0.42s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .um__faq-item.is-open .um__faq-icon { transform: rotate(45deg); }
+  .um__faq-item.is-closing .um__faq-icon {
+    transform: rotate(0deg);
+    transition: transform 0.22s ease-in;
+  }
+
+  .um__faq-a {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.42s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .um__faq-item.is-open .um__faq-a { grid-template-rows: 1fr; }
+  .um__faq-item.is-closing .um__faq-a {
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.22s ease-in;
+  }
+
+  .um__faq-a-inner {
+    overflow: hidden;
+    padding-left: 60px;
+    padding-bottom: 0;
+    max-width: 680px;
+    transition: padding-bottom 0.42s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .um__faq-item.is-open .um__faq-a-inner {
+    padding-bottom: var(--spacing-24);
+  }
+
+  .um__faq-item.is-closing .um__faq-a-inner {
+    padding-bottom: 0;
+    transition: padding-bottom 0.22s ease-in;
+  }
+
+  .um__faq-a-inner p {
+    font-family: var(--font-body);
+    font-size: var(--font-size-base);
+    line-height: 1.7;
+    color: var(--color-text-muted);
+    opacity: 0;
+    transition: opacity 0.12s ease;
+  }
+
+  .um__faq-item.is-open .um__faq-a-inner p {
+    opacity: 1;
+    transition: opacity 0.28s ease 0.16s;
+  }
+
+  .um__faq-item.is-closing .um__faq-a-inner p {
+    opacity: 0;
+    transition: opacity 0.1s ease;
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 760px) {
+    .um {
+      gap: var(--spacing-48);
+    }
+
+    /* Full-bleed цветные блоки: компенсируем 16px padding inner-page */
+    .um__hero,
+    .um__deadline,
+    .um__section--warm {
+      margin-left: calc(var(--spacing-16) * -1);
+      margin-right: calc(var(--spacing-16) * -1);
+    }
+
+    /* Hero */
+    .um__hero {
+      grid-template-columns: 1fr;
+      grid-template-rows: 220px auto auto;
+    }
+    .um__hero-image {
+      grid-column: 1;
+      grid-row: 1;
+      min-height: unset;
+    }
+    .um__hero-content {
+      grid-column: 1;
+      grid-row: 2;
+      padding: var(--spacing-32) var(--spacing-16);
+    }
+    .um__hero-stats {
+      grid-column: 1;
+      grid-row: 3;
+      padding: var(--spacing-16);
+      flex-wrap: wrap;
+      gap: var(--spacing-16);
+    }
+    .um__hero-stat-sep {
+      display: none;
+    }
+    .um__hero-stat {
+      flex: 0 0 auto;
+    }
+    .um__hero-cta {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .um__title {
+      font-size: var(--font-size-h3);
+    }
+
+    /* Секции */
+    .um__section-title {
+      font-size: var(--font-size-h4);
+    }
+    .um__section--warm {
+      border-radius: 0;
+      padding: var(--spacing-32) var(--spacing-16);
+      /* background наследуется из базового стиля */
+    }
+
+    /* Карточки — одна колонка */
+    .um__cases,
+    .um__methods,
+    .um__limits {
+      grid-template-columns: 1fr;
+    }
+
+    /* Deadline */
+    .um__deadline {
+      border-radius: 0;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--spacing-24);
+      padding: var(--spacing-32) var(--spacing-16);
+    }
+    .um__deadline-divider {
+      width: 40px;
+      height: 1px;
+    }
+    .um__deadline-num {
+      font-size: 72px;
+    }
+
+    /* Гарантии */
+    .um__guarantees {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .um__guarantee + .um__guarantee::before {
+      display: none;
+    }
+    .um__guarantee:nth-child(odd) {
+      border-right: 1px solid var(--color-gold-600);
+    }
+    .um__guarantee:nth-child(1),
+    .um__guarantee:nth-child(2) {
+      border-bottom: 1px solid var(--color-gold-600);
+    }
+
+    /* FAQ */
+    .um__faq-q-index {
+      width: 32px;
+      font-size: var(--font-size-h6, 25px);
+    }
+    .um__faq-a-inner {
+      padding-left: 48px;
+    }
+  }
+
+  @media (max-width: 500px) {
+    .um__guarantees {
+      grid-template-columns: 1fr;
+    }
+    .um__guarantee:nth-child(odd) {
+      border-right: none;
+    }
+    .um__guarantee + .um__guarantee {
+      border-top: 1px solid var(--color-gold-600);
+    }
+    .um__guarantee:nth-child(1),
+    .um__guarantee:nth-child(2) {
+      border-bottom: none;
+    }
+  }
+</style>

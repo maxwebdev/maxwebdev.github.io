@@ -1,0 +1,68 @@
+---
+---
+
+<section class="advantages-bar">
+  <div class="advantages-bar__wrapper">
+    <div class="advantages-bar__item">
+      <div class="advantages-bar__num">15+</div>
+      <div class="advantages-bar__text">Лет мастерства</div>
+    </div>
+    <div class="advantages-bar__divider"></div>
+    <div class="advantages-bar__item">
+      <div class="advantages-bar__num">10 000+</div>
+      <div class="advantages-bar__text">Изделий создано</div>
+    </div>
+    <div class="advantages-bar__divider"></div>
+    <div class="advantages-bar__item">
+      <div class="advantages-bar__num">21 рабочий день</div>
+      <div class="advantages-bar__text">От эскиза до кольца</div>
+    </div>
+    <div class="advantages-bar__divider"></div>
+    <div class="advantages-bar__item">
+      <div class="advantages-bar__num">100%</div>
+      <div class="advantages-bar__text">Пробирная палата</div>
+    </div>
+  </div>
+</section>
+
+<style>
+.advantages-bar {
+  background-color: var(--color-dark-900);
+  display: flex; flex-direction: column; align-items: center;
+  padding: var(--spacing-64) var(--spacing-48);
+  overflow: hidden; width: 100%;
+}
+.advantages-bar__wrapper {
+  display: flex; align-items: center; justify-content: space-between;
+  max-width: 1400px; width: 100%;
+}
+.advantages-bar__item {
+  display: flex; flex-direction: column; gap: var(--spacing-8); white-space: nowrap;
+}
+.advantages-bar__num {
+  font-family: var(--font-heading); font-weight: 600; font-style: italic;
+  font-size: var(--font-size-h3); line-height: 1; color: var(--color-gold-600);
+}
+.advantages-bar__text {
+  font-family: var(--font-body); font-size: var(--font-size-base);
+  line-height: 1.5; color: var(--color-gold-600); text-transform: uppercase;
+}
+.advantages-bar__divider {
+  width: 1px; height: 56px; background-color: var(--color-gold-600); flex-shrink: 0;
+}
+@media (max-width: 1024px) {
+  .advantages-bar { padding: var(--spacing-48) var(--spacing-32); }
+  .advantages-bar__wrapper { flex-wrap: wrap; gap: var(--spacing-32); justify-content: center; }
+  .advantages-bar__divider { display: none; }
+  .advantages-bar__item { align-items: center; text-align: center; white-space: normal; }
+}
+@media (max-width: 760px) {
+  .advantages-bar { padding: var(--spacing-32) var(--spacing-24); }
+  .advantages-bar__wrapper {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-32) var(--spacing-16);
+  }
+  .advantages-bar__num { font-size: 28px; }
+  .advantages-bar__text { font-size: 13px; }
+}
+</style>

@@ -1,0 +1,75 @@
+---
+---
+
+<section class="hero">
+  <div class="hero__wrapper">
+    <div class="hero__label">
+      <span>Ювелирная мастерская «Артель»</span> · <span>Санкт-Петербург</span> · <span>С 2009 года</span>
+    </div>
+
+    <div class="hero__content">
+      <div class="hero__texts">
+        <h1 class="hero__title">Обручальные кольца, созданные <em>именно для вас</em> — а&nbsp;не&nbsp;из&nbsp;витрины</h1>
+        <p class="hero__desc">Покажите нам фото, эскиз или просто расскажите идею — мы создадим кольца, которых больше ни у кого не будет. Собственное производство, 3D&#8209;модель до начала работы, государственное клеймо.</p>
+      </div>
+      <div class="hero__buttons">
+        <a href="#manager" class="btn btn--primary">Обсудить дизайн с мастером</a>
+        <a href="#portfolio" class="btn btn--outline">Посмотреть работы</a>
+      </div>
+    </div>
+
+    <div class="hero__image">
+      <picture>
+        <source srcset="/images/hero-rings.webp" type="image/webp" />
+        <img src="/images/hero-rings.png" alt="Обручальные кольца на заказ" width="1000" height="1257" loading="eager" fetchpriority="high" decoding="sync" />
+      </picture>
+    </div>
+  </div>
+</section>
+
+<style>
+.hero {
+  background: linear-gradient(154.68deg, var(--color-gold-300) 0%, var(--color-gold-600) 100%);
+  display: flex; flex-direction: column; align-items: center;
+  padding: var(--spacing-64) var(--spacing-48);
+  overflow: hidden; width: 100%;
+}
+.hero__wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto 1fr;
+  grid-template-areas: "label image" "content image";
+  column-gap: var(--spacing-48); row-gap: var(--spacing-24);
+  max-width: 1400px; width: 100%; overflow: hidden;
+}
+.hero__label { grid-area: label; font-family: var(--font-body); font-size: var(--font-size-base); line-height: 1.5; color: var(--color-gold-900); text-transform: uppercase; }
+.hero__label span { white-space: nowrap; }
+.hero__content { grid-area: content; flex: 1; display: flex; flex-direction: column; gap: var(--spacing-32); min-width: 0; }
+.hero__texts { display: flex; flex-direction: column; gap: var(--spacing-24); width: 100%; }
+.hero__title { font-family: var(--font-heading); font-weight: 600; font-size: var(--font-size-h1); line-height: 1; color: var(--color-dark-900); letter-spacing: -1px; width: 100%; }
+.hero__title em { font-style: italic; color: var(--color-gold-900); }
+.hero__desc { font-family: var(--font-body); font-size: var(--font-size-lg); line-height: 1.5; color: var(--color-text-muted); }
+.hero__buttons { display: flex; gap: var(--spacing-32); align-items: center; padding-top: var(--spacing-24); border-top: 1px solid var(--color-gold-600); width: 100%; }
+.hero__image { grid-area: image; align-self: center; flex: 1; height: 629px; min-width: 0; position: relative; }
+.hero__image img { width: 100%; height: 100%; object-fit: contain; }
+
+@media (max-width: 1024px) {
+  .hero { padding: var(--spacing-48) var(--spacing-32); }
+  .hero__wrapper { grid-template-columns: 1fr; grid-template-rows: auto; grid-template-areas: "label" "image" "content"; row-gap: 0; }
+  .hero__label { margin-bottom: var(--spacing-24); }
+  .hero__image { width: 100%; height: 520px; }
+  .hero__content { margin-top: -104px; position: relative; z-index: 1; }
+  .hero__title { font-size: 40px; }
+}
+@media (max-width: 760px) {
+  .hero__buttons { flex-direction: column; align-items: stretch; }
+  .hero__buttons .btn { text-align: center; }
+}
+@media (max-width: 500px) {
+  .hero { padding: var(--spacing-48) var(--spacing-24); }
+  .hero__label { margin-bottom: 0; }
+  .hero__image { height: 450px; }
+  .hero__content { margin-top: -90px; }
+  .hero__title { font-size: 32px; }
+}
+</style>

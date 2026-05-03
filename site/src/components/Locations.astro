@@ -1,0 +1,93 @@
+---
+---
+
+<section class="locations" id="locations">
+  <div class="locations__header">
+    <h2 class="locations__title">Наши мастерские</h2>
+    <p class="locations__subtitle">Два адреса в Санкт-Петербурге — приходите без записи</p>
+  </div>
+  <div class="locations__grid">
+    <div class="locations__card">
+      <h3 class="locations__card-title">Мастерская в ТЦ Галерея</h3>
+      <address class="locations__address">
+        <span>Лиговский пр., 30, лит. А, 3 этаж, оф. 302</span>
+        <span class="locations__meta">м. Площадь Восстания · 1 мин пешком</span>
+        <span class="locations__meta">Пн–Вс 10:00–20:00</span>
+      </address>
+      <p class="locations__card-desc">Приём заказов, консультации и примерка готовых изделий.</p>
+      <a href="https://yandex.ru/maps/" class="locations__map-link" target="_blank">Построить маршрут</a>
+    </div>
+    <div class="locations__card">
+      <h3 class="locations__card-title">Мастерская на Невском</h3>
+      <address class="locations__address">
+        <span>Невский пр., 100, оф. 12</span>
+        <span class="locations__meta">м. Маяковская · 3 мин пешком</span>
+        <span class="locations__meta">Пн–Сб 10:00–19:00</span>
+      </address>
+      <p class="locations__card-desc">Производство и выдача готовых заказов.</p>
+      <a href="https://yandex.ru/maps/" class="locations__map-link" target="_blank">Построить маршрут</a>
+    </div>
+  </div>
+</section>
+
+<style>
+.locations {
+  background-color: var(--color-bg-light);
+  display: flex; flex-direction: column; gap: var(--spacing-48); align-items: center;
+  padding: var(--spacing-64) var(--spacing-48); width: 100%;
+}
+.locations__header {
+  display: flex; align-items: center; justify-content: space-between;
+  max-width: 1400px; width: 100%; gap: var(--spacing-48);
+}
+.locations__title {
+  font-family: var(--font-heading); font-weight: 600;
+  font-size: var(--font-size-h2); line-height: 1; color: var(--color-dark-900); flex: 1;
+}
+.locations__subtitle {
+  font-family: var(--font-body); font-size: var(--font-size-base);
+  line-height: 1.5; color: var(--color-gold-900); text-align: right; flex: 1;
+}
+.locations__grid {
+  display: flex; gap: var(--spacing-48); max-width: 1400px; width: 100%;
+}
+.locations__card {
+  flex: 1; background-color: var(--color-white);
+  border: 1px solid var(--color-gold-600); padding: var(--spacing-32);
+  display: flex; flex-direction: column; gap: var(--spacing-16);
+}
+.locations__card-title {
+  font-family: var(--font-body); font-size: var(--font-size-lg);
+  font-weight: 500; color: var(--color-dark-900); line-height: 1.3;
+}
+.locations__address {
+  display: flex; flex-direction: column; gap: 6px; font-style: normal;
+  font-family: var(--font-body); font-size: var(--font-size-base);
+  color: var(--color-dark-900); line-height: 1.5;
+}
+.locations__meta {
+  font-size: var(--font-size-sm); color: var(--color-dark-600);
+}
+.locations__card-desc {
+  font-family: var(--font-body); font-size: var(--font-size-base);
+  color: var(--color-text-muted); line-height: 1.5; flex: 1;
+}
+.locations__map-link {
+  font-family: var(--font-body); font-size: var(--font-size-base);
+  color: var(--color-gold-900); text-decoration: underline;
+  text-underline-offset: 3px; align-self: flex-start;
+  transition: color 120ms ease;
+}
+.locations__map-link:hover { color: var(--color-dark-900); }
+@media (max-width: 1024px) {
+  .locations { padding: var(--spacing-48) var(--spacing-32); }
+  .locations__header { flex-direction: column; align-items: flex-start; }
+  .locations__subtitle { text-align: left; }
+}
+@media (max-width: 760px) {
+  .locations__grid { flex-direction: column; }
+}
+@media (max-width: 500px) {
+  .locations { padding: var(--spacing-48) var(--spacing-24); }
+}
+</style>

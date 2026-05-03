@@ -1,0 +1,476 @@
+---
+const navItems = [
+  {
+    id: 'repair',
+    label: 'Ремонт украшений',
+    href: '/repair',
+    dropdown: [
+      { label: 'Уменьшение колец',         href: '/repair/umenshenie-kolecz',                 icon: '/icons/nav/ico_ring-reduce.svg' },
+      { label: 'Увеличение колец',          href: '/repair/uvelichenie-kolecz',                icon: '/icons/nav/ico_ring-enlarge.svg' },
+      { label: 'Пайка цепочек и браслетов', href: '/repair/pajka-cepochek-brasletov-i-lozhek', icon: '/icons/nav/ico_soldering.svg' },
+      { label: 'Лазерная пайка',            href: '/repair/lazernaja-pajka',                   icon: '/icons/nav/ico_soldering-laser.svg' },
+      { label: 'Ремонт и замена замков',     href: '/repair/remont-i-zamena-zamkov',             icon: '/icons/nav/ico_lock-repair.svg' },
+      { label: 'Закрепка камней',           href: '/repair/zakrepka-kamnej',                   icon: '/icons/nav/ico_stone-fastening.svg' },
+      { label: 'Перевязка бус',             href: '/repair/perevjazka-bus-i-brasletov',         icon: '/icons/nav/ico_busi.svg' },
+      { label: 'Родирование, золочение',    href: '/repair/rodirovanie-zolochenie-serebrenie',  icon: '/icons/nav/ico_rodirovanie.svg' },
+      { label: 'Дополнительные услуги',     href: '/repair/dopolnitelnye-uslugi',               icon: '/icons/nav/ico_drugie.svg' },
+    ],
+  },
+  {
+    id: 'watch',
+    label: 'Ремонт часов',
+    href: '/watch-repair',
+    dropdown: [
+      { label: 'Замена батарейки',   href: '/watch-repair/battery' },
+      { label: 'Ремонт механизма',   href: '/watch-repair/mechanism' },
+      { label: 'Замена стекла',      href: '/watch-repair/crystal' },
+      { label: 'Чистка и смазка',    href: '/watch-repair/service' },
+      { label: 'Замена ремешка',     href: '/watch-repair/strap' },
+      { label: 'Водозащита',         href: '/watch-repair/waterproof' },
+    ],
+  },
+  {
+    id: 'engraving',
+    label: 'Гравировка',
+    href: '/engraving',
+    dropdown: [
+      { label: 'Лазерная гравировка', href: '/engraving/laser' },
+      { label: 'Ручная гравировка',   href: '/engraving/manual' },
+      { label: 'На кольцах',          href: '/engraving/rings' },
+      { label: 'На браслетах',        href: '/engraving/bracelets' },
+      { label: 'На подвесках',        href: '/engraving/pendants' },
+      { label: 'Корпоративная',       href: '/engraving/corporate' },
+    ],
+  },
+  {
+    id: 'manufacturing',
+    label: 'Изготовление украшений',
+    href: '/manufacturing',
+    dropdown: [
+      { label: 'Обручальные кольца',  href: '/manufacturing/wedding' },
+      { label: 'Помолвочные кольца',  href: '/manufacturing/engagement' },
+      { label: 'Кольца с камнями',    href: '/manufacturing/stone-rings' },
+      { label: 'Серьги на заказ',     href: '/manufacturing/earrings' },
+      { label: 'Подвески и кулоны',   href: '/manufacturing/pendants' },
+      { label: 'Браслеты на заказ',   href: '/manufacturing/bracelets' },
+    ],
+  },
+  { id: null, label: 'Каталог',   href: '/catalog' },
+  { id: null, label: 'Контакты',  href: '/about/contacts' },
+];
+---
+
+<header class="header">
+
+  <!-- Topbar -->
+  <div class="header-topbar">
+    <div class="header-topbar__inner">
+      <span class="header-topbar__text">
+        Ювелирная мастерская «Артель» · Санкт-Петербург · Ремонт и изготовление ювелирных украшений
+      </span>
+      <div class="header-topbar__contacts">
+        <span class="header-topbar__hours">Пн–Вс 10:00–20:00</span>
+        <a href="tel:+79319616090" class="header-topbar__phone">+7 931 961-60-90</a>
+        <a href="https://t.me/artel_spb" class="header-topbar__messenger">Telegram</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Nav row -->
+  <div class="header__body">
+    <div class="header__inner">
+
+      <div class="header__logo">
+        <a href="/" class="header__logo-img">
+          <img src="/images/logo-mark.svg" alt="" class="header__logo-mark" />
+          <img src="/images/logo-text.svg" alt="Артель" class="header__logo-text" />
+        </a>
+      </div>
+
+      <nav class="header__nav">
+        <ul class="header__nav-list">
+          {navItems.map((item) => (
+            <li
+              class={`header__nav-item${item.id ? ' header__nav-item--has-dropdown' : ''}`}
+              data-trigger={item.id ?? undefined}
+            >
+              <a href={item.href} class="header__nav-link">
+                {item.label}
+                {item.id && (
+                  <svg class="header__nav-chevron" width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true">
+                    <path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                )}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+
+      <!-- Mobile: телефон + бургер -->
+      <div class="header__contacts">
+        <a href="tel:+79319616090" class="header__contact-phone">+7 931 961-60-90</a>
+        <button class="header__burger" aria-label="Открыть меню" aria-expanded="false" data-mobile-trigger>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Dropdown panels (position: absolute relative to header) -->
+  {navItems.filter(item => item.id && item.dropdown).map((item) => (
+    <div class="header__dropdown" data-dropdown={item.id}>
+      <div class="header__dropdown-body">
+        {item.dropdown!.map((sub) => (
+          <a href={sub.href} class="header__dropdown-item">
+            {sub.icon
+              ? <img src={sub.icon} alt="" class="header__dropdown-icon-img" width="48" height="48" loading="lazy" aria-hidden="true" />
+              : <div class="header__dropdown-icon" aria-hidden="true"></div>
+            }
+            <span class="header__dropdown-label">{sub.label}</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  ))}
+
+</header>
+
+<!-- Mobile Menu (Full Screen) -->
+<div class="header__mobile-menu" data-mobile-menu aria-hidden="true">
+  <div class="header__mobile-inner">
+    <ul class="header__mobile-nav">
+      {navItems.map((item) => (
+        <li class="header__mobile-item">
+          <a href={item.href} class="header__mobile-link">{item.label}</a>
+        </li>
+      ))}
+    </ul>
+    <div class="header__mobile-footer">
+      <a href="tel:+79319616090" class="btn btn--primary">Позвонить нам</a>
+      <a href="https://t.me/artel_spb" class="btn btn--outline">Написать в Telegram</a>
+      <span class="header__mobile-hours">Пн–Вс 10:00–20:00</span>
+    </div>
+  </div>
+</div>
+
+<style is:global>
+/* ── Topbar ─────────────────────────────────────────── */
+.header-topbar {
+  background-color: var(--color-dark-900);
+  width: 100%;
+  padding: 0 var(--spacing-48);
+}
+.header-topbar__inner {
+  display: flex; align-items: center; justify-content: space-between;
+  max-width: 1400px; width: 100%; margin: 0 auto;
+  padding: 8px 0;
+}
+.header-topbar__text {
+  font-family: var(--font-body); font-size: var(--font-size-sm);
+  color: var(--color-dark-600); text-transform: uppercase; letter-spacing: 0.06em;
+}
+.header-topbar__contacts { display: flex; align-items: center; gap: var(--spacing-24); }
+.header-topbar__hours {
+  font-family: var(--font-body); font-size: var(--font-size-sm);
+  color: var(--color-dark-600); text-transform: uppercase; letter-spacing: 0.06em;
+}
+.header-topbar__phone {
+  font-family: var(--font-body); font-size: var(--font-size-sm);
+  color: var(--color-gold-600); font-weight: 500; white-space: nowrap;
+  transition: color var(--transition-fast);
+}
+.header-topbar__phone:hover { color: var(--color-gold-900); }
+.header-topbar__messenger {
+  font-family: var(--font-body); font-size: var(--font-size-sm);
+  color: var(--color-gold-600); text-transform: uppercase; letter-spacing: 0.06em;
+  transition: color var(--transition-fast);
+}
+.header-topbar__messenger:hover { color: var(--color-gold-900); }
+
+/* ── Header shell ───────────────────────────────────── */
+.header {
+  position: fixed; top: 0; left: 0; width: 100%;
+  z-index: 100;
+  background-color: var(--color-bg-light);
+  border-bottom: 1px solid var(--color-header-border);
+  transform: translateY(0);
+  transition: transform 220ms ease;
+}
+.header--hidden { transform: translateY(-100%); }
+
+/* ── Nav row ────────────────────────────────────────── */
+.header__body { width: 100%; padding: 0 var(--spacing-48); }
+.header__inner {
+  display: flex; align-items: center; justify-content: space-between;
+  height: 72px; max-width: 1400px; width: 100%; margin: 0 auto;
+  gap: var(--spacing-32);
+}
+
+/* Logo */
+.header__logo { flex-shrink: 0; display: flex; align-items: center; }
+.header__logo-img {
+  display: flex; align-items: center;
+  position: relative; width: 84px; height: 26px;
+}
+.header__logo-mark { position: absolute; left: 0; top: 0; height: 26px; width: auto; }
+.header__logo-text { position: absolute; left: 25px; top: 50%; transform: translateY(-50%); height: 18px; width: auto; }
+
+/* Nav */
+.header__nav { flex: 1; }
+.header__nav-list {
+  display: flex; align-items: center; justify-content: center;
+  gap: var(--spacing-32); flex-wrap: wrap;
+}
+.header__nav-item { position: relative; }
+.header__nav-link {
+  display: flex; align-items: center; gap: 5px;
+  font-family: var(--font-body); font-size: var(--font-size-sm);
+  color: var(--color-text-muted); text-transform: uppercase;
+  letter-spacing: 0.06em; white-space: nowrap;
+  transition: color var(--transition-fast);
+}
+.header__nav-link:hover,
+.header__nav-item.is-open .header__nav-link { color: var(--color-gold-900); }
+.header__nav-chevron {
+  flex-shrink: 0;
+  transition: transform var(--transition-fast);
+}
+.header__nav-item.is-open .header__nav-chevron { transform: rotate(180deg); }
+
+/* Mobile phone & burger */
+.header__contacts { display: none; align-items: center; flex-shrink: 0; gap: var(--spacing-16); }
+.header__contact-phone {
+  font-family: var(--font-body); font-size: var(--font-size-sm);
+  font-weight: 500; color: var(--color-gold-900); white-space: nowrap;
+}
+.header__burger {
+  display: flex; align-items: center; justify-content: center;
+  background: none; border: none; padding: 4px; margin-right: -4px;
+  color: var(--color-dark-900); cursor: pointer;
+  transition: color var(--transition-fast);
+}
+.header__burger:hover { color: var(--color-gold-900); }
+
+/* Mobile Menu Overlay */
+.header__mobile-menu {
+  display: none; /* shown in media query */
+  position: fixed; top: 72px; left: 0; right: 0; bottom: 0;
+  background-color: var(--color-bg-light);
+  z-index: 90;
+  overflow-y: auto;
+  opacity: 0; pointer-events: none;
+  transform: translateY(-10px);
+  transition: opacity 200ms ease, transform 200ms ease;
+  border-top: 1px solid var(--color-header-border);
+}
+.header__mobile-menu.is-visible {
+  opacity: 1; pointer-events: auto; transform: translateY(0);
+}
+.header__mobile-inner {
+  padding: var(--spacing-32);
+  display: flex; flex-direction: column; min-height: 100%;
+}
+.header__mobile-nav {
+  display: flex; flex-direction: column; gap: var(--spacing-24);
+  margin-bottom: var(--spacing-48);
+  align-items: center;
+}
+.header__mobile-link {
+  font-family: var(--font-body); font-size: var(--font-size-lg);
+  text-transform: uppercase; letter-spacing: 0.06em;
+  color: var(--color-dark-900); text-decoration: none; text-align: center;
+  transition: color var(--transition-fast);
+}
+.header__mobile-link:active { color: var(--color-gold-900); }
+.header__mobile-footer {
+  margin-top: auto; display: flex; flex-direction: column; gap: var(--spacing-16);
+  padding-bottom: var(--spacing-48); /* safe area padding */
+}
+.header__mobile-hours {
+  text-align: center; font-family: var(--font-body); font-size: var(--font-size-sm);
+  color: var(--color-dark-600); text-transform: uppercase; letter-spacing: 0.06em;
+  margin-top: var(--spacing-8);
+}
+
+/* ── Dropdown panel ─────────────────────────────────── */
+.header__dropdown {
+  position: absolute;
+  top: 100%; left: 0; right: 0;
+  background: var(--color-white);
+  border-top: 2px solid var(--color-gold-900);
+  box-shadow: 0 12px 40px rgba(35, 31, 27, 0.10);
+  padding: var(--spacing-32) var(--spacing-48);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-6px);
+  transition: opacity 180ms ease, transform 180ms ease;
+  z-index: 10;
+}
+.header__dropdown.is-visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+.header__dropdown-body {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+  gap: var(--spacing-8);
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* Dropdown item */
+.header__dropdown-item {
+  display: flex; flex-direction: column; align-items: center;
+  gap: var(--spacing-8); padding: var(--spacing-24) var(--spacing-16);
+  border-radius: var(--radius-sm);
+  transition: background var(--transition-fast);
+  cursor: pointer;
+}
+.header__dropdown-item:hover { background: var(--color-gold-300); }
+
+/* Icon circle placeholder */
+.header__dropdown-icon {
+  width: 56px; height: 56px;
+  border-radius: 50%;
+  background: var(--color-gold-300);
+  border: 1px solid var(--color-gold-600);
+  flex-shrink: 0;
+  transition: border-color var(--transition-fast), background var(--transition-fast);
+}
+.header__dropdown-item:hover .header__dropdown-icon {
+  border-color: var(--color-gold-900);
+  background: var(--color-gold-600);
+}
+
+/* Actual icon image */
+.header__dropdown-icon-img {
+  width: 56px; height: 56px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.header__dropdown-label {
+  font-family: var(--font-body); font-size: 11px;
+  color: var(--color-dark-900); text-align: center;
+  text-transform: uppercase; letter-spacing: 0.06em; line-height: 1.4;
+  transition: color var(--transition-fast);
+}
+.header__dropdown-item:hover .header__dropdown-label { color: var(--color-gold-900); }
+
+/* ── Responsive ─────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .header-topbar { display: none; }
+  .header__body { padding: 0 var(--spacing-32); }
+  .header__nav { display: none; }
+  .header__dropdown { display: none; }
+  .header__contacts { display: flex; }
+  .header__mobile-menu { display: block; }
+}
+@media (max-width: 500px) {
+  .header__body { padding: 0 var(--spacing-16); }
+  .header__inner { height: 48px; }
+  .header__logo-img { width: 70px; height: 21px; }
+  .header__logo-mark { height: 21px; }
+  .header__logo-text { height: 15px; left: 21px; }
+  .header__mobile-menu { top: 48px; }
+  .header__mobile-inner { padding: var(--spacing-24) var(--spacing-16); }
+}
+</style>
+
+<script>
+const header = document.querySelector('.header') as HTMLElement;
+
+/* ── Hide on scroll ── */
+if (header) {
+  const setOffset = () => { document.body.style.paddingTop = header.offsetHeight + 'px'; };
+  setOffset();
+  window.addEventListener('resize', setOffset);
+
+  let lastY = window.scrollY;
+  window.addEventListener('scroll', () => {
+    const y = window.scrollY;
+    if (y <= header.offsetHeight) {
+      header.classList.remove('header--hidden');
+    } else if (y > lastY) {
+      header.classList.add('header--hidden');
+    } else {
+      header.classList.remove('header--hidden');
+    }
+    lastY = y;
+  }, { passive: true });
+}
+
+/* ── Dropdowns ── */
+const triggers = document.querySelectorAll<HTMLElement>('[data-trigger]');
+const dropdowns = document.querySelectorAll<HTMLElement>('[data-dropdown]');
+
+let hideTimer: ReturnType<typeof setTimeout>;
+let activeId: string | null = null;
+
+function show(id: string) {
+  clearTimeout(hideTimer);
+  if (activeId === id) return;
+  hide(true);
+  activeId = id;
+  document.querySelector(`[data-trigger="${id}"]`)?.closest('.header__nav-item')?.classList.add('is-open');
+  document.querySelector<HTMLElement>(`[data-dropdown="${id}"]`)?.classList.add('is-visible');
+}
+
+function hide(immediate = false) {
+  const doHide = () => {
+    if (activeId) {
+      document.querySelector(`[data-trigger="${activeId}"]`)?.closest('.header__nav-item')?.classList.remove('is-open');
+      document.querySelector<HTMLElement>(`[data-dropdown="${activeId}"]`)?.classList.remove('is-visible');
+      activeId = null;
+    }
+  };
+  if (immediate) { doHide(); } else { hideTimer = setTimeout(doHide, 180); }
+}
+
+triggers.forEach(trigger => {
+  const id = trigger.dataset.trigger!;
+  trigger.closest('.header__nav-item')?.addEventListener('mouseenter', () => show(id));
+  trigger.closest('.header__nav-item')?.addEventListener('mouseleave', () => hide());
+});
+
+dropdowns.forEach(dropdown => {
+  const id = dropdown.dataset.dropdown!;
+  dropdown.addEventListener('mouseenter', () => { clearTimeout(hideTimer); if (activeId !== id) show(id); });
+  dropdown.addEventListener('mouseleave', () => hide());
+});
+
+/* ── Mobile Menu ── */
+const mobileTrigger = document.querySelector<HTMLElement>('[data-mobile-trigger]');
+const mobileMenu = document.querySelector<HTMLElement>('[data-mobile-menu]');
+
+if (mobileTrigger && mobileMenu) {
+  const burgerSvg = mobileTrigger.querySelector('svg');
+  
+  mobileTrigger.addEventListener('click', () => {
+    const isExpanded = mobileTrigger.getAttribute('aria-expanded') === 'true';
+    mobileTrigger.setAttribute('aria-expanded', String(!isExpanded));
+    mobileMenu.classList.toggle('is-visible');
+    
+    document.body.style.overflow = isExpanded ? '' : 'hidden';
+    document.documentElement.style.overflow = isExpanded ? '' : 'hidden';
+    
+    if (burgerSvg) {
+      if (!isExpanded) {
+        // Cross
+        burgerSvg.innerHTML = `<line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line>`;
+      } else {
+        // Burger
+        burgerSvg.innerHTML = `<line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line>`;
+      }
+    }
+  });
+}
+</script>

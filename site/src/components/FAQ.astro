@@ -1,0 +1,225 @@
+---
+import { sanityClient } from '../lib/sanity';
+
+interface Props {
+  category?: string;
+}
+
+interface FaqItem {
+  question: string;
+  answer: string;
+}
+
+const { category = 'manufacturing' } = Astro.props;
+
+const faqs: FaqItem[] = await sanityClient.fetch(
+  `*[_type == "faqItem" && category == $category] | order(order asc) { question, answer }`,
+  { category }
+);
+---
+
+<section class="locations" id="locations">
+  <div class="locations__header">
+    <h2 class="locations__title">Мастерские</h2>
+    <p class="locations__subtitle">Вы можете прийти к нам лично</p>
+  </div>
+  <div class="locations__grid">
+    <div class="locations__card">
+      <h3 class="locations__card-title">Мастерская в ТЦ Галерея</h3>
+      <address class="locations__address">
+        <span>Лиговский пр., 30, лит. А, 3 этаж, оф. 302</span>
+        <span class="locations__meta">м. Площадь Восстания · 1 мин пешком</span>
+        <span class="locations__meta">Пн–Вс 10:00–20:00</span>
+      </address>
+      <p class="locations__card-desc">Центральная мастерская. Можно заказать изделие, посмотреть примеры работ, примерить готовые кольца и обсудить дизайн.</p>
+      <a href="https://yandex.ru/maps/-/CPRlvS77" class="locations__map-link" target="_blank" rel="noopener">Построить маршрут</a>
+    </div>
+    <div class="locations__card">
+      <h3 class="locations__card-title">Мастерская в ТРК Атмосфера</h3>
+      <address class="locations__address">
+        <span>пр. Просвещения, 19, 2 этаж</span>
+        <span class="locations__meta">м. Проспект Просвещения · 5 мин пешком</span>
+        <span class="locations__meta">Пн–Вс 10:00–21:00</span>
+      </address>
+      <p class="locations__card-desc">Удобная точка в торговом центре. Консультация, приём заказов, примерка.</p>
+      <a href="https://yandex.ru/maps/" class="locations__map-link" target="_blank" rel="noopener">Построить маршрут</a>
+    </div>
+  </div>
+</section>
+
+<section class="faq-section" aria-labelledby="faq-title" id="faq">
+  <div class="faq">
+    <h2 class="faq__title" id="faq-title">Частые вопросы</h2>
+    {faqs.map((faq, i) => (
+      <div class="faq__item">
+        <button
+          class="faq__question"
+          type="button"
+          aria-expanded="false"
+          aria-controls={`faq-panel-${i}`}
+        >
+          <span>{faq.question}</span>
+          <span class="faq__icon" aria-hidden="true">+</span>
+        </button>
+        <div class="faq__answer" id={`faq-panel-${i}`} role="region">
+          <div class="faq__answer-inner">
+            <p>{faq.answer}</p>
+          </div>
+        </div>
+      </div>
+    ))}
+  </div>
+</section>
+
+<script>
+  document.querySelectorAll<HTMLElement>('.faq__item').forEach(item => {
+    const btn = item.querySelector<HTMLButtonElement>('.faq__question')!;
+    const answer = item.querySelector<HTMLElement>('.faq__answer')!;
+
+    btn.addEventListener('click', () => {
+      if (item.classList.contains('is-open')) {
+        item.classList.add('is-closing');
+        item.classList.remove('is-open');
+        btn.setAttribute('aria-expanded', 'false');
+        answer.addEventListener('transitionend', () => {
+          item.classList.remove('is-closing');
+        }, { once: true });
+      } else {
+        item.classList.remove('is-closing');
+        item.classList.add('is-open');
+        btn.setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
+</script>
+
+<style>
+.locations {
+  background-color: var(--color-bg-light);
+  display: flex; flex-direction: column; gap: var(--spacing-64); align-items: center;
+  padding: var(--spacing-64) var(--spacing-48); overflow: hidden; width: 100%;
+}
+.locations__header {
+  display: flex; align-items: center; justify-content: space-between;
+  max-width: 1400px; width: 100%; gap: var(--spacing-48);
+}
+.locations__title {
+  font-family: var(--font-heading); font-weight: 600;
+  font-size: var(--font-size-h2); line-height: 1; color: var(--color-dark-900); flex: 1;
+}
+.locations__subtitle {
+  font-family: var(--font-body); font-size: var(--font-size-base);
+  line-height: 1.5; color: var(--color-gold-900); text-align: right; flex: 1;
+}
+.locations__grid {
+  display: flex; gap: var(--spacing-48); max-width: 1400px; width: 100%;
+}
+.locations__card {
+  flex: 1; padding: var(--spacing-32);
+  border: 1px solid var(--color-gold-600); background-color: var(--color-white);
+  display: flex; flex-direction: column; gap: var(--spacing-16);
+}
+.locations__card-title {
+  font-family: var(--font-body); font-size: var(--font-size-h6);
+  line-height: 1.3; color: var(--color-dark-900); font-weight: 500;
+}
+.locations__address {
+  display: flex; flex-direction: column; gap: var(--spacing-8);
+  font-family: var(--font-body); font-size: var(--font-size-base);
+  line-height: 1.5; color: var(--color-dark-900); font-style: normal;
+}
+.locations__meta {
+  font-family: var(--font-body); font-size: var(--font-size-sm);
+  color: var(--color-dark-600); text-transform: uppercase; letter-spacing: 0.04em;
+}
+.locations__card-desc {
+  font-family: var(--font-body); font-size: var(--font-size-base);
+  line-height: 1.5; color: var(--color-text-muted); flex: 1;
+}
+.locations__map-link {
+  font-family: var(--font-body); font-size: var(--font-size-sm);
+  color: var(--color-gold-900); text-transform: uppercase; letter-spacing: 0.06em;
+  font-weight: 500; text-decoration: underline; text-underline-offset: 3px;
+  transition: color var(--transition-fast); align-self: flex-start;
+}
+.locations__map-link:hover { color: var(--color-dark-900); }
+
+/* FAQ */
+.faq-section {
+  background-color: var(--color-white);
+  display: flex; flex-direction: column; align-items: center;
+  padding: var(--spacing-64) var(--spacing-48); width: 100%;
+}
+.faq {
+  max-width: 900px; width: 100%;
+}
+.faq__title {
+  font-family: var(--font-heading); font-weight: 600;
+  font-size: var(--font-size-h2); line-height: 1; color: var(--color-dark-900);
+  margin-bottom: var(--spacing-48);
+}
+.faq__item {
+  border-bottom: 1px solid var(--color-gold-600);
+}
+.faq__question {
+  display: flex; justify-content: space-between; align-items: center;
+  width: 100%; background: none; border: none; cursor: pointer; text-align: left;
+  font-family: var(--font-body); font-size: var(--font-size-lg);
+  font-weight: 500; color: var(--color-dark-900); gap: var(--spacing-16);
+  padding: var(--spacing-24) 0;
+}
+.faq__icon {
+  font-size: 24px; color: var(--color-gold-900); flex-shrink: 0;
+  display: inline-block;
+  transition: transform 0.42s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.faq__item.is-open .faq__icon { transform: rotate(45deg); }
+.faq__item.is-closing .faq__icon {
+  transform: rotate(0deg);
+  transition: transform 0.22s ease-in;
+}
+
+/* Animated accordion via grid-template-rows trick */
+.faq__answer {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.42s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.faq__item.is-open .faq__answer { grid-template-rows: 1fr; }
+.faq__item.is-closing .faq__answer {
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.22s ease-in;
+}
+.faq__answer-inner {
+  overflow: hidden;
+  padding-bottom: var(--spacing-24);
+}
+.faq__answer-inner p {
+  font-family: var(--font-body); font-size: var(--font-size-base);
+  line-height: 1.5; color: var(--color-text-muted);
+  opacity: 0;
+  transition: opacity 0.12s ease;
+}
+.faq__item.is-open .faq__answer-inner p {
+  opacity: 1;
+  transition: opacity 0.28s ease 0.16s;
+}
+.faq__item.is-closing .faq__answer-inner p {
+  opacity: 0;
+  transition: opacity 0.1s ease;
+}
+
+@media (max-width: 1024px) {
+  .locations { padding: var(--spacing-48) var(--spacing-32); gap: var(--spacing-48); }
+  .locations__header { flex-direction: column; align-items: flex-start; }
+  .locations__subtitle { text-align: left; }
+  .locations__grid { flex-direction: column; }
+  .faq-section { padding: var(--spacing-48) var(--spacing-32); }
+}
+@media (max-width: 500px) {
+  .locations { padding: var(--spacing-48) var(--spacing-24); }
+  .locations__title { font-size: 36px; }
+  .faq-section { padding: var(--spacing-48) var(--spacing-24); }
+  .faq__title { font-size: 36px; }
+}
+</style>

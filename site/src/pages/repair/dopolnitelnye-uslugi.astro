@@ -1,0 +1,1118 @@
+---
+import InnerPage from "../../layouts/InnerPage.astro";
+import SanityPriceTable from "../../components/SanityPriceTable.astro";
+
+const repairLinks = [
+  { label: "Уменьшение колец", href: "/repair/umenshenie-kolecz" },
+  { label: "Увеличение колец", href: "/repair/uvelichenie-kolecz" },
+  {
+    label: "Пайка цепочек и браслетов",
+    href: "/repair/pajka-cepochek-brasletov-i-lozhek",
+  },
+  { label: "Лазерная пайка", href: "/repair/lazernaja-pajka" },
+  { label: "Ремонт и замена замков", href: "/repair/remont-i-zamena-zamkov" },
+  { label: "Закрепка камней", href: "/repair/zakrepka-kamnej" },
+  { label: "Перевязка бус", href: "/repair/perevjazka-bus-i-brasletov" },
+  {
+    label: "Родирование, золочение",
+    href: "/repair/rodirovanie-zolochenie-serebrenie",
+  },
+  { label: "Дополнительные услуги", href: "/repair/dopolnitelnye-uslugi" },
+];
+
+const crumbs = [
+  { label: "Главная", href: "/" },
+  { label: "Ремонт украшений", href: "/repair" },
+  { label: "Дополнительные услуги" },
+];
+
+const guarantees = [
+  {
+    num: "01",
+    title: "Гарантия 1 год",
+    text: "Выдаём письменную гарантию на каждое изделие.",
+  },
+  {
+    num: "02",
+    title: "Мастера с образованием",
+    text: "Все ювелиры с высшим профильным образованием. Стаж — от 8 до 40 лет.",
+  },
+  {
+    num: "03",
+    title: "Честная проверка камней",
+    text: "После ультразвуковой мойки мастер проверяет все крепления под микроскопом.",
+  },
+  {
+    num: "04",
+    title: "Точное определение пробы",
+    text: "Используем химические реактивы и пробирный камень. Результат — прямо при вас.",
+  },
+];
+
+const faqs = [
+  {
+    q: "Безопасна ли ультразвуковая чистка для украшений с камнями?",
+    a: "Не для всех. Бриллианты, сапфиры, рубины — переносят без проблем. Но мягкие, органические и пористые камни (жемчуг, опал, бирюза, коралл, янтарь) и камни с природными микротрещинами (изумруды) — нельзя. Ультразвуковые вибрации могут помутнить жемчуг, вымыть пропитку из изумруда, расширить трещины в опале. Перед чисткой мастер уточнит состав вставок и при необходимости предложит деликатную ручную чистку.",
+  },
+  {
+    q: "Снимается ли металл при шлифовке и полировке?",
+    a: "Да, немного. Профессиональная полировка — это абразивный процесс, при котором снимается микроскопический верхний слой металла вместе с царапинами и потёртостями. Для типичного украшения потеря незначительна — доли грамма. Но если украшение тонкое или на нём нанесено дополнительное покрытие (родий, позолота), слой стирается и его потребуется восстановить.",
+  },
+  {
+    q: "Кольцо из белого золота пожелтело — поможет полировка?",
+    a: "Нет. Пожелтение белого золота — это не грязь, а стёртое родиевое покрытие. Природное белое золото имеет лёгкий желтоватый оттенок, и только тонкий слой родия придаёт ему холодный «платиновый» вид. Одна полировка здесь не поможет — нужно родирование. Это отдельная услуга: мастер нанесёт новый слой родия.",
+  },
+  {
+    q: "Как вы определяете пробу металла и испортит ли это украшение?",
+    a: "Используем пробирный камень и химические реактивы. Мастер делает крошечный соскоб в незаметном месте — достаточно, чтобы убрать возможную позолоту и добраться до основного металла. Затем наносит каплю реактива и оценивает реакцию. Украшение от этого не портится. Более современный вариант — электронный детектор на основе рентгенофлуоресценции: прикладывается к поверхности без всяких царапин.",
+  },
+  {
+    q: "Можно ли определить пробу, если клеймо стёрлось или его не было?",
+    a: "Да. Отсутствие клейма не значит, что украшение ненастоящее: оно могло быть сделано вручную или переделано. Химические реактивы определяют наличие и содержание драгоценного металла независимо от наличия заводских клейм. Мастер проверит каждый элемент отдельно, если у украшения сложная конструкция.",
+  },
+  {
+    q: "Что означают цифры пробы — 585, 750, 925?",
+    a: "Это метрическая система: цифра показывает, сколько граммов чистого металла содержится в 1000 граммах сплава. 585 проба — 58,5% чистого золота. 750 проба — 75% золота (это дороже и мягче). 925 — стандартное серебро, 92,5% серебра. Остальное — лигатура из меди, серебра или цинка, которая придаёт нужную твёрдость и цвет.",
+  },
+];
+---
+
+<InnerPage
+  title="Дополнительные услуги"
+  description="Полировка, ультразвуковая чистка и определение пробы металла в Санкт-Петербурге. Кольцо полируем за 7 минут. Гарантия 1 год."
+  crumbs={crumbs}
+  sidebarLinks={repairLinks}
+  sidebarTitle="Услуги ремонта"
+  activeHref="/repair/dopolnitelnye-uslugi"
+>
+  <div class="ds">
+
+    <!-- ── Hero ── -->
+    <div class="ds__hero">
+      <div class="ds__hero-content">
+        <p class="ds__hero-label">
+          Ювелирная мастерская «Артель» · Санкт-Петербург
+        </p>
+        <h1 class="ds__title">Дополнительные услуги</h1>
+        <p class="ds__lead">
+          Полировка украшений и проверка на подлинность пробы и металла.
+          Любое украшение со временем может потерять блеск, покрыться вмятинами
+          или поцарапаться. Если вы регулярно чистите украшение дома — этого
+          бывает недостаточно.
+        </p>
+        <div class="ds__hero-cta">
+          <a
+            href="https://wa.me/+79319616090?text=Здравствуйте%2C%20хочу%20отполировать%20украшение%2C%20отправляю%20фото"
+            class="btn btn--primary"
+            target="_blank"
+            rel="noopener"
+          >
+            Прислать фото украшения
+          </a>
+          <p class="ds__hero-hint">
+            Оценим состояние и назовём цену
+          </p>
+        </div>
+      </div>
+
+      <div class="ds__hero-image">
+        <div class="ds__hero-img-placeholder">
+          <span>Фото — мастер за полировочным станком, украшение крупным планом</span>
+        </div>
+      </div>
+
+      <div class="ds__hero-stats">
+        <div class="ds__hero-stat">
+          <span class="ds__hero-stat-num">7</span>
+          <div class="ds__hero-stat-info">
+            <span class="ds__hero-stat-unit">мин</span>
+            <span class="ds__hero-stat-label">на простое кольцо</span>
+          </div>
+        </div>
+        <span class="ds__hero-stat-sep" aria-hidden="true"></span>
+        <div class="ds__hero-stat">
+          <span class="ds__hero-stat-num">1</span>
+          <div class="ds__hero-stat-info">
+            <span class="ds__hero-stat-unit">год</span>
+            <span class="ds__hero-stat-label">гарантия на работу</span>
+          </div>
+        </div>
+        <span class="ds__hero-stat-sep" aria-hidden="true"></span>
+        <div class="ds__hero-stat">
+          <span class="ds__hero-stat-num">8–40</span>
+          <div class="ds__hero-stat-info">
+            <span class="ds__hero-stat-unit">лет</span>
+            <span class="ds__hero-stat-label">стаж мастеров</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════ -->
+    <!-- УСЛУГА 1: Полировка и мойка                   -->
+    <!-- ══════════════════════════════════════════════ -->
+
+    <div class="ds__service-header">
+      <p class="ds__label">Услуга</p>
+      <h2 class="ds__service-title">Полируем и моем украшения до блеска</h2>
+      <p class="ds__service-lead">
+        Мы вернём блеск и форму ювелирному изделию, если оно повредилось.
+        Очистим от мельчайшей пыли места крепления камней и всё украшение,
+        чтобы цвет камня заиграл по-новому. После чистки цепочки и браслеты
+        не только засияют, но и прослужат дольше.
+      </p>
+    </div>
+
+    <SanityPriceTable slug="repair-cleaning" />
+
+    <!-- ── От чего зависит цена (полировка) ── -->
+    <div class="ds__section">
+      <p class="ds__label">Стоимость работы</p>
+      <h2 class="ds__section-title">От чего зависит цена?</h2>
+      <div class="ds__cases">
+        <div class="ds__case">
+          <span class="ds__case-num">01</span>
+          <div class="ds__case-title">Ультразвук с камнями</div>
+          <p class="ds__case-text">
+            Цена на мойку в ультразвуке украшений с камнями выше, потому что
+            ультразвуковая волна может выбить камни из изделия или расшатать их.
+            После чистки мастер проверяет все крепления, чтобы камни прочно
+            сидели на месте.
+          </p>
+        </div>
+        <div class="ds__case">
+          <span class="ds__case-num">02</span>
+          <div class="ds__case-title">Старые и сильно загрязнённые</div>
+          <p class="ds__case-text">
+            Если украшение очень старое и долго носилось — например, цепочка
+            со сложным плетением — внутрь могла забиться грязь, которую сложно
+            вымыть. Мастер замачивает изделие в ванне с химическим веществом,
+            если это позволяет конструкция украшения.
+          </p>
+        </div>
+        <div class="ds__case">
+          <span class="ds__case-num">03</span>
+          <div class="ds__case-title">Покрытие под полировкой</div>
+          <p class="ds__case-text">
+            Если на изделии нанесено дополнительное покрытие — родий, позолота —
+            при шлифовке его верхний слой сотрётся. Его можно восстановить.
+            Это дополнительная услуга: мастер ориентирует по стоимости
+            на консультации.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Что нельзя в ультразвук ── -->
+    <div class="ds__section ds__section--warm">
+      <p class="ds__label">Ограничения</p>
+      <h2 class="ds__section-title">Что нельзя чистить в ультразвуке</h2>
+      <p class="ds__section-lead">
+        Ультразвук работает за счёт кавитации — схлопывания миллионов
+        микропузырьков. Это мощная сила, которая опасна для хрупких и пористых
+        материалов.
+      </p>
+      <div class="ds__limits">
+        <div class="ds__limit">
+          <div class="ds__limit-title">Жемчуг и коралл</div>
+          <p class="ds__limit-text">
+            Органические материалы с мягкой пористой поверхностью. Вибрации
+            разрушают перламутровый слой жемчуга: он мутнеет и теряет блеск
+            навсегда. Чистим вручную мягкой тканью.
+          </p>
+        </div>
+        <div class="ds__limit">
+          <div class="ds__limit-title">Изумруд</div>
+          <p class="ds__limit-text">
+            Почти все изумруды на рынке заполнены кедровым маслом или смолой
+            для скрытия трещин. Ультразвук вымывает пропитку — камень мутнеет
+            и обнажает дефекты. Опасно.
+          </p>
+        </div>
+        <div class="ds__limit">
+          <div class="ds__limit-title">Опал, бирюза, малахит</div>
+          <p class="ds__limit-text">
+            Пористые камни, которые содержат воду или впитывают раствор.
+            Вибрации вызывают образование трещин и необратимое изменение цвета.
+          </p>
+        </div>
+        <div class="ds__limit">
+          <div class="ds__limit-title">Эмаль и клеёные камни</div>
+          <p class="ds__limit-text">
+            Ультразвук разрушает клеевой слой — камни попросту выпадут.
+            Эмалевое покрытие при кавитации может отколоться или покрыться
+            сетью трещин.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Сроки (полировка) ── -->
+    <div class="ds__deadline">
+      <div class="ds__deadline-time">
+        <span class="ds__deadline-num">7</span>
+        <span class="ds__deadline-unit">мин</span>
+      </div>
+      <div class="ds__deadline-divider" aria-hidden="true"></div>
+      <div class="ds__deadline-body">
+        <p class="ds__label">Время выполнения</p>
+        <h2 class="ds__deadline-title">Сроки полировки</h2>
+        <p class="ds__deadline-text">
+          Гладкое кольцо мастер отполирует и почистит за <strong>7 минут</strong>.
+          Цепочку с простым плетением без камней — за <strong>20 минут</strong>.
+          Если на изделии есть вставки, гравировка или плетение сложное —
+          мастер сообщит точный срок.
+        </p>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════ -->
+    <!-- УСЛУГА 2: Определение пробы                   -->
+    <!-- ══════════════════════════════════════════════ -->
+
+    <div class="ds__service-header">
+      <p class="ds__label">Услуга</p>
+      <h2 class="ds__service-title">Определяем род и пробу металла точно</h2>
+      <p class="ds__service-lead">
+        Проверка понадобится по разным причинам — если вы хотите купить
+        украшение с рук или в ломбарде, но сомневаетесь в подлинности металла.
+        Или у вас есть старое ювелирное изделие или подарок, ценность которого
+        неясна. Наши мастера точно определят род и пробу украшения.
+        Если у изделия множество деталей — проверим каждый элемент отдельно.
+      </p>
+    </div>
+
+    <SanityPriceTable slug="repair-assay" />
+
+    <!-- ── Методы определения пробы ── -->
+    <div class="ds__section">
+      <p class="ds__label">Технология</p>
+      <h2 class="ds__section-title">Как мы определяем пробу</h2>
+      <div class="ds__methods">
+        <div class="ds__method">
+          <div class="ds__method-index">01</div>
+          <div class="ds__method-title">Пробирный камень и реактивы</div>
+          <p class="ds__method-text">
+            Классический метод. Мастер делает крошечный соскоб в незаметном
+            месте и проводит черту по пробирному камню. Наносит каплю реактива
+            (хлорное золото для золота, хромпик для серебра) и по цвету реакции
+            определяет пробу. Украшение не портится.
+          </p>
+        </div>
+        <div class="ds__method">
+          <div class="ds__method-index">02</div>
+          <div class="ds__method-title">Химический реактив</div>
+          <p class="ds__method-text">
+            Капельный способ: на зачищенную поверхность наносится реактив.
+            Цвет и скорость реакции однозначно указывают на металл и пробу.
+            Применяется для сплавов, которые прошли переделку или не имеют
+            заводского клейма.
+          </p>
+        </div>
+        <div class="ds__method">
+          <div class="ds__method-index">03</div>
+          <div class="ds__method-title">Электронный детектор</div>
+          <p class="ds__method-text">
+            Современный метод на основе рентгенофлуоресценции. Прибор
+            прикладывается к поверхности без царапин и за секунды показывает
+            точный состав сплава. Идеально для изделий с несколькими
+            металлами, когда важно проверить каждый элемент.
+          </p>
+        </div>
+      </div>
+      <div class="ds__assay-notice">
+        <p>
+          Цена зависит от сложности работы, а также от того, сколько деталей
+          ювелирного изделия нужно проверить. Чем их больше — тем сложнее
+          работа для мастера.
+        </p>
+      </div>
+    </div>
+
+    <!-- ── Гарантии ── -->
+    <div class="ds__section">
+      <p class="ds__label">Обязательства</p>
+      <h2 class="ds__section-title">Наши гарантии</h2>
+      <div class="ds__guarantees">
+        {
+          guarantees.map((g) => (
+            <div class="ds__guarantee">
+              <div class="ds__guarantee-num">{g.num}</div>
+              <div class="ds__guarantee-title">{g.title}</div>
+              <div class="ds__guarantee-text">{g.text}</div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+
+    <!-- ── FAQ ── -->
+    <div class="ds__section">
+      <p class="ds__label">Вопросы и ответы</p>
+      <h2 class="ds__section-title">Частые вопросы</h2>
+      <div class="ds__faq">
+        {
+          faqs.map((item, i) => (
+            <div class="ds__faq-item">
+              <button
+                class="ds__faq-q"
+                type="button"
+                aria-expanded="false"
+                aria-controls={`ds-faq-panel-${i}`}
+              >
+                <span class="ds__faq-q-index">{String(i + 1).padStart(2, "0")}</span>
+                <span class="ds__faq-q-text">{item.q}</span>
+                <span class="ds__faq-icon" aria-hidden="true">+</span>
+              </button>
+              <div class="ds__faq-a" id={`ds-faq-panel-${i}`} role="region">
+                <div class="ds__faq-a-inner">
+                  <p>{item.a}</p>
+                </div>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+
+  </div>
+</InnerPage>
+
+<script>
+  document.querySelectorAll<HTMLElement>('.ds__faq-item').forEach(item => {
+    const btn = item.querySelector<HTMLButtonElement>('.ds__faq-q')!;
+    const answer = item.querySelector<HTMLElement>('.ds__faq-a')!;
+
+    btn.addEventListener('click', () => {
+      if (item.classList.contains('is-open')) {
+        item.classList.add('is-closing');
+        item.classList.remove('is-open');
+        btn.setAttribute('aria-expanded', 'false');
+        answer.addEventListener('transitionend', () => {
+          item.classList.remove('is-closing');
+        }, { once: true });
+      } else {
+        item.classList.remove('is-closing');
+        item.classList.add('is-open');
+        btn.setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
+</script>
+
+<style>
+  .ds {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-64);
+  }
+
+  /* ── Hero ── */
+  .ds__hero {
+    background: linear-gradient(
+      154.68deg,
+      var(--color-gold-300) 0%,
+      var(--color-gold-600) 100%
+    );
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr auto;
+    overflow: hidden;
+  }
+
+  .ds__hero-content {
+    grid-column: 1;
+    grid-row: 1;
+    padding: var(--spacing-48);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-24);
+  }
+
+  .ds__hero-image {
+    grid-column: 2;
+    grid-row: 1 / 3;
+    position: relative;
+    min-height: 380px;
+  }
+
+  .ds__hero-img-placeholder {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.10);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ds__hero-img-placeholder span {
+    font-family: var(--font-body);
+    font-size: var(--font-size-sm);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: rgba(0, 0, 0, 0.35);
+    text-align: center;
+    padding: 0 var(--spacing-24);
+  }
+
+  .ds__hero-stats {
+    grid-column: 1;
+    grid-row: 2;
+    display: flex;
+    align-items: center;
+    gap: 0;
+    padding: var(--spacing-24) var(--spacing-48);
+    border-top: 1px solid var(--color-gold-600);
+  }
+
+  .ds__hero-stat {
+    display: flex;
+    align-items: baseline;
+    gap: var(--spacing-8);
+    flex: 1;
+  }
+
+  .ds__hero-stat-num {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-h3);
+    font-weight: 600;
+    font-style: italic;
+    color: var(--color-dark-900);
+    line-height: 1;
+  }
+
+  .ds__hero-stat-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .ds__hero-stat-unit {
+    font-family: var(--font-body);
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-dark-900);
+  }
+
+  .ds__hero-stat-label {
+    font-family: var(--font-body);
+    font-size: var(--font-size-sm);
+    color: var(--color-gold-900);
+    line-height: 1.3;
+    white-space: nowrap;
+  }
+
+  .ds__hero-stat-sep {
+    width: 1px;
+    height: 40px;
+    background: var(--color-gold-600);
+    flex-shrink: 0;
+    margin: 0 var(--spacing-24);
+  }
+
+  .ds__hero-label {
+    font-family: var(--font-body);
+    font-size: var(--font-size-sm);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-gold-900);
+  }
+
+  .ds__title {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-h2);
+    font-weight: 600;
+    color: var(--color-dark-900);
+    line-height: 1;
+  }
+
+  .ds__lead {
+    font-family: var(--font-body);
+    font-size: var(--font-size-lg);
+    line-height: 1.6;
+    color: var(--color-text-muted);
+  }
+
+  .ds__hero-cta {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-24);
+    margin-top: auto;
+  }
+
+  .ds__hero-hint {
+    font-family: var(--font-body);
+    font-size: var(--font-size-sm);
+    color: var(--color-gold-900);
+    line-height: 1.4;
+    max-width: 160px;
+  }
+
+  /* ── Service header ── */
+  .ds__service-header {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-16);
+    padding-top: var(--spacing-16);
+    border-top: 2px solid var(--color-gold-600);
+  }
+
+  .ds__service-title {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-h3);
+    font-weight: 600;
+    color: var(--color-dark-900);
+    line-height: 1.05;
+  }
+
+  .ds__service-lead {
+    font-family: var(--font-body);
+    font-size: var(--font-size-lg);
+    line-height: 1.7;
+    color: var(--color-text-muted);
+    max-width: 720px;
+  }
+
+  /* ── Section ── */
+  .ds__section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-24);
+  }
+
+  .ds__section--warm {
+    background: var(--color-gold-600);
+    border-radius: var(--radius-sm);
+    padding: var(--spacing-48);
+  }
+
+  .ds__label {
+    font-family: var(--font-body);
+    font-size: var(--font-size-sm);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-gold-900);
+  }
+
+  .ds__section-title {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-h3);
+    font-weight: 600;
+    color: var(--color-dark-900);
+    line-height: 1.05;
+    margin-top: calc(var(--spacing-24) * -1);
+  }
+
+  .ds__section-lead {
+    font-family: var(--font-body);
+    font-size: var(--font-size-lg);
+    line-height: 1.7;
+    color: var(--color-text-muted);
+    max-width: 640px;
+  }
+
+  /* ── Cases ── */
+  .ds__cases {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--spacing-24);
+  }
+
+  .ds__case {
+    background-color: var(--color-white);
+    border: 1px solid var(--color-gold-600);
+    border-radius: var(--radius-sm);
+    padding: var(--spacing-32);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-16);
+    transition: transform 200ms ease, box-shadow 200ms ease;
+  }
+
+  .ds__case:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(199, 125, 23, 0.18);
+  }
+
+  .ds__case-num {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-h4);
+    font-weight: 600;
+    font-style: italic;
+    color: var(--color-gold-600);
+    line-height: 1;
+  }
+
+  .ds__case-title {
+    font-family: var(--font-body);
+    font-size: var(--font-size-base);
+    font-weight: 500;
+    color: var(--color-dark-900);
+    line-height: 1.3;
+  }
+
+  .ds__case-text {
+    font-family: var(--font-body);
+    font-size: var(--font-size-base);
+    line-height: 1.6;
+    color: var(--color-text-muted);
+  }
+
+  /* ── Limits ── */
+  .ds__limits {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-24);
+  }
+
+  .ds__limit {
+    background-color: var(--color-white);
+    border: 1px solid var(--color-gold-600);
+    border-left: 3px solid var(--color-gold-900);
+    border-radius: var(--radius-sm);
+    padding: var(--spacing-32);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-16);
+    transition: transform 200ms ease, box-shadow 200ms ease;
+  }
+
+  .ds__limit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(199, 125, 23, 0.18);
+  }
+
+  .ds__limit-title {
+    font-family: var(--font-body);
+    font-size: var(--font-size-base);
+    font-weight: 500;
+    color: var(--color-dark-900);
+    line-height: 1.3;
+  }
+
+  .ds__limit-text {
+    font-family: var(--font-body);
+    font-size: var(--font-size-base);
+    line-height: 1.6;
+    color: var(--color-text-muted);
+  }
+
+  /* ── Methods (проба) ── */
+  .ds__methods {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--spacing-24);
+  }
+
+  .ds__method {
+    background-color: var(--color-white);
+    border: 1px solid var(--color-gold-600);
+    border-radius: var(--radius-sm);
+    padding: var(--spacing-32);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-16);
+    transition: transform 200ms ease, box-shadow 200ms ease;
+  }
+
+  .ds__method:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(199, 125, 23, 0.18);
+  }
+
+  .ds__method-index {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-h4);
+    font-weight: 600;
+    font-style: italic;
+    color: var(--color-gold-600);
+    line-height: 1;
+  }
+
+  .ds__method-title {
+    font-family: var(--font-body);
+    font-size: var(--font-size-base);
+    font-weight: 500;
+    color: var(--color-dark-900);
+    line-height: 1.3;
+  }
+
+  .ds__method-text {
+    font-family: var(--font-body);
+    font-size: var(--font-size-base);
+    line-height: 1.6;
+    color: var(--color-text-muted);
+  }
+
+  .ds__assay-notice {
+    background: var(--color-gold-300);
+    border-radius: var(--radius-sm);
+    padding: var(--spacing-24) var(--spacing-32);
+  }
+
+  .ds__assay-notice p {
+    font-family: var(--font-body);
+    font-size: var(--font-size-base);
+    line-height: 1.6;
+    color: var(--color-dark-900);
+  }
+
+  /* ── Deadline ── */
+  .ds__deadline {
+    background: var(--color-dark-900);
+    border-radius: var(--radius-sm);
+    padding: var(--spacing-48);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-48);
+  }
+
+  .ds__deadline-time {
+    display: flex;
+    align-items: baseline;
+    gap: var(--spacing-8);
+    flex-shrink: 0;
+  }
+
+  .ds__deadline-num {
+    font-family: var(--font-heading);
+    font-size: 96px;
+    font-weight: 600;
+    font-style: italic;
+    color: var(--color-gold-600);
+    line-height: 1;
+  }
+
+  .ds__deadline-unit {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-h3);
+    font-weight: 600;
+    font-style: italic;
+    color: var(--color-gold-600);
+    line-height: 1;
+  }
+
+  .ds__deadline-divider {
+    width: 1px;
+    height: 80px;
+    background: rgba(240, 219, 190, 0.2);
+    flex-shrink: 0;
+  }
+
+  .ds__deadline-body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-8);
+  }
+
+  .ds__deadline-body .ds__label {
+    color: var(--color-gold-600);
+  }
+
+  .ds__deadline-title {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-h3);
+    font-weight: 600;
+    color: var(--color-gold-600);
+    line-height: 1.05;
+  }
+
+  .ds__deadline-text {
+    font-family: var(--font-body);
+    font-size: var(--font-size-base);
+    line-height: 1.7;
+    color: rgba(252, 248, 243, 0.7);
+    max-width: 560px;
+  }
+
+  .ds__deadline-text strong {
+    color: var(--color-gold-600);
+    font-weight: 500;
+  }
+
+  /* ── Guarantees ── */
+  .ds__guarantees {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    background-color: var(--color-white);
+    border: 1px solid var(--color-gold-600);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+  }
+
+  .ds__guarantee {
+    padding: var(--spacing-32);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-16);
+    position: relative;
+    transition: background-color 200ms ease;
+  }
+
+  .ds__guarantee:hover {
+    background-color: var(--color-gold-300);
+  }
+
+  .ds__guarantee + .ds__guarantee::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: var(--spacing-32);
+    bottom: var(--spacing-32);
+    width: 1px;
+    background: var(--color-gold-600);
+  }
+
+  .ds__guarantee-num {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-h2);
+    font-weight: 600;
+    font-style: italic;
+    color: var(--color-gold-600);
+    line-height: 1;
+  }
+
+  .ds__guarantee-title {
+    font-family: var(--font-body);
+    font-size: var(--font-size-lg);
+    font-weight: 400;
+    color: var(--color-dark-900);
+    line-height: 1.3;
+  }
+
+  .ds__guarantee-text {
+    font-family: var(--font-body);
+    font-size: var(--font-size-base);
+    line-height: 1.5;
+    color: var(--color-text-muted);
+  }
+
+  /* ── FAQ ── */
+  .ds__faq {
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid var(--color-gold-600);
+  }
+
+  .ds__faq-item {
+    border-bottom: 1px solid var(--color-gold-600);
+  }
+
+  .ds__faq-q {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-16);
+    width: 100%;
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    padding: var(--spacing-24) 0;
+  }
+
+  .ds__faq-q-index {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-h4);
+    font-weight: 600;
+    font-style: italic;
+    color: var(--color-gold-600);
+    line-height: 1;
+    flex-shrink: 0;
+    width: 44px;
+    transition: color 200ms ease;
+  }
+
+  .ds__faq-item.is-open .ds__faq-q-index {
+    color: var(--color-gold-900);
+  }
+
+  .ds__faq-q-text {
+    flex: 1;
+    font-family: var(--font-body);
+    font-size: var(--font-size-lg);
+    font-weight: 500;
+    color: var(--color-dark-900);
+    line-height: 1.4;
+  }
+
+  .ds__faq-icon {
+    font-size: 24px;
+    color: var(--color-gold-900);
+    flex-shrink: 0;
+    display: inline-block;
+    transition: transform 0.42s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .ds__faq-item.is-open .ds__faq-icon { transform: rotate(45deg); }
+  .ds__faq-item.is-closing .ds__faq-icon {
+    transform: rotate(0deg);
+    transition: transform 0.22s ease-in;
+  }
+
+  .ds__faq-a {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.42s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .ds__faq-item.is-open .ds__faq-a { grid-template-rows: 1fr; }
+  .ds__faq-item.is-closing .ds__faq-a {
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.22s ease-in;
+  }
+
+  .ds__faq-a-inner {
+    overflow: hidden;
+    padding-left: 60px;
+    padding-bottom: 0;
+    max-width: 680px;
+    transition: padding-bottom 0.42s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .ds__faq-item.is-open .ds__faq-a-inner {
+    padding-bottom: var(--spacing-24);
+  }
+
+  .ds__faq-item.is-closing .ds__faq-a-inner {
+    padding-bottom: 0;
+    transition: padding-bottom 0.22s ease-in;
+  }
+
+  .ds__faq-a-inner p {
+    font-family: var(--font-body);
+    font-size: var(--font-size-base);
+    line-height: 1.7;
+    color: var(--color-text-muted);
+    opacity: 0;
+    transition: opacity 0.12s ease;
+  }
+
+  .ds__faq-item.is-open .ds__faq-a-inner p {
+    opacity: 1;
+    transition: opacity 0.28s ease 0.16s;
+  }
+
+  .ds__faq-item.is-closing .ds__faq-a-inner p {
+    opacity: 0;
+    transition: opacity 0.1s ease;
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 760px) {
+    .ds {
+      gap: var(--spacing-48);
+    }
+
+    .ds__hero,
+    .ds__deadline,
+    .ds__section--warm {
+      margin-left: calc(var(--spacing-16) * -1);
+      margin-right: calc(var(--spacing-16) * -1);
+    }
+
+    .ds__hero {
+      grid-template-columns: 1fr;
+      grid-template-rows: 220px auto auto;
+    }
+    .ds__hero-image {
+      grid-column: 1;
+      grid-row: 1;
+      min-height: unset;
+    }
+    .ds__hero-content {
+      grid-column: 1;
+      grid-row: 2;
+      padding: var(--spacing-32) var(--spacing-16);
+    }
+    .ds__hero-stats {
+      grid-column: 1;
+      grid-row: 3;
+      padding: var(--spacing-16);
+      flex-wrap: wrap;
+      gap: var(--spacing-16);
+    }
+    .ds__hero-stat-sep {
+      display: none;
+    }
+    .ds__hero-stat {
+      flex: 0 0 auto;
+    }
+    .ds__hero-cta {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .ds__title {
+      font-size: var(--font-size-h3);
+    }
+
+    .ds__section-title,
+    .ds__service-title {
+      font-size: var(--font-size-h4);
+    }
+    .ds__section--warm {
+      border-radius: 0;
+      padding: var(--spacing-32) var(--spacing-16);
+    }
+
+    .ds__cases,
+    .ds__limits,
+    .ds__methods {
+      grid-template-columns: 1fr;
+    }
+
+    .ds__deadline {
+      border-radius: 0;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--spacing-24);
+      padding: var(--spacing-32) var(--spacing-16);
+    }
+    .ds__deadline-divider {
+      width: 40px;
+      height: 1px;
+    }
+    .ds__deadline-num {
+      font-size: 72px;
+    }
+
+    .ds__guarantees {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .ds__guarantee + .ds__guarantee::before {
+      display: none;
+    }
+    .ds__guarantee:nth-child(odd) {
+      border-right: 1px solid var(--color-gold-600);
+    }
+    .ds__guarantee:nth-child(1),
+    .ds__guarantee:nth-child(2) {
+      border-bottom: 1px solid var(--color-gold-600);
+    }
+
+    .ds__faq-q-index {
+      width: 32px;
+      font-size: var(--font-size-h6, 25px);
+    }
+    .ds__faq-a-inner {
+      padding-left: 48px;
+    }
+  }
+
+  @media (max-width: 500px) {
+    .ds__guarantees {
+      grid-template-columns: 1fr;
+    }
+    .ds__guarantee:nth-child(odd) {
+      border-right: none;
+    }
+    .ds__guarantee + .ds__guarantee {
+      border-top: 1px solid var(--color-gold-600);
+    }
+    .ds__guarantee:nth-child(1),
+    .ds__guarantee:nth-child(2) {
+      border-bottom: none;
+    }
+  }
+</style>

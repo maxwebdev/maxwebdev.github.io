@@ -1,0 +1,1071 @@
+---
+import InnerPage from "../../layouts/InnerPage.astro";
+import SanityPriceTable from "../../components/SanityPriceTable.astro";
+
+const repairLinks = [
+  { label: "Уменьшение колец", href: "/repair/umenshenie-kolecz" },
+  { label: "Увеличение колец", href: "/repair/uvelichenie-kolecz" },
+  {
+    label: "Пайка цепочек и браслетов",
+    href: "/repair/pajka-cepochek-brasletov-i-lozhek",
+  },
+  { label: "Лазерная пайка", href: "/repair/lazernaja-pajka" },
+  { label: "Ремонт и замена замков", href: "/repair/remont-i-zamena-zamkov" },
+  { label: "Закрепка камней", href: "/repair/zakrepka-kamnej" },
+  { label: "Перевязка бус", href: "/repair/perevjazka-bus-i-brasletov" },
+  {
+    label: "Родирование, золочение",
+    href: "/repair/rodirovanie-zolochenie-serebrenie",
+  },
+  { label: "Дополнительные услуги", href: "/repair/dopolnitelnye-uslugi" },
+];
+
+const crumbs = [
+  { label: "Главная", href: "/" },
+  { label: "Ремонт украшений", href: "/repair" },
+  { label: "Пайка цепочек и браслетов" },
+];
+
+const guarantees = [
+  {
+    num: "01",
+    title: "Гарантия 1 год",
+    text: "Выдаём письменную гарантию на каждое изделие после пайки.",
+  },
+  {
+    num: "02",
+    title: "Мастера с образованием",
+    text: "Все ювелиры с высшим профильным образованием. Стаж — от 8 до 40 лет.",
+  },
+  {
+    num: "03",
+    title: "Следы пайки незаметны",
+    text: "После работы вы не увидите шва: место соединения шлифуется и полируется до состояния нового украшения.",
+  },
+  {
+    num: "04",
+    title: "Проверка перед выдачей",
+    text: "Каждое изделие проходит финальную проверку: прочность пайки, целостность покрытия, надёжность замка.",
+  },
+];
+
+const faqs = [
+  {
+    q: "Почему цепочка порвалась сама по себе?",
+    a: "Основные причины — естественный износ металла от времени, случайное механическое воздействие (зацепились за что-то) или слишком тяжёлая подвеска, нагрузка которой превышает прочность цепочки. Со временем в местах наибольшей нагрузки металл устаёт и звено лопается.",
+  },
+  {
+    q: "Будет ли заметен шов после пайки?",
+    a: "Нет. После качественной пайки место ремонта не видно: мастер подбирает припой под цвет металла, шлифует и полирует соединение. Для изделий 585 пробы у нас всегда есть готовый припой в нужном цвете — красное, жёлтое и белое золото.",
+  },
+  {
+    q: "Можно ли отремонтировать пустотелую (дутую) цепочку или браслет?",
+    a: "Да, но это сложнее, чем стандартная пайка. Повреждённое пустотелое звено заполняется припоем или внутрь вставляются специальные штифты для укрепления конструкции. Стоимость такого ремонта выше, уточните у мастера.",
+  },
+  {
+    q: "Слезет ли позолота или родиевое покрытие при пайке?",
+    a: "При горячей газовой пайке — да, покрытие сгорит. Поэтому для украшений с позолотой, родием или чернением мы используем лазерную пайку: зона нагрева не превышает 1–2 мм, покрытие остаётся нетронутым.",
+  },
+  {
+    q: "Можно ли починить цепочку с изумрудами, рубинами или сапфирами?",
+    a: "Да, но только лазером. Эти камни не переносят нагрева открытым огнём: сапфир и рубин теряют насыщенность цвета, изумруд при резком перепаде температуры может треснуть. Лазерная пайка нагревает точечно, камни остаются в оправе без повреждений.",
+  },
+  {
+    q: "Почему ремонт импортной цепочки дороже отечественной?",
+    a: "Европейские украшения выпускаются в пробах 375, 750 и других, а также в необычных оттенках золота — лимонном, зелёном, светло-жёлтом. Стандартный припой для 585 пробы им не подходит: шов будет заметен. Для каждого импортного изделия мы изготавливаем индивидуальный припой, отсюда и разница в цене.",
+  },
+  {
+    q: "Когда ремонт нецелесообразен?",
+    a: "Мы честно предупредим, если ремонт не имеет смысла. Это происходит, если цепочка повреждена по всей длине, если после удаления деформированных звеньев изделие станет слишком коротким для носки, или если металл настолько изношен, что после починки одного звена вскоре порвётся другое. В таком случае предложим переплавить металл в новое украшение.",
+  },
+];
+---
+
+<InnerPage
+  title="Пайка цепочек и браслетов"
+  description="Паяем золотые и серебряные цепочки, браслеты и ложки в Санкт-Петербурге. Без следов ремонта — от 5 минут. Гарантия 1 год."
+  crumbs={crumbs}
+  sidebarLinks={repairLinks}
+  sidebarTitle="Услуги ремонта"
+  activeHref="/repair/pajka-cepochek-brasletov-i-lozhek"
+>
+  <div class="pk">
+
+    <!-- ── Hero ── -->
+    <div class="pk__hero">
+      <div class="pk__hero-content">
+        <p class="pk__hero-label">
+          Ювелирная мастерская «Артель» · Санкт-Петербург
+        </p>
+        <h1 class="pk__title">Пайка цепочек,&nbsp;браслетов и ложек</h1>
+        <p class="pk__lead">
+          Восстановим разорванные звенья цепочки или браслета — следов ремонта
+          вы не увидите. А те украшения, где звенья деформированы безвозвратно,
+          аккуратно соберём заново. Ложки тоже починим.
+        </p>
+        <div class="pk__hero-cta">
+          <a
+            href="https://wa.me/+79319616090?text=Здравствуйте%2C%20хочу%20отремонтировать%20цепочку%2C%20отправляю%20фото"
+            class="btn btn--primary"
+            target="_blank"
+            rel="noopener"
+          >
+            Прислать фото украшения
+          </a>
+          <p class="pk__hero-hint">
+            Ответим в течение нескольких минут и назовём цену
+          </p>
+        </div>
+      </div>
+
+      <div class="pk__hero-image">
+        <div class="pk__hero-img-placeholder">
+          <span>Фото — пайка цепочки в мастерской</span>
+        </div>
+      </div>
+
+      <div class="pk__hero-stats">
+        <div class="pk__hero-stat">
+          <span class="pk__hero-stat-num">5</span>
+          <div class="pk__hero-stat-info">
+            <span class="pk__hero-stat-unit">мин</span>
+            <span class="pk__hero-stat-label">на простую цепочку</span>
+          </div>
+        </div>
+        <span class="pk__hero-stat-sep" aria-hidden="true"></span>
+        <div class="pk__hero-stat">
+          <span class="pk__hero-stat-num">1</span>
+          <div class="pk__hero-stat-info">
+            <span class="pk__hero-stat-unit">год</span>
+            <span class="pk__hero-stat-label">гарантия на работу</span>
+          </div>
+        </div>
+        <span class="pk__hero-stat-sep" aria-hidden="true"></span>
+        <div class="pk__hero-stat">
+          <span class="pk__hero-stat-num">8–40</span>
+          <div class="pk__hero-stat-info">
+            <span class="pk__hero-stat-unit">лет</span>
+            <span class="pk__hero-stat-label">стаж мастеров</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Prices ── -->
+    <SanityPriceTable slug="repair-soldering" />
+
+    <!-- ── От чего зависит цена ── -->
+    <div class="pk__section">
+      <p class="pk__label">Стоимость работы</p>
+      <h2 class="pk__section-title">От чего зависит цена?</h2>
+      <p class="pk__section-lead">
+        Цена зависит от сложности работы, пробы и цвета металла, типа плетения,
+        наличия покрытия, вставок и гравировки, а также от количества припоя.
+      </p>
+      <div class="pk__cases">
+        <div class="pk__case">
+          <span class="pk__case-num">01</span>
+          <div class="pk__case-title">Тонкая цепочка</div>
+          <p class="pk__case-text">
+            Мастеру важно точно дозировать припой: если металл растечётся на
+            соседние звенья, они слипнутся и цепочка потеряет подвижность. Это
+            тонкая работа, требующая особого внимания.
+          </p>
+        </div>
+        <div class="pk__case">
+          <span class="pk__case-num">02</span>
+          <div class="pk__case-title">Пустотелая (дутая) цепочка или браслет</div>
+          <p class="pk__case-text">
+            Повреждённое пустотелое звено заполняется припоем или укрепляется
+            изнутри специальными штифтами. Работа сложнее стандартной пайки —
+            цена выше.
+          </p>
+        </div>
+        <div class="pk__case">
+          <span class="pk__case-num">03</span>
+          <div class="pk__case-title">Позолота, родий, чернение</div>
+          <p class="pk__case-text">
+            При горячей газовой пайке декоративное покрытие сгорает по всему
+            изделию. Чтобы это предотвратить, мы используем лазерную пайку:
+            зона нагрева точечная, покрытие остаётся нетронутым.
+          </p>
+        </div>
+        <div class="pk__case">
+          <span class="pk__case-num">04</span>
+          <div class="pk__case-title">Украшение с камнями</div>
+          <p class="pk__case-text">
+            Работа выполняется под микроскопом. Изумруд, сапфир и рубин не
+            выносят нагрева горелкой — обесцвечиваются. Для таких изделий
+            применяется лазерная пайка, она стоит дороже.
+          </p>
+        </div>
+        <div class="pk__case">
+          <span class="pk__case-num">05</span>
+          <div class="pk__case-title">Импортная цепочка</div>
+          <p class="pk__case-text">
+            Европейские украшения бывают пробы 375, 750 и нестандартных
+            оттенков — лимонного, зелёного, светло-жёлтого. Для каждого такого
+            изделия мы изготавливаем индивидуальный припой, отсюда разница
+            в цене.
+          </p>
+        </div>
+        <div class="pk__case">
+          <span class="pk__case-num">06</span>
+          <div class="pk__case-title">Несколько порванных звеньев</div>
+          <p class="pk__case-text">
+            Если растянуто или порвано сразу несколько звеньев, мастер тратит
+            больше времени и припоя. При нагреве изделия замок снимается
+            — иначе пружина внутри сломается — и устанавливается обратно
+            после пайки.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Пайка ложек ── -->
+    <div class="pk__section">
+      <p class="pk__label">Особый случай</p>
+      <h2 class="pk__section-title">Ремонт ложек</h2>
+      <p class="pk__section-lead">
+        Ложка — массивное изделие: толщина 3–4 мм, ширина до 10 мм. На её
+        сварку уходит несколько часов работы и большое количество припоя.
+        Ниже — нюансы, которые влияют на сложность и цену.
+      </p>
+      <div class="pk__methods">
+        <div class="pk__method">
+          <div class="pk__method-index">01</div>
+          <div class="pk__method-title">Старинные и литые ложки</div>
+          <p class="pk__method-text">
+            В дореволюционных ложках или изделиях с нарушенной технологией
+            литья внутри могут быть поры — пустые полости, которые обнаруживаются
+            только при нагреве. Для заполнения пор требуется больше припоя и
+            времени. Мастер предупредит об этом до начала работы.
+          </p>
+        </div>
+        <div class="pk__method">
+          <div class="pk__method-index">02</div>
+          <div class="pk__method-title">Ложки с эмалью или камнями</div>
+          <p class="pk__method-text">
+            Открытый огонь повредит эмаль и камни. В таких случаях используется
+            лазерная пайка. Если на ложке гравировка — после сварки ювелир её
+            восстановит. Стоимость уточняется индивидуально.
+          </p>
+        </div>
+        <div class="pk__method">
+          <div class="pk__method-index">03</div>
+          <div class="pk__method-title">Ложка после ремонта оловом</div>
+          <p class="pk__method-text">
+            Если ложку ранее чинили оловом, при нагреве оно растекается и
+            «съедает» драгоценный металл. Работать с таким изделием значительно
+            сложнее. Точный срок и стоимость мастер назовёт после осмотра.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Когда ремонт нецелесообразен ── -->
+    <div class="pk__section pk__section--warm">
+      <p class="pk__label">Ограничения</p>
+      <h2 class="pk__section-title">Когда ремонт нецелесообразен</h2>
+      <p class="pk__section-lead">
+        Мы честно говорим, если работа не имеет смысла. Лучше предупредить
+        заранее, чем взять деньги за ремонт, который не поможет.
+      </p>
+      <div class="pk__limits">
+        <div class="pk__limit">
+          <div class="pk__limit-title">Повреждения по всей длине</div>
+          <p class="pk__limit-text">
+            Если цепочка деформирована или порвана в нескольких местах по всей
+            длине, восстановить её качественно не получится. Мы предложим сдать
+            её в переплавку, чтобы изготовить новое украшение из того же
+            металла.
+          </p>
+        </div>
+        <div class="pk__limit">
+          <div class="pk__limit-title">Слишком много сломанных звеньев</div>
+          <p class="pk__limit-text">
+            Если после удаления всех деформированных звеньев цепочка станет
+            слишком короткой для носки — ремонт теряет смысл. Мастер покажет,
+            сколько металла останется, и вы сами решите, продолжать или нет.
+          </p>
+        </div>
+        <div class="pk__limit">
+          <div class="pk__limit-title">Сильный износ металла</div>
+          <p class="pk__limit-text">
+            Цепочка, которая часто бывала в ремонте, может порваться снова
+            в другом месте вскоре после починки — металл истончается равномерно.
+            В таком случае мы честно предупредим и не возьмёмся за работу без
+            вашего согласия.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Сроки ── -->
+    <div class="pk__deadline">
+      <div class="pk__deadline-time">
+        <span class="pk__deadline-num">5</span>
+        <span class="pk__deadline-unit">мин</span>
+      </div>
+      <div class="pk__deadline-divider" aria-hidden="true"></div>
+      <div class="pk__deadline-body">
+        <p class="pk__label">Время выполнения</p>
+        <h2 class="pk__deadline-title">Сроки</h2>
+        <p class="pk__deadline-text">
+          Простую цепочку или браслет мастер отремонтирует за
+          <strong>5 минут в вашем присутствии</strong>. Вы уйдёте
+          с украшением сразу — оно будет как новое. Ремонт ложки займёт
+          около 20 минут. Если изделие сложное (с камнями, эмалью или
+          гравировкой) — мастер назовёт точный срок. В среднем на такие
+          работы уходит один день.
+        </p>
+      </div>
+    </div>
+
+    <!-- ── Гарантии ── -->
+    <div class="pk__section">
+      <p class="pk__label">Обязательства</p>
+      <h2 class="pk__section-title">Наши гарантии</h2>
+      <div class="pk__guarantees">
+        {
+          guarantees.map((g) => (
+            <div class="pk__guarantee">
+              <div class="pk__guarantee-num">{g.num}</div>
+              <div class="pk__guarantee-title">{g.title}</div>
+              <div class="pk__guarantee-text">{g.text}</div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+
+    <!-- ── FAQ ── -->
+    <div class="pk__section">
+      <p class="pk__label">Вопросы и ответы</p>
+      <h2 class="pk__section-title">Частые вопросы</h2>
+      <div class="pk__faq">
+        {
+          faqs.map((item, i) => (
+            <div class="pk__faq-item">
+              <button
+                class="pk__faq-q"
+                type="button"
+                aria-expanded="false"
+                aria-controls={`faq-panel-${i}`}
+              >
+                <span class="pk__faq-q-index">{String(i + 1).padStart(2, "0")}</span>
+                <span class="pk__faq-q-text">{item.q}</span>
+                <span class="pk__faq-icon" aria-hidden="true">+</span>
+              </button>
+              <div class="pk__faq-a" id={`faq-panel-${i}`} role="region">
+                <div class="pk__faq-a-inner">
+                  <p>{item.a}</p>
+                </div>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+
+  </div>
+</InnerPage>
+
+<script>
+  document.querySelectorAll<HTMLElement>('.pk__faq-item').forEach(item => {
+    const btn = item.querySelector<HTMLButtonElement>('.pk__faq-q')!;
+    const answer = item.querySelector<HTMLElement>('.pk__faq-a')!;
+
+    btn.addEventListener('click', () => {
+      if (item.classList.contains('is-open')) {
+        item.classList.add('is-closing');
+        item.classList.remove('is-open');
+        btn.setAttribute('aria-expanded', 'false');
+        answer.addEventListener('transitionend', () => {
+          item.classList.remove('is-closing');
+        }, { once: true });
+      } else {
+        item.classList.remove('is-closing');
+        item.classList.add('is-open');
+        btn.setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
+</script>
+
+<style>
+  .pk {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-64);
+  }
+
+  /* ── Hero ── */
+  .pk__hero {
+    background: linear-gradient(
+      154.68deg,
+      var(--color-gold-300) 0%,
+      var(--color-gold-600) 100%
+    );
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr auto;
+    overflow: hidden;
+  }
+
+  .pk__hero-content {
+    grid-column: 1;
+    grid-row: 1;
+    padding: var(--spacing-48);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-24);
+  }
+
+  .pk__hero-image {
+    grid-column: 2;
+    grid-row: 1 / 3;
+    position: relative;
+    min-height: 320px;
+  }
+
+  .pk__hero-img-placeholder {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.10);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .pk__hero-img-placeholder span {
+    font-family: var(--font-body);
+    font-size: var(--font-size-sm);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: rgba(0, 0, 0, 0.35);
+  }
+
+  .pk__hero-stats {
+    grid-column: 1;
+    grid-row: 2;
+    display: flex;
+    align-items: center;
+    gap: 0;
+    padding: var(--spacing-24) var(--spacing-48);
+    border-top: 1px solid var(--color-gold-600);
+  }
+
+  .pk__hero-stat {
+    display: flex;
+    align-items: baseline;
+    gap: var(--spacing-8);
+    flex: 1;
+  }
+
+  .pk__hero-stat-num {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-h3);
+    font-weight: 600;
+    font-style: italic;
+    color: var(--color-dark-900);
+    line-height: 1;
+  }
+
+  .pk__hero-stat-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .pk__hero-stat-unit {
+    font-family: var(--font-body);
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-dark-900);
+  }
+
+  .pk__hero-stat-label {
+    font-family: var(--font-body);
+    font-size: var(--font-size-sm);
+    color: var(--color-gold-900);
+    line-height: 1.3;
+    white-space: nowrap;
+  }
+
+  .pk__hero-stat-sep {
+    width: 1px;
+    height: 40px;
+    background: var(--color-gold-600);
+    flex-shrink: 0;
+    margin: 0 var(--spacing-24);
+  }
+
+  .pk__hero-label {
+    font-family: var(--font-body);
+    font-size: var(--font-size-sm);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-gold-900);
+  }
+
+  .pk__title {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-h2);
+    font-weight: 600;
+    color: var(--color-dark-900);
+    line-height: 1;
+  }
+
+  .pk__lead {
+    font-family: var(--font-body);
+    font-size: var(--font-size-lg);
+    line-height: 1.6;
+    color: var(--color-text-muted);
+    max-width: 600px;
+  }
+
+  .pk__hero-cta {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-24);
+    margin-top: auto;
+  }
+
+  .pk__hero-hint {
+    font-family: var(--font-body);
+    font-size: var(--font-size-sm);
+    color: var(--color-gold-900);
+    line-height: 1.4;
+    max-width: 160px;
+  }
+
+  /* ── Section ── */
+  .pk__section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-24);
+  }
+
+  .pk__section--warm {
+    background: var(--color-gold-600);
+    border-radius: var(--radius-sm);
+    padding: var(--spacing-48);
+  }
+
+  .pk__label {
+    font-family: var(--font-body);
+    font-size: var(--font-size-sm);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-gold-900);
+  }
+
+  .pk__section-title {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-h3);
+    font-weight: 600;
+    color: var(--color-dark-900);
+    line-height: 1.05;
+    margin-top: calc(var(--spacing-24) * -1);
+  }
+
+  .pk__section-lead {
+    font-family: var(--font-body);
+    font-size: var(--font-size-lg);
+    line-height: 1.7;
+    color: var(--color-text-muted);
+    max-width: 640px;
+  }
+
+  /* ── Cases ── */
+  .pk__cases {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--spacing-24);
+  }
+
+  .pk__case {
+    background-color: var(--color-white);
+    border: 1px solid var(--color-gold-600);
+    border-radius: var(--radius-sm);
+    padding: var(--spacing-32);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-16);
+    transition: transform 200ms ease, box-shadow 200ms ease;
+  }
+
+  .pk__case:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(199, 125, 23, 0.18);
+  }
+
+  .pk__case-num {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-h4);
+    font-weight: 600;
+    font-style: italic;
+    color: var(--color-gold-600);
+    line-height: 1;
+  }
+
+  .pk__case-title {
+    font-family: var(--font-body);
+    font-size: var(--font-size-base);
+    font-weight: 500;
+    color: var(--color-dark-900);
+    line-height: 1.3;
+  }
+
+  .pk__case-text {
+    font-family: var(--font-body);
+    font-size: var(--font-size-base);
+    line-height: 1.6;
+    color: var(--color-text-muted);
+  }
+
+  /* ── Methods (ложки) ── */
+  .pk__methods {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--spacing-24);
+  }
+
+  .pk__method {
+    background-color: var(--color-white);
+    border: 1px solid var(--color-gold-600);
+    border-radius: var(--radius-sm);
+    padding: var(--spacing-32);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-16);
+    transition: transform 200ms ease, box-shadow 200ms ease;
+  }
+
+  .pk__method:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(199, 125, 23, 0.18);
+  }
+
+  .pk__method-index {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-h4);
+    font-weight: 600;
+    font-style: italic;
+    color: var(--color-gold-600);
+    line-height: 1;
+  }
+
+  .pk__method-title {
+    font-family: var(--font-body);
+    font-size: var(--font-size-base);
+    font-weight: 500;
+    color: var(--color-dark-900);
+    line-height: 1.3;
+  }
+
+  .pk__method-text {
+    font-family: var(--font-body);
+    font-size: var(--font-size-base);
+    line-height: 1.6;
+    color: var(--color-text-muted);
+  }
+
+  /* ── Limits ── */
+  .pk__limits {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--spacing-24);
+  }
+
+  .pk__limit {
+    background-color: var(--color-white);
+    border: 1px solid var(--color-gold-600);
+    border-left: 3px solid var(--color-gold-900);
+    border-radius: var(--radius-sm);
+    padding: var(--spacing-32);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-16);
+    transition: transform 200ms ease, box-shadow 200ms ease;
+  }
+
+  .pk__limit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(199, 125, 23, 0.18);
+  }
+
+  .pk__limit-title {
+    font-family: var(--font-body);
+    font-size: var(--font-size-base);
+    font-weight: 500;
+    color: var(--color-dark-900);
+    line-height: 1.3;
+  }
+
+  .pk__limit-text {
+    font-family: var(--font-body);
+    font-size: var(--font-size-base);
+    line-height: 1.6;
+    color: var(--color-text-muted);
+  }
+
+  /* ── Deadline spotlight ── */
+  .pk__deadline {
+    background: var(--color-dark-900);
+    border-radius: var(--radius-sm);
+    padding: var(--spacing-48);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-48);
+  }
+
+  .pk__deadline-time {
+    display: flex;
+    align-items: baseline;
+    gap: var(--spacing-8);
+    flex-shrink: 0;
+  }
+
+  .pk__deadline-num {
+    font-family: var(--font-heading);
+    font-size: 96px;
+    font-weight: 600;
+    font-style: italic;
+    color: var(--color-gold-600);
+    line-height: 1;
+  }
+
+  .pk__deadline-unit {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-h3);
+    font-weight: 600;
+    font-style: italic;
+    color: var(--color-gold-600);
+    line-height: 1;
+  }
+
+  .pk__deadline-divider {
+    width: 1px;
+    height: 80px;
+    background: rgba(240, 219, 190, 0.2);
+    flex-shrink: 0;
+  }
+
+  .pk__deadline-body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-8);
+  }
+
+  .pk__deadline-body .pk__label {
+    color: var(--color-gold-600);
+  }
+
+  .pk__deadline-title {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-h3);
+    font-weight: 600;
+    color: var(--color-gold-600);
+    line-height: 1.05;
+  }
+
+  .pk__deadline-text {
+    font-family: var(--font-body);
+    font-size: var(--font-size-base);
+    line-height: 1.7;
+    color: rgba(252, 248, 243, 0.7);
+    max-width: 560px;
+  }
+
+  .pk__deadline-text strong {
+    color: var(--color-gold-600);
+    font-weight: 500;
+  }
+
+  /* ── Guarantees ── */
+  .pk__guarantees {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    background-color: var(--color-white);
+    border: 1px solid var(--color-gold-600);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+  }
+
+  .pk__guarantee {
+    padding: var(--spacing-32);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-16);
+    position: relative;
+    transition: background-color 200ms ease;
+  }
+
+  .pk__guarantee:hover {
+    background-color: var(--color-gold-300);
+  }
+
+  .pk__guarantee + .pk__guarantee::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: var(--spacing-32);
+    bottom: var(--spacing-32);
+    width: 1px;
+    background: var(--color-gold-600);
+  }
+
+  .pk__guarantee-num {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-h2);
+    font-weight: 600;
+    font-style: italic;
+    color: var(--color-gold-600);
+    line-height: 1;
+  }
+
+  .pk__guarantee-title {
+    font-family: var(--font-body);
+    font-size: var(--font-size-lg);
+    font-weight: 400;
+    color: var(--color-dark-900);
+    line-height: 1.3;
+  }
+
+  .pk__guarantee-text {
+    font-family: var(--font-body);
+    font-size: var(--font-size-base);
+    line-height: 1.5;
+    color: var(--color-text-muted);
+  }
+
+  /* ── FAQ ── */
+  .pk__faq {
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid var(--color-gold-600);
+  }
+
+  .pk__faq-item {
+    border-bottom: 1px solid var(--color-gold-600);
+  }
+
+  .pk__faq-q {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-16);
+    width: 100%;
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    padding: var(--spacing-24) 0;
+  }
+
+  .pk__faq-q-index {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-h4);
+    font-weight: 600;
+    font-style: italic;
+    color: var(--color-gold-600);
+    line-height: 1;
+    flex-shrink: 0;
+    width: 44px;
+    transition: color 200ms ease;
+  }
+
+  .pk__faq-item.is-open .pk__faq-q-index {
+    color: var(--color-gold-900);
+  }
+
+  .pk__faq-q-text {
+    flex: 1;
+    font-family: var(--font-body);
+    font-size: var(--font-size-lg);
+    font-weight: 500;
+    color: var(--color-dark-900);
+    line-height: 1.4;
+  }
+
+  .pk__faq-icon {
+    font-size: 24px;
+    color: var(--color-gold-900);
+    flex-shrink: 0;
+    display: inline-block;
+    transition: transform 0.42s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .pk__faq-item.is-open .pk__faq-icon { transform: rotate(45deg); }
+  .pk__faq-item.is-closing .pk__faq-icon {
+    transform: rotate(0deg);
+    transition: transform 0.22s ease-in;
+  }
+
+  .pk__faq-a {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.42s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .pk__faq-item.is-open .pk__faq-a { grid-template-rows: 1fr; }
+  .pk__faq-item.is-closing .pk__faq-a {
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.22s ease-in;
+  }
+
+  .pk__faq-a-inner {
+    overflow: hidden;
+    padding-left: 60px;
+    padding-bottom: 0;
+    max-width: 680px;
+    transition: padding-bottom 0.42s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .pk__faq-item.is-open .pk__faq-a-inner {
+    padding-bottom: var(--spacing-24);
+  }
+
+  .pk__faq-item.is-closing .pk__faq-a-inner {
+    padding-bottom: 0;
+    transition: padding-bottom 0.22s ease-in;
+  }
+
+  .pk__faq-a-inner p {
+    font-family: var(--font-body);
+    font-size: var(--font-size-base);
+    line-height: 1.7;
+    color: var(--color-text-muted);
+    opacity: 0;
+    transition: opacity 0.12s ease;
+  }
+
+  .pk__faq-item.is-open .pk__faq-a-inner p {
+    opacity: 1;
+    transition: opacity 0.28s ease 0.16s;
+  }
+
+  .pk__faq-item.is-closing .pk__faq-a-inner p {
+    opacity: 0;
+    transition: opacity 0.1s ease;
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 760px) {
+    .pk {
+      gap: var(--spacing-48);
+    }
+
+    .pk__hero,
+    .pk__deadline,
+    .pk__section--warm {
+      margin-left: calc(var(--spacing-16) * -1);
+      margin-right: calc(var(--spacing-16) * -1);
+    }
+
+    .pk__hero {
+      grid-template-columns: 1fr;
+      grid-template-rows: 220px auto auto;
+    }
+    .pk__hero-image {
+      grid-column: 1;
+      grid-row: 1;
+      min-height: unset;
+    }
+    .pk__hero-content {
+      grid-column: 1;
+      grid-row: 2;
+      padding: var(--spacing-32) var(--spacing-16);
+    }
+    .pk__hero-stats {
+      grid-column: 1;
+      grid-row: 3;
+      padding: var(--spacing-16);
+      flex-wrap: wrap;
+      gap: var(--spacing-16);
+    }
+    .pk__hero-stat-sep {
+      display: none;
+    }
+    .pk__hero-stat {
+      flex: 0 0 auto;
+    }
+    .pk__hero-cta {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .pk__title {
+      font-size: var(--font-size-h3);
+    }
+
+    .pk__section-title {
+      font-size: var(--font-size-h4);
+    }
+    .pk__section--warm {
+      border-radius: 0;
+      padding: var(--spacing-32) var(--spacing-16);
+    }
+
+    .pk__cases,
+    .pk__methods,
+    .pk__limits {
+      grid-template-columns: 1fr;
+    }
+
+    .pk__deadline {
+      border-radius: 0;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--spacing-24);
+      padding: var(--spacing-32) var(--spacing-16);
+    }
+    .pk__deadline-divider {
+      width: 40px;
+      height: 1px;
+    }
+    .pk__deadline-num {
+      font-size: 72px;
+    }
+
+    .pk__guarantees {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .pk__guarantee + .pk__guarantee::before {
+      display: none;
+    }
+    .pk__guarantee:nth-child(odd) {
+      border-right: 1px solid var(--color-gold-600);
+    }
+    .pk__guarantee:nth-child(1),
+    .pk__guarantee:nth-child(2) {
+      border-bottom: 1px solid var(--color-gold-600);
+    }
+
+    .pk__faq-q-index {
+      width: 32px;
+      font-size: var(--font-size-h6, 25px);
+    }
+    .pk__faq-a-inner {
+      padding-left: 48px;
+    }
+  }
+
+  @media (max-width: 500px) {
+    .pk__guarantees {
+      grid-template-columns: 1fr;
+    }
+    .pk__guarantee:nth-child(odd) {
+      border-right: none;
+    }
+    .pk__guarantee + .pk__guarantee {
+      border-top: 1px solid var(--color-gold-600);
+    }
+    .pk__guarantee:nth-child(1),
+    .pk__guarantee:nth-child(2) {
+      border-bottom: none;
+    }
+  }
+</style>

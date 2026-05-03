@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="Layer_1" viewBox="0 0 100 100">
+  <defs>
+    <style>.cls-1{fill:#e2e8f0;}.cls-1,.cls-2,.cls-3,.cls-4,.cls-5,.cls-6,.cls-7,.cls-8{stroke-width:0px;}.cls-2{fill:#9299a2;}.cls-3{fill:#ff00cf;}.cls-9,.cls-10,.cls-11,.cls-12,.cls-13,.cls-14,.cls-15{stroke-miterlimit:10;}.cls-9,.cls-10,.cls-12{stroke:#9299a2;}.cls-9,.cls-11,.cls-4,.cls-13,.cls-14,.cls-15{fill:none;}.cls-9,.cls-12{stroke-width:1.78px;}.cls-10{stroke-width:1.33px;}.cls-10,.cls-12{fill:#fff;}.cls-11{stroke-width:4.45px;}.cls-11,.cls-15{stroke:url(#Unnamed_Pattern_30);stroke-linecap:round;}.cls-5{fill:#aa00d3;}.cls-16{opacity:.3;}.cls-6{fill:#cd00ff;}.cls-13{stroke-width:2.22px;}.cls-13,.cls-14{stroke:url(#Unnamed_Pattern_31);}.cls-14{stroke-width:3px;}.cls-15{stroke-width:5px;}.cls-7{fill:#de55ff;}.cls-8{fill:#8361a4;}</style>
+    <pattern id="Unnamed_Pattern_30" x="0" y="0" width="107" height="107" patternTransform="translate(-1048.49 293.02)" patternUnits="userSpaceOnUse" viewBox="0 0 107 107">
+      <rect class="cls-4" width="107" height="107"></rect>
+      <rect class="cls-2" width="107" height="107"></rect>
+    </pattern>
+    <pattern id="Unnamed_Pattern_31" x="0" y="0" width="107" height="107" patternTransform="translate(-1048.49 293.02)" patternUnits="userSpaceOnUse" viewBox="0 0 107 107">
+      <rect class="cls-4" width="107" height="107"></rect>
+      <rect class="cls-1" width="107" height="107"></rect>
+    </pattern>
+  </defs>
+  <line class="cls-10" x1="81.72" y1="98.5" x2="16.81" y2="98.5"></line>
+  <line class="cls-10" x1="16.81" y1="95.61" x2="16.81" y2="91.12"></line>
+  <line class="cls-10" x1="81.53" y1="95.61" x2="81.53" y2="91.12"></line>
+  <line class="cls-10" x1="49.17" y1="95.61" x2="49.17" y2="91.12"></line>
+  <line class="cls-10" x1="32.99" y1="95.61" x2="32.99" y2="93.93"></line>
+  <line class="cls-10" x1="24.9" y1="95.61" x2="24.9" y2="93.93"></line>
+  <line class="cls-10" x1="41.08" y1="95.61" x2="41.08" y2="93.93"></line>
+  <line class="cls-10" x1="65.35" y1="95.61" x2="65.35" y2="93.93"></line>
+  <line class="cls-10" x1="57.26" y1="95.61" x2="57.26" y2="93.93"></line>
+  <line class="cls-10" x1="73.44" y1="95.61" x2="73.44" y2="93.93"></line>
+  <g class="cls-16">
+    <circle class="cls-11" cx="49.27" cy="49.06" r="32.01"></circle>
+    <circle class="cls-13" cx="49.27" cy="49.06" r="32.01"></circle>
+    <polygon class="cls-8" points="49.27 19.85 61.22 9.5 55.41 2.83 43.13 2.83 37.32 9.5 49.27 19.85"></polygon>
+    <path class="cls-1" d="M49.27,21.62l-13.83-11.98,7.09-8.14h13.5l7.09,8.14-13.83,11.98ZM37.32,9.5l11.95,10.35,11.95-10.35-5.81-6.67h-12.29l-5.81,6.67Z"></path>
+    <polygon class="cls-5" points="61.22 9.5 49.27 19.85 53.25 9.5 61.22 9.5"></polygon>
+    <polygon class="cls-6" points="37.32 9.5 49.27 19.85 45.28 9.5 37.32 9.5"></polygon>
+    <polygon class="cls-7" points="49.27 19.85 45.28 9.5 53.25 9.5 49.27 19.85"></polygon>
+    <polygon class="cls-5" points="37.32 9.5 43.13 2.83 45.28 9.5 37.32 9.5"></polygon>
+    <polygon class="cls-7" points="61.22 9.5 55.41 2.83 53.25 9.5 61.22 9.5"></polygon>
+    <polygon class="cls-3" points="45.28 9.5 49.27 2.83 53.25 9.5 45.28 9.5"></polygon>
+  </g>
+  <line class="cls-12" x1="83.19" y1="83.91" x2="71.79" y2="83.91"></line>
+  <polyline class="cls-9" points="73.05 89.26 67.7 83.91 73.05 78.55"></polyline>
+  <line class="cls-12" x1="16.81" y1="83.91" x2="27.77" y2="83.91"></line>
+  <polyline class="cls-9" points="26.51 78.55 31.86 83.91 26.51 89.26"></polyline>
+  <circle class="cls-15" cx="49.27" cy="60.09" r="20.98"></circle>
+  <circle class="cls-14" cx="49.27" cy="60.09" r="20.98"></circle>
+  <polygon class="cls-8" points="49.27 41.49 61.22 31.14 55.41 24.47 43.13 24.47 37.32 31.14 49.27 41.49"></polygon>
+  <path class="cls-1" d="M49.27,43.25l-13.83-11.98,7.09-8.14h13.5l7.09,8.14-13.83,11.98ZM37.32,31.14l11.95,10.35,11.95-10.35-5.81-6.67h-12.29l-5.81,6.67Z"></path>
+  <polygon class="cls-5" points="61.22 31.14 49.27 41.49 53.25 31.14 61.22 31.14"></polygon>
+  <polygon class="cls-6" points="37.32 31.14 49.27 41.49 45.28 31.14 37.32 31.14"></polygon>
+  <polygon class="cls-7" points="49.27 41.49 45.28 31.14 53.25 31.14 49.27 41.49"></polygon>
+  <polygon class="cls-5" points="37.32 31.14 43.13 24.47 45.28 31.14 37.32 31.14"></polygon>
+  <polygon class="cls-7" points="61.22 31.14 55.41 24.47 53.25 31.14 61.22 31.14"></polygon>
+  <polygon class="cls-3" points="45.28 31.14 49.27 24.47 53.25 31.14 45.28 31.14"></polygon>
+</svg>

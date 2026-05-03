@@ -1,0 +1,934 @@
+---
+import InnerPage from '../../layouts/InnerPage.astro';
+
+const repairLinks = [
+  { label: 'Уменьшение колец',           href: '/repair/umenshenie-kolecz' },
+  { label: 'Увеличение колец',            href: '/repair/uvelichenie-kolecz' },
+  { label: 'Пайка цепочек и браслетов',   href: '/repair/pajka-cepochek-brasletov-i-lozhek' },
+  { label: 'Лазерная пайка',              href: '/repair/lazernaja-pajka' },
+  { label: 'Ремонт и замена замков',       href: '/repair/remont-i-zamena-zamkov' },
+  { label: 'Закрепка камней',             href: '/repair/zakrepka-kamnej' },
+  { label: 'Перевязка бус',               href: '/repair/perevjazka-bus-i-brasletov' },
+  { label: 'Родирование, золочение',       href: '/repair/rodirovanie-zolochenie-serebrenie' },
+  { label: 'Дополнительные услуги',        href: '/repair/dopolnitelnye-uslugi' },
+];
+
+const crumbs = [
+  { label: 'Главная', href: '/' },
+  { label: 'Ремонт украшений' },
+];
+
+const services = [
+  { label: 'Уменьшение колец',           href: '/repair/umenshenie-kolecz',                 desc: 'от 1 500 ₽ · от 20 мин', icon: '/icons/nav/ico_ring-reduce.svg' },
+  { label: 'Увеличение колец',            href: '/repair/uvelichenie-kolecz',                desc: 'от 700 ₽ · от 30 мин',   icon: '/icons/nav/ico_ring-enlarge.svg' },
+  { label: 'Пайка цепочек и браслетов',   href: '/repair/pajka-cepochek-brasletov-i-lozhek', desc: 'от 300 ₽ · от 15 мин',   icon: '/icons/nav/ico_soldering.svg' },
+  { label: 'Лазерная пайка',              href: '/repair/lazernaja-pajka',                   desc: 'от 500 ₽ · от 20 мин',   icon: '/icons/nav/ico_soldering-laser.svg' },
+  { label: 'Ремонт и замена замков',       href: '/repair/remont-i-zamena-zamkov',             desc: 'от 400 ₽ · от 20 мин',   icon: '/icons/nav/ico_lock-repair.svg' },
+  { label: 'Закрепка камней',             href: '/repair/zakrepka-kamnej',                   desc: 'от 300 ₽ · от 30 мин',   icon: '/icons/nav/ico_stone-fastening.svg' },
+  { label: 'Перевязка бус',               href: '/repair/perevjazka-bus-i-brasletov',         desc: 'от 600 ₽ · от 40 мин',   icon: '/icons/nav/ico_busi.svg' },
+  { label: 'Родирование, золочение',       href: '/repair/rodirovanie-zolochenie-serebrenie',  desc: 'от 800 ₽ · от 1 часа',   icon: '/icons/nav/ico_rodirovanie.svg' },
+  { label: 'Дополнительные услуги',        href: '/repair/dopolnitelnye-uslugi',               desc: 'цену уточняйте',          icon: '/icons/nav/ico_drugie.svg' },
+];
+
+const steps = [
+  {
+    num: '01',
+    title: 'Осмотр и оценка',
+    text: 'Приносите украшение — мастер осматривает его и называет точную цену. Это бесплатно и ни к чему не обязывает.',
+  },
+  {
+    num: '02',
+    title: 'Согласование',
+    text: 'Объясняем, что именно будем делать, предупреждаем о возможных рисках и особенностях работы с вашим изделием.',
+  },
+  {
+    num: '03',
+    title: 'Выполнение работы',
+    text: 'Простой ремонт делаем при вас — за 15–40 минут. Сложные работы — в оговорённый срок, обычно один–два дня.',
+  },
+  {
+    num: '04',
+    title: 'Контроль качества',
+    text: 'Перед выдачей мастер проверяет каждое изделие под микроскопом: швы, крепления камней, покрытие, полировку.',
+  },
+  {
+    num: '05',
+    title: 'Гарантия',
+    text: 'Выдаём письменную гарантию на каждую выполненную работу сроком на 1 год.',
+  },
+];
+
+const guarantees = [
+  {
+    num: '01',
+    title: 'Гарантия 1 год',
+    text: 'Выдаём письменную гарантию на каждую работу без исключений.',
+  },
+  {
+    num: '02',
+    title: 'Мастера с образованием',
+    text: 'Все ювелиры с высшим профильным образованием. Стаж — от 8 до 40 лет.',
+  },
+  {
+    num: '03',
+    title: 'Работаем ежедневно',
+    text: 'Принимаем с 10:00 до 20:00 без выходных. Есть срочный ремонт — скажите на входе.',
+  },
+  {
+    num: '04',
+    title: 'Проверка перед выдачей',
+    text: 'Каждое изделие проверяется под микроскопом до возврата клиенту.',
+  },
+];
+
+const faqs = [
+  {
+    q: 'С какими металлами и камнями вы работаете?',
+    a: 'Работаем с золотом любой пробы, серебром, платиной и их сплавами. Для камней — от бриллиантов до жемчуга — подбираем метод под конкретный материал: там, где нельзя применять газовую горелку, используем лазерную пайку с точечным нагревом не более 1 мм.',
+  },
+  {
+    q: 'Сколько времени занимает ремонт?',
+    a: 'Простой ремонт — пайка, замена замка, закрепка камня — выполняется за 15–40 минут прямо при вас. Работы посложнее: уменьшение кольца с камнями, родирование, перевязка бус — занимают один–два дня. Точный срок скажем после осмотра.',
+  },
+  {
+    q: 'Нужно ли записываться заранее?',
+    a: 'Нет, приходите без записи в рабочее время. Запись удобна для объёмных или срочных работ, если хотите гарантированно попасть к конкретному мастеру в определённое время.',
+  },
+  {
+    q: 'Работаете ли вы с брендовыми украшениями?',
+    a: 'Да. Работаем с изделиями Tiffany, Cartier, Bulgari и других ювелирных домов. Применяем лазерную сварку и работу под микроскопом, чтобы не нарушить дизайн, гравировку и фирменные особенности украшения.',
+  },
+  {
+    q: 'Как рассчитывается стоимость ремонта?',
+    a: 'Цена зависит от вида работы, металла, наличия и типа камней. Точную стоимость называем после осмотра — это бесплатно. Можно предварительно прислать фото в WhatsApp: ответим в течение нескольких минут и дадим примерную цену.',
+  },
+  {
+    q: 'Можно ли отремонтировать украшение при мне?',
+    a: 'Да, при несложных работах вы можете остаться и наблюдать за процессом. Пайка цепочки, замена замка, подгонка размера гладкого кольца — всё это мастер делает прямо за верстаком на ваших глазах.',
+  },
+];
+---
+
+<InnerPage
+  title="Ремонт украшений"
+  description="Ремонт ювелирных украшений в Санкт-Петербурге — уменьшение и увеличение колец, пайка, закрепка камней, родирование. Гарантия 1 год, мастера с опытом от 8 лет."
+  crumbs={crumbs}
+  sidebarLinks={repairLinks}
+  sidebarTitle="Услуги ремонта"
+  activeHref="/repair"
+>
+  <div class="rh">
+
+    <!-- ── Hero ── -->
+    <div class="rh__hero">
+      <div class="rh__hero-content">
+        <p class="rh__hero-label">
+          Ювелирная мастерская «Артель» · Санкт-Петербург
+        </p>
+        <h1 class="rh__title">Ремонт украшений</h1>
+        <p class="rh__lead">
+          Ремонтируем ювелирные украшения с 2009 года. Работаем с золотом,
+          серебром и платиной. Простой ремонт делаем при вас за 15–40 минут,
+          сложные работы — за один–два дня. Гарантия на каждую работу.
+        </p>
+        <div class="rh__hero-cta">
+          <a
+            href="https://wa.me/+79319616090?text=Здравствуйте%2C%20хочу%20узнать%20стоимость%20ремонта%2C%20отправляю%20фото"
+            class="btn btn--primary"
+            target="_blank"
+            rel="noopener"
+          >
+            Прислать фото украшения
+          </a>
+          <p class="rh__hero-hint">
+            Ответим в течение нескольких минут и назовём цену
+          </p>
+        </div>
+      </div>
+
+      <div class="rh__hero-stats">
+        <div class="rh__hero-stat">
+          <span class="rh__hero-stat-num">15</span>
+          <div class="rh__hero-stat-info">
+            <span class="rh__hero-stat-unit">лет</span>
+            <span class="rh__hero-stat-label">работаем с 2009 года</span>
+          </div>
+        </div>
+        <span class="rh__hero-stat-sep" aria-hidden="true"></span>
+        <div class="rh__hero-stat">
+          <span class="rh__hero-stat-num">1</span>
+          <div class="rh__hero-stat-info">
+            <span class="rh__hero-stat-unit">год</span>
+            <span class="rh__hero-stat-label">гарантия на работу</span>
+          </div>
+        </div>
+        <span class="rh__hero-stat-sep" aria-hidden="true"></span>
+        <div class="rh__hero-stat">
+          <span class="rh__hero-stat-num">8–40</span>
+          <div class="rh__hero-stat-info">
+            <span class="rh__hero-stat-unit">лет</span>
+            <span class="rh__hero-stat-label">стаж мастеров</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Услуги ── -->
+    <div class="rh__section">
+      <p class="rh__label">Что мы делаем</p>
+      <h2 class="rh__section-title">Услуги ремонта</h2>
+      <ul class="rh__grid">
+        {services.map((s) => (
+          <li>
+            <a href={s.href} class="rh__card">
+              <div class="rh__card-icon">
+                <img src={s.icon} alt="" width="48" height="48" loading="lazy" />
+              </div>
+              <div class="rh__card-body">
+                <span class="rh__card-label">{s.label}</span>
+                <span class="rh__card-desc">{s.desc}</span>
+              </div>
+              <svg class="rh__card-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+
+    <!-- ── Как мы работаем ── -->
+    <div class="rh__section">
+      <p class="rh__label">Процесс</p>
+      <h2 class="rh__section-title">Как проходит работа</h2>
+      <p class="rh__section-lead">
+        От первого осмотра до выдачи — прозрачно и без сюрпризов. Цену
+        называем сразу, скрытых доплат нет.
+      </p>
+      <div class="rh__steps">
+        {steps.map((s) => (
+          <div class="rh__step">
+            <span class="rh__step-num">{s.num}</span>
+            <div class="rh__step-title">{s.title}</div>
+            <p class="rh__step-text">{s.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- ── Сроки ── -->
+    <div class="rh__deadline">
+      <div class="rh__deadline-time">
+        <span class="rh__deadline-num">15</span>
+        <span class="rh__deadline-unit">мин</span>
+      </div>
+      <div class="rh__deadline-divider" aria-hidden="true"></div>
+      <div class="rh__deadline-body">
+        <p class="rh__label">Время выполнения</p>
+        <h2 class="rh__deadline-title">Срочный ремонт при вас</h2>
+        <p class="rh__deadline-text">
+          Простые работы — пайка, замена замка, закрепка камня —
+          мастер выполняет <strong>за 15–40 минут в вашем присутствии</strong>.
+          Вы уходите с отремонтированным украшением сразу. Для сложных
+          работ срок уточняется после осмотра — в среднем один–два дня.
+        </p>
+      </div>
+    </div>
+
+    <!-- ── Гарантии ── -->
+    <div class="rh__section">
+      <p class="rh__label">Обязательства</p>
+      <h2 class="rh__section-title">Наши гарантии</h2>
+      <div class="rh__guarantees">
+        {guarantees.map((g) => (
+          <div class="rh__guarantee">
+            <div class="rh__guarantee-num">{g.num}</div>
+            <div class="rh__guarantee-title">{g.title}</div>
+            <div class="rh__guarantee-text">{g.text}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- ── FAQ ── -->
+    <div class="rh__section">
+      <p class="rh__label">Вопросы и ответы</p>
+      <h2 class="rh__section-title">Частые вопросы</h2>
+      <div class="rh__faq">
+        {faqs.map((item, i) => (
+          <div class="rh__faq-item">
+            <button
+              class="rh__faq-q"
+              type="button"
+              aria-expanded="false"
+              aria-controls={`faq-panel-${i}`}
+            >
+              <span class="rh__faq-q-index">{String(i + 1).padStart(2, '0')}</span>
+              <span class="rh__faq-q-text">{item.q}</span>
+              <span class="rh__faq-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="rh__faq-a" id={`faq-panel-${i}`} role="region">
+              <div class="rh__faq-a-inner">
+                <p>{item.a}</p>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+  </div>
+</InnerPage>
+
+<script>
+  document.querySelectorAll<HTMLElement>('.rh__faq-item').forEach(item => {
+    const btn = item.querySelector<HTMLButtonElement>('.rh__faq-q')!;
+    const answer = item.querySelector<HTMLElement>('.rh__faq-a')!;
+
+    btn.addEventListener('click', () => {
+      if (item.classList.contains('is-open')) {
+        item.classList.add('is-closing');
+        item.classList.remove('is-open');
+        btn.setAttribute('aria-expanded', 'false');
+        answer.addEventListener('transitionend', () => {
+          item.classList.remove('is-closing');
+        }, { once: true });
+      } else {
+        item.classList.remove('is-closing');
+        item.classList.add('is-open');
+        btn.setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
+</script>
+
+<style>
+  .rh {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-64);
+  }
+
+  /* ── Hero ── */
+  .rh__hero {
+    background: linear-gradient(
+      154.68deg,
+      var(--color-gold-300) 0%,
+      var(--color-gold-600) 100%
+    );
+    display: flex;
+    flex-direction: column;
+  }
+
+  .rh__hero-content {
+    padding: var(--spacing-48);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-24);
+  }
+
+  .rh__hero-stats {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    padding: var(--spacing-24) var(--spacing-48);
+    border-top: 1px solid var(--color-gold-600);
+  }
+
+  .rh__hero-stat {
+    display: flex;
+    align-items: baseline;
+    gap: var(--spacing-8);
+    flex: 1;
+  }
+
+  .rh__hero-stat-num {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-h3);
+    font-weight: 600;
+    font-style: italic;
+    color: var(--color-dark-900);
+    line-height: 1;
+  }
+
+  .rh__hero-stat-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .rh__hero-stat-unit {
+    font-family: var(--font-body);
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-dark-900);
+  }
+
+  .rh__hero-stat-label {
+    font-family: var(--font-body);
+    font-size: var(--font-size-sm);
+    color: var(--color-gold-900);
+    line-height: 1.3;
+    white-space: nowrap;
+  }
+
+  .rh__hero-stat-sep {
+    width: 1px;
+    height: 40px;
+    background: var(--color-gold-600);
+    flex-shrink: 0;
+    margin: 0 var(--spacing-24);
+  }
+
+  .rh__hero-label {
+    font-family: var(--font-body);
+    font-size: var(--font-size-sm);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-gold-900);
+  }
+
+  .rh__title {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-h2);
+    font-weight: 600;
+    color: var(--color-dark-900);
+    line-height: 1;
+  }
+
+  .rh__lead {
+    font-family: var(--font-body);
+    font-size: var(--font-size-lg);
+    line-height: 1.6;
+    color: var(--color-text-muted);
+    max-width: 640px;
+  }
+
+  .rh__hero-cta {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-24);
+    margin-top: var(--spacing-8);
+  }
+
+  .rh__hero-hint {
+    font-family: var(--font-body);
+    font-size: var(--font-size-sm);
+    color: var(--color-gold-900);
+    line-height: 1.4;
+    max-width: 160px;
+  }
+
+  /* ── Section ── */
+  .rh__section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-24);
+  }
+
+  .rh__label {
+    font-family: var(--font-body);
+    font-size: var(--font-size-sm);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-gold-900);
+  }
+
+  .rh__section-title {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-h3);
+    font-weight: 600;
+    color: var(--color-dark-900);
+    line-height: 1.05;
+    margin-top: calc(var(--spacing-24) * -1);
+  }
+
+  .rh__section-lead {
+    font-family: var(--font-body);
+    font-size: var(--font-size-lg);
+    line-height: 1.7;
+    color: var(--color-text-muted);
+    max-width: 640px;
+  }
+
+  /* ── Services grid ── */
+  .rh__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-16);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .rh__card {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-16);
+    padding: var(--spacing-24);
+    background-color: var(--color-white);
+    border: 1px solid var(--color-header-border);
+    border-radius: var(--radius-sm);
+    text-decoration: none;
+    color: inherit;
+    transition:
+      border-color var(--transition-fast),
+      transform var(--transition-fast),
+      box-shadow var(--transition-fast);
+  }
+
+  .rh__card:hover {
+    border-color: var(--color-gold-900);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+  }
+
+  .rh__card:hover .rh__card-arrow {
+    color: var(--color-gold-900);
+    transform: translateX(3px);
+  }
+
+  .rh__card-icon {
+    flex-shrink: 0;
+    width: 48px;
+    height: 48px;
+  }
+
+  .rh__card-body {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .rh__card-label {
+    font-family: var(--font-body);
+    font-size: var(--font-size-base);
+    font-weight: 500;
+    color: var(--color-dark-900);
+    line-height: 1.3;
+  }
+
+  .rh__card-desc {
+    font-family: var(--font-body);
+    font-size: var(--font-size-sm);
+    color: var(--color-dark-600);
+    letter-spacing: 0.02em;
+  }
+
+  .rh__card-arrow {
+    flex-shrink: 0;
+    color: var(--color-dark-600);
+    transition: color var(--transition-fast), transform var(--transition-fast);
+  }
+
+  /* ── Steps ── */
+  .rh__steps {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: var(--spacing-16);
+  }
+
+  .rh__step {
+    background-color: var(--color-white);
+    border: 1px solid var(--color-gold-600);
+    border-radius: var(--radius-sm);
+    padding: var(--spacing-32);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-16);
+    transition: transform 200ms ease, box-shadow 200ms ease;
+  }
+
+  .rh__step:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(199, 125, 23, 0.18);
+  }
+
+  .rh__step-num {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-h4);
+    font-weight: 600;
+    font-style: italic;
+    color: var(--color-gold-600);
+    line-height: 1;
+  }
+
+  .rh__step-title {
+    font-family: var(--font-body);
+    font-size: var(--font-size-base);
+    font-weight: 500;
+    color: var(--color-dark-900);
+    line-height: 1.3;
+  }
+
+  .rh__step-text {
+    font-family: var(--font-body);
+    font-size: var(--font-size-base);
+    line-height: 1.6;
+    color: var(--color-text-muted);
+  }
+
+  /* ── Deadline spotlight ── */
+  .rh__deadline {
+    background: var(--color-dark-900);
+    border-radius: var(--radius-sm);
+    padding: var(--spacing-48);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-48);
+  }
+
+  .rh__deadline-time {
+    display: flex;
+    align-items: baseline;
+    gap: var(--spacing-8);
+    flex-shrink: 0;
+  }
+
+  .rh__deadline-num {
+    font-family: var(--font-heading);
+    font-size: 96px;
+    font-weight: 600;
+    font-style: italic;
+    color: var(--color-gold-600);
+    line-height: 1;
+  }
+
+  .rh__deadline-unit {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-h3);
+    font-weight: 600;
+    font-style: italic;
+    color: var(--color-gold-600);
+    line-height: 1;
+  }
+
+  .rh__deadline-divider {
+    width: 1px;
+    height: 80px;
+    background: rgba(240, 219, 190, 0.2);
+    flex-shrink: 0;
+  }
+
+  .rh__deadline-body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-8);
+  }
+
+  .rh__deadline-body .rh__label {
+    color: var(--color-gold-600);
+  }
+
+  .rh__deadline-title {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-h3);
+    font-weight: 600;
+    color: var(--color-gold-600);
+    line-height: 1.05;
+  }
+
+  .rh__deadline-text {
+    font-family: var(--font-body);
+    font-size: var(--font-size-base);
+    line-height: 1.7;
+    color: rgba(252, 248, 243, 0.7);
+    max-width: 560px;
+  }
+
+  .rh__deadline-text strong {
+    color: var(--color-gold-600);
+    font-weight: 500;
+  }
+
+  /* ── Guarantees ── */
+  .rh__guarantees {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    background-color: var(--color-white);
+    border: 1px solid var(--color-gold-600);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+  }
+
+  .rh__guarantee {
+    padding: var(--spacing-32);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-16);
+    position: relative;
+    transition: background-color 200ms ease;
+  }
+
+  .rh__guarantee:hover {
+    background-color: var(--color-gold-300);
+  }
+
+  .rh__guarantee + .rh__guarantee::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: var(--spacing-32);
+    bottom: var(--spacing-32);
+    width: 1px;
+    background: var(--color-gold-600);
+  }
+
+  .rh__guarantee-num {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-h2);
+    font-weight: 600;
+    font-style: italic;
+    color: var(--color-gold-600);
+    line-height: 1;
+  }
+
+  .rh__guarantee-title {
+    font-family: var(--font-body);
+    font-size: var(--font-size-lg);
+    font-weight: 400;
+    color: var(--color-dark-900);
+    line-height: 1.3;
+  }
+
+  .rh__guarantee-text {
+    font-family: var(--font-body);
+    font-size: var(--font-size-base);
+    line-height: 1.5;
+    color: var(--color-text-muted);
+  }
+
+  /* ── FAQ ── */
+  .rh__faq {
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid var(--color-gold-600);
+  }
+
+  .rh__faq-item {
+    border-bottom: 1px solid var(--color-gold-600);
+  }
+
+  .rh__faq-q {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-16);
+    width: 100%;
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    padding: var(--spacing-24) 0;
+  }
+
+  .rh__faq-q-index {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-h4);
+    font-weight: 600;
+    font-style: italic;
+    color: var(--color-gold-600);
+    line-height: 1;
+    flex-shrink: 0;
+    width: 44px;
+    transition: color 200ms ease;
+  }
+
+  .rh__faq-item.is-open .rh__faq-q-index {
+    color: var(--color-gold-900);
+  }
+
+  .rh__faq-q-text {
+    flex: 1;
+    font-family: var(--font-body);
+    font-size: var(--font-size-lg);
+    font-weight: 500;
+    color: var(--color-dark-900);
+    line-height: 1.4;
+  }
+
+  .rh__faq-icon {
+    font-size: 24px;
+    color: var(--color-gold-900);
+    flex-shrink: 0;
+    display: inline-block;
+    transition: transform 0.42s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .rh__faq-item.is-open .rh__faq-icon { transform: rotate(45deg); }
+  .rh__faq-item.is-closing .rh__faq-icon {
+    transform: rotate(0deg);
+    transition: transform 0.22s ease-in;
+  }
+
+  .rh__faq-a {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.42s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .rh__faq-item.is-open .rh__faq-a { grid-template-rows: 1fr; }
+  .rh__faq-item.is-closing .rh__faq-a {
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.22s ease-in;
+  }
+
+  .rh__faq-a-inner {
+    overflow: hidden;
+    padding-left: 60px;
+    padding-bottom: 0;
+    max-width: 680px;
+    transition: padding-bottom 0.42s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .rh__faq-item.is-open .rh__faq-a-inner {
+    padding-bottom: var(--spacing-24);
+  }
+
+  .rh__faq-item.is-closing .rh__faq-a-inner {
+    padding-bottom: 0;
+    transition: padding-bottom 0.22s ease-in;
+  }
+
+  .rh__faq-a-inner p {
+    font-family: var(--font-body);
+    font-size: var(--font-size-base);
+    line-height: 1.7;
+    color: var(--color-text-muted);
+    opacity: 0;
+    transition: opacity 0.12s ease;
+  }
+
+  .rh__faq-item.is-open .rh__faq-a-inner p {
+    opacity: 1;
+    transition: opacity 0.28s ease 0.16s;
+  }
+
+  .rh__faq-item.is-closing .rh__faq-a-inner p {
+    opacity: 0;
+    transition: opacity 0.1s ease;
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 1100px) {
+    .rh__steps {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  @media (max-width: 760px) {
+    .rh {
+      gap: var(--spacing-48);
+    }
+
+    .rh__hero,
+    .rh__deadline {
+      margin-left: calc(var(--spacing-16) * -1);
+      margin-right: calc(var(--spacing-16) * -1);
+    }
+
+    .rh__hero-content {
+      padding: var(--spacing-32) var(--spacing-16);
+    }
+
+    .rh__hero-stats {
+      padding: var(--spacing-16);
+      flex-wrap: wrap;
+      gap: var(--spacing-16);
+    }
+
+    .rh__hero-stat-sep {
+      display: none;
+    }
+
+    .rh__hero-stat {
+      flex: 0 0 auto;
+    }
+
+    .rh__hero-cta {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .rh__title {
+      font-size: var(--font-size-h3);
+    }
+
+    .rh__section-title {
+      font-size: var(--font-size-h4);
+    }
+
+    .rh__grid {
+      grid-template-columns: 1fr;
+    }
+
+    .rh__steps {
+      grid-template-columns: 1fr;
+    }
+
+    .rh__deadline {
+      border-radius: 0;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--spacing-24);
+      padding: var(--spacing-32) var(--spacing-16);
+    }
+
+    .rh__deadline-divider {
+      width: 40px;
+      height: 1px;
+    }
+
+    .rh__deadline-num {
+      font-size: 72px;
+    }
+
+    .rh__guarantees {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .rh__guarantee + .rh__guarantee::before {
+      display: none;
+    }
+
+    .rh__guarantee:nth-child(odd) {
+      border-right: 1px solid var(--color-gold-600);
+    }
+
+    .rh__guarantee:nth-child(1),
+    .rh__guarantee:nth-child(2) {
+      border-bottom: 1px solid var(--color-gold-600);
+    }
+
+    .rh__faq-q-index {
+      width: 32px;
+      font-size: var(--font-size-h6, 25px);
+    }
+
+    .rh__faq-a-inner {
+      padding-left: 48px;
+    }
+  }
+
+  @media (max-width: 500px) {
+    .rh__guarantees {
+      grid-template-columns: 1fr;
+    }
+
+    .rh__guarantee:nth-child(odd) {
+      border-right: none;
+    }
+
+    .rh__guarantee + .rh__guarantee {
+      border-top: 1px solid var(--color-gold-600);
+    }
+
+    .rh__guarantee:nth-child(1),
+    .rh__guarantee:nth-child(2) {
+      border-bottom: none;
+    }
+  }
+</style>

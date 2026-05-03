@@ -1,0 +1,77 @@
+---
+---
+
+<section class="second-hero">
+  <div class="second-hero__wrapper">
+    <div class="second-hero__image">
+      <img src="/images/approach-hand.jpg" alt="Процесс создания кольца" />
+    </div>
+    <div class="second-hero__content">
+      <div class="second-hero__label">
+        <span class="second-hero__label-text">Подход</span>
+      </div>
+      <div class="second-hero__heading">
+        <h2 class="second-hero__title">Вы — соавтор. <em>Вместе создадим кольца, которые расскажут вашу историю</em></h2>
+        <div class="second-hero__desc">
+          <p>В мастерской «Артель» мы объединили классическую школу ювелирного искусства и современные 3D-технологии. Вы не просто заказчик — вы участвуете на каждом этапе. Вносите правки в цифровую модель, меняйте детали, выбирайте камни — пока каждый изгиб не станет именно таким, как вы хотите.</p>
+          <p>Обручальное кольцо — единственный элемент свадьбы, который останется с вами на десятилетия. Цветы завянут, платье отправится в чехол, а тосты забудутся. Кольцо будет с вами каждое утро: за завтраком, в офисе и в путешествиях. Пусть оно будет именно вашим.</p>
+        </div>
+      </div>
+      <div class="second-hero__buttons">
+        <a href="#manager" class="btn btn--primary">Начать создание ваших колец</a>
+        <a href="tel:+79319616090" class="btn btn--outline">Заказать звонок</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+.second-hero {
+  background-color: var(--color-white);
+  display: flex; flex-direction: column; align-items: center;
+  padding: var(--spacing-64) var(--spacing-48); overflow: hidden; width: 100%;
+}
+.second-hero__wrapper {
+  display: flex; gap: var(--spacing-48); align-items: center;
+  max-width: 1400px; width: 100%;
+}
+.second-hero__image {
+  width: 572px; height: 685px; flex-shrink: 0; position: relative; overflow: hidden;
+}
+.second-hero__image img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.second-hero__content {
+  flex: 1; display: flex; flex-direction: column; gap: var(--spacing-32); min-width: 0;
+}
+.second-hero__label { display: flex; align-items: center; gap: var(--spacing-16); width: 100%; }
+.second-hero__label-text {
+  font-family: var(--font-body); font-size: var(--font-size-base);
+  line-height: 1.5; color: var(--color-gold-900); text-transform: uppercase;
+}
+.second-hero__heading { display: flex; flex-direction: column; gap: var(--spacing-32); width: 100%; }
+.second-hero__title {
+  font-family: var(--font-heading); font-weight: 600;
+  font-size: var(--font-size-h3); line-height: 1; color: var(--color-dark-900); width: 100%;
+}
+.second-hero__title em { font-style: italic; color: var(--color-gold-900); display: block; }
+.second-hero__desc {
+  font-family: var(--font-body); font-size: var(--font-size-lg);
+  line-height: 1.5; color: var(--color-text-muted); width: 100%;
+}
+.second-hero__desc p + p { margin-top: var(--spacing-16); }
+.second-hero__buttons {
+  display: flex; gap: var(--spacing-32); align-items: center;
+  padding-top: var(--spacing-24); border-top: 1px solid var(--color-gold-600); width: 100%;
+}
+@media (max-width: 1024px) {
+  .second-hero { padding: var(--spacing-48) var(--spacing-32); }
+  .second-hero__wrapper { flex-direction: column; }
+  .second-hero__image { width: 100%; height: 400px; }
+  .second-hero__title { font-size: 36px; }
+}
+@media (max-width: 500px) {
+  .second-hero { padding: var(--spacing-48) var(--spacing-24); }
+  .second-hero__image { height: 280px; }
+  .second-hero__buttons { flex-direction: column; align-items: stretch; }
+  .second-hero__title { font-size: 28px; }
+}
+</style>

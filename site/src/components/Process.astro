@@ -1,0 +1,87 @@
+---
+const steps = [
+  { num: "1.", title: "Вы рассказываете идею", desc: "Отправьте фото, ссылку на Pinterest, эскиз на салфетке — или просто опишите словами. Вместе с мастером подберёте металл, камни, стиль. Можно прийти в мастерскую или обсудить дистанционно.", img: "/images/step-01.jpg" },
+  { num: "2.", title: "Эскиз и мерки", desc: "Создаём эскиз, учитывая все ваши пожелания. Снимаем мерки. Если вы далеко — вышлем размерное кольцо почтой. После одобрения эскиз передаётся 3D-модельеру.", img: "/images/step-02.jpg" },
+  { num: "3.", title: "3D-модель и точная стоимость", desc: "3D-модельер создаёт цифровую модель кольца. На её основе рассчитываем точную стоимость, вес и срок. Вносите любые правки — без ограничений. Производство начинается только после вашего утверждения.", img: "/images/step-03.jpg" },
+  { num: "4.", title: "Производство", desc: "Утверждённая модель печатается на 3D-принтере (восковка), отливается в металле. Ювелиры собирают, спаивают, обрабатывают, полируют и закрепляют камни.", img: "/images/step-04.jpg" },
+  { num: "5.", title: "Пробирная палата", desc: "Готовое изделие отправляется в государственную Пробирную палату. Проверяется проба металла, наносится официальное клеймо.", img: "/images/step-05.jpg" },
+  { num: "6.", title: "Вручение", desc: "Приглашаем на примерку в мастерскую. Если вы из другого города — отправим СДЭК с полной страховкой. Вместе с кольцами вы получаете гарантию и сертификаты на камни.", img: "/images/step-06.jpg" }
+];
+---
+
+<section class="steps" id="process">
+  <div class="steps__header">
+    <h2 class="steps__title">Прозрачный процесс от первой встречи до готового изделия в ваших руках</h2>
+    <p class="steps__subtitle">Идеально начать за 2–3 месяца до свадьбы. Если до даты меньше месяца — напишите нам, обсудим срочное изготовление</p>
+  </div>
+  <ul class="steps__list">
+    {steps.map((step, i) => (
+      <li class={`steps__item${(i + 1) % 2 === 0 ? ' steps__item--reverse' : ''}`}>
+        <img src={step.img} alt={step.title} class="steps__image" loading="lazy" width="283" height="283" />
+        <div class="steps__content">
+          <h3 class="steps__step-title">{step.num} {step.title}</h3>
+          <p class="steps__step-desc">{step.desc}</p>
+        </div>
+      </li>
+    ))}
+  </ul>
+</section>
+
+<style>
+.steps {
+  background-color: var(--color-white);
+  display: flex; flex-direction: column; gap: var(--spacing-64); align-items: center;
+  padding: var(--spacing-64) var(--spacing-48); overflow: hidden; width: 100%;
+}
+.steps__header {
+  display: flex; align-items: center; justify-content: space-between;
+  max-width: 1400px; width: 100%; gap: var(--spacing-48);
+}
+.steps__title {
+  font-family: var(--font-heading); font-weight: 600;
+  font-size: var(--font-size-h2); line-height: 1; color: var(--color-dark-900); flex: 1;
+}
+.steps__subtitle {
+  font-family: var(--font-body); font-size: var(--font-size-base);
+  line-height: 1.5; color: var(--color-gold-900); text-align: right; flex: 1;
+}
+.steps__list {
+  display: flex; flex-direction: column; gap: var(--spacing-16);
+  max-width: 1400px; width: 100%; padding: 0 var(--spacing-132);
+}
+.steps__item {
+  display: flex; gap: var(--spacing-98); align-items: center;
+  padding: var(--spacing-32); border-top: 1px solid var(--color-gold-600);
+}
+.steps__item--reverse { flex-direction: row-reverse; }
+.steps__image { width: 283px; height: 283px; flex-shrink: 0; object-fit: cover; }
+.steps__content {
+  display: flex; flex-direction: column; gap: var(--spacing-32); flex: 1; min-width: 0;
+}
+.steps__step-title {
+  font-family: var(--font-heading); font-weight: 600;
+  font-size: var(--font-size-h3); line-height: 1; color: var(--color-dark-900);
+}
+.steps__step-desc {
+  font-family: var(--font-body); font-size: var(--font-size-lg);
+  line-height: 1.5; color: var(--color-dark-600);
+}
+@media (max-width: 1024px) {
+  .steps { padding: var(--spacing-48) var(--spacing-32); gap: var(--spacing-48); }
+  .steps__header { flex-direction: column; align-items: flex-start; }
+  .steps__subtitle { text-align: left; }
+  .steps__list { padding: 0; }
+  .steps__item { gap: var(--spacing-32); }
+  .steps__item--reverse { flex-direction: row; }
+  .steps__image { width: 200px; height: 200px; }
+  .steps__step-title { font-size: 32px; }
+}
+@media (max-width: 500px) {
+  .steps { padding: var(--spacing-48) var(--spacing-24); }
+  .steps__title { font-size: 36px; }
+  .steps__item { flex-direction: column; gap: var(--spacing-24); align-items: flex-start; }
+  .steps__item--reverse { flex-direction: column; }
+  .steps__image { width: 100%; height: 220px; }
+  .steps__step-title { font-size: 26px; }
+}
+</style>

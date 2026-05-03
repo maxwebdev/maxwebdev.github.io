@@ -1,0 +1,78 @@
+---
+interface Crumb {
+  label: string;
+  href?: string;
+}
+
+interface Props {
+  crumbs: Crumb[];
+}
+
+const { crumbs } = Astro.props;
+---
+
+<nav class="breadcrumbs" aria-label="Навигация по разделам">
+  <ol class="breadcrumbs__list" itemscope itemtype="https://schema.org/BreadcrumbList">
+    {crumbs.map((crumb, i) => (
+      <li
+        class="breadcrumbs__item"
+        itemprop="itemListElement"
+        itemscope
+        itemtype="https://schema.org/ListItem"
+      >
+        {crumb.href ? (
+          <a href={crumb.href} class="breadcrumbs__link" itemprop="item">
+            <span itemprop="name">{crumb.label}</span>
+          </a>
+        ) : (
+          <span class="breadcrumbs__current" itemprop="name" aria-current="page">
+            {crumb.label}
+          </span>
+        )}
+        <meta itemprop="position" content={String(i + 1)} />
+      </li>
+    ))}
+  </ol>
+</nav>
+
+<style>
+.breadcrumbs {
+  width: 100%;
+}
+
+.breadcrumbs__list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0;
+}
+
+.breadcrumbs__item {
+  display: flex;
+  align-items: center;
+  font-family: var(--font-body);
+  font-size: var(--font-size-sm);
+  color: var(--color-dark-600);
+  letter-spacing: 0.04em;
+}
+
+/* разделитель через pseudo */
+.breadcrumbs__item + .breadcrumbs__item::before {
+  content: '/';
+  margin: 0 8px;
+  color: var(--color-dark-600);
+  opacity: 0.4;
+}
+
+.breadcrumbs__link {
+  color: var(--color-dark-600);
+  transition: color var(--transition-fast);
+}
+.breadcrumbs__link:hover {
+  color: var(--color-gold-900);
+}
+
+.breadcrumbs__current {
+  color: var(--color-dark-900);
+}
+</style>

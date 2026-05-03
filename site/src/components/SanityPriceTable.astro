@@ -1,0 +1,223 @@
+---
+import { sanityClient } from '../lib/sanity';
+
+interface Props {
+  slug: string;
+}
+
+interface PriceRow {
+  label: string;
+  col1?: number;
+  col2?: number;
+  col3?: number;
+}
+
+interface PriceTableData {
+  title: string;
+  subtitle?: string;
+  colHeaders: string[];
+  rows: PriceRow[];
+  footnote?: string;
+}
+
+interface SiteSettings {
+  usdRate: number;
+}
+
+const { slug } = Astro.props;
+
+const [table, settings]: [PriceTableData | null, SiteSettings | null] = await Promise.all([
+  sanityClient.fetch(
+    `*[_type == "priceTable" && slug.current == $slug][0] { title, subtitle, colHeaders, rows, footnote }`,
+    { slug }
+  ),
+  sanityClient.fetch(`*[_type == "siteSettings" && _id == "siteSettings"][0] { usdRate }`),
+]);
+
+const usdRate = settings?.usdRate ?? 90;
+
+function formatPrice(usd: number | undefined): string {
+  if (usd == null) return '—';
+  const rub = Math.round(usd * usdRate / 100) * 100;
+  return `от ${rub.toLocaleString('ru-RU')} ₽`;
+}
+---
+
+{table && (
+  <section class="price-table-section">
+    <div class="price-table-header">
+      <p class="price-table-label">Прайс-лист</p>
+      <h2 class="price-table-title">{table.title}</h2>
+      {table.subtitle && <p class="price-table-subtitle">{table.subtitle}</p>}
+    </div>
+
+    <div class="price-table-wrap">
+      <table class="price-table">
+        <thead>
+          <tr>
+            {table.colHeaders.map((h: string) => <th>{h}</th>)}
+          </tr>
+        </thead>
+        <tbody>
+          {table.rows.map((row: PriceRow) => (
+            <tr>
+              <td>{row.label}</td>
+              {row.col1 != null && <td class="price-table__price">{formatPrice(row.col1)}</td>}
+              {row.col2 != null && <td class="price-table__price">{formatPrice(row.col2)}</td>}
+              {row.col3 != null && <td class="price-table__price">{formatPrice(row.col3)}</td>}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+
+    <div class="price-table-footer">
+      {table.footnote && (
+        <p class="price-table-footnote">{table.footnote}</p>
+      )}
+      <p class="price-table-rate">Курс доллара: {usdRate} ₽</p>
+    </div>
+  </section>
+)}
+
+<style>
+.price-table-section {
+  background: var(--color-white);
+  border-radius: var(--radius-sm);
+  padding: var(--spacing-48);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-32);
+}
+
+.price-table-header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-8);
+}
+
+.price-table-label {
+  font-family: var(--font-body);
+  font-size: var(--font-size-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-gold-900);
+}
+
+.price-table-title {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: var(--font-size-h2);
+  line-height: 1.05;
+  color: var(--color-dark-900);
+}
+
+.price-table-subtitle {
+  font-family: var(--font-body);
+  font-size: var(--font-size-base);
+  line-height: 1.6;
+  color: var(--color-text-muted);
+  max-width: 560px;
+}
+
+.price-table-wrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.price-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--font-body);
+  font-size: var(--font-size-base);
+  line-height: 1.5;
+}
+
+.price-table thead tr {
+  border-bottom: 1px solid var(--color-gold-600);
+}
+
+.price-table th {
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: var(--font-size-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-dark-600);
+  padding: 0 var(--spacing-16) var(--spacing-16) var(--spacing-16);
+  text-align: left;
+}
+
+.price-table th:first-child {
+  padding-left: 0;
+}
+
+.price-table td {
+  padding: var(--spacing-24) var(--spacing-16);
+  border-bottom: 1px solid var(--color-gold-600);
+  color: var(--color-dark-900);
+  font-size: var(--font-size-base);
+}
+
+.price-table td:first-child {
+  padding-left: 0;
+}
+
+.price-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.price-table tbody tr {
+  transition: background-color 200ms ease;
+}
+
+.price-table tbody tr:hover {
+  background-color: var(--color-gold-300);
+}
+
+.price-table__price {
+  font-weight: 500;
+  color: var(--color-gold-900);
+  white-space: nowrap;
+}
+
+.price-table-footer {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--spacing-24);
+  padding-top: var(--spacing-16);
+  border-top: 1px solid var(--color-gold-600);
+}
+
+.price-table-footnote {
+  font-family: var(--font-body);
+  font-size: var(--font-size-sm);
+  line-height: 1.6;
+  color: var(--color-text-muted);
+}
+
+.price-table-rate {
+  font-family: var(--font-body);
+  font-size: var(--font-size-sm);
+  color: var(--color-dark-600);
+  opacity: 0.5;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+@media (max-width: 760px) {
+  .price-table-section {
+    padding: var(--spacing-32) var(--spacing-24);
+  }
+
+  .price-table-title {
+    font-size: var(--font-size-h3);
+  }
+
+  .price-table-footer {
+    flex-direction: column;
+    gap: var(--spacing-8);
+  }
+}
+</style>

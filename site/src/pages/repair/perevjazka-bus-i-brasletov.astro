@@ -1,0 +1,1022 @@
+---
+import InnerPage from "../../layouts/InnerPage.astro";
+import SanityPriceTable from "../../components/SanityPriceTable.astro";
+
+const repairLinks = [
+  { label: "Уменьшение колец", href: "/repair/umenshenie-kolecz" },
+  { label: "Увеличение колец", href: "/repair/uvelichenie-kolecz" },
+  {
+    label: "Пайка цепочек и браслетов",
+    href: "/repair/pajka-cepochek-brasletov-i-lozhek",
+  },
+  { label: "Лазерная пайка", href: "/repair/lazernaja-pajka" },
+  { label: "Ремонт и замена замков", href: "/repair/remont-i-zamena-zamkov" },
+  { label: "Закрепка камней", href: "/repair/zakrepka-kamnej" },
+  { label: "Перевязка бус", href: "/repair/perevjazka-bus-i-brasletov" },
+  {
+    label: "Родирование, золочение",
+    href: "/repair/rodirovanie-zolochenie-serebrenie",
+  },
+  { label: "Дополнительные услуги", href: "/repair/dopolnitelnye-uslugi" },
+];
+
+const crumbs = [
+  { label: "Главная", href: "/" },
+  { label: "Ремонт украшений", href: "/repair" },
+  { label: "Перевязка бус и браслетов" },
+];
+
+const guarantees = [
+  {
+    num: "01",
+    title: "Гарантия 1 год",
+    text: "Выдаём письменную гарантию на каждое изделие.",
+  },
+  {
+    num: "02",
+    title: "Мастера с образованием",
+    text: "Все ювелиры с высшим профильным образованием. Стаж — от 8 до 40 лет.",
+  },
+  {
+    num: "03",
+    title: "Бережная работа с жемчугом",
+    text: "Не используем грубых инструментов. Жемчуг собирается вручную, без царапин и сколов.",
+  },
+  {
+    num: "04",
+    title: "Проверка перед выдачей",
+    text: "Проверяем натяжение нити, все узелки и концевики. Украшение получаете готовым к носке.",
+  },
+];
+
+const faqs = [
+  {
+    q: "Зачем при перетяжке жемчуга завязывают узелок между каждой бусиной?",
+    a: "Узелки — классическая техника, которая выполняет сразу две функции. Во-первых, они защищают хрупкий жемчуг от трения: бусины не касаются друг друга и не истираются. Во-вторых, если нить всё же порвётся — вы потеряете в худшем случае одну бусину, а не всё украшение сразу.",
+  },
+  {
+    q: "Как часто нужно перетягивать бусы из жемчуга?",
+    a: "При регулярной носке — раз в 1–3 года, даже если бусы не порвались. Шёлковая нить разрушается под воздействием влаги, кожных масел и парфюма. Если между бусинами появились пустые зазоры или нить выглядит растянувшейся — пора к мастеру.",
+  },
+  {
+    q: "Из чего сделана нить и можно ли выбрать материал?",
+    a: "Да, вы можете обсудить материал с мастером. Для жемчуга и нежных камней традиционно используем натуральный шёлк — он мягко ложится и обеспечивает красивое падение украшения. Для тяжёлых камней и украшений на каждый день — стальной тросик в нейлоновой оплётке: он выдерживает острые края кристаллов и значительный вес.",
+  },
+  {
+    q: "Можно ли использовать обычную нитку для ремонта бус дома?",
+    a: "Нет. Обычная швейная нить не рассчитана на трение изнутри бусин — она быстро перетирается, теряет натяжение и рвётся. Для долговечного украшения нужна специализированная ювелирная нить или тросик.",
+  },
+  {
+    q: "Почему нить рвётся у самого замка?",
+    a: "Место крепления к замку — самая нагруженная точка: именно здесь нить постоянно сгибается и трётся о металл. Мы защищаем это место специальной фурнитурой — канителью или металлическим протектором, которые принимают трение на себя и многократно продлевают срок службы нити.",
+  },
+  {
+    q: "Можно ли сделать браслет-резинку — без замка, который надевается через руку?",
+    a: "Да. Для таких браслетов используем профессиональный эластичный шнур. Он растягивается при надевании, но не теряет форму и не трескается со временем. Узел дополнительно проклеивается ювелирным цементом и прячется внутри одной из бусин.",
+  },
+  {
+    q: "Нужно ли приносить все бусины или достаточно части?",
+    a: "Принесите всё, что сохранилось. Если у вас есть фрагмент разорвавшейся нити — обязательно возьмите его: по нему мастер определит исходную длину и тип вязки. Если нескольких бусин не хватает — обсудим варианты замены или изменения длины.",
+  },
+];
+---
+
+<InnerPage
+  title="Перевязка бус и браслетов"
+  description="Перевязываем бусы и браслеты в Санкт-Петербурге. Жемчуг, натуральные камни, шёлк и тросик. Готово за 1–2 дня. Гарантия 1 год."
+  crumbs={crumbs}
+  sidebarLinks={repairLinks}
+  sidebarTitle="Услуги ремонта"
+  activeHref="/repair/perevjazka-bus-i-brasletov"
+>
+  <div class="pb">
+
+    <!-- ── Hero ── -->
+    <div class="pb__hero">
+      <div class="pb__hero-content">
+        <p class="pb__hero-label">
+          Ювелирная мастерская «Артель» · Санкт-Петербург
+        </p>
+        <h1 class="pb__title">Перевязка бус и браслетов</h1>
+        <p class="pb__lead">
+          Разорванные бусы можно собрать. Если украшение винтажное и бусины
+          от времени стали разных оттенков — мы можем отсортировать их и нанизать
+          на нить так, чтобы создать плавный цветовой переход. Мы используем
+          прочные лески, тросики и ремешки для перетяжки, поэтому бусы или браслет
+          не порвутся при носке.
+        </p>
+        <div class="pb__hero-cta">
+          <a
+            href="https://wa.me/+79319616090?text=Здравствуйте%2C%20хочу%20перевязать%20бусы%20или%20браслет%2C%20отправляю%20фото"
+            class="btn btn--primary"
+            target="_blank"
+            rel="noopener"
+          >
+            Прислать фото украшения
+          </a>
+          <p class="pb__hero-hint">
+            Ответим в течение нескольких минут и назовём цену
+          </p>
+        </div>
+      </div>
+
+      <div class="pb__hero-image">
+        <div class="pb__hero-img-placeholder">
+          <span>Фото — перевязка жемчужных бус в мастерской</span>
+        </div>
+      </div>
+
+      <div class="pb__hero-stats">
+        <div class="pb__hero-stat">
+          <span class="pb__hero-stat-num">2</span>
+          <div class="pb__hero-stat-info">
+            <span class="pb__hero-stat-unit">часа</span>
+            <span class="pb__hero-stat-label">минимальный срок</span>
+          </div>
+        </div>
+        <span class="pb__hero-stat-sep" aria-hidden="true"></span>
+        <div class="pb__hero-stat">
+          <span class="pb__hero-stat-num">1</span>
+          <div class="pb__hero-stat-info">
+            <span class="pb__hero-stat-unit">год</span>
+            <span class="pb__hero-stat-label">гарантия на работу</span>
+          </div>
+        </div>
+        <span class="pb__hero-stat-sep" aria-hidden="true"></span>
+        <div class="pb__hero-stat">
+          <span class="pb__hero-stat-num">8–40</span>
+          <div class="pb__hero-stat-info">
+            <span class="pb__hero-stat-unit">лет</span>
+            <span class="pb__hero-stat-label">стаж мастеров</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Подсказка ── -->
+    <div class="pb__notice">
+      <svg class="pb__notice-icon" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+        <circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="1.5"/>
+        <path d="M10 9v5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        <circle cx="10" cy="6.5" r="0.75" fill="currentColor"/>
+      </svg>
+      <p>
+        Если у вас сохранился фрагмент разорвавшейся нити, пожалуйста,
+        принесите его в мастерскую вместе с бусинами. Нам будет проще определить,
+        какая длина и какой тип вязки был у изделия.
+      </p>
+    </div>
+
+    <!-- ── Prices ── -->
+    <SanityPriceTable slug="repair-stringing" />
+
+    <!-- ── Из чего нанизывают ── -->
+    <div class="pb__section">
+      <p class="pb__label">Материалы</p>
+      <h2 class="pb__section-title">Из чего нанизывают</h2>
+      <p class="pb__section-lead">
+        Выбор материала зависит от типа бусин, их веса и остроты краёв. Мастер
+        подберёт подходящий вариант на консультации.
+      </p>
+      <div class="pb__cases">
+        <div class="pb__case">
+          <div class="pb__card-img">
+            <span>Фото — шёлковая нить с иглой на кончике</span>
+          </div>
+          <span class="pb__case-num">01</span>
+          <div class="pb__case-title">Натуральный шёлк</div>
+          <p class="pb__case-text">
+            Классика для жемчуга и деликатных камней. Мягкий и гладкий — даёт
+            украшению живое, естественное падение. Легко завязывается в узелок
+            между каждой бусиной. Чувствителен к влаге и парфюму, поэтому
+            жемчуг на шёлке рекомендуется перетягивать раз в 1–3 года.
+          </p>
+        </div>
+        <div class="pb__case">
+          <div class="pb__card-img">
+            <span>Фото — нейлоновая нить Griffin крупным планом</span>
+          </div>
+          <span class="pb__case-num">02</span>
+          <div class="pb__case-title">Нейлон и синтетика</div>
+          <p class="pb__case-text">
+            Прочная альтернатива шёлку. Не рвётся об острые края бусин, не
+            впитывает влагу и менее чувствителен к химии. Подходит для
+            камней с зазубренными отверстиями — кристаллов, кварца, граната.
+            Хорошо завязывается в узелки, доступен в десятках цветов.
+          </p>
+        </div>
+        <div class="pb__case">
+          <div class="pb__card-img">
+            <span>Фото — ювелирный тросик в нейлоновой оплётке</span>
+          </div>
+          <span class="pb__case-num">03</span>
+          <div class="pb__case-title">Ювелирный тросик</div>
+          <p class="pb__case-text">
+            Стальные нити, свитые вместе и покрытые нейлоном. Выдерживает
+            тяжёлые камни и металлические бусины. Не завязывается в узлы —
+            концы крепятся зажимами-кримпами. Чем больше нитей в тросике
+            (7, 19, 49), тем мягче он струится.
+          </p>
+        </div>
+        <div class="pb__case">
+          <div class="pb__card-img">
+            <span>Фото — эластичный шнур с бусинами-образцами</span>
+          </div>
+          <span class="pb__case-num">04</span>
+          <div class="pb__case-title">Эластичный шнур</div>
+          <p class="pb__case-text">
+            Для браслетов, которые надеваются через кисть без замка.
+            Растягивается при надевании, но не теряет форму и не трескается
+            со временем. Узел дополнительно проклеивается ювелирным цементом
+            и прячется внутри одной из бусин.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── От чего зависит цена ── -->
+    <div class="pb__section">
+      <p class="pb__label">Стоимость работы</p>
+      <h2 class="pb__section-title">От чего зависит цена?</h2>
+      <p class="pb__section-lead">
+        Цена зависит от сложности работы мастера. А также от необходимости
+        дополнительных услуг: замены или ремонта замков и концевиков нити.
+      </p>
+      <div class="pb__cases">
+        <div class="pb__case">
+          <span class="pb__case-num">01</span>
+          <div class="pb__case-title">Жемчуг</div>
+          <p class="pb__case-text">
+            Жемчуг — натуральный материал, который легко повредить. Чтобы этого
+            не произошло, мастер максимально бережно собирает такие бусы и не
+            использует грубых инструментов в работе. Цена на перевязку таких
+            украшений будет выше, чем на бусы и браслеты из других материалов.
+          </p>
+        </div>
+        <div class="pb__case">
+          <span class="pb__case-num">02</span>
+          <div class="pb__case-title">Перевязка через узелок</div>
+          <p class="pb__case-text">
+            Мастер потратит больше времени на перетяжку бус через узелок,
+            такая работа стоит дороже. Тем не менее, такой вид работы позволяет
+            не рассыпать украшение, если оно зацепится и порвётся при носке.
+          </p>
+        </div>
+        <div class="pb__case">
+          <span class="pb__case-num">03</span>
+          <div class="pb__case-title">Металлические лески и тросики</div>
+          <p class="pb__case-text">
+            По вашему желанию, для перетяжки мы можем использовать металлические
+            лески и тросики. Такие бусы или браслеты будут прочнее, чем
+            нанизанные на обычную леску.
+          </p>
+        </div>
+        <div class="pb__case">
+          <span class="pb__case-num">04</span>
+          <div class="pb__case-title">Замки и концевики</div>
+          <p class="pb__case-text">
+            Если при перетяжке потребуется заменить или отремонтировать замок,
+            концевики или другую фурнитуру — мастер включит эту работу в смету
+            и согласует с вами до начала работы.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Сроки ── -->
+    <div class="pb__deadline">
+      <div class="pb__deadline-time">
+        <span class="pb__deadline-num">2</span>
+        <span class="pb__deadline-unit">часа</span>
+      </div>
+      <div class="pb__deadline-divider" aria-hidden="true"></div>
+      <div class="pb__deadline-body">
+        <p class="pb__label">Время выполнения</p>
+        <h2 class="pb__deadline-title">Сроки</h2>
+        <p class="pb__deadline-text">
+          Перетяжка бус занимает у мастера <strong>от двух часов</strong>.
+          Как правило, готовое изделие вы можете забрать через <strong>один-два дня</strong>.
+          Уточните у мастера — он ориентирует вас по срокам на консультации.
+        </p>
+      </div>
+    </div>
+
+    <!-- ── Гарантии ── -->
+    <div class="pb__section">
+      <p class="pb__label">Обязательства</p>
+      <h2 class="pb__section-title">Наши гарантии</h2>
+      <div class="pb__guarantees">
+        {
+          guarantees.map((g) => (
+            <div class="pb__guarantee">
+              <div class="pb__guarantee-num">{g.num}</div>
+              <div class="pb__guarantee-title">{g.title}</div>
+              <div class="pb__guarantee-text">{g.text}</div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+
+    <!-- ── FAQ ── -->
+    <div class="pb__section">
+      <p class="pb__label">Вопросы и ответы</p>
+      <h2 class="pb__section-title">Частые вопросы</h2>
+      <div class="pb__faq">
+        {
+          faqs.map((item, i) => (
+            <div class="pb__faq-item">
+              <button
+                class="pb__faq-q"
+                type="button"
+                aria-expanded="false"
+                aria-controls={`pb-faq-panel-${i}`}
+              >
+                <span class="pb__faq-q-index">{String(i + 1).padStart(2, "0")}</span>
+                <span class="pb__faq-q-text">{item.q}</span>
+                <span class="pb__faq-icon" aria-hidden="true">+</span>
+              </button>
+              <div class="pb__faq-a" id={`pb-faq-panel-${i}`} role="region">
+                <div class="pb__faq-a-inner">
+                  <p>{item.a}</p>
+                </div>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+
+  </div>
+</InnerPage>
+
+<script>
+  document.querySelectorAll<HTMLElement>('.pb__faq-item').forEach(item => {
+    const btn = item.querySelector<HTMLButtonElement>('.pb__faq-q')!;
+    const answer = item.querySelector<HTMLElement>('.pb__faq-a')!;
+
+    btn.addEventListener('click', () => {
+      if (item.classList.contains('is-open')) {
+        item.classList.add('is-closing');
+        item.classList.remove('is-open');
+        btn.setAttribute('aria-expanded', 'false');
+        answer.addEventListener('transitionend', () => {
+          item.classList.remove('is-closing');
+        }, { once: true });
+      } else {
+        item.classList.remove('is-closing');
+        item.classList.add('is-open');
+        btn.setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
+</script>
+
+<style>
+  .pb {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-64);
+  }
+
+  /* ── Hero ── */
+  .pb__hero {
+    background: linear-gradient(
+      154.68deg,
+      var(--color-gold-300) 0%,
+      var(--color-gold-600) 100%
+    );
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr auto;
+    overflow: hidden;
+  }
+
+  .pb__hero-content {
+    grid-column: 1;
+    grid-row: 1;
+    padding: var(--spacing-48);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-24);
+  }
+
+  .pb__hero-image {
+    grid-column: 2;
+    grid-row: 1 / 3;
+    position: relative;
+    min-height: 380px;
+  }
+
+  .pb__hero-img-placeholder {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.10);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .pb__hero-img-placeholder span {
+    font-family: var(--font-body);
+    font-size: var(--font-size-sm);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: rgba(0, 0, 0, 0.35);
+    text-align: center;
+    padding: 0 var(--spacing-24);
+  }
+
+  .pb__hero-stats {
+    grid-column: 1;
+    grid-row: 2;
+    display: flex;
+    align-items: center;
+    gap: 0;
+    padding: var(--spacing-24) var(--spacing-48);
+    border-top: 1px solid var(--color-gold-600);
+  }
+
+  .pb__hero-stat {
+    display: flex;
+    align-items: baseline;
+    gap: var(--spacing-8);
+    flex: 1;
+  }
+
+  .pb__hero-stat-num {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-h3);
+    font-weight: 600;
+    font-style: italic;
+    color: var(--color-dark-900);
+    line-height: 1;
+  }
+
+  .pb__hero-stat-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .pb__hero-stat-unit {
+    font-family: var(--font-body);
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-dark-900);
+  }
+
+  .pb__hero-stat-label {
+    font-family: var(--font-body);
+    font-size: var(--font-size-sm);
+    color: var(--color-gold-900);
+    line-height: 1.3;
+    white-space: nowrap;
+  }
+
+  .pb__hero-stat-sep {
+    width: 1px;
+    height: 40px;
+    background: var(--color-gold-600);
+    flex-shrink: 0;
+    margin: 0 var(--spacing-24);
+  }
+
+  .pb__hero-label {
+    font-family: var(--font-body);
+    font-size: var(--font-size-sm);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-gold-900);
+  }
+
+  .pb__title {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-h2);
+    font-weight: 600;
+    color: var(--color-dark-900);
+    line-height: 1;
+  }
+
+  .pb__lead {
+    font-family: var(--font-body);
+    font-size: var(--font-size-lg);
+    line-height: 1.6;
+    color: var(--color-text-muted);
+  }
+
+  .pb__hero-cta {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-24);
+    margin-top: auto;
+  }
+
+  .pb__hero-hint {
+    font-family: var(--font-body);
+    font-size: var(--font-size-sm);
+    color: var(--color-gold-900);
+    line-height: 1.4;
+    max-width: 160px;
+  }
+
+  /* ── Notice ── */
+  .pb__notice {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--spacing-16);
+    background: var(--color-gold-300);
+    border-left: 3px solid var(--color-gold-900);
+    border-radius: var(--radius-sm);
+    padding: var(--spacing-24) var(--spacing-32);
+  }
+
+  .pb__notice-icon {
+    color: var(--color-gold-900);
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .pb__notice p {
+    font-family: var(--font-body);
+    font-size: var(--font-size-base);
+    line-height: 1.6;
+    color: var(--color-dark-900);
+  }
+
+  /* ── Section ── */
+  .pb__section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-24);
+  }
+
+  .pb__label {
+    font-family: var(--font-body);
+    font-size: var(--font-size-sm);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-gold-900);
+  }
+
+  .pb__section-title {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-h3);
+    font-weight: 600;
+    color: var(--color-dark-900);
+    line-height: 1.05;
+    margin-top: calc(var(--spacing-24) * -1);
+  }
+
+  .pb__section-lead {
+    font-family: var(--font-body);
+    font-size: var(--font-size-lg);
+    line-height: 1.7;
+    color: var(--color-text-muted);
+    max-width: 640px;
+  }
+
+  /* ── Cases ── */
+  .pb__cases {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--spacing-24);
+  }
+
+  .pb__case {
+    background-color: var(--color-white);
+    border: 1px solid var(--color-gold-600);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-16);
+    transition: transform 200ms ease, box-shadow 200ms ease;
+  }
+
+  .pb__case:not(:has(.pb__card-img)) {
+    padding: var(--spacing-32);
+  }
+
+  .pb__case:has(.pb__card-img) .pb__case-num,
+  .pb__case:has(.pb__card-img) .pb__case-title,
+  .pb__case:has(.pb__card-img) .pb__case-text {
+    padding: 0 var(--spacing-32);
+  }
+
+  .pb__case:has(.pb__card-img) .pb__case-text {
+    padding-bottom: var(--spacing-32);
+  }
+
+  .pb__case:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(199, 125, 23, 0.18);
+  }
+
+  .pb__card-img {
+    width: 100%;
+    height: 160px;
+    background: rgba(0, 0, 0, 0.06);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .pb__card-img span {
+    font-family: var(--font-body);
+    font-size: var(--font-size-sm);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: rgba(0, 0, 0, 0.30);
+    text-align: center;
+    padding: 0 var(--spacing-16);
+  }
+
+  .pb__case-num {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-h4);
+    font-weight: 600;
+    font-style: italic;
+    color: var(--color-gold-600);
+    line-height: 1;
+  }
+
+  .pb__case-title {
+    font-family: var(--font-body);
+    font-size: var(--font-size-base);
+    font-weight: 500;
+    color: var(--color-dark-900);
+    line-height: 1.3;
+  }
+
+  .pb__case-text {
+    font-family: var(--font-body);
+    font-size: var(--font-size-base);
+    line-height: 1.6;
+    color: var(--color-text-muted);
+  }
+
+  /* ── Deadline spotlight ── */
+  .pb__deadline {
+    background: var(--color-dark-900);
+    border-radius: var(--radius-sm);
+    padding: var(--spacing-48);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-48);
+  }
+
+  .pb__deadline-time {
+    display: flex;
+    align-items: baseline;
+    gap: var(--spacing-8);
+    flex-shrink: 0;
+  }
+
+  .pb__deadline-num {
+    font-family: var(--font-heading);
+    font-size: 96px;
+    font-weight: 600;
+    font-style: italic;
+    color: var(--color-gold-600);
+    line-height: 1;
+  }
+
+  .pb__deadline-unit {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-h3);
+    font-weight: 600;
+    font-style: italic;
+    color: var(--color-gold-600);
+    line-height: 1;
+  }
+
+  .pb__deadline-divider {
+    width: 1px;
+    height: 80px;
+    background: rgba(240, 219, 190, 0.2);
+    flex-shrink: 0;
+  }
+
+  .pb__deadline-body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-8);
+  }
+
+  .pb__deadline-body .pb__label {
+    color: var(--color-gold-600);
+  }
+
+  .pb__deadline-title {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-h3);
+    font-weight: 600;
+    color: var(--color-gold-600);
+    line-height: 1.05;
+  }
+
+  .pb__deadline-text {
+    font-family: var(--font-body);
+    font-size: var(--font-size-base);
+    line-height: 1.7;
+    color: rgba(252, 248, 243, 0.7);
+    max-width: 560px;
+  }
+
+  .pb__deadline-text strong {
+    color: var(--color-gold-600);
+    font-weight: 500;
+  }
+
+  /* ── Guarantees ── */
+  .pb__guarantees {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    background-color: var(--color-white);
+    border: 1px solid var(--color-gold-600);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+  }
+
+  .pb__guarantee {
+    padding: var(--spacing-32);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-16);
+    position: relative;
+    transition: background-color 200ms ease;
+  }
+
+  .pb__guarantee:hover {
+    background-color: var(--color-gold-300);
+  }
+
+  .pb__guarantee + .pb__guarantee::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: var(--spacing-32);
+    bottom: var(--spacing-32);
+    width: 1px;
+    background: var(--color-gold-600);
+  }
+
+  .pb__guarantee-num {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-h2);
+    font-weight: 600;
+    font-style: italic;
+    color: var(--color-gold-600);
+    line-height: 1;
+  }
+
+  .pb__guarantee-title {
+    font-family: var(--font-body);
+    font-size: var(--font-size-lg);
+    font-weight: 400;
+    color: var(--color-dark-900);
+    line-height: 1.3;
+  }
+
+  .pb__guarantee-text {
+    font-family: var(--font-body);
+    font-size: var(--font-size-base);
+    line-height: 1.5;
+    color: var(--color-text-muted);
+  }
+
+  /* ── FAQ ── */
+  .pb__faq {
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid var(--color-gold-600);
+  }
+
+  .pb__faq-item {
+    border-bottom: 1px solid var(--color-gold-600);
+  }
+
+  .pb__faq-q {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-16);
+    width: 100%;
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    padding: var(--spacing-24) 0;
+  }
+
+  .pb__faq-q-index {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-h4);
+    font-weight: 600;
+    font-style: italic;
+    color: var(--color-gold-600);
+    line-height: 1;
+    flex-shrink: 0;
+    width: 44px;
+    transition: color 200ms ease;
+  }
+
+  .pb__faq-item.is-open .pb__faq-q-index {
+    color: var(--color-gold-900);
+  }
+
+  .pb__faq-q-text {
+    flex: 1;
+    font-family: var(--font-body);
+    font-size: var(--font-size-lg);
+    font-weight: 500;
+    color: var(--color-dark-900);
+    line-height: 1.4;
+  }
+
+  .pb__faq-icon {
+    font-size: 24px;
+    color: var(--color-gold-900);
+    flex-shrink: 0;
+    display: inline-block;
+    transition: transform 0.42s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .pb__faq-item.is-open .pb__faq-icon { transform: rotate(45deg); }
+  .pb__faq-item.is-closing .pb__faq-icon {
+    transform: rotate(0deg);
+    transition: transform 0.22s ease-in;
+  }
+
+  .pb__faq-a {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.42s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .pb__faq-item.is-open .pb__faq-a { grid-template-rows: 1fr; }
+  .pb__faq-item.is-closing .pb__faq-a {
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.22s ease-in;
+  }
+
+  .pb__faq-a-inner {
+    overflow: hidden;
+    padding-left: 60px;
+    padding-bottom: 0;
+    max-width: 680px;
+    transition: padding-bottom 0.42s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .pb__faq-item.is-open .pb__faq-a-inner {
+    padding-bottom: var(--spacing-24);
+  }
+
+  .pb__faq-item.is-closing .pb__faq-a-inner {
+    padding-bottom: 0;
+    transition: padding-bottom 0.22s ease-in;
+  }
+
+  .pb__faq-a-inner p {
+    font-family: var(--font-body);
+    font-size: var(--font-size-base);
+    line-height: 1.7;
+    color: var(--color-text-muted);
+    opacity: 0;
+    transition: opacity 0.12s ease;
+  }
+
+  .pb__faq-item.is-open .pb__faq-a-inner p {
+    opacity: 1;
+    transition: opacity 0.28s ease 0.16s;
+  }
+
+  .pb__faq-item.is-closing .pb__faq-a-inner p {
+    opacity: 0;
+    transition: opacity 0.1s ease;
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 1024px) {
+    .pb__cases {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 760px) {
+    .pb {
+      gap: var(--spacing-48);
+    }
+
+    .pb__hero,
+    .pb__deadline,
+    .pb__notice {
+      margin-left: calc(var(--spacing-16) * -1);
+      margin-right: calc(var(--spacing-16) * -1);
+    }
+
+    .pb__notice {
+      border-radius: 0;
+      padding: var(--spacing-24) var(--spacing-16);
+    }
+
+    .pb__hero {
+      grid-template-columns: 1fr;
+      grid-template-rows: 220px auto auto;
+    }
+    .pb__hero-image {
+      grid-column: 1;
+      grid-row: 1;
+      min-height: unset;
+    }
+    .pb__hero-content {
+      grid-column: 1;
+      grid-row: 2;
+      padding: var(--spacing-32) var(--spacing-16);
+    }
+    .pb__hero-stats {
+      grid-column: 1;
+      grid-row: 3;
+      padding: var(--spacing-16);
+      flex-wrap: wrap;
+      gap: var(--spacing-16);
+    }
+    .pb__hero-stat-sep {
+      display: none;
+    }
+    .pb__hero-stat {
+      flex: 0 0 auto;
+    }
+    .pb__hero-cta {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .pb__title {
+      font-size: var(--font-size-h3);
+    }
+
+    .pb__section-title {
+      font-size: var(--font-size-h4);
+    }
+
+    .pb__cases {
+      grid-template-columns: 1fr;
+    }
+
+    .pb__deadline {
+      border-radius: 0;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--spacing-24);
+      padding: var(--spacing-32) var(--spacing-16);
+    }
+    .pb__deadline-divider {
+      width: 40px;
+      height: 1px;
+    }
+    .pb__deadline-num {
+      font-size: 72px;
+    }
+
+    .pb__guarantees {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .pb__guarantee + .pb__guarantee::before {
+      display: none;
+    }
+    .pb__guarantee:nth-child(odd) {
+      border-right: 1px solid var(--color-gold-600);
+    }
+    .pb__guarantee:nth-child(1),
+    .pb__guarantee:nth-child(2) {
+      border-bottom: 1px solid var(--color-gold-600);
+    }
+
+    .pb__faq-q-index {
+      width: 32px;
+      font-size: var(--font-size-h6, 25px);
+    }
+    .pb__faq-a-inner {
+      padding-left: 48px;
+    }
+  }
+
+  @media (max-width: 500px) {
+    .pb__guarantees {
+      grid-template-columns: 1fr;
+    }
+    .pb__guarantee:nth-child(odd) {
+      border-right: none;
+    }
+    .pb__guarantee + .pb__guarantee {
+      border-top: 1px solid var(--color-gold-600);
+    }
+    .pb__guarantee:nth-child(1),
+    .pb__guarantee:nth-child(2) {
+      border-bottom: none;
+    }
+  }
+</style>

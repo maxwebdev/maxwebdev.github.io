@@ -1,0 +1,212 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/HeaderDropdown.astro';
+import Hero from '../components/Hero.astro';
+import AdvantagesBar from '../components/AdvantagesBar.astro';
+import Portfolio from '../components/Portfolio.astro';
+import Reviews from '../components/Reviews.astro';
+import LeadMagnet from '../components/LeadMagnet.astro';
+import CoAuthor from '../components/CoAuthor.astro';
+import Advantages from '../components/Advantages.astro';
+import Prices from '../components/Prices.astro';
+import OldGold from '../components/OldGold.astro';
+import RepairServices from '../components/RepairServices.astro';
+import MaterialsAndStyles from '../components/MaterialsAndStyles.astro';
+import Process from '../components/Process.astro';
+import Manager from '../components/Manager.astro';
+import Locations from '../components/Locations.astro';
+import FAQ from '../components/FAQ.astro';
+import Footer from '../components/Footer.astro';
+
+const advantages = [
+  { num: "01", title: "16 лет мастерства", text: "С 2009 года — более 10 000 украшений. Показываем производство без фильтров: от искр на верстаке до закрепки камней под микроскопом. Реальное производство, а не перекупленный товар." },
+  { num: "02", title: "Собственное производство", text: "Все изделия создаются в нашей мастерской в Санкт-Петербурге. Никаких посредников, никаких скрытых наценок. Вы платите только за работу и материалы." },
+  { num: "03", title: "3D-моделирование без доплат", text: "Создаём цифровую модель вашего кольца до начала производства. Вносите любые правки, пока модель вас полностью не устроит — это входит в стоимость." },
+  { num: "04", title: "Гарантия пробирной палаты", text: "Все изделия проходят государственную пробирную инспекцию. Вы получаете официальное клеймо, подтверждающее подлинность и пробу металла." },
+  { num: "05", title: "Индивидуальный размер", text: "Каждое кольцо создаётся под ваш размер. Если размер изменится — бесплатная корректировка в течение 1 года после получения изделия." },
+  { num: "06", title: "Сертификаты на камни", text: "На все бриллианты и драгоценные камни предоставляются геммологические сертификаты с описанием характеристик. Вы знаете именно то, что покупаете." },
+];
+const lastAdvantage = { num: "07", title: "Фиксированный срок — 21 рабочий день", text: "С момента утверждения 3D-модели. Без бесконечных переносов и «скоро будет готово». Если до свадьбы меньше месяца — обсудим срочное изготовление." };
+---
+
+<Layout title="Артель — Ювелирная мастерская. Обручальные кольца на заказ">
+  <div class="bw"><span class="block-label">01 · Header</span><Header /></div>
+  <div class="bw"><span class="block-label">02 · Hero</span><Hero /></div>
+  <div class="bw"><span class="block-label">03 · AdvantagesBar</span><AdvantagesBar /></div>
+  <div class="bw"><span class="block-label">04 · Portfolio</span><Portfolio /></div>
+  <div class="bw"><span class="block-label">05 · Reviews</span><Reviews /></div>
+  <div class="bw"><span class="block-label">06 · LeadMagnet (cta-banner)</span><LeadMagnet /></div>
+  <div class="bw"><span class="block-label">07 · CoAuthor (second-hero)</span><CoAuthor /></div>
+  <div class="bw"><span class="block-label">08 · Advantages</span><Advantages advantages={advantages} lastAdvantage={lastAdvantage} /></div>
+  <div class="bw"><span class="block-label">09 · Prices (pricing)</span><Prices /></div>
+  <div class="bw"><span class="block-label">10 · OldGold (melt)</span><OldGold /></div>
+  <div class="bw"><span class="block-label">10b · RepairServices</span><RepairServices /></div>
+  <div class="bw"><span class="block-label">11 · MaterialsAndStyles</span><MaterialsAndStyles /></div>
+  <div class="bw"><span class="block-label">12 · Process (steps)</span><Process /></div>
+  <div class="bw"><span class="block-label">13 · Manager</span><Manager /></div>
+  <div class="bw"><span class="block-label">14 · Locations</span><Locations /></div>
+  <div class="bw"><span class="block-label">15 · FAQ</span><FAQ /></div>
+  <div class="bw"><span class="block-label">16 · Footer</span><Footer /></div>
+
+  <div id="dev-toolbar">
+    <div id="block-nav" class="block-nav">
+      <ul class="block-nav__list" id="block-nav-list"></ul>
+      <button id="block-nav-btn" class="block-nav__btn">Блоки ↑</button>
+    </div>
+    <button id="labels-toggle">Скрыть метки</button>
+  </div>
+</Layout>
+
+<style is:global>
+.bw { position: relative; }
+
+.block-label {
+  position: absolute;
+  top: 0; left: 0;
+  z-index: 9999;
+  background: #ff3b30;
+  color: #fff;
+  font-family: monospace;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 4px 10px;
+  pointer-events: none;
+  letter-spacing: 0.05em;
+}
+
+body.labels-off .block-label { display: none; }
+
+#dev-toolbar {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 99999;
+  display: flex;
+  gap: 8px;
+  align-items: flex-end;
+}
+
+body.labels-off #block-nav { display: none; }
+
+#labels-toggle {
+  background: #ff3b30;
+  color: #fff;
+  border: none;
+  font-family: monospace;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 10px 16px;
+  cursor: pointer;
+  letter-spacing: 0.05em;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+  flex-shrink: 0;
+}
+
+/* --- block nav --- */
+.block-nav {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+/* invisible bridge that fills the gap between button and dropdown list */
+.block-nav__btn::before {
+  content: '';
+  position: absolute;
+  bottom: 100%;
+  left: 0; right: 0;
+  height: 8px;
+}
+
+.block-nav__btn {
+  background: #231f1b;
+  color: #f0dbbe;
+  border: 1px solid rgba(240,219,190,0.35);
+  font-family: monospace;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 10px 16px;
+  cursor: pointer;
+  letter-spacing: 0.05em;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+  white-space: nowrap;
+}
+
+.block-nav__btn {
+  position: relative;
+}
+
+.block-nav__list {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  right: 0;
+  background: #231f1b;
+  border: 1px solid rgba(240,219,190,0.2);
+  padding: 6px 0;
+  min-width: 220px;
+  list-style: none;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(6px);
+  transition: opacity 150ms ease, transform 150ms ease;
+}
+
+.block-nav:hover .block-nav__list,
+.block-nav__btn:focus + .block-nav__list {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.block-nav__list li button {
+  display: block;
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  padding: 7px 14px;
+  font-family: monospace;
+  font-size: 11px;
+  color: rgba(252,248,243,0.8);
+  cursor: pointer;
+  letter-spacing: 0.04em;
+}
+
+.block-nav__list li button:hover {
+  background: rgba(240,219,190,0.08);
+  color: #f0dbbe;
+}
+</style>
+
+<script>
+const btn = document.getElementById('labels-toggle');
+const HIDDEN_KEY = 'block-labels-hidden';
+
+if (localStorage.getItem(HIDDEN_KEY) === '1') {
+  document.body.classList.add('labels-off');
+  if (btn) btn.textContent = 'Показать метки';
+}
+
+btn?.addEventListener('click', () => {
+  const hidden = document.body.classList.toggle('labels-off');
+  btn.textContent = hidden ? 'Показать метки' : 'Скрыть метки';
+  localStorage.setItem(HIDDEN_KEY, hidden ? '1' : '0');
+});
+
+// Build block navigation from existing labels
+const navList = document.getElementById('block-nav-list');
+document.querySelectorAll('.bw').forEach((block) => {
+  const label = block.querySelector('.block-label');
+  if (!label || !navList) return;
+  const li = document.createElement('li');
+  const navBtn = document.createElement('button');
+  navBtn.textContent = label.textContent;
+  navBtn.addEventListener('click', () => {
+    block.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+  li.appendChild(navBtn);
+  navList.appendChild(li);
+});
+</script>

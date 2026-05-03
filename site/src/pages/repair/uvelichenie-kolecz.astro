@@ -1,0 +1,996 @@
+---
+import InnerPage from "../../layouts/InnerPage.astro";
+import SanityPriceTable from "../../components/SanityPriceTable.astro";
+
+const repairLinks = [
+  { label: "Уменьшение колец", href: "/repair/umenshenie-kolecz" },
+  { label: "Увеличение колец", href: "/repair/uvelichenie-kolecz" },
+  {
+    label: "Пайка цепочек и браслетов",
+    href: "/repair/pajka-cepochek-brasletov-i-lozhek",
+  },
+  { label: "Лазерная пайка", href: "/repair/lazernaja-pajka" },
+  { label: "Ремонт и замена замков", href: "/repair/remont-i-zamena-zamkov" },
+  { label: "Закрепка камней", href: "/repair/zakrepka-kamnej" },
+  { label: "Перевязка бус", href: "/repair/perevjazka-bus-i-brasletov" },
+  {
+    label: "Родирование, золочение",
+    href: "/repair/rodirovanie-zolochenie-serebrenie",
+  },
+  { label: "Дополнительные услуги", href: "/repair/dopolnitelnye-uslugi" },
+];
+
+const crumbs = [
+  { label: "Главная", href: "/" },
+  { label: "Ремонт украшений", href: "/repair" },
+  { label: "Увеличение колец" },
+];
+
+const guarantees = [
+  {
+    num: "01",
+    title: "Гарантия 1 год",
+    text: "Выдаём письменную гарантию на каждое изделие.",
+  },
+  {
+    num: "02",
+    title: "Мастера с образованием",
+    text: "Все ювелиры с высшим профильным образованием. Стаж — от 8 до 40 лет.",
+  },
+  {
+    num: "03",
+    title: "Большой поток заказов",
+    text: "Увеличиваем 30–80 колец в неделю — в 3–5 раз больше, чем в обычной мастерской.",
+  },
+  {
+    num: "04",
+    title: "Проверка перед выдачей",
+    text: "Каждое кольцо проверяется под микроскопом: швы, крепления камней, покрытие, полировка.",
+  },
+];
+
+const faqs = [
+  {
+    q: "Кольцо давит из-за беременности — нужно ли сейчас идти его увеличивать?",
+    a: "Нет. Отёчность пальцев в последнем триместре — временное явление. Через 4–6 месяцев после родов пальцы обычно возвращаются к прежнему объёму. Если увеличить кольцо сейчас, через полгода оно снова окажется велико. Лучше пока носить его на цепочке — мы бесплатно проконсультируем.",
+  },
+  {
+    q: "После вставки металла будет виден шов?",
+    a: "При качественной работе — нет. Мастер подбирает металл идентичной пробы и оттенка, после пайки шлифует и полирует место соединения. Невооружённым глазом шов и цветовые отличия не видны. Именно поэтому важна квалификация ювелира — у нас стаж мастеров от 8 до 40 лет.",
+  },
+  {
+    q: "Камни могут выпасть при увеличении?",
+    a: "При изменении диаметра шинки меняется геометрия кольца, что может ослабить крапаны. Мастер выбирает метод под конкретный камень: расточка не затрагивает закрепки вовсе, при растяжке и вставке — проверяем и восстанавливаем все крепления после работы. Камни, чувствительные к нагреву (сапфиры, изумруды), вынимаем до начала работы и вставляем обратно. На все это — гарантия.",
+  },
+  {
+    q: "Почему многие мастерские не берутся за платиновые кольца?",
+    a: "Платина плавится при 1768 °C — вдвое горячее золота. Для работы с ней нужно специальное высокотемпературное оборудование. Без него на месте сварки остаётся некрасивый чёрный след, который не убрать. У нас есть нужное оборудование и опыт работы с платиной.",
+  },
+  {
+    q: "Сохранится ли гравировка на внутренней стороне кольца?",
+    a: "Зависит от метода. При растяжке буквы неизбежно вытягиваются и деформируются. При вставке металла текст в месте разреза прерывается. Мастер предупредит об этом до начала работы и, если нужно, предложит восстановить гравировку после увеличения.",
+  },
+  {
+    q: "На сколько размеров можно увеличить кольцо?",
+    a: "Растяжкой — на 1–2 размера, в редких случаях до 3. Вставкой металла — на любое количество размеров без ограничений. Расточкой — не более чем на полразмера. Конкретный метод и предел мастер определяет после осмотра — исходя из ширины шинки, металла и наличия вставок.",
+  },
+];
+---
+
+<InnerPage
+  title="Увеличение колец"
+  description="Увеличиваем золотые и серебряные кольца в Санкт-Петербурге. Растяжка, вставка металла, расточка — подбираем метод под ваше украшение. Гарантия 1 год."
+  crumbs={crumbs}
+  sidebarLinks={repairLinks}
+  sidebarTitle="Услуги ремонта"
+  activeHref="/repair/uvelichenie-kolecz"
+>
+  <div class="uv">
+
+    <!-- ── Hero ── -->
+    <div class="uv__hero">
+      <div class="uv__hero-content">
+        <p class="uv__hero-label">
+          Ювелирная мастерская «Артель» · Санкт-Петербург
+        </p>
+        <h1 class="uv__title">Увеличение колец</h1>
+        <p class="uv__lead">
+          Любое кольцо можно увеличить — мы подбираем метод под конкретное
+          украшение. После работы вы не отличите его от нового: никаких швов,
+          никаких изменений во внешнем виде.
+        </p>
+        <div class="uv__hero-cta">
+          <a
+            href="https://wa.me/+79319616090?text=Здравствуйте%2C%20хочу%20увеличить%20кольцо%2C%20отправляю%20фото"
+            class="btn btn--primary"
+            target="_blank"
+            rel="noopener"
+          >
+            Прислать фото кольца
+          </a>
+          <p class="uv__hero-hint">
+            Ответим в течение нескольких минут и назовём цену
+          </p>
+        </div>
+      </div>
+
+      <div class="uv__hero-stats">
+        <div class="uv__hero-stat">
+          <span class="uv__hero-stat-num">20</span>
+          <div class="uv__hero-stat-info">
+            <span class="uv__hero-stat-unit">мин</span>
+            <span class="uv__hero-stat-label">на простое кольцо</span>
+          </div>
+        </div>
+        <span class="uv__hero-stat-sep" aria-hidden="true"></span>
+        <div class="uv__hero-stat">
+          <span class="uv__hero-stat-num">1</span>
+          <div class="uv__hero-stat-info">
+            <span class="uv__hero-stat-unit">год</span>
+            <span class="uv__hero-stat-label">гарантия на работу</span>
+          </div>
+        </div>
+        <span class="uv__hero-stat-sep" aria-hidden="true"></span>
+        <div class="uv__hero-stat">
+          <span class="uv__hero-stat-num">8–40</span>
+          <div class="uv__hero-stat-info">
+            <span class="uv__hero-stat-unit">лет</span>
+            <span class="uv__hero-stat-label">стаж мастеров</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Prices ── -->
+    <SanityPriceTable slug="repair-rings-enlarge" />
+
+    <!-- ── Три метода ── -->
+    <div class="uv__section">
+      <p class="uv__label">Как это делается</p>
+      <h2 class="uv__section-title">Три метода увеличения</h2>
+      <p class="uv__section-lead">
+        Мастер осматривает кольцо и выбирает подходящий способ — исходя из
+        металла, ширины шинки и наличия вставок. Цену называем до начала работы.
+      </p>
+      <div class="uv__cases">
+        <div class="uv__case">
+          <span class="uv__case-num">01</span>
+          <div class="uv__case-title">Растяжка на ригеле</div>
+          <p class="uv__case-text">
+            Кольцо нагревают для придания металлу пластичности, затем
+            надевают на конусный инструмент — ригель — и постепенно
+            растягивают до нужного диаметра. Вес не меняется, шинка
+            становится чуть тоньше. Подходит для гладких колец без камней
+            шириной до 10 мм. Можно увеличить на 1–3 размера. Самый
+            доступный метод.
+          </p>
+        </div>
+        <div class="uv__case">
+          <span class="uv__case-num">02</span>
+          <div class="uv__case-title">Вставка металла</div>
+          <p class="uv__case-text">
+            Ювелир разрезает шинку и впаивает кусочек металла той же пробы
+            и цвета. После шлифовки и полировки шов невидим. Толщина шинки
+            сохраняется, а вес и ценность кольца даже возрастают. Можно
+            увеличить на любое количество размеров. Подходит для большинства
+            колец, включая изделия с камнями.
+          </p>
+        </div>
+        <div class="uv__case">
+          <span class="uv__case-num">03</span>
+          <div class="uv__case-title">Расточка</div>
+          <p class="uv__case-text">
+            Мастер аккуратно стачивает тонкий слой металла с внутренней
+            стороны шинки. Внешний вид и закрепки камней не затрагиваются
+            вовсе — самый безопасный метод для колец с бриллиантами и
+            сложными украшениями. Ограничение: увеличение не более чем на
+            полразмера. Вес изделия незначительно уменьшается.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Кольца с камнями ── -->
+    <div class="uv__section">
+      <p class="uv__label">Нюансы работы</p>
+      <h2 class="uv__section-title">Кольца с камнями — особый случай</h2>
+      <p class="uv__section-lead">
+        При изменении диаметра шинки меняется геометрия кольца. Мастер
+        учитывает это и принимает меры, чтобы крепление не ослабло.
+      </p>
+      <div class="uv__methods">
+        <div class="uv__method">
+          <div class="uv__method-index">01</div>
+          <div class="uv__method-title">Бриллианты</div>
+          <p class="uv__method-text">
+            Бриллиант переносит высокую температуру без потери качества.
+            Для таких колец применяем растяжку или вставку металла, после
+            чего проверяем и восстанавливаем все крапаны под микроскопом.
+            Камень вынимать не нужно.
+          </p>
+        </div>
+        <div class="uv__method">
+          <div class="uv__method-index">02</div>
+          <div class="uv__method-title">Сапфиры, рубины, изумруды</div>
+          <p class="uv__method-text">
+            Эти камни теряют цвет при контакте с газовой горелкой. Мастер
+            вынимает камень до начала работы, выполняет увеличение лазерной
+            пайкой с точечным нагревом, затем аккуратно закрепляет камень
+            обратно.
+          </p>
+        </div>
+        <div class="uv__method">
+          <div class="uv__method-index">03</div>
+          <div class="uv__method-title">Россыпь мелких камней</div>
+          <p class="uv__method-text">
+            Для колец с павé и другими дорожками камней применяем расточку
+            — она не затрагивает места закреплений. При вставке металла
+            работа ведётся под микроскопом с проверкой каждого камня после
+            завершения.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Какие нельзя ── -->
+    <div class="uv__section uv__section--warm">
+      <p class="uv__label">Ограничения</p>
+      <h2 class="uv__section-title">Какие кольца увеличить нельзя</h2>
+      <p class="uv__section-lead">
+        Мы честно говорим, если работа невозможна или рискованна. Лучше
+        предупредить заранее, чем испортить украшение.
+      </p>
+      <div class="uv__limits">
+        <div class="uv__limit">
+          <div class="uv__limit-title">Бижутерия</div>
+          <p class="uv__limit-text">
+            Состав сплава неизвестен — при нагреве изделие может потемнеть,
+            треснуть или изменить цвет. Мы не берёмся за работу, которую
+            не можем гарантировать.
+          </p>
+        </div>
+        <div class="uv__limit">
+          <div class="uv__limit-title">Гравировка по всей окружности</div>
+          <p class="uv__limit-text">
+            При растяжке буквы вытягиваются и деформируются. При вставке
+            металла текст прерывается в месте разреза. Мастер предупредит
+            заранее и может предложить восстановить гравировку после работы.
+          </p>
+        </div>
+        <div class="uv__limit">
+          <div class="uv__limit-title">Ажурные кольца</div>
+          <p class="uv__limit-text">
+            Тонкие ажурные узоры при растяжке деформируются неравномерно —
+            орнамент «поплывёт». Единственный безопасный вариант — расточка,
+            но она даёт не более полразмера.
+          </p>
+        </div>
+        <div class="uv__limit">
+          <div class="uv__limit-title">Серебро с родиевым покрытием</div>
+          <p class="uv__limit-text">
+            При нагреве родиевое покрытие безвозвратно меняет цвет и вид.
+            Если вы готовы к повторному родированию после работы — увеличение
+            возможно. Мастер обозначит это в смете.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Сроки ── -->
+    <div class="uv__deadline">
+      <div class="uv__deadline-time">
+        <span class="uv__deadline-num">20</span>
+        <span class="uv__deadline-unit">мин</span>
+      </div>
+      <div class="uv__deadline-divider" aria-hidden="true"></div>
+      <div class="uv__deadline-body">
+        <p class="uv__label">Время выполнения</p>
+        <h2 class="uv__deadline-title">Сроки</h2>
+        <p class="uv__deadline-text">
+          Простое кольцо мастер увеличит за <strong>20 минут в вашем присутствии</strong>.
+          Уйдёте с кольцом на пальце — как новое. Если кольцо сложное (с
+          камнями, эмалью или гравировкой) — ювелир сообщит точный срок.
+          В среднем на такие работы уходит один день.
+        </p>
+      </div>
+    </div>
+
+    <!-- ── Гарантии ── -->
+    <div class="uv__section">
+      <p class="uv__label">Обязательства</p>
+      <h2 class="uv__section-title">Наши гарантии</h2>
+      <div class="uv__guarantees">
+        {
+          guarantees.map((g) => (
+            <div class="uv__guarantee">
+              <div class="uv__guarantee-num">{g.num}</div>
+              <div class="uv__guarantee-title">{g.title}</div>
+              <div class="uv__guarantee-text">{g.text}</div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+
+    <!-- ── FAQ ── -->
+    <div class="uv__section">
+      <p class="uv__label">Вопросы и ответы</p>
+      <h2 class="uv__section-title">Частые вопросы</h2>
+      <div class="uv__faq">
+        {
+          faqs.map((item, i) => (
+            <div class="uv__faq-item">
+              <button
+                class="uv__faq-q"
+                type="button"
+                aria-expanded="false"
+                aria-controls={`faq-panel-${i}`}
+              >
+                <span class="uv__faq-q-index">{String(i + 1).padStart(2, "0")}</span>
+                <span class="uv__faq-q-text">{item.q}</span>
+                <span class="uv__faq-icon" aria-hidden="true">+</span>
+              </button>
+              <div class="uv__faq-a" id={`faq-panel-${i}`} role="region">
+                <div class="uv__faq-a-inner">
+                  <p>{item.a}</p>
+                </div>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+
+  </div>
+</InnerPage>
+
+<script>
+  document.querySelectorAll<HTMLElement>('.uv__faq-item').forEach(item => {
+    const btn = item.querySelector<HTMLButtonElement>('.uv__faq-q')!;
+    const answer = item.querySelector<HTMLElement>('.uv__faq-a')!;
+
+    btn.addEventListener('click', () => {
+      if (item.classList.contains('is-open')) {
+        item.classList.add('is-closing');
+        item.classList.remove('is-open');
+        btn.setAttribute('aria-expanded', 'false');
+        answer.addEventListener('transitionend', () => {
+          item.classList.remove('is-closing');
+        }, { once: true });
+      } else {
+        item.classList.remove('is-closing');
+        item.classList.add('is-open');
+        btn.setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
+</script>
+
+<style>
+  .uv {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-64);
+  }
+
+  /* ── Hero ── */
+  .uv__hero {
+    background: linear-gradient(
+      154.68deg,
+      var(--color-gold-300) 0%,
+      var(--color-gold-600) 100%
+    );
+    display: flex;
+    flex-direction: column;
+  }
+
+  .uv__hero-content {
+    padding: var(--spacing-48);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-24);
+  }
+
+  .uv__hero-stats {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    padding: var(--spacing-24) var(--spacing-48);
+    border-top: 1px solid var(--color-gold-600);
+  }
+
+  .uv__hero-stat {
+    display: flex;
+    align-items: baseline;
+    gap: var(--spacing-8);
+    flex: 1;
+  }
+
+  .uv__hero-stat-num {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-h3);
+    font-weight: 600;
+    font-style: italic;
+    color: var(--color-dark-900);
+    line-height: 1;
+  }
+
+  .uv__hero-stat-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .uv__hero-stat-unit {
+    font-family: var(--font-body);
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-dark-900);
+  }
+
+  .uv__hero-stat-label {
+    font-family: var(--font-body);
+    font-size: var(--font-size-sm);
+    color: var(--color-gold-900);
+    line-height: 1.3;
+    white-space: nowrap;
+  }
+
+  .uv__hero-stat-sep {
+    width: 1px;
+    height: 40px;
+    background: var(--color-gold-600);
+    flex-shrink: 0;
+    margin: 0 var(--spacing-24);
+  }
+
+  .uv__hero-label {
+    font-family: var(--font-body);
+    font-size: var(--font-size-sm);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-gold-900);
+  }
+
+  .uv__title {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-h2);
+    font-weight: 600;
+    color: var(--color-dark-900);
+    line-height: 1;
+  }
+
+  .uv__lead {
+    font-family: var(--font-body);
+    font-size: var(--font-size-lg);
+    line-height: 1.6;
+    color: var(--color-text-muted);
+    max-width: 640px;
+  }
+
+  .uv__hero-cta {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-24);
+    margin-top: auto;
+  }
+
+  .uv__hero-hint {
+    font-family: var(--font-body);
+    font-size: var(--font-size-sm);
+    color: var(--color-gold-900);
+    line-height: 1.4;
+    max-width: 160px;
+  }
+
+  /* ── Section ── */
+  .uv__section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-24);
+  }
+
+  .uv__section--warm {
+    background: var(--color-gold-600);
+    border-radius: var(--radius-sm);
+    padding: var(--spacing-48);
+  }
+
+  .uv__label {
+    font-family: var(--font-body);
+    font-size: var(--font-size-sm);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-gold-900);
+  }
+
+  .uv__section-title {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-h3);
+    font-weight: 600;
+    color: var(--color-dark-900);
+    line-height: 1.05;
+    margin-top: calc(var(--spacing-24) * -1);
+  }
+
+  .uv__section-lead {
+    font-family: var(--font-body);
+    font-size: var(--font-size-lg);
+    line-height: 1.7;
+    color: var(--color-text-muted);
+    max-width: 640px;
+  }
+
+  /* ── Cases ── */
+  .uv__cases {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--spacing-24);
+  }
+
+  .uv__case {
+    background-color: var(--color-white);
+    border: 1px solid var(--color-gold-600);
+    border-radius: var(--radius-sm);
+    padding: var(--spacing-32);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-16);
+    transition: transform 200ms ease, box-shadow 200ms ease;
+  }
+
+  .uv__case:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(199, 125, 23, 0.18);
+  }
+
+  .uv__case-num {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-h4);
+    font-weight: 600;
+    font-style: italic;
+    color: var(--color-gold-600);
+    line-height: 1;
+  }
+
+  .uv__case-title {
+    font-family: var(--font-body);
+    font-size: var(--font-size-base);
+    font-weight: 500;
+    color: var(--color-dark-900);
+    line-height: 1.3;
+  }
+
+  .uv__case-text {
+    font-family: var(--font-body);
+    font-size: var(--font-size-base);
+    line-height: 1.6;
+    color: var(--color-text-muted);
+  }
+
+  /* ── Methods ── */
+  .uv__methods {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--spacing-24);
+  }
+
+  .uv__method {
+    background-color: var(--color-white);
+    border: 1px solid var(--color-gold-600);
+    border-radius: var(--radius-sm);
+    padding: var(--spacing-32);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-16);
+    transition: transform 200ms ease, box-shadow 200ms ease;
+  }
+
+  .uv__method:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(199, 125, 23, 0.18);
+  }
+
+  .uv__method-index {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-h4);
+    font-weight: 600;
+    font-style: italic;
+    color: var(--color-gold-600);
+    line-height: 1;
+  }
+
+  .uv__method-title {
+    font-family: var(--font-body);
+    font-size: var(--font-size-base);
+    font-weight: 500;
+    color: var(--color-dark-900);
+    line-height: 1.3;
+  }
+
+  .uv__method-text {
+    font-family: var(--font-body);
+    font-size: var(--font-size-base);
+    line-height: 1.6;
+    color: var(--color-text-muted);
+  }
+
+  /* ── Limits ── */
+  .uv__limits {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-24);
+  }
+
+  .uv__limit {
+    background-color: var(--color-white);
+    border: 1px solid var(--color-gold-600);
+    border-left: 3px solid var(--color-gold-900);
+    border-radius: var(--radius-sm);
+    padding: var(--spacing-32);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-16);
+    transition: transform 200ms ease, box-shadow 200ms ease;
+  }
+
+  .uv__limit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(199, 125, 23, 0.18);
+  }
+
+  .uv__limit-title {
+    font-family: var(--font-body);
+    font-size: var(--font-size-base);
+    font-weight: 500;
+    color: var(--color-dark-900);
+    line-height: 1.3;
+  }
+
+  .uv__limit-text {
+    font-family: var(--font-body);
+    font-size: var(--font-size-base);
+    line-height: 1.6;
+    color: var(--color-text-muted);
+  }
+
+  /* ── Deadline ── */
+  .uv__deadline {
+    background: var(--color-dark-900);
+    border-radius: var(--radius-sm);
+    padding: var(--spacing-48);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-48);
+  }
+
+  .uv__deadline-time {
+    display: flex;
+    align-items: baseline;
+    gap: var(--spacing-8);
+    flex-shrink: 0;
+  }
+
+  .uv__deadline-num {
+    font-family: var(--font-heading);
+    font-size: 96px;
+    font-weight: 600;
+    font-style: italic;
+    color: var(--color-gold-600);
+    line-height: 1;
+  }
+
+  .uv__deadline-unit {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-h3);
+    font-weight: 600;
+    font-style: italic;
+    color: var(--color-gold-600);
+    line-height: 1;
+  }
+
+  .uv__deadline-divider {
+    width: 1px;
+    height: 80px;
+    background: rgba(240, 219, 190, 0.2);
+    flex-shrink: 0;
+  }
+
+  .uv__deadline-body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-8);
+  }
+
+  .uv__deadline-body .uv__label {
+    color: var(--color-gold-600);
+  }
+
+  .uv__deadline-title {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-h3);
+    font-weight: 600;
+    color: var(--color-gold-600);
+    line-height: 1.05;
+  }
+
+  .uv__deadline-text {
+    font-family: var(--font-body);
+    font-size: var(--font-size-base);
+    line-height: 1.7;
+    color: rgba(252, 248, 243, 0.7);
+    max-width: 560px;
+  }
+
+  .uv__deadline-text strong {
+    color: var(--color-gold-600);
+    font-weight: 500;
+  }
+
+  /* ── Guarantees ── */
+  .uv__guarantees {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    background-color: var(--color-white);
+    border: 1px solid var(--color-gold-600);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+  }
+
+  .uv__guarantee {
+    padding: var(--spacing-32);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-16);
+    position: relative;
+    transition: background-color 200ms ease;
+  }
+
+  .uv__guarantee:hover {
+    background-color: var(--color-gold-300);
+  }
+
+  .uv__guarantee + .uv__guarantee::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: var(--spacing-32);
+    bottom: var(--spacing-32);
+    width: 1px;
+    background: var(--color-gold-600);
+  }
+
+  .uv__guarantee-num {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-h2);
+    font-weight: 600;
+    font-style: italic;
+    color: var(--color-gold-600);
+    line-height: 1;
+  }
+
+  .uv__guarantee-title {
+    font-family: var(--font-body);
+    font-size: var(--font-size-lg);
+    font-weight: 400;
+    color: var(--color-dark-900);
+    line-height: 1.3;
+  }
+
+  .uv__guarantee-text {
+    font-family: var(--font-body);
+    font-size: var(--font-size-base);
+    line-height: 1.5;
+    color: var(--color-text-muted);
+  }
+
+  /* ── FAQ ── */
+  .uv__faq {
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid var(--color-gold-600);
+  }
+
+  .uv__faq-item {
+    border-bottom: 1px solid var(--color-gold-600);
+  }
+
+  .uv__faq-q {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-16);
+    width: 100%;
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    padding: var(--spacing-24) 0;
+  }
+
+  .uv__faq-q-index {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-h4);
+    font-weight: 600;
+    font-style: italic;
+    color: var(--color-gold-600);
+    line-height: 1;
+    flex-shrink: 0;
+    width: 44px;
+    transition: color 200ms ease;
+  }
+
+  .uv__faq-item.is-open .uv__faq-q-index {
+    color: var(--color-gold-900);
+  }
+
+  .uv__faq-q-text {
+    flex: 1;
+    font-family: var(--font-body);
+    font-size: var(--font-size-lg);
+    font-weight: 500;
+    color: var(--color-dark-900);
+    line-height: 1.4;
+  }
+
+  .uv__faq-icon {
+    font-size: 24px;
+    color: var(--color-gold-900);
+    flex-shrink: 0;
+    display: inline-block;
+    transition: transform 0.42s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .uv__faq-item.is-open .uv__faq-icon { transform: rotate(45deg); }
+  .uv__faq-item.is-closing .uv__faq-icon {
+    transform: rotate(0deg);
+    transition: transform 0.22s ease-in;
+  }
+
+  .uv__faq-a {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.42s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .uv__faq-item.is-open .uv__faq-a { grid-template-rows: 1fr; }
+  .uv__faq-item.is-closing .uv__faq-a {
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.22s ease-in;
+  }
+
+  .uv__faq-a-inner {
+    overflow: hidden;
+    padding-left: 60px;
+    padding-bottom: 0;
+    max-width: 680px;
+    transition: padding-bottom 0.42s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .uv__faq-item.is-open .uv__faq-a-inner {
+    padding-bottom: var(--spacing-24);
+  }
+
+  .uv__faq-item.is-closing .uv__faq-a-inner {
+    padding-bottom: 0;
+    transition: padding-bottom 0.22s ease-in;
+  }
+
+  .uv__faq-a-inner p {
+    font-family: var(--font-body);
+    font-size: var(--font-size-base);
+    line-height: 1.7;
+    color: var(--color-text-muted);
+    opacity: 0;
+    transition: opacity 0.12s ease;
+  }
+
+  .uv__faq-item.is-open .uv__faq-a-inner p {
+    opacity: 1;
+    transition: opacity 0.28s ease 0.16s;
+  }
+
+  .uv__faq-item.is-closing .uv__faq-a-inner p {
+    opacity: 0;
+    transition: opacity 0.1s ease;
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 760px) {
+    .uv {
+      gap: var(--spacing-48);
+    }
+
+    .uv__hero,
+    .uv__deadline,
+    .uv__section--warm {
+      margin-left: calc(var(--spacing-16) * -1);
+      margin-right: calc(var(--spacing-16) * -1);
+    }
+
+    .uv__hero-content {
+      padding: var(--spacing-32) var(--spacing-16);
+    }
+
+    .uv__hero-stats {
+      padding: var(--spacing-16);
+      flex-wrap: wrap;
+      gap: var(--spacing-16);
+    }
+
+    .uv__hero-stat-sep { display: none; }
+    .uv__hero-stat { flex: 0 0 auto; }
+
+    .uv__hero-cta {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .uv__title { font-size: var(--font-size-h3); }
+    .uv__section-title { font-size: var(--font-size-h4); }
+
+    .uv__section--warm {
+      border-radius: 0;
+      padding: var(--spacing-32) var(--spacing-16);
+    }
+
+    .uv__cases,
+    .uv__methods,
+    .uv__limits {
+      grid-template-columns: 1fr;
+    }
+
+    .uv__deadline {
+      border-radius: 0;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--spacing-24);
+      padding: var(--spacing-32) var(--spacing-16);
+    }
+
+    .uv__deadline-divider {
+      width: 40px;
+      height: 1px;
+    }
+
+    .uv__deadline-num { font-size: 72px; }
+
+    .uv__guarantees {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .uv__guarantee + .uv__guarantee::before { display: none; }
+
+    .uv__guarantee:nth-child(odd) {
+      border-right: 1px solid var(--color-gold-600);
+    }
+
+    .uv__guarantee:nth-child(1),
+    .uv__guarantee:nth-child(2) {
+      border-bottom: 1px solid var(--color-gold-600);
+    }
+
+    .uv__faq-q-index {
+      width: 32px;
+      font-size: var(--font-size-h6, 25px);
+    }
+
+    .uv__faq-a-inner { padding-left: 48px; }
+  }
+
+  @media (max-width: 500px) {
+    .uv__guarantees { grid-template-columns: 1fr; }
+
+    .uv__guarantee:nth-child(odd) { border-right: none; }
+
+    .uv__guarantee + .uv__guarantee {
+      border-top: 1px solid var(--color-gold-600);
+    }
+
+    .uv__guarantee:nth-child(1),
+    .uv__guarantee:nth-child(2) {
+      border-bottom: none;
+    }
+  }
+</style>

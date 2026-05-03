@@ -1,0 +1,291 @@
+---
+
+---
+
+<header class="header">
+  <div class="header-topbar">
+    <div class="header-topbar__inner">
+      <span class="header-topbar__text"
+        >Ювелирная мастерская «Артель» · Санкт-Петербург · Ремонт и изготовление
+        ювелирных украшений</span
+      >
+      <div class="header-topbar__contacts">
+        <span class="header-topbar__hours">Пн–Вс 10:00–20:00</span>
+        <a href="tel:+79319616090" class="header-topbar__phone"
+          >+7 931 961-60-90</a
+        >
+        <a href="https://t.me/artel_spb" class="header-topbar__messenger"
+          >Telegram</a
+        >
+      </div>
+    </div>
+  </div>
+
+  <div class="header__body">
+    <div class="header__inner">
+      <div class="header__logo">
+        <a href="/" class="header__logo-img">
+          <img
+            src="/images/logo-mark.svg"
+            alt=""
+            class="header__logo-mark"
+          />
+          <img
+            src="/images/logo-text.svg"
+            alt="Артель"
+            class="header__logo-text"
+          />
+        </a>
+      </div>
+
+      <nav class="header__nav">
+        <ul class="header__nav-list">
+          <li>
+            <a href="/repair" class="header__nav-link">Ремонт украшений</a>
+          </li>
+          <li>
+            <a href="/watch_repair" class="header__nav-link">Ремонт часов</a>
+          </li>
+          <li><a href="/engraving" class="header__nav-link">Гравировка</a></li>
+          <li>
+            <a href="/manufacturing" class="header__nav-link"
+              >Изготовление украшений</a>
+          </li>
+          <li><a href="/catalog" class="header__nav-link">Каталог</a></li>
+          <li>
+            <a href="/about/contacts" class="header__nav-link">Контакты</a>
+          </li>
+        </ul>
+      </nav>
+
+      <div class="header__contacts">
+        <a href="tel:+79319616090" class="header__contact-phone"
+          >+7 931 961-60-90</a
+        >
+      </div>
+    </div>
+  </div>
+</header>
+
+<style is:global>
+  .header-topbar {
+    background-color: var(--color-dark-900);
+    width: 100%;
+    padding: 0 var(--spacing-48);
+  }
+  .header-topbar__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1400px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 8px 0;
+  }
+  .header-topbar__text {
+    font-family: var(--font-body);
+    font-size: var(--font-size-sm);
+    color: var(--color-dark-600);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .header-topbar__contacts {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-24);
+  }
+  .header-topbar__hours {
+    font-family: var(--font-body);
+    font-size: var(--font-size-sm);
+    color: var(--color-dark-600);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .header-topbar__phone {
+    font-family: var(--font-body);
+    font-size: var(--font-size-sm);
+    color: var(--color-gold-600);
+    font-weight: 500;
+    white-space: nowrap;
+    transition: color var(--transition-fast);
+  }
+  .header-topbar__phone:hover {
+    color: var(--color-gold-900);
+  }
+  .header-topbar__messenger {
+    font-family: var(--font-body);
+    font-size: var(--font-size-sm);
+    color: var(--color-gold-600);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    transition: color var(--transition-fast);
+  }
+  .header-topbar__messenger:hover {
+    color: var(--color-gold-900);
+  }
+
+  .header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 100;
+    background-color: var(--color-bg-light);
+    border-bottom: 1px solid var(--color-header-border);
+    transform: translateY(0);
+    transition: transform 220ms ease;
+  }
+  .header--hidden {
+    transform: translateY(-100%);
+  }
+  .header__body {
+    width: 100%;
+    padding: 0 var(--spacing-48);
+  }
+  .header__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 72px;
+    max-width: 1400px;
+    width: 100%;
+    margin: 0 auto;
+    gap: var(--spacing-32);
+  }
+  .header__logo {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+  }
+  .header__logo-img {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    position: relative;
+    width: 84px;
+    height: 26px;
+  }
+  .header__logo-mark {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 26px;
+    width: auto;
+  }
+  .header__logo-text {
+    position: absolute;
+    left: 25px;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 18px;
+    width: auto;
+  }
+  .header__nav {
+    flex: 1;
+  }
+  .header__nav-list {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-32);
+    flex-wrap: wrap;
+  }
+  .header__nav-link {
+    font-family: var(--font-body);
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    white-space: nowrap;
+    transition: color var(--transition-fast);
+  }
+  .header__nav-link:hover {
+    color: var(--color-gold-900);
+  }
+  .header__cta {
+    flex-shrink: 0;
+  }
+  .header__contacts {
+    display: none;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+  }
+  .header__contact-phone {
+    font-family: var(--font-body);
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+    color: var(--color-gold-900);
+    white-space: nowrap;
+  }
+
+  @media (max-width: 1024px) {
+    .header-topbar {
+      display: none;
+    }
+    .header__body {
+      padding: 0 var(--spacing-32);
+    }
+    .header__nav {
+      display: none;
+    }
+    .header__cta {
+      display: none;
+    }
+    .header__contacts {
+      display: flex;
+    }
+  }
+  @media (max-width: 500px) {
+    .header__body {
+      padding: 0 var(--spacing-16);
+    }
+    .header__inner {
+      height: 48px;
+    }
+    .header__logo-img {
+      width: 70px;
+      height: 21px;
+    }
+    .header__logo-mark {
+      height: 21px;
+    }
+    .header__logo-text {
+      height: 15px;
+      left: 21px;
+    }
+  }
+</style>
+
+<script>
+  const header = document.querySelector(".header") as HTMLElement;
+  if (header) {
+    // компенсируем fixed — сдвигаем первый блок вниз на высоту хедера
+    const setOffset = () => {
+      document.body.style.paddingTop = header.offsetHeight + "px";
+    };
+    setOffset();
+    window.addEventListener("resize", setOffset);
+
+    let lastY = window.scrollY;
+
+    window.addEventListener(
+      "scroll",
+      () => {
+        const y = window.scrollY;
+        if (y <= header.offsetHeight) {
+          // у верхушки страницы — всегда показываем
+          header.classList.remove("header--hidden");
+        } else if (y > lastY) {
+          // скролл вниз — прячем
+          header.classList.add("header--hidden");
+        } else {
+          // скролл вверх — показываем
+          header.classList.remove("header--hidden");
+        }
+        lastY = y;
+      },
+      { passive: true },
+    );
+  }
+</script>

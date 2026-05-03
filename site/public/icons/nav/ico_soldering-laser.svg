@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="Layer_1" viewBox="0 0 100 100">
+  <defs>
+    <style>.cls-1{fill:#e2e8f0;}.cls-1,.cls-2,.cls-3,.cls-4,.cls-5,.cls-6,.cls-7,.cls-8{stroke-width:0px;}.cls-2{fill:#9299a2;}.cls-9{fill:url(#Unnamed_Pattern_31-2);stroke:url(#Unnamed_Pattern_30-2);stroke-width:1.78px;}.cls-9,.cls-10{stroke-linejoin:round;}.cls-9,.cls-10,.cls-11,.cls-12{stroke-linecap:round;}.cls-3{fill:#ff00cf;}.cls-4,.cls-10,.cls-13,.cls-11,.cls-12{fill:none;}.cls-10{stroke:#ff00cf;stroke-width:2.38px;}.cls-5{fill:#aa00d3;}.cls-6{fill:#cd00ff;}.cls-13{stroke:url(#Unnamed_Pattern_31);stroke-width:2.97px;}.cls-13,.cls-11,.cls-12{stroke-miterlimit:10;}.cls-11{stroke:#de55ff;stroke-width:1.19px;}.cls-12{stroke:url(#Unnamed_Pattern_30);stroke-width:5px;}.cls-7{fill:#de55ff;}.cls-8{fill:#8361a4;}</style>
+    <pattern id="Unnamed_Pattern_30" x="0" y="0" width="107" height="107" patternTransform="translate(-1048.43 -68.27)" patternUnits="userSpaceOnUse" viewBox="0 0 107 107">
+      <rect class="cls-4" width="107" height="107"></rect>
+      <rect class="cls-2" width="107" height="107"></rect>
+    </pattern>
+    <pattern id="Unnamed_Pattern_31" x="0" y="0" width="107" height="107" patternTransform="translate(-1010.34 -68.27)" patternUnits="userSpaceOnUse" viewBox="0 0 107 107">
+      <rect class="cls-4" width="107" height="107"></rect>
+      <rect class="cls-1" width="107" height="107"></rect>
+    </pattern>
+    <pattern id="Unnamed_Pattern_31-2" patternTransform="translate(-905.34 24.73)" xlink:href="#Unnamed_Pattern_31"></pattern>
+    <pattern id="Unnamed_Pattern_30-2" patternTransform="translate(-1011.34 -3.27)" xlink:href="#Unnamed_Pattern_30"></pattern>
+  </defs>
+  <circle class="cls-12" cx="43.9" cy="62.74" r="28.07"></circle>
+  <circle class="cls-13" cx="43.9" cy="62.74" r="28.07"></circle>
+  <polygon class="cls-8" points="26.31 45.14 27.82 24.04 16.02 23.23 4.39 34.85 5.21 46.65 26.31 45.14"></polygon>
+  <path class="cls-1" d="M27.97,46.81l-24.42,1.75-.99-14.4,12.77-12.77,14.4.99-1.75,24.42ZM5.21,46.65l21.1-1.51,1.51-21.1-11.8-.81-11.62,11.62.81,11.8Z"></path>
+  <polygon class="cls-5" points="27.82 24.04 26.31 45.14 20.28 31.58 27.82 24.04"></polygon>
+  <polygon class="cls-6" points="5.21 46.65 26.31 45.14 12.74 39.12 5.21 46.65"></polygon>
+  <polygon class="cls-7" points="26.31 45.14 12.74 39.12 20.28 31.58 26.31 45.14"></polygon>
+  <polygon class="cls-5" points="5.21 46.65 4.39 34.85 12.74 39.12 5.21 46.65"></polygon>
+  <polygon class="cls-7" points="27.82 24.04 16.02 23.23 20.28 31.58 27.82 24.04"></polygon>
+  <polygon class="cls-3" points="12.74 39.12 10.2 29.04 20.28 31.58 12.74 39.12"></polygon>
+  <line class="cls-11" x1="66.62" y1="34.67" x2="67.94" y2="22.08"></line>
+  <line class="cls-11" x1="62.95" y1="35.17" x2="56.02" y2="24.58"></line>
+  <line class="cls-11" x1="71.96" y1="40.01" x2="84.55" y2="38.69"></line>
+  <line class="cls-11" x1="71.46" y1="43.69" x2="82.06" y2="50.62"></line>
+  <path class="cls-9" d="M97.44,16.46l-12,12c-2.01,2.01-5.26,2.01-7.26,0h0c-2.01-2.01-2.01-5.26,0-7.26l12-12"></path>
+  <line class="cls-10" x1="75.41" y1="31.23" x2="68.44" y2="38.19"></line>
+  <circle class="cls-3" cx="63.48" cy="42.62" r="2.16"></circle>
+</svg>

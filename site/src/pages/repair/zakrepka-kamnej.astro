@@ -1,0 +1,1123 @@
+---
+import InnerPage from "../../layouts/InnerPage.astro";
+import SanityPriceTable from "../../components/SanityPriceTable.astro";
+
+const repairLinks = [
+  { label: "Уменьшение колец", href: "/repair/umenshenie-kolecz" },
+  { label: "Увеличение колец", href: "/repair/uvelichenie-kolecz" },
+  {
+    label: "Пайка цепочек и браслетов",
+    href: "/repair/pajka-cepochek-brasletov-i-lozhek",
+  },
+  { label: "Лазерная пайка", href: "/repair/lazernaja-pajka" },
+  { label: "Ремонт и замена замков", href: "/repair/remont-i-zamena-zamkov" },
+  { label: "Закрепка камней", href: "/repair/zakrepka-kamnej" },
+  { label: "Перевязка бус", href: "/repair/perevjazka-bus-i-brasletov" },
+  {
+    label: "Родирование, золочение",
+    href: "/repair/rodirovanie-zolochenie-serebrenie",
+  },
+  { label: "Дополнительные услуги", href: "/repair/dopolnitelnye-uslugi" },
+];
+
+const crumbs = [
+  { label: "Главная", href: "/" },
+  { label: "Ремонт украшений", href: "/repair" },
+  { label: "Закрепка камней" },
+];
+
+const guarantees = [
+  {
+    num: "01",
+    title: "Гарантия 1 год",
+    text: "Выдаём письменную гарантию на каждое изделие после закрепки.",
+  },
+  {
+    num: "02",
+    title: "Мастера с образованием",
+    text: "Все ювелиры с высшим профильным образованием. Стаж — от 8 до 40 лет.",
+  },
+  {
+    num: "03",
+    title: "Следов ремонта не видно",
+    text: "Камень будет прочно держаться на месте, а следов ремонта совсем не будет видно.",
+  },
+  {
+    num: "04",
+    title: "Проверка перед выдачей",
+    text: "Каждый камень проверяется на прочность: давление, встряхивание, осмотр под микроскопом.",
+  },
+];
+
+const faqs = [
+  {
+    q: "Как понять, что пора нести украшение к ювелиру?",
+    a: "Три явных признака: крапаны цепляются за одежду или волосы, при лёгком постукивании кольца о ухо слышен стук-дребезжание, камень заметно шатается при прикосновении. Если хотя бы один из них есть — снимите украшение и принесите на проверку. Чем раньше, тем дешевле и проще ремонт.",
+  },
+  {
+    q: "Можно ли подобрать замену, если камень потерян?",
+    a: "Да. Если камень утерян, мы подберём замену с учётом ваших пожеланий — по цвету, размеру и типу. Стоимость нового камня добавляется к цене работы по закрепке. Поиск и закрепка занимают от одного дня до недели; в уникальных случаях — до трёх недель, если камень редкий.",
+  },
+  {
+    q: "Какая закрепка самая надёжная?",
+    a: "Глухая (безель) — камень окружён сплошным металлическим ободком со всех сторон. Такой камень практически не выпадает и защищён от боковых ударов. Подходит для повседневной носки, активного образа жизни, мягких камней (опал, бирюза). Из минусов — закрывает боковые грани камня, чуть снижая его игру в проходящем свете.",
+  },
+  {
+    q: "Можно ли поменять размер кольца с закрепкой паве или дорожкой?",
+    a: "Сложно и рискованно. При растяжении шинки между мелкими камнями появляются щели, при сжатии — они давят друг на друга. Безопасно изменить размер не более чем на полразмера. Для большего изменения может потребоваться полное удаление и переустановка камней — мастер предупредит об этом заранее.",
+  },
+  {
+    q: "Как часто нужно проверять крапаны?",
+    a: "При ежедневной носке — раз в 6–12 месяцев. Крапаны постепенно истончаются от трения и со временем могут погнуться. Своевременная проверка позволяет нарастить металл до того, как камень расшатается. Если один крапан стёрся — скорее всего, стёрлись и остальные.",
+  },
+  {
+    q: "Можно ли закрепить камень без разбора украшения?",
+    a: "В большинстве случаев — да. Мастер работает с лупой или микроскопом, подгибая и наращивая крапаны прямо на изделии. Полный разбор нужен только при сложных видах закрепки (паве, рельсовая) или если нужно полностью переделать оправу.",
+  },
+];
+---
+
+<InnerPage
+  title="Закрепка камней"
+  description="Закрепка и восстановление крепления камней в ювелирных украшениях в Санкт-Петербурге. Любой вид закрепки — от 10 минут. Гарантия 1 год."
+  crumbs={crumbs}
+  sidebarLinks={repairLinks}
+  sidebarTitle="Услуги ремонта"
+  activeHref="/repair/zakrepka-kamnej"
+>
+  <div class="zk">
+
+    <!-- ── Hero ── -->
+    <div class="zk__hero">
+      <div class="zk__hero-content">
+        <p class="zk__hero-label">
+          Ювелирная мастерская «Артель» · Санкт-Петербург
+        </p>
+        <h1 class="zk__title">Закрепка камней</h1>
+        <p class="zk__lead">
+          Починим или восстановим любой вид крепежа. Камень будет прочно
+          держаться на месте, а следов ремонта совсем не будет видно.
+        </p>
+        <div class="zk__hero-cta">
+          <a
+            href="https://wa.me/+79319616090?text=Здравствуйте%2C%20хочу%20закрепить%20камень%2C%20отправляю%20фото"
+            class="btn btn--primary"
+            target="_blank"
+            rel="noopener"
+          >
+            Прислать фото украшения
+          </a>
+          <p class="zk__hero-hint">
+            Ответим в течение нескольких минут и назовём цену
+          </p>
+        </div>
+      </div>
+
+      <div class="zk__hero-image">
+        <div class="zk__hero-img-placeholder">
+          <span>Фото — мастер закрепляет камень под микроскопом</span>
+        </div>
+      </div>
+
+      <div class="zk__hero-stats">
+        <div class="zk__hero-stat">
+          <span class="zk__hero-stat-num">10</span>
+          <div class="zk__hero-stat-info">
+            <span class="zk__hero-stat-unit">мин</span>
+            <span class="zk__hero-stat-label">простая закрепка</span>
+          </div>
+        </div>
+        <span class="zk__hero-stat-sep" aria-hidden="true"></span>
+        <div class="zk__hero-stat">
+          <span class="zk__hero-stat-num">1</span>
+          <div class="zk__hero-stat-info">
+            <span class="zk__hero-stat-unit">год</span>
+            <span class="zk__hero-stat-label">гарантия на работу</span>
+          </div>
+        </div>
+        <span class="zk__hero-stat-sep" aria-hidden="true"></span>
+        <div class="zk__hero-stat">
+          <span class="zk__hero-stat-num">8–40</span>
+          <div class="zk__hero-stat-info">
+            <span class="zk__hero-stat-unit">лет</span>
+            <span class="zk__hero-stat-label">стаж мастеров</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Intro ── -->
+    <div class="zk__section">
+      <p class="zk__section-lead-wide">
+        Крепеж камня ломается или деформируется по разным причинам — брак
+        производства, металл износился со временем или из-за того, что
+        украшение упало или ударилось. Камень из-за этого может разболтаться,
+        выпасть и потеряться. Иногда так и происходит.
+      </p>
+      <p class="zk__section-lead-wide">
+        Виды крепежей камней бывают разные. Мы можем починить или восстановить
+        любой. Камень будет прочно держаться на месте, а следов ремонта совсем
+        не будет видно. Если же у вас не только сломался крепеж, но и
+        потерялся камень — мы подберем вам такой же и закрепим его так, что он
+        не выпадет.
+      </p>
+    </div>
+
+    <!-- ── Prices ── -->
+    <SanityPriceTable slug="repair-stone-setting" />
+
+    <!-- ── Виды закрепок ── -->
+    <div class="zk__section">
+      <p class="zk__label">Типы оправ</p>
+      <h2 class="zk__section-title">Виды закрепок камней</h2>
+      <p class="zk__section-lead">
+        Тип закрепки влияет на надёжность, внешний вид украшения и сложность
+        ремонта. Мы восстанавливаем крепление в любом из перечисленных видов.
+      </p>
+      <div class="zk__cases">
+        <div class="zk__case">
+          <div class="zk__card-img">
+            <span>Фото — крапановая закрепка с четырьмя или шестью лапками</span>
+          </div>
+          <span class="zk__case-num">01</span>
+          <div class="zk__case-title">Крапановая</div>
+          <p class="zk__case-text">
+            Камень удерживают металлические лапки (крапаны) — обычно 4 или 6
+            штук. Даёт камню максимальный блеск, но лапки цепляются за одежду
+            и со временем стираются. Ремонт: наращивание кончиков крапанов
+            или подгибание их на место.
+          </p>
+        </div>
+        <div class="zk__case">
+          <div class="zk__card-img">
+            <span>Фото — глухая закрепка (безель), камень в металлическом ободке</span>
+          </div>
+          <span class="zk__case-num">02</span>
+          <div class="zk__case-title">Глухая (безель)</div>
+          <p class="zk__case-text">
+            Камень обхвачен сплошным металлическим ободком. Самая надёжная
+            закрепка — камень почти никогда не выпадает. Идеальна для мягких
+            камней (опал, бирюза) и активного образа жизни. Ремонт: повторное
+            обжатие ободка или напайка металлической заплатки.
+          </p>
+        </div>
+        <div class="zk__case">
+          <div class="zk__card-img">
+            <span>Фото — корнеровая закрепка паве крупным планом, мелкие камни в металле</span>
+          </div>
+          <span class="zk__case-num">03</span>
+          <div class="zk__case-title">Корнеровая (паве)</div>
+          <p class="zk__case-text">
+            Мелкие камни вплотную друг к другу, удерживаются крошечными
+            шариками-корнерами, выбитыми из металла. Визуально — мостовая из
+            камней. Мелкие камни периодически выпадают от износа. Работа
+            выполняется под микроскопом.
+          </p>
+        </div>
+        <div class="zk__case">
+          <div class="zk__card-img">
+            <span>Фото — рельсовая (канальная) закрепка в дорожке из камней</span>
+          </div>
+          <span class="zk__case-num">04</span>
+          <div class="zk__case-title">Рельсовая (канальная)</div>
+          <p class="zk__case-text">
+            Камни выстроены в ряд внутри металлического канала (рельса) и
+            удерживаются его стенками. Поверхность гладкая, ни за что не
+            цепляется. При изменении размера кольца стенки канала деформируются —
+            камни могут выпасть.
+          </p>
+        </div>
+        <div class="zk__case">
+          <div class="zk__card-img">
+            <span>Фото — закрепка "невидимая" или тиффани, камень парит над оправой</span>
+          </div>
+          <span class="zk__case-num">05</span>
+          <div class="zk__case-title">Тиффани (высокая оправа)</div>
+          <p class="zk__case-text">
+            Один крупный камень приподнят на высокой оправе с 4–6 лапками.
+            Максимальная игра света. Высокая посадка увеличивает риск удара и
+            потери камня. Ремонт аналогичен крапановой, но требует особой
+            аккуратности из-за высоты конструкции.
+          </p>
+        </div>
+        <div class="zk__case">
+          <div class="zk__card-img">
+            <span>Фото — гало-закрепка с ореолом из мелких камней вокруг центрального</span>
+          </div>
+          <span class="zk__case-num">06</span>
+          <div class="zk__case-title">Гало (halo)</div>
+          <p class="zk__case-text">
+            Центральный камень окружён ореолом из мелких бриллиантов или
+            других вставок — визуально камень выглядит крупнее. Ремонт
+            сочетает особенности крапановой и корнеровой закрепок, выполняется
+            под микроскопом.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Когда нести украшение ── -->
+    <div class="zk__section zk__section--warm">
+      <p class="zk__label">Признаки износа</p>
+      <h2 class="zk__section-title">Когда пора к ювелиру</h2>
+      <p class="zk__section-lead">
+        Эти признаки говорят, что крепление ослабло. Не откладывайте — чем
+        раньше придёте, тем проще и дешевле ремонт.
+      </p>
+      <div class="zk__limits">
+        <div class="zk__limit">
+          <div class="zk__limit-title">Крапаны цепляются за одежду или волосы</div>
+          <p class="zk__limit-text">
+            Лапка отогнулась от удара или стёрлась до острого края. Продолжать
+            носить украшение опасно — крапан может надломиться и камень
+            выпадет.
+          </p>
+        </div>
+        <div class="zk__limit">
+          <div class="zk__limit-title">Слышен стук при постукивании</div>
+          <p class="zk__limit-text">
+            Поднесите украшение к уху и слегка постучите по нему пальцем. Если
+            слышите дребезжание — камень болтается в оправе и держится
+            буквально на последнем крапане.
+          </p>
+        </div>
+        <div class="zk__limit">
+          <div class="zk__limit-title">Камень шатается при прикосновении</div>
+          <p class="zk__limit-text">
+            Лёгкое покачивание камня пальцем означает, что один или несколько
+            крапанов уже не держат. Немедленно снимите украшение и принесите
+            на ремонт.
+          </p>
+        </div>
+        <div class="zk__limit">
+          <div class="zk__limit-title">Камень сидит криво</div>
+          <p class="zk__limit-text">
+            Если вставка накренилась или сместилась — оправа деформирована.
+            При следующем ударе камень, скорее всего, выпадет. Иногда это
+            результат производственного брака, который проявился не сразу.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── От чего зависит цена ── -->
+    <div class="zk__section">
+      <p class="zk__label">Стоимость работы</p>
+      <h2 class="zk__section-title">От чего зависит цена?</h2>
+      <p class="zk__section-lead">
+        Цена зависит от рода и пробы металла, сложности работы мастера,
+        количества камней, которые нужно закрепить, а также от того,
+        сохранился ли камень или утерян.
+      </p>
+      <div class="zk__methods">
+        <div class="zk__method">
+          <div class="zk__method-index">01</div>
+          <div class="zk__method-title">Бриллиант</div>
+          <p class="zk__method-text">
+            Закрепить бриллиант стоит дороже, так как это ответственная
+            работа. Камень легко расколоть при ремонте, если мастер не владеет
+            технологий работы с ним. Наши мастера знают тонкости обращения с
+            драгоценными камнями, в том числе и с алмазами, и не повредят их.
+          </p>
+        </div>
+        <div class="zk__method">
+          <div class="zk__method-index">02</div>
+          <div class="zk__method-title">Изумруд</div>
+          <p class="zk__method-text">
+            Изумруд считается сложным для работы и может легко рассыпаться при
+            неверном движении. Мастер работает с микроскопом, чтобы не
+            повредить камень. Давление при закрепке минимальное — только
+            столько, сколько нужно, чтобы камень держался надёжно.
+          </p>
+        </div>
+        <div class="zk__method">
+          <div class="zk__method-index">03</div>
+          <div class="zk__method-title">Камень утерян</div>
+          <p class="zk__method-text">
+            Если вы потеряли камень, в стоимость ремонта добавится стоимость
+            нового камня. Мы подберем оптимальный вариант, с учетом ваших
+            пожеланий. Поиск редкого камня может занять до трёх недель —
+            мастер сообщит срок после осмотра.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Сроки ── -->
+    <div class="zk__deadline">
+      <div class="zk__deadline-time">
+        <span class="zk__deadline-num">10</span>
+        <span class="zk__deadline-unit">мин</span>
+      </div>
+      <div class="zk__deadline-divider" aria-hidden="true"></div>
+      <div class="zk__deadline-body">
+        <p class="zk__label">Время выполнения</p>
+        <h2 class="zk__deadline-title">Сроки</h2>
+        <p class="zk__deadline-text">
+          Если выпал один камень и работа простая — мастер закрепит его
+          <strong>за 10 минут в вашем присутствии</strong>. От нас вы уйдёте
+          в украшении, камень будет прочно сидеть на месте и не выпадет.
+          Если работа сложная (несколько камней, непростая закрепка) или камень
+          утерян — ювелир сообщит срок. Поиск и закрепка занимают от одного
+          дня до недели, в редких случаях до трёх недель.
+        </p>
+      </div>
+    </div>
+
+    <!-- ── Гарантии ── -->
+    <div class="zk__section">
+      <p class="zk__label">Обязательства</p>
+      <h2 class="zk__section-title">Наши гарантии</h2>
+      <div class="zk__guarantees">
+        {
+          guarantees.map((g) => (
+            <div class="zk__guarantee">
+              <div class="zk__guarantee-num">{g.num}</div>
+              <div class="zk__guarantee-title">{g.title}</div>
+              <div class="zk__guarantee-text">{g.text}</div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+
+    <!-- ── FAQ ── -->
+    <div class="zk__section">
+      <p class="zk__label">Вопросы и ответы</p>
+      <h2 class="zk__section-title">Частые вопросы</h2>
+      <div class="zk__faq">
+        {
+          faqs.map((item, i) => (
+            <div class="zk__faq-item">
+              <button
+                class="zk__faq-q"
+                type="button"
+                aria-expanded="false"
+                aria-controls={`faq-panel-${i}`}
+              >
+                <span class="zk__faq-q-index">{String(i + 1).padStart(2, "0")}</span>
+                <span class="zk__faq-q-text">{item.q}</span>
+                <span class="zk__faq-icon" aria-hidden="true">+</span>
+              </button>
+              <div class="zk__faq-a" id={`faq-panel-${i}`} role="region">
+                <div class="zk__faq-a-inner">
+                  <p>{item.a}</p>
+                </div>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+
+  </div>
+</InnerPage>
+
+<script>
+  document.querySelectorAll<HTMLElement>('.zk__faq-item').forEach(item => {
+    const btn = item.querySelector<HTMLButtonElement>('.zk__faq-q')!;
+    const answer = item.querySelector<HTMLElement>('.zk__faq-a')!;
+
+    btn.addEventListener('click', () => {
+      if (item.classList.contains('is-open')) {
+        item.classList.add('is-closing');
+        item.classList.remove('is-open');
+        btn.setAttribute('aria-expanded', 'false');
+        answer.addEventListener('transitionend', () => {
+          item.classList.remove('is-closing');
+        }, { once: true });
+      } else {
+        item.classList.remove('is-closing');
+        item.classList.add('is-open');
+        btn.setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
+</script>
+
+<style>
+  .zk {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-64);
+  }
+
+  /* ── Hero ── */
+  .zk__hero {
+    background: linear-gradient(
+      154.68deg,
+      var(--color-gold-300) 0%,
+      var(--color-gold-600) 100%
+    );
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr auto;
+    overflow: hidden;
+  }
+
+  .zk__hero-content {
+    grid-column: 1;
+    grid-row: 1;
+    padding: var(--spacing-48);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-24);
+  }
+
+  .zk__hero-image {
+    grid-column: 2;
+    grid-row: 1 / 3;
+    position: relative;
+    min-height: 380px;
+  }
+
+  .zk__hero-img-placeholder {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.10);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .zk__hero-img-placeholder span {
+    font-family: var(--font-body);
+    font-size: var(--font-size-sm);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: rgba(0, 0, 0, 0.35);
+    text-align: center;
+    padding: 0 var(--spacing-24);
+  }
+
+  .zk__hero-stats {
+    grid-column: 1;
+    grid-row: 2;
+    display: flex;
+    align-items: center;
+    gap: 0;
+    padding: var(--spacing-24) var(--spacing-48);
+    border-top: 1px solid var(--color-gold-600);
+  }
+
+  .zk__hero-stat {
+    display: flex;
+    align-items: baseline;
+    gap: var(--spacing-8);
+    flex: 1;
+  }
+
+  .zk__hero-stat-num {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-h3);
+    font-weight: 600;
+    font-style: italic;
+    color: var(--color-dark-900);
+    line-height: 1;
+  }
+
+  .zk__hero-stat-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .zk__hero-stat-unit {
+    font-family: var(--font-body);
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-dark-900);
+  }
+
+  .zk__hero-stat-label {
+    font-family: var(--font-body);
+    font-size: var(--font-size-sm);
+    color: var(--color-gold-900);
+    line-height: 1.3;
+    white-space: nowrap;
+  }
+
+  .zk__hero-stat-sep {
+    width: 1px;
+    height: 40px;
+    background: var(--color-gold-600);
+    flex-shrink: 0;
+    margin: 0 var(--spacing-24);
+  }
+
+  .zk__hero-label {
+    font-family: var(--font-body);
+    font-size: var(--font-size-sm);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-gold-900);
+  }
+
+  .zk__title {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-h2);
+    font-weight: 600;
+    color: var(--color-dark-900);
+    line-height: 1;
+  }
+
+  .zk__lead {
+    font-family: var(--font-body);
+    font-size: var(--font-size-lg);
+    line-height: 1.6;
+    color: var(--color-text-muted);
+    max-width: 520px;
+  }
+
+  .zk__hero-cta {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-24);
+    margin-top: auto;
+  }
+
+  .zk__hero-hint {
+    font-family: var(--font-body);
+    font-size: var(--font-size-sm);
+    color: var(--color-gold-900);
+    line-height: 1.4;
+    max-width: 160px;
+  }
+
+  /* ── Section ── */
+  .zk__section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-24);
+  }
+
+  .zk__section--warm {
+    background: var(--color-gold-600);
+    border-radius: var(--radius-sm);
+    padding: var(--spacing-48);
+  }
+
+  .zk__label {
+    font-family: var(--font-body);
+    font-size: var(--font-size-sm);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-gold-900);
+  }
+
+  .zk__section-title {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-h3);
+    font-weight: 600;
+    color: var(--color-dark-900);
+    line-height: 1.05;
+    margin-top: calc(var(--spacing-24) * -1);
+  }
+
+  .zk__section-lead {
+    font-family: var(--font-body);
+    font-size: var(--font-size-lg);
+    line-height: 1.7;
+    color: var(--color-text-muted);
+    max-width: 640px;
+  }
+
+  .zk__section-lead-wide {
+    font-family: var(--font-body);
+    font-size: var(--font-size-lg);
+    line-height: 1.7;
+    color: var(--color-text-muted);
+    max-width: 720px;
+  }
+
+  /* ── Cases ── */
+  .zk__cases {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--spacing-24);
+  }
+
+  .zk__case {
+    background-color: var(--color-white);
+    border: 1px solid var(--color-gold-600);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-16);
+    transition: transform 200ms ease, box-shadow 200ms ease;
+  }
+
+  .zk__case:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(199, 125, 23, 0.18);
+  }
+
+  .zk__card-img {
+    width: 100%;
+    height: 160px;
+    background: rgba(0, 0, 0, 0.06);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .zk__card-img span {
+    font-family: var(--font-body);
+    font-size: var(--font-size-sm);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: rgba(0, 0, 0, 0.3);
+    text-align: center;
+    padding: 0 var(--spacing-16);
+  }
+
+  .zk__case-num {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-h4);
+    font-weight: 600;
+    font-style: italic;
+    color: var(--color-gold-600);
+    line-height: 1;
+    padding: 0 var(--spacing-32);
+  }
+
+  .zk__case-title {
+    font-family: var(--font-body);
+    font-size: var(--font-size-base);
+    font-weight: 500;
+    color: var(--color-dark-900);
+    line-height: 1.3;
+    padding: 0 var(--spacing-32);
+  }
+
+  .zk__case-text {
+    font-family: var(--font-body);
+    font-size: var(--font-size-base);
+    line-height: 1.6;
+    color: var(--color-text-muted);
+    padding: 0 var(--spacing-32) var(--spacing-32);
+  }
+
+  /* ── Limits ── */
+  .zk__limits {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-24);
+  }
+
+  .zk__limit {
+    background-color: var(--color-white);
+    border: 1px solid var(--color-gold-600);
+    border-left: 3px solid var(--color-gold-900);
+    border-radius: var(--radius-sm);
+    padding: var(--spacing-32);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-16);
+    transition: transform 200ms ease, box-shadow 200ms ease;
+  }
+
+  .zk__limit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(199, 125, 23, 0.18);
+  }
+
+  .zk__limit-title {
+    font-family: var(--font-body);
+    font-size: var(--font-size-base);
+    font-weight: 500;
+    color: var(--color-dark-900);
+    line-height: 1.3;
+  }
+
+  .zk__limit-text {
+    font-family: var(--font-body);
+    font-size: var(--font-size-base);
+    line-height: 1.6;
+    color: var(--color-text-muted);
+  }
+
+  /* ── Methods ── */
+  .zk__methods {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--spacing-24);
+  }
+
+  .zk__method {
+    background-color: var(--color-white);
+    border: 1px solid var(--color-gold-600);
+    border-radius: var(--radius-sm);
+    padding: var(--spacing-32);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-16);
+    transition: transform 200ms ease, box-shadow 200ms ease;
+  }
+
+  .zk__method:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(199, 125, 23, 0.18);
+  }
+
+  .zk__method-index {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-h4);
+    font-weight: 600;
+    font-style: italic;
+    color: var(--color-gold-600);
+    line-height: 1;
+  }
+
+  .zk__method-title {
+    font-family: var(--font-body);
+    font-size: var(--font-size-base);
+    font-weight: 500;
+    color: var(--color-dark-900);
+    line-height: 1.3;
+  }
+
+  .zk__method-text {
+    font-family: var(--font-body);
+    font-size: var(--font-size-base);
+    line-height: 1.6;
+    color: var(--color-text-muted);
+  }
+
+  /* ── Deadline spotlight ── */
+  .zk__deadline {
+    background: var(--color-dark-900);
+    border-radius: var(--radius-sm);
+    padding: var(--spacing-48);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-48);
+  }
+
+  .zk__deadline-time {
+    display: flex;
+    align-items: baseline;
+    gap: var(--spacing-8);
+    flex-shrink: 0;
+  }
+
+  .zk__deadline-num {
+    font-family: var(--font-heading);
+    font-size: 96px;
+    font-weight: 600;
+    font-style: italic;
+    color: var(--color-gold-600);
+    line-height: 1;
+  }
+
+  .zk__deadline-unit {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-h3);
+    font-weight: 600;
+    font-style: italic;
+    color: var(--color-gold-600);
+    line-height: 1;
+  }
+
+  .zk__deadline-divider {
+    width: 1px;
+    height: 80px;
+    background: rgba(240, 219, 190, 0.2);
+    flex-shrink: 0;
+  }
+
+  .zk__deadline-body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-8);
+  }
+
+  .zk__deadline-body .zk__label {
+    color: var(--color-gold-600);
+  }
+
+  .zk__deadline-title {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-h3);
+    font-weight: 600;
+    color: var(--color-gold-600);
+    line-height: 1.05;
+  }
+
+  .zk__deadline-text {
+    font-family: var(--font-body);
+    font-size: var(--font-size-base);
+    line-height: 1.7;
+    color: rgba(252, 248, 243, 0.7);
+    max-width: 560px;
+  }
+
+  .zk__deadline-text strong {
+    color: var(--color-gold-600);
+    font-weight: 500;
+  }
+
+  /* ── Guarantees ── */
+  .zk__guarantees {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    background-color: var(--color-white);
+    border: 1px solid var(--color-gold-600);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+  }
+
+  .zk__guarantee {
+    padding: var(--spacing-32);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-16);
+    position: relative;
+    transition: background-color 200ms ease;
+  }
+
+  .zk__guarantee:hover {
+    background-color: var(--color-gold-300);
+  }
+
+  .zk__guarantee + .zk__guarantee::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: var(--spacing-32);
+    bottom: var(--spacing-32);
+    width: 1px;
+    background: var(--color-gold-600);
+  }
+
+  .zk__guarantee-num {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-h2);
+    font-weight: 600;
+    font-style: italic;
+    color: var(--color-gold-600);
+    line-height: 1;
+  }
+
+  .zk__guarantee-title {
+    font-family: var(--font-body);
+    font-size: var(--font-size-lg);
+    font-weight: 400;
+    color: var(--color-dark-900);
+    line-height: 1.3;
+  }
+
+  .zk__guarantee-text {
+    font-family: var(--font-body);
+    font-size: var(--font-size-base);
+    line-height: 1.5;
+    color: var(--color-text-muted);
+  }
+
+  /* ── FAQ ── */
+  .zk__faq {
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid var(--color-gold-600);
+  }
+
+  .zk__faq-item {
+    border-bottom: 1px solid var(--color-gold-600);
+  }
+
+  .zk__faq-q {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-16);
+    width: 100%;
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    padding: var(--spacing-24) 0;
+  }
+
+  .zk__faq-q-index {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-h4);
+    font-weight: 600;
+    font-style: italic;
+    color: var(--color-gold-600);
+    line-height: 1;
+    flex-shrink: 0;
+    width: 44px;
+    transition: color 200ms ease;
+  }
+
+  .zk__faq-item.is-open .zk__faq-q-index {
+    color: var(--color-gold-900);
+  }
+
+  .zk__faq-q-text {
+    flex: 1;
+    font-family: var(--font-body);
+    font-size: var(--font-size-lg);
+    font-weight: 500;
+    color: var(--color-dark-900);
+    line-height: 1.4;
+  }
+
+  .zk__faq-icon {
+    font-size: 24px;
+    color: var(--color-gold-900);
+    flex-shrink: 0;
+    display: inline-block;
+    transition: transform 0.42s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .zk__faq-item.is-open .zk__faq-icon { transform: rotate(45deg); }
+  .zk__faq-item.is-closing .zk__faq-icon {
+    transform: rotate(0deg);
+    transition: transform 0.22s ease-in;
+  }
+
+  .zk__faq-a {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.42s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .zk__faq-item.is-open .zk__faq-a { grid-template-rows: 1fr; }
+  .zk__faq-item.is-closing .zk__faq-a {
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.22s ease-in;
+  }
+
+  .zk__faq-a-inner {
+    overflow: hidden;
+    padding-left: 60px;
+    padding-bottom: 0;
+    max-width: 680px;
+    transition: padding-bottom 0.42s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .zk__faq-item.is-open .zk__faq-a-inner {
+    padding-bottom: var(--spacing-24);
+  }
+
+  .zk__faq-item.is-closing .zk__faq-a-inner {
+    padding-bottom: 0;
+    transition: padding-bottom 0.22s ease-in;
+  }
+
+  .zk__faq-a-inner p {
+    font-family: var(--font-body);
+    font-size: var(--font-size-base);
+    line-height: 1.7;
+    color: var(--color-text-muted);
+    opacity: 0;
+    transition: opacity 0.12s ease;
+  }
+
+  .zk__faq-item.is-open .zk__faq-a-inner p {
+    opacity: 1;
+    transition: opacity 0.28s ease 0.16s;
+  }
+
+  .zk__faq-item.is-closing .zk__faq-a-inner p {
+    opacity: 0;
+    transition: opacity 0.1s ease;
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 760px) {
+    .zk {
+      gap: var(--spacing-48);
+    }
+
+    .zk__hero,
+    .zk__deadline,
+    .zk__section--warm {
+      margin-left: calc(var(--spacing-16) * -1);
+      margin-right: calc(var(--spacing-16) * -1);
+    }
+
+    .zk__hero {
+      grid-template-columns: 1fr;
+      grid-template-rows: 220px auto auto;
+    }
+    .zk__hero-image {
+      grid-column: 1;
+      grid-row: 1;
+      min-height: unset;
+    }
+    .zk__hero-content {
+      grid-column: 1;
+      grid-row: 2;
+      padding: var(--spacing-32) var(--spacing-16);
+    }
+    .zk__hero-stats {
+      grid-column: 1;
+      grid-row: 3;
+      padding: var(--spacing-16);
+      flex-wrap: wrap;
+      gap: var(--spacing-16);
+    }
+    .zk__hero-stat-sep { display: none; }
+    .zk__hero-stat { flex: 0 0 auto; }
+    .zk__hero-cta {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .zk__title { font-size: var(--font-size-h3); }
+
+    .zk__section-title { font-size: var(--font-size-h4); }
+    .zk__section--warm {
+      border-radius: 0;
+      padding: var(--spacing-32) var(--spacing-16);
+    }
+
+    .zk__cases,
+    .zk__methods,
+    .zk__limits {
+      grid-template-columns: 1fr;
+    }
+
+    .zk__deadline {
+      border-radius: 0;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--spacing-24);
+      padding: var(--spacing-32) var(--spacing-16);
+    }
+    .zk__deadline-divider { width: 40px; height: 1px; }
+    .zk__deadline-num { font-size: 72px; }
+
+    .zk__guarantees {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .zk__guarantee + .zk__guarantee::before { display: none; }
+    .zk__guarantee:nth-child(odd) {
+      border-right: 1px solid var(--color-gold-600);
+    }
+    .zk__guarantee:nth-child(1),
+    .zk__guarantee:nth-child(2) {
+      border-bottom: 1px solid var(--color-gold-600);
+    }
+
+    .zk__faq-q-index {
+      width: 32px;
+      font-size: var(--font-size-h6, 25px);
+    }
+    .zk__faq-a-inner { padding-left: 48px; }
+  }
+
+  @media (max-width: 500px) {
+    .zk__guarantees { grid-template-columns: 1fr; }
+    .zk__guarantee:nth-child(odd) { border-right: none; }
+    .zk__guarantee + .zk__guarantee {
+      border-top: 1px solid var(--color-gold-600);
+    }
+    .zk__guarantee:nth-child(1),
+    .zk__guarantee:nth-child(2) { border-bottom: none; }
+  }
+</style>

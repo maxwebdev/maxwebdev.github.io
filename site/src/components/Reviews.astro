@@ -1,0 +1,146 @@
+---
+import { sanityClient } from '../lib/sanity';
+
+interface Review {
+  name: string;
+  meta: string;
+  text: string;
+  avatar?: any;
+}
+
+const reviews: Review[] = await sanityClient.fetch(
+  `*[_type == "review"] | order(order asc) { name, meta, text, avatar }`
+);
+
+const platforms = [
+  { rating: "5.0", img: "/images/logo-2gis.svg", link: "https://2gis.ru/spb/search/%D1%8E%D0%B2%D0%B5%D0%BB%D0%B8%D1%80%D0%BD%D0%B0%D1%8F%20%D0%BC%D0%B0%D1%81%D1%82%D0%B5%D1%80%D1%81%D0%BA%D0%B0%D1%8F%20%D0%B0%D1%80%D1%82%D0%B5%D0%BB%D1%8C/firm/70000001080478563/" },
+  { rating: "5.0", img: "/images/logo-yandex.svg", link: "https://yandex.com/maps/-/CPRlvS77" },
+  { rating: "5.0", img: "/images/logo-avito.svg", link: "https://www.avito.ru/user/758e9098c95b634176cb7ddec6fd2ab5/profile/all" }
+];
+---
+
+<section class="reviews" id="reviews">
+  <div class="reviews__header">
+    <h2 class="reviews__title">5.0 на всех площадках</h2>
+    <p class="reviews__subtitle">Более 400 реальных отзывов — на Яндекс.Картах, Avito и 2ГИС. Нажмите, чтобы прочитать все</p>
+  </div>
+
+  <div class="reviews__grid">
+    {platforms.map((p) => (
+      <a href={p.link} target="_blank" rel="noopener" class="reviews__card">
+        <div class="reviews__rating">{p.rating}</div>
+        <img src="/images/stars-5.svg" alt="5 звезд" class="reviews__stars" />
+        <img src={p.img} alt="" class="reviews__image" />
+      </a>
+    ))}
+  </div>
+</section>
+
+<section class="reviews-full">
+  <div class="reviews-full__wrapper">
+    {reviews.map((rev) => (
+      <div class="review-card">
+        <div class="review-card__quote">"</div>
+        <p class="review-card__text">{rev.text}</p>
+        <div class="review-card__author">
+          <img src={rev.avatar} alt={rev.name} class="review-card__avatar" />
+          <div>
+            <div class="review-card__name">{rev.name}</div>
+            <div class="review-card__meta">{rev.meta}</div>
+          </div>
+        </div>
+      </div>
+    ))}
+  </div>
+</section>
+
+<style>
+.reviews {
+  background-color: var(--color-white);
+  display: flex; flex-direction: column; gap: var(--spacing-64); align-items: center;
+  padding: var(--spacing-64) var(--spacing-48); overflow: hidden; width: 100%;
+}
+.reviews__header {
+  display: flex; align-items: center; justify-content: space-between;
+  max-width: 1400px; width: 100%; gap: var(--spacing-48);
+}
+.reviews__title {
+  font-family: var(--font-heading); font-weight: 600;
+  font-size: var(--font-size-h2); line-height: 1; color: var(--color-dark-900); flex: 1;
+}
+.reviews__subtitle {
+  font-family: var(--font-body); font-size: var(--font-size-base);
+  line-height: 1.5; color: var(--color-gold-900); text-align: right; flex: 1;
+}
+.reviews__grid {
+  display: flex; flex-wrap: wrap; justify-content: space-between;
+  gap: var(--spacing-48); max-width: 1400px; width: 100%;
+}
+.reviews__card {
+  display: flex; flex-direction: column; align-items: center;
+  gap: var(--spacing-32); width: 212px; transition: transform var(--transition-fast);
+}
+a.reviews__card:hover { transform: translateY(-2px); }
+.reviews__rating {
+  font-family: var(--font-heading); font-weight: 600;
+  font-size: var(--font-size-h2); line-height: 1; color: var(--color-gold-900);
+  text-align: center; width: 100%;
+}
+.reviews__stars { height: 17px; width: 122px; display: block; }
+.reviews__image { width: 150px; height: 58px; object-fit: cover; }
+
+.reviews-full {
+  background-color: var(--color-white);
+  display: flex; flex-direction: column; align-items: center;
+  padding: 0 var(--spacing-48) var(--spacing-64); overflow: hidden; width: 100%;
+}
+.reviews-full__wrapper {
+  display: flex; flex-wrap: wrap; gap: var(--spacing-32);
+  max-width: 1400px; width: 100%;
+}
+.review-card {
+  flex: 1 0 0; min-width: min(100%, 620px);
+  display: flex; flex-direction: column; gap: var(--spacing-8);
+  padding-top: var(--spacing-24); border-top: 1px solid var(--color-review-border);
+}
+.review-card__quote {
+  font-family: var(--font-heading); font-weight: 600; font-style: italic;
+  font-size: var(--font-size-h3); line-height: 1; color: var(--color-gold-900);
+}
+.review-card__text {
+  font-family: var(--font-body); font-size: var(--font-size-base);
+  line-height: 1.5; color: var(--color-dark-600); flex: 1;
+}
+.review-card__author {
+  display: flex; align-items: center; gap: var(--spacing-32);
+  margin-top: var(--spacing-16);
+}
+.review-card__avatar { width: 42px; height: 42px; border-radius: 50%; object-fit: cover; flex-shrink: 0; }
+.review-card__name {
+  font-family: var(--font-body); font-size: var(--font-size-sm);
+  line-height: 1.5; color: var(--color-dark-900); white-space: nowrap;
+}
+.review-card__meta {
+  font-family: var(--font-body); font-size: var(--font-size-sm);
+  line-height: 1.5; color: var(--color-dark-600); white-space: normal;
+}
+
+@media (max-width: 1024px) {
+  .reviews { padding: var(--spacing-48) var(--spacing-32); gap: var(--spacing-48); }
+  .reviews__header { flex-direction: column; align-items: flex-start; }
+  .reviews__subtitle { text-align: left; }
+  .reviews__grid { justify-content: flex-start; gap: var(--spacing-32); }
+  .reviews-full { padding: 0 var(--spacing-32) var(--spacing-48); }
+}
+@media (max-width: 500px) {
+  .reviews { padding: var(--spacing-48) var(--spacing-24); }
+  .reviews__title { font-size: 36px; }
+  .reviews__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--spacing-16); }
+  .reviews__card { width: 100%; gap: var(--spacing-24); }
+  .reviews__rating { font-size: 28px; }
+  .reviews__stars { width: 100%; max-width: 80px; height: auto; }
+  .reviews__image { width: 100%; height: auto; }
+  .reviews-full { padding: 0 var(--spacing-24) var(--spacing-48); }
+  .review-card { min-width: 100%; }
+}
+</style>
