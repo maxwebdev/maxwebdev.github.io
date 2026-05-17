@@ -1,4 +1,420 @@
 ---
-import PlaceholderPage from '../../layouts/PlaceholderPage.astro';
+import InnerPage from '../../layouts/InnerPage.astro';
+import StaticPriceTable from '../../components/StaticPriceTable.astro';
+
+const watchRepairLinks = [
+  { label: 'Общий ремонт часов', href: '/watch-repair/prajs-na-obshhij-remont-chasov' },
+  { label: 'Мелкий ремонт',      href: '/watch-repair/prajs-na-melkij-remont' },
+  { label: 'Замена батареек',    href: '/watch-repair/prajs-na-zamenu-batareek' },
+  { label: 'Замена стёкол',      href: '/watch-repair/prajs-na-zamenu-stjokol' },
+];
+
+const crumbs = [
+  { label: 'Главная', href: '/' },
+  { label: 'Ремонт часов', href: '/watch-repair' },
+  { label: 'Прайс на замену батареек' },
+];
+
+const colHeaders = ['Тип элемента питания', 'Цена'];
+
+const priceRows = [
+  { type: 'section', label: 'Серебряно-цинковые элементы питания' },
+  { label: '364, 377',                                                              cells: ['от 500 ₽'] },
+  { label: '379, 319, 397, 384, 381, 390, 329, 371, 362',                           cells: ['от 400 ₽'] },
+  { label: '337, 321, 315, 317, 395, 380, 389, 346, 373, 394',                      cells: ['от 600 ₽'] },
+  { type: 'section', label: 'Литиевые элементы питания' },
+  { label: '2015, 2025, 2032',                                                      cells: ['от 450 ₽'] },
+  { label: '1024, 1216, 1220, 1616, 1620, 2430, 2450',                              cells: ['от 500 ₽'] },
+];
+
+const guarantees = [
+  { num: '01', title: 'Гарантия 6 месяцев',  text: 'На батарейку и на саму операцию вскрытия. Если протечёт раньше времени или крышка не закроется обратно герметично — переделываем бесплатно.' },
+  { num: '02', title: 'Замена при вас',      text: 'Часовщик вскрывает корпус, заменяет элемент питания и закрывает крышку прямо за верстаком. В среднем — 10–15 минут.' },
+  { num: '03', title: 'Сразу проверка хода', text: 'После замены батарейки запускаем секундную стрелку, проверяем равномерность хода и отсутствие рывков. Если кварц «прыгает» через 2–3 секунды, это симптом износа механизма.' },
+  { num: '04', title: 'Не повредим корпус',  text: 'Открываем винтовые и поддевные крышки специальным инструментом. Без царапин на стыке, без сорванных шлицов, без отпечатков пальцев на механизме.' },
+];
+
+const faqs = [
+  {
+    q: 'Как часто нужно менять батарейку?',
+    a: 'Обычно, батарейка кварцевых часов, если они новые, разряжается за два-три года. Хронограф со множеством функций посадит элемент питания быстрее. Старые часы могут разрядить батарейку за полгода.',
+  },
+  {
+    q: 'Почему нельзя менять батарейку самому?',
+    a: 'Совет: как можно скорее замените её, так как она может протечь и испортить механизм часов. По возможности не меняйте батарейку самостоятельно, велик риск, что она растечется и разрушит механизм и корпус ваших часов. Также можно поцарапать или деформировать крышку часов при неправильном вскрытии. Наши мастера заменят элемент питания в кварцевых часах любого вида, не повредив их.',
+  },
+  {
+    q: 'Какие батарейки вы ставите — оригинал или замену?',
+    a: 'Серебряно-цинковые (silver oxide) — это классические «таблетки» под номерами 377, 364, 395 и т. п. Литиевые (CR2032, CR2025 и др.) ставятся в часах с энергоёмкими функциями: подсветка, цифровой дисплей, секундомер. Используем элементы Renata, Maxell, Sony, Energizer — те же марки, что в фирменных сервисных центрах.',
+  },
+  {
+    q: 'Куда деваются батарейки в новых часах? Они же должны быть свежими.',
+    a: 'Батарейка устанавливается ещё на заводе при изготовлении механизма. Потом часы проходят сборку, упаковку, путь к дилеру, лежат на витрине — и всё это время элемент работает. Поэтому в свежекупленных часах батарейка может сесть через несколько месяцев. По закону это не считается браком и не подлежит бесплатному гарантийному ремонту, но многие дилеры меняют такую батарейку бесплатно по своей инициативе.',
+  },
+  {
+    q: 'Сохранится ли водонепроницаемость после замены?',
+    a: 'Любое вскрытие корпуса нарушает заводскую герметичность. Поэтому при замене батарейки мы обязательно осматриваем уплотнители — резиновые и силиконовые прокладки. Если видим, что они износились (часто за 2–3 года это происходит), меняем на новые. После закрытия крышки для водонепроницаемых моделей проводим тест на герметичность.',
+  },
+  {
+    q: 'Сколько занимает замена?',
+    a: 'Простой случай — поддевная или резьбовая крышка — 10–15 минут прямо при вас. Если корпус с многоступенчатой герметизацией (Rolex, IWC и пр.) — может занять до часа из-за обязательной замены уплотнителей и теста на герметичность. Срочные случаи — оговариваем индивидуально.',
+  },
+];
 ---
-<PlaceholderPage title="Прайс на замену батареек" />
+
+<InnerPage
+  title="Прайс на замену батареек"
+  description="Замена элементов питания в кварцевых часах любого вида — серебряно-цинковые и литиевые. От 400 ₽, 10–15 минут при вас."
+  crumbs={crumbs}
+  sidebarLinks={watchRepairLinks}
+  sidebarTitle="Услуги по часам"
+  activeHref="/watch-repair/prajs-na-zamenu-batareek"
+>
+  <div class="wb">
+
+    <div class="wb__hero">
+      <div class="wb__hero-content">
+        <p class="wb__hero-label">Ювелирная мастерская «Артель» · Санкт-Петербург</p>
+        <h1 class="wb__title">Замена батареек в часах</h1>
+        <p class="wb__lead">
+          Обычно, батарейка кварцевых часов, если они новые, разряжается за
+          два-три года. Хронограф со множеством функций посадит элемент
+          питания быстрее. Старые часы могут разрядить батарейку за полгода.
+          Если ваши часы встали через обозначенные промежутки времени, скорее
+          всего, причина в севшей батарейке.
+        </p>
+        <p class="wb__lead">
+          Совет: как можно скорее замените её, так как она может протечь и
+          испортить механизм часов. По возможности не меняйте батарейку
+          самостоятельно, велик риск, что она растечется и разрушит механизм
+          и корпус ваших часов. Также можно поцарапать или деформировать
+          крышку часов при неправильном вскрытии. Наши мастера заменят
+          элемент питания в кварцевых часах любого вида, не повредив их.
+        </p>
+        <div class="wb__hero-cta">
+          <a
+            href="https://wa.me/+79319616090?text=Здравствуйте%2C%20хочу%20заменить%20батарейку%20в%20часах"
+            class="btn btn--primary"
+            target="_blank"
+            rel="noopener"
+          >
+            Записаться на замену
+          </a>
+          <p class="wb__hero-hint">10–15 минут прямо при вас</p>
+        </div>
+      </div>
+
+      <div class="wb__hero-image">
+        <div class="wb__hero-img-placeholder">
+          <span>Фото — батарейка и пинцет</span>
+        </div>
+      </div>
+
+      <div class="wb__hero-stats">
+        <div class="wb__hero-stat">
+          <span class="wb__hero-stat-num">10–15</span>
+          <div class="wb__hero-stat-info">
+            <span class="wb__hero-stat-unit">мин</span>
+            <span class="wb__hero-stat-label">при вас за верстаком</span>
+          </div>
+        </div>
+        <span class="wb__hero-stat-sep" aria-hidden="true"></span>
+        <div class="wb__hero-stat">
+          <span class="wb__hero-stat-num">2–3</span>
+          <div class="wb__hero-stat-info">
+            <span class="wb__hero-stat-unit">года</span>
+            <span class="wb__hero-stat-label">срок службы новой батарейки</span>
+          </div>
+        </div>
+        <span class="wb__hero-stat-sep" aria-hidden="true"></span>
+        <div class="wb__hero-stat">
+          <span class="wb__hero-stat-num">от 400</span>
+          <div class="wb__hero-stat-info">
+            <span class="wb__hero-stat-unit">₽</span>
+            <span class="wb__hero-stat-label">за стандартный элемент</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <StaticPriceTable
+      title="Прайс на замену элементов питания"
+      subtitle="Цены за работу с установкой нового элемента. Большинство стандартных батареек есть в наличии — менять можно сразу. Редкие литиевые элементы — под заказ 1–2 дня."
+      colHeaders={colHeaders}
+      rows={priceRows}
+      footnote="Для водонепроницаемых моделей дополнительно проверяем герметичность и при необходимости меняем уплотнители — это отдельная строка в смете."
+    />
+
+    <!-- Типы батареек -->
+    <div class="wb__section">
+      <p class="wb__label">Типы элементов питания</p>
+      <h2 class="wb__section-title">Что и куда ставится</h2>
+      <p class="wb__section-lead">
+        В часовом деле используются два класса элементов питания. Различаются
+        они химией, напряжением, ёмкостью и областью применения.
+      </p>
+      <div class="wb__methods">
+        <div class="wb__method">
+          <div class="wb__method-index">01</div>
+          <div class="wb__method-title">Серебряно-цинковые (silver oxide)</div>
+          <p class="wb__method-text">
+            Классические «таблетки» под номерами 364, 377, 379, 395 и т. п.
+            Напряжение 1,55 В, стабильное на протяжении всего срока службы.
+            Ставятся в большинство обычных стрелочных часов с минимальной
+            электроникой. Срок службы — 2–3 года.
+          </p>
+        </div>
+        <div class="wb__method">
+          <div class="wb__method-index">02</div>
+          <div class="wb__method-title">Литиевые (lithium)</div>
+          <p class="wb__method-text">
+            Крупнее серебряно-цинковых, напряжение 3 В. Маркировка CR (2015,
+            2025, 2032) и аналогичные. Применяются в часах с подсветкой,
+            цифровым дисплеем, секундомером, GPS-модулями и другими
+            энергоёмкими функциями. Срок службы зависит от того, как часто
+            пользуетесь подсветкой и таймером.
+          </p>
+        </div>
+        <div class="wb__method">
+          <div class="wb__method-index">03</div>
+          <div class="wb__method-title">Аккумулятор и автокварц</div>
+          <p class="wb__method-text">
+            Не классическая батарейка — а перезаряжаемый источник питания.
+            В моделях Seiko Kinetic, Citizen Eco-Drive и аналогах. От движения
+            руки или света генерируется заряд. Эти модели тоже требуют замены
+            аккумулятора, но раз в 7–15 лет. Работа от 3 000 ₽.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Когда замены недостаточно -->
+    <div class="wb__section wb__section--warm">
+      <p class="wb__label">Когда замены недостаточно</p>
+      <h2 class="wb__section-title">Симптомы, при которых нужна не только новая батарейка</h2>
+      <p class="wb__section-lead">
+        Иногда часы продолжают капризничать после замены элемента питания —
+        потому что причина была не в нём.
+      </p>
+      <div class="wb__limits">
+        <div class="wb__limit">
+          <div class="wb__limit-title">Секундная стрелка «прыгает» через 2–3 деления</div>
+          <p class="wb__limit-text">
+            Если кварц делает рывок раз в несколько секунд вместо плавного
+            хода — батарейка ещё свежая, но почти разряжена. Часы предупреждают
+            хозяина так уже за 1–2 недели до полной остановки. Меняйте
+            не дожидаясь, иначе старый элемент может потечь.
+          </p>
+        </div>
+        <div class="wb__limit">
+          <div class="wb__limit-title">После замены батарейки часы не пошли</div>
+          <p class="wb__limit-text">
+            Скорее всего, прежний элемент успел протечь, и электролит окислил
+            контакты или повредил плату. Нужна чистка узла питания, иногда —
+            замена платы или электронного блока. Это уже общий ремонт,
+            не мелкий.
+          </p>
+        </div>
+        <div class="wb__limit">
+          <div class="wb__limit-title">Часы идут, но точность хуже паспортной</div>
+          <p class="wb__limit-text">
+            Если кварц спешит или отстаёт на минуту в сутки — это симптом
+            износа шагового двигателя или загрязнения механизма. Новая
+            батарейка не поможет, нужна разборка и обслуживание.
+          </p>
+        </div>
+        <div class="wb__limit">
+          <div class="wb__limit-title">На корпусе видны следы протечки</div>
+          <p class="wb__limit-text">
+            Если внутри крышки белёсый или зеленоватый налёт — это окисление
+            от старой батарейки. Лечится только разборкой механизма, чисткой
+            и заменой пострадавших деталей. Откладывать нельзя: коррозия
+            продолжается даже без батарейки.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="wb__deadline">
+      <div class="wb__deadline-time">
+        <span class="wb__deadline-num">10–15</span>
+        <span class="wb__deadline-unit">мин</span>
+      </div>
+      <div class="wb__deadline-divider" aria-hidden="true"></div>
+      <div class="wb__deadline-body">
+        <p class="wb__label">Время выполнения</p>
+        <h2 class="wb__deadline-title">При вас за верстаком</h2>
+        <p class="wb__deadline-text">
+          Простой случай — поддевная или резьбовая крышка — мастер делает
+          <strong>за 10–15 минут прямо при вас</strong>. Для водонепроницаемых
+          моделей с многоступенчатой герметизацией потребуется до часа:
+          обязательная замена уплотнителей и тест на герметичность.
+          Если корпус нестандартный или батарейка протекла — обозначим
+          срок после диагностики.
+        </p>
+      </div>
+    </div>
+
+    <div class="wb__section">
+      <p class="wb__label">Обязательства</p>
+      <h2 class="wb__section-title">Наши гарантии</h2>
+      <div class="wb__guarantees">
+        {guarantees.map((g) => (
+          <div class="wb__guarantee">
+            <div class="wb__guarantee-num">{g.num}</div>
+            <div class="wb__guarantee-title">{g.title}</div>
+            <div class="wb__guarantee-text">{g.text}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <div class="wb__section">
+      <p class="wb__label">Вопросы и ответы</p>
+      <h2 class="wb__section-title">Частые вопросы</h2>
+      <div class="wb__faq">
+        {faqs.map((item, i) => (
+          <div class="wb__faq-item">
+            <button class="wb__faq-q" type="button" aria-expanded="false" aria-controls={`faq-panel-${i}`}>
+              <span class="wb__faq-q-index">{String(i + 1).padStart(2, '0')}</span>
+              <span class="wb__faq-q-text">{item.q}</span>
+              <span class="wb__faq-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="wb__faq-a" id={`faq-panel-${i}`} role="region">
+              <div class="wb__faq-a-inner"><p>{item.a}</p></div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+  </div>
+</InnerPage>
+
+<script>
+  document.querySelectorAll<HTMLElement>('.wb__faq-item').forEach(item => {
+    const btn = item.querySelector<HTMLButtonElement>('.wb__faq-q')!;
+    const answer = item.querySelector<HTMLElement>('.wb__faq-a')!;
+    btn.addEventListener('click', () => {
+      if (item.classList.contains('is-open')) {
+        item.classList.add('is-closing');
+        item.classList.remove('is-open');
+        btn.setAttribute('aria-expanded', 'false');
+        answer.addEventListener('transitionend', () => { item.classList.remove('is-closing'); }, { once: true });
+      } else {
+        item.classList.remove('is-closing');
+        item.classList.add('is-open');
+        btn.setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
+</script>
+
+<style>
+  .wb { display: flex; flex-direction: column; gap: var(--spacing-64); }
+
+  .wb__hero { background: linear-gradient(154.68deg, var(--color-gold-300) 0%, var(--color-gold-600) 100%); display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr auto; overflow: hidden; }
+  .wb__hero-content { grid-column: 1; grid-row: 1; padding: var(--spacing-48); display: flex; flex-direction: column; gap: var(--spacing-16); }
+  .wb__hero-image { grid-column: 2; grid-row: 1 / 3; position: relative; min-height: 460px; }
+  .wb__hero-img-placeholder { position: absolute; inset: 0; background: rgba(0,0,0,0.10); display: flex; align-items: center; justify-content: center; }
+  .wb__hero-img-placeholder span { font-family: var(--font-body); font-size: var(--font-size-sm); text-transform: uppercase; letter-spacing: 0.1em; color: rgba(0,0,0,0.35); }
+  .wb__hero-stats { grid-column: 1; grid-row: 2; display: flex; align-items: center; padding: var(--spacing-24) var(--spacing-48); border-top: 1px solid var(--color-gold-600); }
+  .wb__hero-stat { display: flex; align-items: baseline; gap: var(--spacing-8); flex: 1; }
+  .wb__hero-stat-num { font-family: var(--font-heading); font-size: var(--font-size-h3); font-weight: 600; font-style: italic; color: var(--color-dark-900); line-height: 1; }
+  .wb__hero-stat-info { display: flex; flex-direction: column; gap: 2px; }
+  .wb__hero-stat-unit { font-family: var(--font-body); font-size: var(--font-size-sm); font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--color-dark-900); }
+  .wb__hero-stat-label { font-family: var(--font-body); font-size: var(--font-size-sm); color: var(--color-gold-900); line-height: 1.3; white-space: nowrap; }
+  .wb__hero-stat-sep { width: 1px; height: 40px; background: var(--color-gold-600); flex-shrink: 0; margin: 0 var(--spacing-24); }
+  .wb__hero-label { font-family: var(--font-body); font-size: var(--font-size-sm); text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-gold-900); }
+  .wb__title { font-family: var(--font-heading); font-size: var(--font-size-h2); font-weight: 600; color: var(--color-dark-900); line-height: 1; }
+  .wb__lead { font-family: var(--font-body); font-size: var(--font-size-lg); line-height: 1.6; color: var(--color-text-muted); }
+  .wb__hero-cta { display: flex; align-items: center; gap: var(--spacing-24); margin-top: auto; }
+  .wb__hero-hint { font-family: var(--font-body); font-size: var(--font-size-sm); color: var(--color-gold-900); line-height: 1.4; max-width: 180px; }
+
+  .wb__section { display: flex; flex-direction: column; gap: var(--spacing-24); }
+  .wb__section--warm { background: var(--color-gold-600); border-radius: var(--radius-sm); padding: var(--spacing-48); }
+  .wb__label { font-family: var(--font-body); font-size: var(--font-size-sm); text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-gold-900); }
+  .wb__section-title { font-family: var(--font-heading); font-size: var(--font-size-h3); font-weight: 600; color: var(--color-dark-900); line-height: 1.05; margin-top: calc(var(--spacing-24) * -1); }
+  .wb__section-lead { font-family: var(--font-body); font-size: var(--font-size-lg); line-height: 1.7; color: var(--color-text-muted); max-width: 720px; }
+
+  .wb__methods, .wb__limits { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--spacing-24); }
+  .wb__limits { grid-template-columns: repeat(2, 1fr); }
+  .wb__method, .wb__limit { background-color: var(--color-white); border: 1px solid var(--color-gold-600); border-radius: var(--radius-sm); padding: var(--spacing-32); display: flex; flex-direction: column; gap: var(--spacing-16); transition: transform 200ms ease, box-shadow 200ms ease; }
+  .wb__limit { border-left: 3px solid var(--color-gold-900); }
+  .wb__method:hover, .wb__limit:hover { transform: translateY(-2px); box-shadow: 0 4px 16px rgba(199,125,23,.18); }
+  .wb__method-index { font-family: var(--font-heading); font-size: var(--font-size-h4); font-weight: 600; font-style: italic; color: var(--color-gold-600); line-height: 1; }
+  .wb__method-title, .wb__limit-title { font-family: var(--font-body); font-size: var(--font-size-base); font-weight: 500; color: var(--color-dark-900); line-height: 1.3; }
+  .wb__method-text, .wb__limit-text { font-family: var(--font-body); font-size: var(--font-size-base); line-height: 1.6; color: var(--color-text-muted); }
+
+  .wb__deadline { background: var(--color-dark-900); border-radius: var(--radius-sm); padding: var(--spacing-48); display: flex; align-items: center; gap: var(--spacing-48); }
+  .wb__deadline-time { display: flex; align-items: baseline; gap: var(--spacing-8); flex-shrink: 0; }
+  .wb__deadline-num { font-family: var(--font-heading); font-size: 96px; font-weight: 600; font-style: italic; color: var(--color-gold-600); line-height: 1; }
+  .wb__deadline-unit { font-family: var(--font-heading); font-size: var(--font-size-h3); font-weight: 600; font-style: italic; color: var(--color-gold-600); line-height: 1; }
+  .wb__deadline-divider { width: 1px; height: 80px; background: rgba(240,219,190,.2); flex-shrink: 0; }
+  .wb__deadline-body { display: flex; flex-direction: column; gap: var(--spacing-8); }
+  .wb__deadline-body .wb__label { color: var(--color-gold-600); }
+  .wb__deadline-title { font-family: var(--font-heading); font-size: var(--font-size-h3); font-weight: 600; color: var(--color-gold-600); line-height: 1.05; }
+  .wb__deadline-text { font-family: var(--font-body); font-size: var(--font-size-base); line-height: 1.7; color: rgba(252,248,243,.7); max-width: 640px; }
+  .wb__deadline-text strong { color: var(--color-gold-600); font-weight: 500; }
+
+  .wb__guarantees { display: grid; grid-template-columns: repeat(4, 1fr); background-color: var(--color-white); border: 1px solid var(--color-gold-600); border-radius: var(--radius-sm); overflow: hidden; }
+  .wb__guarantee { padding: var(--spacing-32); display: flex; flex-direction: column; gap: var(--spacing-16); position: relative; transition: background-color 200ms ease; }
+  .wb__guarantee:hover { background-color: var(--color-gold-300); }
+  .wb__guarantee + .wb__guarantee::before { content:''; position: absolute; left: 0; top: var(--spacing-32); bottom: var(--spacing-32); width: 1px; background: var(--color-gold-600); }
+  .wb__guarantee-num { font-family: var(--font-heading); font-size: var(--font-size-h2); font-weight: 600; font-style: italic; color: var(--color-gold-600); line-height: 1; }
+  .wb__guarantee-title { font-family: var(--font-body); font-size: var(--font-size-lg); font-weight: 400; color: var(--color-dark-900); line-height: 1.3; }
+  .wb__guarantee-text { font-family: var(--font-body); font-size: var(--font-size-base); line-height: 1.5; color: var(--color-text-muted); }
+
+  .wb__faq { display: flex; flex-direction: column; border-top: 1px solid var(--color-gold-600); }
+  .wb__faq-item { border-bottom: 1px solid var(--color-gold-600); }
+  .wb__faq-q { display: flex; align-items: center; gap: var(--spacing-16); width: 100%; background: none; border: none; cursor: pointer; text-align: left; padding: var(--spacing-24) 0; }
+  .wb__faq-q-index { font-family: var(--font-heading); font-size: var(--font-size-h4); font-weight: 600; font-style: italic; color: var(--color-gold-600); line-height: 1; flex-shrink: 0; width: 44px; transition: color 200ms ease; }
+  .wb__faq-item.is-open .wb__faq-q-index { color: var(--color-gold-900); }
+  .wb__faq-q-text { flex: 1; font-family: var(--font-body); font-size: var(--font-size-lg); font-weight: 500; color: var(--color-dark-900); line-height: 1.4; }
+  .wb__faq-icon { font-size: 24px; color: var(--color-gold-900); flex-shrink: 0; transition: transform .42s cubic-bezier(0.16,1,0.3,1); }
+  .wb__faq-item.is-open .wb__faq-icon { transform: rotate(45deg); }
+  .wb__faq-item.is-closing .wb__faq-icon { transform: rotate(0deg); transition: transform .22s ease-in; }
+  .wb__faq-a { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .42s cubic-bezier(0.16,1,0.3,1); }
+  .wb__faq-item.is-open .wb__faq-a { grid-template-rows: 1fr; }
+  .wb__faq-item.is-closing .wb__faq-a { grid-template-rows: 0fr; transition: grid-template-rows .22s ease-in; }
+  .wb__faq-a-inner { overflow: hidden; padding-left: 60px; padding-bottom: 0; max-width: 680px; transition: padding-bottom .42s cubic-bezier(0.16,1,0.3,1); }
+  .wb__faq-item.is-open .wb__faq-a-inner { padding-bottom: var(--spacing-24); }
+  .wb__faq-item.is-closing .wb__faq-a-inner { padding-bottom: 0; transition: padding-bottom .22s ease-in; }
+  .wb__faq-a-inner p { font-family: var(--font-body); font-size: var(--font-size-base); line-height: 1.7; color: var(--color-text-muted); opacity: 0; transition: opacity .12s ease; }
+  .wb__faq-item.is-open .wb__faq-a-inner p { opacity: 1; transition: opacity .28s ease .16s; }
+  .wb__faq-item.is-closing .wb__faq-a-inner p { opacity: 0; transition: opacity .1s ease; }
+
+  @media (max-width: 1100px) {
+    .wb__methods { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 760px) {
+    .wb { gap: var(--spacing-48); }
+    .wb__hero, .wb__deadline, .wb__section--warm { margin-left: calc(var(--spacing-16) * -1); margin-right: calc(var(--spacing-16) * -1); }
+    .wb__hero { grid-template-columns: 1fr; grid-template-rows: 220px auto auto; }
+    .wb__hero-image { grid-column: 1; grid-row: 1; min-height: unset; }
+    .wb__hero-content { grid-column: 1; grid-row: 2; padding: var(--spacing-32) var(--spacing-16); }
+    .wb__hero-stats { grid-column: 1; grid-row: 3; padding: var(--spacing-16); flex-wrap: wrap; gap: var(--spacing-16); }
+    .wb__hero-stat-sep { display: none; }
+    .wb__hero-stat { flex: 0 0 auto; }
+    .wb__hero-cta { flex-direction: column; align-items: flex-start; }
+    .wb__title { font-size: var(--font-size-h3); }
+    .wb__section-title { font-size: var(--font-size-h4); }
+    .wb__section--warm { border-radius: 0; padding: var(--spacing-32) var(--spacing-16); }
+    .wb__methods, .wb__limits { grid-template-columns: 1fr; }
+    .wb__deadline { border-radius: 0; flex-direction: column; align-items: flex-start; gap: var(--spacing-24); padding: var(--spacing-32) var(--spacing-16); }
+    .wb__deadline-divider { width: 40px; height: 1px; }
+    .wb__deadline-num { font-size: 72px; }
+    .wb__guarantees { grid-template-columns: repeat(2, 1fr); }
+    .wb__guarantee + .wb__guarantee::before { display: none; }
+    .wb__guarantee:nth-child(odd) { border-right: 1px solid var(--color-gold-600); }
+    .wb__guarantee:nth-child(1), .wb__guarantee:nth-child(2) { border-bottom: 1px solid var(--color-gold-600); }
+    .wb__faq-q-index { width: 32px; font-size: var(--font-size-h6, 25px); }
+    .wb__faq-a-inner { padding-left: 48px; }
+  }
+  @media (max-width: 500px) {
+    .wb__guarantees { grid-template-columns: 1fr; }
+    .wb__guarantee:nth-child(odd) { border-right: none; }
+    .wb__guarantee + .wb__guarantee { border-top: 1px solid var(--color-gold-600); }
+    .wb__guarantee:nth-child(1), .wb__guarantee:nth-child(2) { border-bottom: none; }
+  }
+</style>

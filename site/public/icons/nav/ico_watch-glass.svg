@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none">
+  <!-- Watch case -->
+  <circle cx="50" cy="50" r="32" stroke="#c77d17" stroke-width="2.5"/>
+  <!-- Inner glass edge -->
+  <circle cx="50" cy="50" r="26" stroke="#c77d17" stroke-width="1.5" opacity="0.6"/>
+  <!-- Crack pattern -->
+  <path d="M30 38 L46 50 L40 60 L52 56 L58 70" stroke="#c77d17" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M46 50 L62 38" stroke="#c77d17" stroke-width="2" stroke-linecap="round"/>
+  <path d="M52 56 L66 64" stroke="#c77d17" stroke-width="2" stroke-linecap="round"/>
+  <!-- Crown -->
+  <rect x="80" y="46" width="6" height="8" stroke="#c77d17" stroke-width="2" fill="none"/>
+</svg>

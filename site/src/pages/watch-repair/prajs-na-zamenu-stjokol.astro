@@ -1,4 +1,433 @@
 ---
-import PlaceholderPage from '../../layouts/PlaceholderPage.astro';
+import InnerPage from '../../layouts/InnerPage.astro';
+import StaticPriceTable from '../../components/StaticPriceTable.astro';
+
+const watchRepairLinks = [
+  { label: 'Общий ремонт часов', href: '/watch-repair/prajs-na-obshhij-remont-chasov' },
+  { label: 'Мелкий ремонт',      href: '/watch-repair/prajs-na-melkij-remont' },
+  { label: 'Замена батареек',    href: '/watch-repair/prajs-na-zamenu-batareek' },
+  { label: 'Замена стёкол',      href: '/watch-repair/prajs-na-zamenu-stjokol' },
+];
+
+const crumbs = [
+  { label: 'Главная', href: '/' },
+  { label: 'Ремонт часов', href: '/watch-repair' },
+  { label: 'Прайс на замену стёкол' },
+];
+
+const colHeaders = ['Наименование', 'Россия', 'Импортные (кроме швейцарских)', 'Швейцария'];
+
+const priceRows = [
+  { type: 'section', label: 'Замена стекла' },
+  { label: 'Пластик',                       cells: ['от 350 ₽',   'от 700 ₽',   'от 800 ₽'] },
+  { label: 'Минеральное (кварц)',           cells: ['от 650 ₽',   'от 1 200 ₽', 'от 1 700 ₽'] },
+  { label: 'Сапфир',                        cells: ['от 3 000 ₽', 'от 3 000 ₽', 'По договорённости'] },
+  { label: 'Сферические, фасонные стекла',  cells: ['от 500 ₽',   'от 800 ₽',   'от 1 800 ₽'] },
+  { type: 'section', label: 'Замена стекла собственного изготовления' },
+  { label: 'Сферические, фасонные стекла',  cells: ['от 1 500 ₽', 'от 1 700 ₽', 'от 3 500 ₽'] },
+  { label: 'Линза',                         cells: ['от 2 500 ₽', 'от 3 000 ₽', 'от 4 500 ₽'] },
+];
+
+const guarantees = [
+  { num: '01', title: 'Гарантия 1 год',          text: 'На стекло и установку. Если выпадет, треснет в посадке или пропустит влагу — переделываем бесплатно.' },
+  { num: '02', title: 'Любая форма и размер',     text: 'Стекла нестандартной формы — сферические, фасонные, бочкообразные, с линзой-циклопом — вытачиваем вручную.' },
+  { num: '03', title: 'Восстановим герметичность', text: 'После замены проверяем корпус на герметичность приборами BERGEON 5555 и WITSCHI ALC-2000. Меняем уплотнители.' },
+  { num: '04', title: 'Стекло под бренд',         text: 'Для швейцарских часов подбираем сапфировые стекла оригинальной толщины и кривизны, с антибликовым покрытием.' },
+];
+
+const faqs = [
+  {
+    q: 'Чем отличаются типы стёкол и какое выбрать?',
+    a: 'Самые надежные стекла — сапфировые, они водонепроницаемые и устойчивые к появлению сколов и трещин. Потому самые дорогие. Минеральные стекла для бережного обращения — не терпят ударов и падений, цена на них средняя. Пластиковые — самый бюджетный вариант. Наши часовщики подберут оптимальный по цене и качеству вариант для вашего аксессуара.',
+  },
+  {
+    q: 'Что такое твёрдость по шкале Мооса?',
+    a: 'Это шкала от 1 (тальк) до 10 (алмаз), показывающая устойчивость к царапинам. У акрилового (пластик) стекла твёрдость 3–4 — царапается практически от всего. У минерального — 6,5–7, устойчиво к мягким металлам, но боится кварцевого песка из уличной пыли. У сапфирового — 9, в бытовых условиях поцарапать его практически невозможно: тверже только алмаз.',
+  },
+  {
+    q: 'Можно ли отполировать царапины вместо замены?',
+    a: 'Пластик полируется легко — даже в домашних условиях, в мастерской это занимает 20 минут. Минеральное стекло тоже поддаётся полировке — после неё часы выглядят как новые. Сапфир отполировать крайне сложно из-за твёрдости 9 по Моосу: нужно дорогое алмазное оборудование, поэтому обычно проще заменить. Важный нюанс: если на стекле есть антибликовое покрытие (AR), полировка его уничтожит — лучше сразу менять.',
+  },
+  {
+    q: 'У меня часы с нестандартным стеклом — сможете заменить?',
+    a: 'Если стекло часов разбилось или поцарапалось, мы заменим его на новое. Наши мастера поставят стекла любой формы и размера. Стекла нестандартной формы мы вытачиваем вручную. Это касается прямоугольных, бочкообразных, сферических и линзовых (с циклопом) стёкол — мы вытачиваем их по индивидуальным меркам корпуса.',
+  },
+  {
+    q: 'Сапфировое стекло точно не разобьётся?',
+    a: 'Поцарапаться — нет, в бытовых условиях это практически невозможно. Но из-за высокой твёрдости материал хрупкий: при сильном точечном ударе сапфировое стекло может лопнуть или разлететься на мельчайшие осколки, которые повредят циферблат и стрелки. Минеральное в этом плане безопаснее: оно скорее треснет, чем разлетится. Если ведёте активный образ жизни, минеральное может быть практичнее.',
+  },
+  {
+    q: 'Зачем мне выпуклое (сферическое) стекло?',
+    a: 'Купольные стекла лучше распределяют ударную нагрузку и устойчивее к растрескиванию, чем плоские. Особенно это заметно на акриловых стёклах винтажных часов. Плоские стёкла дают меньше оптических искажений, но уязвимее к точечным ударам. Если оригинал был сферическим — стоит ставить такое же, чтобы сохранить характерный «винтажный» вид часов.',
+  },
+  {
+    q: 'Сохранится ли водонепроницаемость после замены стекла?',
+    a: 'Да, при замене мы устанавливаем новые уплотнители под стекло и проверяем корпус на герметичность. Сначала «сухим» тестом в WITSCHI ALC-2000 — давление меняется, и прибор замеряет деформацию. Если корпус герметичен, проходит «мокрый» тест в BERGEON 5555. Важно: некачественная запрессовка стекла проявится при проверке вакуумом — давление воздуха изнутри просто выдавит его из корпуса.',
+  },
+];
 ---
-<PlaceholderPage title="Прайс на замену стёкол" />
+
+<InnerPage
+  title="Прайс на замену стёкол"
+  description="Замена пластиковых, минеральных и сапфировых стёкол в часах. Нестандартные сферические и фасонные стекла вытачиваем вручную. Гарантия 1 год."
+  crumbs={crumbs}
+  sidebarLinks={watchRepairLinks}
+  sidebarTitle="Услуги по часам"
+  activeHref="/watch-repair/prajs-na-zamenu-stjokol"
+>
+  <div class="ws">
+
+    <div class="ws__hero">
+      <div class="ws__hero-content">
+        <p class="ws__hero-label">Ювелирная мастерская «Артель» · Санкт-Петербург</p>
+        <h1 class="ws__title">Замена стёкол в часах</h1>
+        <p class="ws__lead">
+          Если стекло часов разбилось или поцарапалось, мы заменим его на
+          новое. Наши мастера поставят стекла любой формы и размера. Стекла
+          нестандартной формы мы вытачиваем вручную.
+        </p>
+        <p class="ws__lead">
+          Самые надежные стекла — сапфировые, они водонепроницаемые и
+          устойчивые к появлению сколов и трещин. Потому самые дорогие.
+          Минеральные стекла для бережного обращения — не терпят ударов и
+          падений, цена на них средняя. Пластиковые — самый бюджетный вариант.
+          Наши часовщики подберут оптимальный по цене и качеству вариант для
+          вашего аксессуара.
+        </p>
+        <div class="ws__hero-cta">
+          <a
+            href="https://wa.me/+79319616090?text=Здравствуйте%2C%20хочу%20заменить%20стекло%20на%20часах%2C%20отправляю%20фото"
+            class="btn btn--primary"
+            target="_blank"
+            rel="noopener"
+          >
+            Прислать фото
+          </a>
+          <p class="ws__hero-hint">Подберём оптимальное стекло под ваши часы</p>
+        </div>
+      </div>
+
+      <div class="ws__hero-image">
+        <div class="ws__hero-img-placeholder">
+          <span>Фото — установка стекла</span>
+        </div>
+      </div>
+
+      <div class="ws__hero-stats">
+        <div class="ws__hero-stat">
+          <span class="ws__hero-stat-num">9</span>
+          <div class="ws__hero-stat-info">
+            <span class="ws__hero-stat-unit">Моос</span>
+            <span class="ws__hero-stat-label">твёрдость сапфира</span>
+          </div>
+        </div>
+        <span class="ws__hero-stat-sep" aria-hidden="true"></span>
+        <div class="ws__hero-stat">
+          <span class="ws__hero-stat-num">1</span>
+          <div class="ws__hero-stat-info">
+            <span class="ws__hero-stat-unit">год</span>
+            <span class="ws__hero-stat-label">гарантия на работу</span>
+          </div>
+        </div>
+        <span class="ws__hero-stat-sep" aria-hidden="true"></span>
+        <div class="ws__hero-stat">
+          <span class="ws__hero-stat-num">от 350</span>
+          <div class="ws__hero-stat-info">
+            <span class="ws__hero-stat-unit">₽</span>
+            <span class="ws__hero-stat-label">за пластиковое стекло</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <StaticPriceTable
+      title="Прайс на замену стёкол"
+      subtitle="Стандартные стёкла обычно есть в наличии. Сферические и линзовые — под заказ или вытачиваем вручную (срок 1–2 дня). Для водонепроницаемых моделей плюс замена уплотнителей."
+      colHeaders={colHeaders}
+      rows={priceRows}
+      footnote="Для швейцарских часов с антибликовым покрытием подбираем стекло с AR-слоем оригинальной толщины и кривизны."
+    />
+
+    <!-- Сравнение типов стёкол -->
+    <div class="ws__section">
+      <p class="ws__label">Сравнение материалов</p>
+      <h2 class="ws__section-title">Три типа стёкол — что выбрать</h2>
+      <p class="ws__section-lead">
+        В часовой индустрии используются три материала. Различаются по
+        твёрдости, ударопрочности, цене и характеру старения. Подбор зависит
+        от того, как вы носите часы и какой у них уровень.
+      </p>
+      <div class="ws__methods">
+        <div class="ws__method">
+          <div class="ws__method-index">01</div>
+          <div class="ws__method-title">Пластик / акрил (плексиглас, хезалит)</div>
+          <p class="ws__method-text">
+            Твёрдость 3–4 по Моосу — царапается легко. Зато в 5 раз
+            прочнее обычного стекла на удар: при ударе прогибается, но не
+            разлетается. Лёгкий, дешёвый, легко полируется. С возрастом
+            может пожелтеть от УФ-лучей. Хорош для спортивных и винтажных
+            моделей, где важна безопасность и характерный «оптический»
+            эффект искажения по краям.
+          </p>
+        </div>
+        <div class="ws__method">
+          <div class="ws__method-index">02</div>
+          <div class="ws__method-title">Минеральное (закалённое силикатное)</div>
+          <p class="ws__method-text">
+            Твёрдость 6,5–7 по Моосу — «золотая середина». Хорошая
+            прозрачность, при сильном ударе скорее треснет, чем разлетится
+            в пыль. Уязвимо перед кварцевым песком из уличной пыли — со
+            временем покрывается сеткой микроцарапин. Поддаётся полировке.
+            Стандарт для бюджетных и средних часов: Casio, Tissot, Diesel.
+          </p>
+        </div>
+        <div class="ws__method">
+          <div class="ws__method-index">03</div>
+          <div class="ws__method-title">Сапфировое (синтетический корунд)</div>
+          <p class="ws__method-text">
+            Твёрдость 9 по Моосу — поцарапать в быту почти невозможно,
+            тверже только алмаз. Максимальная прозрачность, не мутнеет
+            и не желтеет со временем. Но: из-за высокой твёрдости хрупкое —
+            от сильного точечного удара может лопнуть и разлететься на
+            осколки. Самый дорогой материал. Атрибут премиальных часов:
+            TAG Heuer, Longines, Rolex.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Что важно знать -->
+    <div class="ws__section ws__section--warm">
+      <p class="ws__label">Нюансы при замене</p>
+      <h2 class="ws__section-title">Что важно учесть</h2>
+      <p class="ws__section-lead">
+        Несколько вещей, которые мастер обязательно проверяет и о которых
+        нужно знать заранее.
+      </p>
+      <div class="ws__limits">
+        <div class="ws__limit">
+          <div class="ws__limit-title">Антибликовое покрытие (AR)</div>
+          <p class="ws__limit-text">
+            Многослойное напыление, уменьшающее блики. Может быть с внутренней,
+            внешней или обеих сторон. Двустороннее даёт эффект «отсутствия
+            стекла», но внешний слой сам менее устойчив к царапинам, чем
+            сапфир. Часто оптимально — только с внутренней стороны. При полировке
+            покрытие удаляется полностью.
+          </p>
+        </div>
+        <div class="ws__limit">
+          <div class="ws__limit-title">Форма стекла</div>
+          <p class="ws__limit-text">
+            Купольные (сферические) стекла лучше распределяют ударную
+            нагрузку, устойчивее к растрескиванию. Плоские дают меньше
+            оптических искажений, но уязвимее к точечным ударам. Выпуклое
+            сапфировое стекло — примерно в 20 раз дороже выпуклого
+            минерального или акрилового.
+          </p>
+        </div>
+        <div class="ws__limit">
+          <div class="ws__limit-title">Линза-циклоп</div>
+          <p class="ws__limit-text">
+            Это маленькая увеличительная линза над окошком даты (как на
+            Rolex Datejust). Изготавливается отдельно и точно по позиции
+            окна календаря. Замена дороже обычного стекла: 2 500–4 500 ₽
+            в зависимости от происхождения часов.
+          </p>
+        </div>
+        <div class="ws__limit">
+          <div class="ws__limit-title">Запрессовка и герметичность</div>
+          <p class="ws__limit-text">
+            Некачественная запрессовка стекла проявится при проверке
+            вакуумом — давление воздуха изнутри просто выдавит его из
+            корпуса. Поэтому для водонепроницаемых моделей обязательно
+            используем новые уплотнители под стекло и финальную проверку
+            на герметичность.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="ws__deadline">
+      <div class="ws__deadline-time">
+        <span class="ws__deadline-num">от 1</span>
+        <span class="ws__deadline-unit">дня</span>
+      </div>
+      <div class="ws__deadline-divider" aria-hidden="true"></div>
+      <div class="ws__deadline-body">
+        <p class="ws__label">Время выполнения</p>
+        <h2 class="ws__deadline-title">Сроки</h2>
+        <p class="ws__deadline-text">
+          Если стандартное стекло есть в наличии — устанавливаем
+          <strong>в течение 1 дня</strong>. Сферические и фасонные стёкла
+          собственного изготовления — 1–2 дня на вытачивание. Срок ремонта
+          часовщик обозначит после проведения диагностики, она занимает
+          3–5 дней. Во время диагностики мастер исследует, есть ли в часах
+          внутренние повреждения и какие они. В среднем ремонт занимает
+          от 2 дней.
+        </p>
+      </div>
+    </div>
+
+    <div class="ws__section">
+      <p class="ws__label">Обязательства</p>
+      <h2 class="ws__section-title">Наши гарантии</h2>
+      <div class="ws__guarantees">
+        {guarantees.map((g) => (
+          <div class="ws__guarantee">
+            <div class="ws__guarantee-num">{g.num}</div>
+            <div class="ws__guarantee-title">{g.title}</div>
+            <div class="ws__guarantee-text">{g.text}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <div class="ws__section">
+      <p class="ws__label">Вопросы и ответы</p>
+      <h2 class="ws__section-title">Частые вопросы</h2>
+      <div class="ws__faq">
+        {faqs.map((item, i) => (
+          <div class="ws__faq-item">
+            <button class="ws__faq-q" type="button" aria-expanded="false" aria-controls={`faq-panel-${i}`}>
+              <span class="ws__faq-q-index">{String(i + 1).padStart(2, '0')}</span>
+              <span class="ws__faq-q-text">{item.q}</span>
+              <span class="ws__faq-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="ws__faq-a" id={`faq-panel-${i}`} role="region">
+              <div class="ws__faq-a-inner"><p>{item.a}</p></div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+  </div>
+</InnerPage>
+
+<script>
+  document.querySelectorAll<HTMLElement>('.ws__faq-item').forEach(item => {
+    const btn = item.querySelector<HTMLButtonElement>('.ws__faq-q')!;
+    const answer = item.querySelector<HTMLElement>('.ws__faq-a')!;
+    btn.addEventListener('click', () => {
+      if (item.classList.contains('is-open')) {
+        item.classList.add('is-closing');
+        item.classList.remove('is-open');
+        btn.setAttribute('aria-expanded', 'false');
+        answer.addEventListener('transitionend', () => { item.classList.remove('is-closing'); }, { once: true });
+      } else {
+        item.classList.remove('is-closing');
+        item.classList.add('is-open');
+        btn.setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
+</script>
+
+<style>
+  .ws { display: flex; flex-direction: column; gap: var(--spacing-64); }
+
+  .ws__hero { background: linear-gradient(154.68deg, var(--color-gold-300) 0%, var(--color-gold-600) 100%); display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr auto; overflow: hidden; }
+  .ws__hero-content { grid-column: 1; grid-row: 1; padding: var(--spacing-48); display: flex; flex-direction: column; gap: var(--spacing-16); }
+  .ws__hero-image { grid-column: 2; grid-row: 1 / 3; position: relative; min-height: 460px; }
+  .ws__hero-img-placeholder { position: absolute; inset: 0; background: rgba(0,0,0,0.10); display: flex; align-items: center; justify-content: center; }
+  .ws__hero-img-placeholder span { font-family: var(--font-body); font-size: var(--font-size-sm); text-transform: uppercase; letter-spacing: 0.1em; color: rgba(0,0,0,0.35); }
+  .ws__hero-stats { grid-column: 1; grid-row: 2; display: flex; align-items: center; padding: var(--spacing-24) var(--spacing-48); border-top: 1px solid var(--color-gold-600); }
+  .ws__hero-stat { display: flex; align-items: baseline; gap: var(--spacing-8); flex: 1; }
+  .ws__hero-stat-num { font-family: var(--font-heading); font-size: var(--font-size-h3); font-weight: 600; font-style: italic; color: var(--color-dark-900); line-height: 1; }
+  .ws__hero-stat-info { display: flex; flex-direction: column; gap: 2px; }
+  .ws__hero-stat-unit { font-family: var(--font-body); font-size: var(--font-size-sm); font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--color-dark-900); }
+  .ws__hero-stat-label { font-family: var(--font-body); font-size: var(--font-size-sm); color: var(--color-gold-900); line-height: 1.3; white-space: nowrap; }
+  .ws__hero-stat-sep { width: 1px; height: 40px; background: var(--color-gold-600); flex-shrink: 0; margin: 0 var(--spacing-24); }
+  .ws__hero-label { font-family: var(--font-body); font-size: var(--font-size-sm); text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-gold-900); }
+  .ws__title { font-family: var(--font-heading); font-size: var(--font-size-h2); font-weight: 600; color: var(--color-dark-900); line-height: 1; }
+  .ws__lead { font-family: var(--font-body); font-size: var(--font-size-lg); line-height: 1.6; color: var(--color-text-muted); }
+  .ws__hero-cta { display: flex; align-items: center; gap: var(--spacing-24); margin-top: auto; }
+  .ws__hero-hint { font-family: var(--font-body); font-size: var(--font-size-sm); color: var(--color-gold-900); line-height: 1.4; max-width: 180px; }
+
+  .ws__section { display: flex; flex-direction: column; gap: var(--spacing-24); }
+  .ws__section--warm { background: var(--color-gold-600); border-radius: var(--radius-sm); padding: var(--spacing-48); }
+  .ws__label { font-family: var(--font-body); font-size: var(--font-size-sm); text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-gold-900); }
+  .ws__section-title { font-family: var(--font-heading); font-size: var(--font-size-h3); font-weight: 600; color: var(--color-dark-900); line-height: 1.05; margin-top: calc(var(--spacing-24) * -1); }
+  .ws__section-lead { font-family: var(--font-body); font-size: var(--font-size-lg); line-height: 1.7; color: var(--color-text-muted); max-width: 720px; }
+
+  .ws__methods, .ws__limits { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--spacing-24); }
+  .ws__limits { grid-template-columns: repeat(2, 1fr); }
+  .ws__method, .ws__limit { background-color: var(--color-white); border: 1px solid var(--color-gold-600); border-radius: var(--radius-sm); padding: var(--spacing-32); display: flex; flex-direction: column; gap: var(--spacing-16); transition: transform 200ms ease, box-shadow 200ms ease; }
+  .ws__limit { border-left: 3px solid var(--color-gold-900); }
+  .ws__method:hover, .ws__limit:hover { transform: translateY(-2px); box-shadow: 0 4px 16px rgba(199,125,23,.18); }
+  .ws__method-index { font-family: var(--font-heading); font-size: var(--font-size-h4); font-weight: 600; font-style: italic; color: var(--color-gold-600); line-height: 1; }
+  .ws__method-title, .ws__limit-title { font-family: var(--font-body); font-size: var(--font-size-base); font-weight: 500; color: var(--color-dark-900); line-height: 1.3; }
+  .ws__method-text, .ws__limit-text { font-family: var(--font-body); font-size: var(--font-size-base); line-height: 1.6; color: var(--color-text-muted); }
+
+  .ws__deadline { background: var(--color-dark-900); border-radius: var(--radius-sm); padding: var(--spacing-48); display: flex; align-items: center; gap: var(--spacing-48); }
+  .ws__deadline-time { display: flex; align-items: baseline; gap: var(--spacing-8); flex-shrink: 0; }
+  .ws__deadline-num { font-family: var(--font-heading); font-size: 96px; font-weight: 600; font-style: italic; color: var(--color-gold-600); line-height: 1; }
+  .ws__deadline-unit { font-family: var(--font-heading); font-size: var(--font-size-h3); font-weight: 600; font-style: italic; color: var(--color-gold-600); line-height: 1; }
+  .ws__deadline-divider { width: 1px; height: 80px; background: rgba(240,219,190,.2); flex-shrink: 0; }
+  .ws__deadline-body { display: flex; flex-direction: column; gap: var(--spacing-8); }
+  .ws__deadline-body .ws__label { color: var(--color-gold-600); }
+  .ws__deadline-title { font-family: var(--font-heading); font-size: var(--font-size-h3); font-weight: 600; color: var(--color-gold-600); line-height: 1.05; }
+  .ws__deadline-text { font-family: var(--font-body); font-size: var(--font-size-base); line-height: 1.7; color: rgba(252,248,243,.7); max-width: 640px; }
+  .ws__deadline-text strong { color: var(--color-gold-600); font-weight: 500; }
+
+  .ws__guarantees { display: grid; grid-template-columns: repeat(4, 1fr); background-color: var(--color-white); border: 1px solid var(--color-gold-600); border-radius: var(--radius-sm); overflow: hidden; }
+  .ws__guarantee { padding: var(--spacing-32); display: flex; flex-direction: column; gap: var(--spacing-16); position: relative; transition: background-color 200ms ease; }
+  .ws__guarantee:hover { background-color: var(--color-gold-300); }
+  .ws__guarantee + .ws__guarantee::before { content:''; position: absolute; left: 0; top: var(--spacing-32); bottom: var(--spacing-32); width: 1px; background: var(--color-gold-600); }
+  .ws__guarantee-num { font-family: var(--font-heading); font-size: var(--font-size-h2); font-weight: 600; font-style: italic; color: var(--color-gold-600); line-height: 1; }
+  .ws__guarantee-title { font-family: var(--font-body); font-size: var(--font-size-lg); font-weight: 400; color: var(--color-dark-900); line-height: 1.3; }
+  .ws__guarantee-text { font-family: var(--font-body); font-size: var(--font-size-base); line-height: 1.5; color: var(--color-text-muted); }
+
+  .ws__faq { display: flex; flex-direction: column; border-top: 1px solid var(--color-gold-600); }
+  .ws__faq-item { border-bottom: 1px solid var(--color-gold-600); }
+  .ws__faq-q { display: flex; align-items: center; gap: var(--spacing-16); width: 100%; background: none; border: none; cursor: pointer; text-align: left; padding: var(--spacing-24) 0; }
+  .ws__faq-q-index { font-family: var(--font-heading); font-size: var(--font-size-h4); font-weight: 600; font-style: italic; color: var(--color-gold-600); line-height: 1; flex-shrink: 0; width: 44px; transition: color 200ms ease; }
+  .ws__faq-item.is-open .ws__faq-q-index { color: var(--color-gold-900); }
+  .ws__faq-q-text { flex: 1; font-family: var(--font-body); font-size: var(--font-size-lg); font-weight: 500; color: var(--color-dark-900); line-height: 1.4; }
+  .ws__faq-icon { font-size: 24px; color: var(--color-gold-900); flex-shrink: 0; transition: transform .42s cubic-bezier(0.16,1,0.3,1); }
+  .ws__faq-item.is-open .ws__faq-icon { transform: rotate(45deg); }
+  .ws__faq-item.is-closing .ws__faq-icon { transform: rotate(0deg); transition: transform .22s ease-in; }
+  .ws__faq-a { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .42s cubic-bezier(0.16,1,0.3,1); }
+  .ws__faq-item.is-open .ws__faq-a { grid-template-rows: 1fr; }
+  .ws__faq-item.is-closing .ws__faq-a { grid-template-rows: 0fr; transition: grid-template-rows .22s ease-in; }
+  .ws__faq-a-inner { overflow: hidden; padding-left: 60px; padding-bottom: 0; max-width: 680px; transition: padding-bottom .42s cubic-bezier(0.16,1,0.3,1); }
+  .ws__faq-item.is-open .ws__faq-a-inner { padding-bottom: var(--spacing-24); }
+  .ws__faq-item.is-closing .ws__faq-a-inner { padding-bottom: 0; transition: padding-bottom .22s ease-in; }
+  .ws__faq-a-inner p { font-family: var(--font-body); font-size: var(--font-size-base); line-height: 1.7; color: var(--color-text-muted); opacity: 0; transition: opacity .12s ease; }
+  .ws__faq-item.is-open .ws__faq-a-inner p { opacity: 1; transition: opacity .28s ease .16s; }
+  .ws__faq-item.is-closing .ws__faq-a-inner p { opacity: 0; transition: opacity .1s ease; }
+
+  @media (max-width: 1100px) {
+    .ws__methods { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 760px) {
+    .ws { gap: var(--spacing-48); }
+    .ws__hero, .ws__deadline, .ws__section--warm { margin-left: calc(var(--spacing-16) * -1); margin-right: calc(var(--spacing-16) * -1); }
+    .ws__hero { grid-template-columns: 1fr; grid-template-rows: 220px auto auto; }
+    .ws__hero-image { grid-column: 1; grid-row: 1; min-height: unset; }
+    .ws__hero-content { grid-column: 1; grid-row: 2; padding: var(--spacing-32) var(--spacing-16); }
+    .ws__hero-stats { grid-column: 1; grid-row: 3; padding: var(--spacing-16); flex-wrap: wrap; gap: var(--spacing-16); }
+    .ws__hero-stat-sep { display: none; }
+    .ws__hero-stat { flex: 0 0 auto; }
+    .ws__hero-cta { flex-direction: column; align-items: flex-start; }
+    .ws__title { font-size: var(--font-size-h3); }
+    .ws__section-title { font-size: var(--font-size-h4); }
+    .ws__section--warm { border-radius: 0; padding: var(--spacing-32) var(--spacing-16); }
+    .ws__methods, .ws__limits { grid-template-columns: 1fr; }
+    .ws__deadline { border-radius: 0; flex-direction: column; align-items: flex-start; gap: var(--spacing-24); padding: var(--spacing-32) var(--spacing-16); }
+    .ws__deadline-divider { width: 40px; height: 1px; }
+    .ws__deadline-num { font-size: 72px; }
+    .ws__guarantees { grid-template-columns: repeat(2, 1fr); }
+    .ws__guarantee + .ws__guarantee::before { display: none; }
+    .ws__guarantee:nth-child(odd) { border-right: 1px solid var(--color-gold-600); }
+    .ws__guarantee:nth-child(1), .ws__guarantee:nth-child(2) { border-bottom: 1px solid var(--color-gold-600); }
+    .ws__faq-q-index { width: 32px; font-size: var(--font-size-h6, 25px); }
+    .ws__faq-a-inner { padding-left: 48px; }
+  }
+  @media (max-width: 500px) {
+    .ws__guarantees { grid-template-columns: 1fr; }
+    .ws__guarantee:nth-child(odd) { border-right: none; }
+    .ws__guarantee + .ws__guarantee { border-top: 1px solid var(--color-gold-600); }
+    .ws__guarantee:nth-child(1), .ws__guarantee:nth-child(2) { border-bottom: none; }
+  }
+</style>

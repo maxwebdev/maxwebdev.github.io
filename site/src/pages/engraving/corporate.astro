@@ -1,4 +1,263 @@
 ---
-import PlaceholderPage from '../../layouts/PlaceholderPage.astro';
+import '../../styles/service-page.css';
+import InnerPage from '../../layouts/InnerPage.astro';
+import StaticPriceTable from '../../components/StaticPriceTable.astro';
+
+const engravingLinks = [
+  { label: 'Обручальные кольца',     href: '/engraving/gravirovka-obruchalnykh-kolets-spb' },
+  { label: 'Кольца, печатки',         href: '/engraving/rings' },
+  { label: 'Браслеты',                href: '/engraving/bracelets' },
+  { label: 'Кулоны, медальоны',       href: '/engraving/pendants' },
+  { label: 'Часы',                    href: '/engraving/gravirovka-na-chasah' },
+  { label: 'Лазерная гравировка',     href: '/engraving/laser' },
+  { label: 'Ручная гравировка',       href: '/engraving/manual' },
+  { label: 'Корпоративная',           href: '/engraving/corporate' },
+];
+
+const crumbs = [
+  { label: 'Главная', href: '/' },
+  { label: 'Гравёрные работы', href: '/engraving' },
+  { label: 'Корпоративная гравировка' },
+];
+
+const priceRows = [
+  { type: 'section', label: 'Сувениры и аксессуары' },
+  { label: 'Ручки (текст до 10 символов)',                  cells: ['от 500 ₽'] },
+  { label: 'Ручки с монограммой / аббревиатурой',           cells: ['от 1 000 ₽'] },
+  { label: 'Зажигалки',                                      cells: ['от 1 500 ₽'] },
+  { label: 'Брелоки, медали, жетоны',                        cells: ['от 600 ₽'] },
+  { label: 'Визитницы, пепельницы',                          cells: ['от 1 500 ₽'] },
+  { label: 'Ноутбуки, планшеты (MacBook, iPad)',             cells: ['от 2 000 ₽'] },
+  { type: 'section', label: 'Логотипы и монограммы' },
+  { label: 'Гравировка монограмм/логотипов (металл)',         cells: ['от 3 000 ₽'] },
+  { label: 'Выпильные / накладные монограммы (металл)',       cells: ['от 3 500 ₽'] },
+  { label: 'Монограммы на драгметаллах (золото, серебро)',    cells: ['от 3 000 ₽'] },
+  { label: 'Накладные монограммы на драгметалл',              cells: ['от 4 500 ₽'] },
+  { type: 'section', label: 'Партии' },
+  { label: 'От 10 изделий (за единицу)',                     cells: ['от 1,5 ч на партию'] },
+  { label: 'От 50 изделий',                                   cells: ['скидка по запросу'] },
+];
+
+const useCases = [
+  { num: '01', title: 'Юбилейные подарки сотрудникам',  text: 'Награды к 5/10/20 годам работы в компании, благодарственные надписи на ручках, фляжках, портфелях. Персонализация делает корпоративный подарок личным, а не дежурным.' },
+  { num: '02', title: 'Брендирование сувенирной продукции', text: 'Логотип компании на партиях ручек, кружек, термосов, флешек, USB-карт. Лазерная гравировка не выцветает в отличие от тампопечати и УФ-печати — служит весь срок эксплуатации.' },
+  { num: '03', title: 'VIP-подарки клиентам и партнёрам', text: 'Именные ручки, портсигары, фляжки, бокалы для коньяка с именем получателя и фирменным знаком. Эффектно для топ-клиентов и подписания крупных контрактов.' },
+  { num: '04', title: 'Награды, кубки, медали',          text: 'Имена победителей, даты соревнований, гербы организаций. Глубокая гравировка для медалей и кубков — рельеф, который читается даже через 20 лет хранения.' },
+  { num: '05', title: 'Промо-партии для мероприятий',    text: 'Фирменные сувениры для выставок, конференций, открытий. Партии от 10 штук — отдельные условия по цене и срокам, обычно от 1,5 часов на партию.' },
+  { num: '06', title: 'Столовое серебро и посуда',       text: 'Юбилейные сервизы для топ-менеджмента, гравировка инициалов на серебряных ложках, графинах, бокалах. Создаём фамильное столовое серебро для корпоративной коллекции.' },
+];
+
+const materials = [
+  { num: '01', title: 'Металлы',  text: 'Сталь, латунь, медь, алюминий, бронза, титан, серебро, золото. Используем волоконный лазер — наносит контрастный рельеф любой глубины. На анодированных и порошковых покрытиях получается светлая надпись.' },
+  { num: '02', title: 'Стекло и хрусталь', text: 'Бокалы, бутылки, графины, флаконы, наградные кубки. CO₂-лазер создаёт матовую гравировку. Подходит для именных свадебных бокалов и юбилейных коллекций.' },
+  { num: '03', title: 'Дерево и кожа', text: 'Шкатулки, портсигары, портфели, ежедневники, обложки документов. Лазерное выжигание даёт тёплый натуральный контраст — особенно эффектно на тёмной коже и светлом дереве.' },
+  { num: '04', title: 'Пластик и кость', text: 'Корпуса гаджетов (MacBook, iPad, телефоны), сувениры из ABS, акрила, оргстекла. Также костяные изделия — ножи, шкатулки, бильярдные шары. Каждый материал требует своих настроек мощности.' },
+];
+
+const limits = [
+  { title: 'Требования к макетам',           text: 'Принимаем макеты в форматах CorelDraw (.cdr), Adobe Illustrator (.eps), реже AutoCAD (.dxf). Изображение должно быть векторным или растром в высоком разрешении. Растровая гравировка возможна, но качество ниже.' },
+  { title: 'Минимальный заказ',               text: 'Принимаем заказы от 1 изделия, но для партий от 10 штук — приоритет в очереди и скидка. Срок выполнения партии от 1,5 часов до 1 рабочего дня.' },
+  { title: 'Сложные поверхности',             text: 'Идеальный результат на плоских или слабоизогнутых поверхностях. Сильно изогнутые корпуса (термосы, фляжки) гравируются с использованием специальной ротационной приставки — увеличивает время выполнения.' },
+  { title: 'Не наносим поверх заводских знаков', text: 'Логотипы производителя (Apple, Parker, Zippo и др.) сохраняем неприкосновенными — гравируем рядом, на свободной поверхности. Это сохраняет официальную гарантию производителя.' },
+];
+
+const guarantees = [
+  { num: '01', title: 'От 1 единицы до партии', text: 'Берёмся за заказы любого объёма — от подарка одному сотруднику до партии 100+ изделий. Цена за единицу снижается с увеличением партии.' },
+  { num: '02', title: 'Договор и закрывающие документы', text: 'Работаем по договору с юрлицами. Все закрывающие документы — счёт, акт выполненных работ, накладные — выставим в удобной форме.' },
+  { num: '03', title: 'Срочные заказы',          text: 'При наличии готового макета и материала на складе можем сделать партию в день обращения. Срочные тарифы — обсуждаем индивидуально.' },
+  { num: '04', title: 'Сохранение конфиденциальности', text: 'Не разглашаем содержание гравировки и реквизиты заказчика. Подписываем NDA при запросе — стандартная практика для VIP-подарков.' },
+];
+
+const faqs = [
+  { q: 'С какого минимального тиража вы беретесь?',                a: 'Принимаем заказы от 1 изделия. Но партии от 10 штук получают приоритет в очереди — выполняем за 1,5 часа после согласования макета. Для больших тиражей (от 50 шт) — скидка по запросу.' },
+  { q: 'Какие форматы файлов нужны для гравировки логотипа?',       a: 'Идеально — векторный формат: CorelDraw (.cdr), Adobe Illustrator (.eps, .ai), реже AutoCAD (.dxf). Растровые файлы (JPG, PNG) тоже принимаем, но качество гравировки будет ниже — мелкие детали могут потеряться. Если нет файла — наш дизайнер подготовит макет за дополнительную плату.' },
+  { q: 'Можно ли согласовать корпоративный шрифт?',                 a: 'Да, работаем с любыми шрифтами. Если у компании свой брендовый шрифт — пришлите файл .ttf или .otf, поставим его в наш CorelDraw. Для типовых шрифтов (Arial, Times New Roman, Georgia, гарнитуры с засечками и без) — просто скажите название.' },
+  { q: 'Берётесь ли вы за брендированные ноутбуки и MacBook?',     a: 'Да, делаем гравировку на корпусах ноутбуков (MacBook), планшетов (iPad), смартфонов (iPhone, Samsung), телефонов. Стандартная гравировка на алюминиевом корпусе — от 2 000 ₽, на крышке + полированный логотип компании — индивидуально.' },
+  { q: 'Можете ли вы изготовить выпильную монограмму или логотип?', a: 'Да, изготавливаем выпильные (накладные) монограммы и логотипы — вырезаем по контуру, фрезеровкой, или лазерным резом. На цветных металлах — от 3 500 ₽, на драгметаллах (золото, серебро) — от 4 500 ₽.' },
+  { q: 'Будут ли закрывающие документы для бухгалтерии?',           a: 'Да, работаем с юрлицами по договору. Выставим счёт, акт выполненных работ, накладную. Принимаем оплату по безналу. Для повторных заказов оформляем длительный договор с фиксированными ценами.' },
+];
 ---
-<PlaceholderPage title="Корпоративная гравировка" />
+
+<InnerPage
+  title="Корпоративная гравировка"
+  description="Лазерная гравировка корпоративных подарков, сувениров, юбилейных наград в Санкт-Петербурге. Логотипы, монограммы, именные подарки. Партии от 1 шт, договор с юрлицами, NDA."
+  crumbs={crumbs}
+  sidebarLinks={engravingLinks}
+  sidebarTitle="Виды гравировки"
+  activeHref="/engraving/corporate"
+>
+  <div class="sp">
+
+    <div class="sp__hero">
+      <div class="sp__hero-content">
+        <p class="sp__hero-label">Ювелирная мастерская «Артель» · Санкт-Петербург</p>
+        <h1 class="sp__title">Корпоративная гравировка</h1>
+        <p class="sp__lead">
+          Брендируем сувениры, юбилейные подарки, награды, столовое серебро.
+          Наносим логотипы, монограммы и именные надписи на ручки, флаги,
+          бокалы, медали, ноутбуки и аксессуары. Работаем с юрлицами по
+          договору, с полным пакетом закрывающих документов. Партии от 1
+          до 1 000 изделий.
+        </p>
+        <div class="sp__hero-cta">
+          <a href="https://wa.me/+79319616090?text=Здравствуйте%2C%20интересует%20корпоративная%20гравировка" class="btn btn--primary" target="_blank" rel="noopener">Прислать ТЗ</a>
+          <p class="sp__hero-hint">Договор, акты, безнал</p>
+        </div>
+      </div>
+
+      <div class="sp__hero-image">
+        <div class="sp__hero-img-placeholder"><span>Фото — партия корпоративных ручек с логотипом</span></div>
+      </div>
+
+      <div class="sp__hero-stats">
+        <div class="sp__hero-stat">
+          <span class="sp__hero-stat-num">1–1000</span>
+          <div class="sp__hero-stat-info">
+            <span class="sp__hero-stat-unit">шт</span>
+            <span class="sp__hero-stat-label">любой тираж</span>
+          </div>
+        </div>
+        <span class="sp__hero-stat-sep" aria-hidden="true"></span>
+        <div class="sp__hero-stat">
+          <span class="sp__hero-stat-num">от 500</span>
+          <div class="sp__hero-stat-info">
+            <span class="sp__hero-stat-unit">₽</span>
+            <span class="sp__hero-stat-label">за изделие</span>
+          </div>
+        </div>
+        <span class="sp__hero-stat-sep" aria-hidden="true"></span>
+        <div class="sp__hero-stat">
+          <span class="sp__hero-stat-num">NDA</span>
+          <div class="sp__hero-stat-info">
+            <span class="sp__hero-stat-unit">да</span>
+            <span class="sp__hero-stat-label">по запросу</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <StaticPriceTable
+      title="Прайс на корпоративную гравировку"
+      subtitle="Цены за работу на одном изделии. Партии от 10 штук — отдельные условия, обсуждаем индивидуально."
+      colHeaders={['Услуга', 'Цена']}
+      rows={priceRows}
+      footnote="При большом тираже стоимость за единицу снижается. Для постоянных клиентов оформляем длительный договор с фиксированными ценами."
+    />
+
+    <div class="sp__section">
+      <p class="sp__label">Сценарии</p>
+      <h2 class="sp__section-title">Для чего заказывают корпоративную гравировку</h2>
+      <div class="sp__cases">
+        {useCases.map((c) => (
+          <div class="sp__case">
+            <span class="sp__case-num">{c.num}</span>
+            <div class="sp__case-title">{c.title}</div>
+            <p class="sp__case-text">{c.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <div class="sp__section sp__section--warm">
+      <p class="sp__label">Материалы</p>
+      <h2 class="sp__section-title">На чём наносим</h2>
+      <p class="sp__section-lead">
+        Работаем со всеми основными материалами корпоративных подарков —
+        от металла и стекла до кожи и пластика.
+      </p>
+      <div class="sp__methods">
+        {materials.map((m) => (
+          <div class="sp__method">
+            <div class="sp__method-index">{m.num}</div>
+            <div class="sp__method-title">{m.title}</div>
+            <p class="sp__method-text">{m.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <div class="sp__section">
+      <p class="sp__label">Технические нюансы</p>
+      <h2 class="sp__section-title">Что важно знать заказчику</h2>
+      <div class="sp__limits">
+        {limits.map((l) => (
+          <div class="sp__limit">
+            <div class="sp__limit-title">{l.title}</div>
+            <p class="sp__limit-text">{l.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <div class="sp__deadline">
+      <div class="sp__deadline-time">
+        <span class="sp__deadline-num">1,5</span>
+        <span class="sp__deadline-unit">ч</span>
+      </div>
+      <div class="sp__deadline-divider" aria-hidden="true"></div>
+      <div class="sp__deadline-body">
+        <p class="sp__label">Время выполнения</p>
+        <h2 class="sp__deadline-title">Партии от 1,5 часов</h2>
+        <p class="sp__deadline-text">
+          После согласования макета партию из 10 изделий выполняем
+          <strong>за 1,5 часа</strong>. Большие тиражи (от 50 шт) —
+          в день заказа или за 1 рабочий день. Срочные заказы — обсуждаем
+          индивидуально.
+        </p>
+      </div>
+    </div>
+
+    <div class="sp__section">
+      <p class="sp__label">Обязательства</p>
+      <h2 class="sp__section-title">Условия работы с юрлицами</h2>
+      <div class="sp__guarantees">
+        {guarantees.map((g) => (
+          <div class="sp__guarantee">
+            <div class="sp__guarantee-num">{g.num}</div>
+            <div class="sp__guarantee-title">{g.title}</div>
+            <div class="sp__guarantee-text">{g.text}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <div class="sp__section">
+      <p class="sp__label">Вопросы и ответы</p>
+      <h2 class="sp__section-title">Частые вопросы</h2>
+      <div class="sp__faq">
+        {faqs.map((item, i) => (
+          <div class="sp__faq-item">
+            <button class="sp__faq-q" type="button" aria-expanded="false" aria-controls={`faq-panel-${i}`}>
+              <span class="sp__faq-q-index">{String(i + 1).padStart(2, '0')}</span>
+              <span class="sp__faq-q-text">{item.q}</span>
+              <span class="sp__faq-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="sp__faq-a" id={`faq-panel-${i}`} role="region">
+              <div class="sp__faq-a-inner"><p>{item.a}</p></div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+  </div>
+</InnerPage>
+
+<script>
+  document.querySelectorAll<HTMLElement>('.sp__faq-item').forEach(item => {
+    const btn = item.querySelector<HTMLButtonElement>('.sp__faq-q')!;
+    const answer = item.querySelector<HTMLElement>('.sp__faq-a')!;
+    btn.addEventListener('click', () => {
+      if (item.classList.contains('is-open')) {
+        item.classList.add('is-closing');
+        item.classList.remove('is-open');
+        btn.setAttribute('aria-expanded', 'false');
+        answer.addEventListener('transitionend', () => { item.classList.remove('is-closing'); }, { once: true });
+      } else {
+        item.classList.remove('is-closing');
+        item.classList.add('is-open');
+        btn.setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
+</script>

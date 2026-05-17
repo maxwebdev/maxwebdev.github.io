@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none">
+  <circle cx="50" cy="58" r="26" stroke="#c77d17" stroke-width="2.5"/>
+  <rect x="42" y="22" width="16" height="20" stroke="#c77d17" stroke-width="2.5" fill="none"/>
+  <text x="50" y="63" text-anchor="middle" font-family="Cormorant Garamond, serif" font-size="14" font-style="italic" font-weight="600" fill="#c77d17">M</text>
+</svg>

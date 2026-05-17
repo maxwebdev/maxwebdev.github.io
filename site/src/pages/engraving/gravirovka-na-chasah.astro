@@ -1,4 +1,299 @@
 ---
-import PlaceholderPage from '../../layouts/PlaceholderPage.astro';
+import '../../styles/service-page.css';
+import InnerPage from '../../layouts/InnerPage.astro';
+import StaticPriceTable from '../../components/StaticPriceTable.astro';
+
+const engravingLinks = [
+  { label: 'Обручальные кольца',     href: '/engraving/gravirovka-obruchalnykh-kolets-spb' },
+  { label: 'Кольца, печатки',         href: '/engraving/rings' },
+  { label: 'Браслеты',                href: '/engraving/bracelets' },
+  { label: 'Кулоны, медальоны',       href: '/engraving/pendants' },
+  { label: 'Часы',                    href: '/engraving/gravirovka-na-chasah' },
+  { label: 'Лазерная гравировка',     href: '/engraving/laser' },
+  { label: 'Ручная гравировка',       href: '/engraving/manual' },
+  { label: 'Корпоративная',           href: '/engraving/corporate' },
+];
+
+const crumbs = [
+  { label: 'Главная', href: '/' },
+  { label: 'Гравёрные работы', href: '/engraving' },
+  { label: 'Гравировка на часах' },
+];
+
+// Прайс — соответствует старому сайту: на латуни от 1500, на драгметаллах от 3000
+const priceRows = [
+  { type: 'section', label: 'По типу часов' },
+  { label: 'Лазерная гравировка (до 20 символов)',        cells: ['от 1 800 ₽', '15 мин'] },
+  { label: 'Алмазная гравировка (до 20 символов)',         cells: ['от 1 000 ₽', '20 мин'] },
+  { label: 'Текст по окружности',                          cells: ['от 1 800 ₽', 'от 10 мин'] },
+  { label: 'Гравировка на ремешке (металл/кожа)',          cells: ['от 1 000 ₽', '10–30 мин'] },
+  { label: 'Надпись + логотип',                            cells: ['от 2 500 ₽', '30 мин'] },
+  { label: 'Сложный рисунок',                              cells: ['от 3 000 ₽', '40 мин'] },
+  { type: 'section', label: 'По материалу корпуса (старый прайс)' },
+  { label: 'Сталь, латунь — наручные, на цепочке, настенные', cells: ['от 1 500 ₽', '15–30 мин'] },
+  { label: 'Золото, серебро (текст до 10 букв)',           cells: ['от 3 000 ₽', '15–30 мин'] },
+  { type: 'section', label: 'Премиум-бренды' },
+  { label: 'Rolex, AP, Breguet, Patek, Richard Mille, Cartier', cells: ['цена + 1% от стоимости часов', 'индивидуально'] },
+];
+
+const types = [
+  { num: '01', title: 'Лазерная гравировка', text: 'Современный бесконтактный способ — лазер испаряет тончайший слой материала. Часы не нужно разбирать, металл/стекло/механизм не повреждаются. Результат устойчив к истиранию и сохраняется десятилетиями.' },
+  { num: '02', title: 'Алмазная гравировка',  text: 'Классический метод — надпись вырезается фрезой с алмазным напылением. Красиво переливается на свету и выглядит особенно солидно. Важное преимущество: не требуется снимать заднюю крышку, поэтому гарантия производителя сохраняется.' },
+  { num: '03', title: 'Ручная гравировка',    text: 'Подходит для премиальных часов, антикварных моделей, единичных авторских надписей. Мастер-гравер вырезает узор штихелем по предварительному эскизу. Стоит дороже, выполняется индивидуально, но выглядит как метод высокого ювелирного искусства.' },
+];
+
+const places = [
+  { num: '01', title: 'Задняя крышка',              text: 'Самое популярное место для персональных посланий и памятных дат. Классический вариант, подходит для всех типов часов. Здесь обычно помещается 20–30 символов крупным шрифтом или короткое посвящение в две строки.' },
+  { num: '02', title: 'Браслет или ремешок',         text: 'Надпись на звеньях металлического браслета, застёжке или коже ремешка. Оригинальное решение, особенно для широких ремешков. Перед работой ремешок снимаем — для гравировки на браслете и кожаном ремешке это обязательно.' },
+  { num: '03', title: 'Циферблат',                   text: 'Современные технологии позволяют нанести надпись не только на крышке, но и на циферблате. Варианты: на стекле (овальном или круглом), по краю вкруговую, по центру в области крепления стрелок, по краям электронного табло.' },
+  { num: '04', title: 'Ребро корпуса',               text: 'Если на задней крышке нет свободного места (например, она прозрачная или с заводским декором) — наносим надпись на ребро. Шрифт меньше, но смотрится сдержанно и не привлекает лишнего внимания.' },
+];
+
+const ideasRomantic = [
+  '«Я с тобою в каждом миге дня»',
+  '«Люблю ежеминутно»',
+  '«С тобой каждая секунда дорога»',
+  '«Лучше миг с тобой, чем вечность без тебя»',
+];
+const ideasPhilosophy = [
+  '«Время не любит, когда его тратят впустую»',
+  '«Now or never» (Сейчас или никогда)',
+  '«Всегда иди в ногу со временем»',
+  '«Live without regrets» (Ни о чём не жалей)',
+];
+
+const limits = [
+  { title: 'Заводские клейма и серийные номера', text: 'Не наносим гравировку поверх оригинальных клейм, логотипов производителя и серийных номеров. Это нарушает аутентичность часов и снижает их ценность на вторичном рынке.' },
+  { title: 'Нестандартные перекосы и сложная фактура', text: 'Идеальный результат получается на плоских или слабоизогнутых поверхностях. Сильно гранёные и рельефные участки обрабатываем только в исключительных случаях, после консультации.' },
+  { title: 'Часы под официальной гарантией бренда', text: 'При лазерной работе на закрытом корпусе гарантия обычно сохраняется. Но если бренд требует пломбировки сервисом — лучше уточнить условия гарантийного талона до работы.' },
+];
+
+const guarantees = [
+  { num: '01', title: 'Заводское качество',       text: 'Делаем при вас за 5–20 минут. Большинство работ — без записи: подходите в рабочее время.' },
+  { num: '02', title: 'Любые часы',                 text: 'Работаем с кварцевыми, механическими и электронными часами всех брендов — от Casio до Rolex.' },
+  { num: '03', title: 'Сохранение гарантии',        text: 'При алмазной гравировке не требуется вскрывать корпус — заводская гарантия производителя сохраняется.' },
+  { num: '04', title: 'Уважение к оригиналу',       text: 'Не наносим гравировку поверх заводских надписей, серийных номеров или клейм производителя. Найдём достойное место рядом.' },
+];
+
+const faqs = [
+  { q: 'Можно ли сделать гравировку на любых часах?',                   a: 'Да, наносим гравировку на наручные часы любых брендов и типов — кварцевые, механические, электронные. Работаем со сталью, титаном, латунью, серебром, золотом, платиной и сплавами. Перед работой мастер оценит изделие.' },
+  { q: 'Сохранится ли гарантия производителя?',                          a: 'При алмазной гравировке не требуется вскрывать корпус, поэтому гарантия сохраняется. При лазерной — также: луч не нагревает корпус и не нарушает герметичность. Если бренд требует пломбировки своим сервисом, мы предупредим до начала работы.' },
+  { q: 'Какой метод гравировки лучше выбрать?',                          a: 'Алмазная выглядит солиднее и переливается на свету — для классических подарочных часов. Лазерная позволяет наносить более сложные рисунки, логотипы и шрифты. Подскажем оптимальный метод после осмотра часов.' },
+  { q: 'Сколько символов поместится?',                                   a: 'Зависит от размера часов. Обычно на задней крышке помещается 20–30 символов в одну-две строки. Если текст длиннее — обсуждаем расположение по окружности или на ремешке.' },
+  { q: 'Можно ли сделать гравировку на Rolex или другом люксе?',         a: 'Да, мы беремся за премиум-марки. Стоимость работы — базовая цена + 1% от стоимости часов: это связано с ответственностью и повышенными мерами безопасности при работе с люксом. Перед началом всегда фотографируем серийный номер и заводское состояние.' },
+  { q: 'Что нужно принести с собой?',                                    a: 'Сами часы и идею текста или эскиз. Если есть готовый файл макета (CorelDraw .cdr или Illustrator .eps) — отлично. Если нет — наш дизайнер бесплатно подготовит макет, согласуем шрифт и расположение до нанесения.' },
+];
 ---
-<PlaceholderPage title="Гравировка на часах" />
+
+<InnerPage
+  title="Гравировка на часах"
+  description="Гравировка на часах в Санкт-Петербурге — лазерная, алмазная, ручная. На задней крышке, циферблате, ремешке. Сохраняем гарантию бренда. От 1 000 ₽, при клиенте."
+  crumbs={crumbs}
+  sidebarLinks={engravingLinks}
+  sidebarTitle="Виды гравировки"
+  activeHref="/engraving/gravirovka-na-chasah"
+>
+  <div class="sp">
+
+    <div class="sp__hero">
+      <div class="sp__hero-content">
+        <p class="sp__hero-label">Ювелирная мастерская «Артель» · Санкт-Петербург</p>
+        <h1 class="sp__title">Гравировка на часах</h1>
+        <p class="sp__lead">
+          Нанесём надпись или логотип на корпусе, задней крышке, ребре или
+          циферблате любых наручных часов. Лазерная и механическая гравировка
+          с сохранением гарантии. Большинство работ выполняем за 5–20 минут
+          в вашем присутствии, не разбирая часы и не повреждая механизм.
+        </p>
+        <div class="sp__hero-cta">
+          <a href="https://wa.me/+79319616090?text=Здравствуйте%2C%20хочу%20гравировку%20на%20часах%2C%20отправляю%20фото" class="btn btn--primary" target="_blank" rel="noopener">Прислать фото часов</a>
+          <p class="sp__hero-hint">Подберём метод под бренд и материал</p>
+        </div>
+      </div>
+
+      <div class="sp__hero-image">
+        <div class="sp__hero-img-placeholder"><span>Фото — задняя крышка с гравировкой</span></div>
+      </div>
+
+      <div class="sp__hero-stats">
+        <div class="sp__hero-stat">
+          <span class="sp__hero-stat-num">5–20</span>
+          <div class="sp__hero-stat-info">
+            <span class="sp__hero-stat-unit">мин</span>
+            <span class="sp__hero-stat-label">при клиенте</span>
+          </div>
+        </div>
+        <span class="sp__hero-stat-sep" aria-hidden="true"></span>
+        <div class="sp__hero-stat">
+          <span class="sp__hero-stat-num">от 600</span>
+          <div class="sp__hero-stat-info">
+            <span class="sp__hero-stat-unit">₽</span>
+            <span class="sp__hero-stat-label">инициалы</span>
+          </div>
+        </div>
+        <span class="sp__hero-stat-sep" aria-hidden="true"></span>
+        <div class="sp__hero-stat">
+          <span class="sp__hero-stat-num">любые</span>
+          <div class="sp__hero-stat-info">
+            <span class="sp__hero-stat-unit">бренды</span>
+            <span class="sp__hero-stat-label">от Casio до Rolex</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <StaticPriceTable
+      title="Прайс на гравировку часов"
+      subtitle="Большинство работ делаем при клиенте за 5–20 минут. Сложные случаи и премиум-марки оцениваем индивидуально."
+      colHeaders={['Услуга', 'Цена', 'Время']}
+      rows={priceRows}
+      footnote="Для премиальных моделей (Rolex, AP, Breguet, Patek, Richard Mille, Cartier) — базовая цена + 1% от стоимости часов."
+    />
+
+    <div class="sp__section">
+      <p class="sp__label">Технологии</p>
+      <h2 class="sp__section-title">Виды гравировки на часах</h2>
+      <div class="sp__cases">
+        {types.map((t) => (
+          <div class="sp__case">
+            <span class="sp__case-num">{t.num}</span>
+            <div class="sp__case-title">{t.title}</div>
+            <p class="sp__case-text">{t.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <div class="sp__section sp__section--warm">
+      <p class="sp__label">Расположение</p>
+      <h2 class="sp__section-title">Где можно сделать гравировку</h2>
+      <p class="sp__section-lead">
+        Не только на задней крышке — современные технологии позволяют наносить
+        надписи и на циферблате, и на браслете, и даже на ребре корпуса.
+      </p>
+      <div class="sp__methods">
+        {places.map((p) => (
+          <div class="sp__method">
+            <div class="sp__method-index">{p.num}</div>
+            <div class="sp__method-title">{p.title}</div>
+            <p class="sp__method-text">{p.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <div class="sp__section">
+      <p class="sp__label">Идеи для гравировки</p>
+      <h2 class="sp__section-title">Что часто пишут на часах</h2>
+      <div class="sp__cases">
+        <div class="sp__case">
+          <span class="sp__case-num">01</span>
+          <div class="sp__case-title">Романтические надписи</div>
+          <ul style="margin: 0; padding-left: 1.2em; color: var(--color-text-muted); font-family: var(--font-body); line-height: 1.7;">
+            {ideasRomantic.map((i) => <li>{i}</li>)}
+          </ul>
+        </div>
+        <div class="sp__case">
+          <span class="sp__case-num">02</span>
+          <div class="sp__case-title">Философские высказывания</div>
+          <ul style="margin: 0; padding-left: 1.2em; color: var(--color-text-muted); font-family: var(--font-body); line-height: 1.7;">
+            {ideasPhilosophy.map((i) => <li>{i}</li>)}
+          </ul>
+        </div>
+        <div class="sp__case">
+          <span class="sp__case-num">03</span>
+          <div class="sp__case-title">Памятные события</div>
+          <ul style="margin: 0; padding-left: 1.2em; color: var(--color-text-muted); font-family: var(--font-body); line-height: 1.7;">
+            <li>Дата свадьбы или юбилея</li>
+            <li>Инициалы пары (например, А+М)</li>
+            <li>«К 50-летию», «На память»</li>
+            <li>Имена детей / внуков</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="sp__section">
+      <p class="sp__label">Ограничения</p>
+      <h2 class="sp__section-title">Что важно учесть</h2>
+      <div class="sp__limits">
+        {limits.map((l) => (
+          <div class="sp__limit">
+            <div class="sp__limit-title">{l.title}</div>
+            <p class="sp__limit-text">{l.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <div class="sp__deadline">
+      <div class="sp__deadline-time">
+        <span class="sp__deadline-num">5–20</span>
+        <span class="sp__deadline-unit">мин</span>
+      </div>
+      <div class="sp__deadline-divider" aria-hidden="true"></div>
+      <div class="sp__deadline-body">
+        <p class="sp__label">Время выполнения</p>
+        <h2 class="sp__deadline-title">Быстро, точно, безопасно</h2>
+        <p class="sp__deadline-text">
+          Гравировка выполняется <strong>за 5–20 минут</strong>. Можете
+          подождать в мастерской или вернуться за часами позже. Сложные
+          рисунки и партии — обозначим срок индивидуально.
+        </p>
+      </div>
+    </div>
+
+    <div class="sp__section">
+      <p class="sp__label">Обязательства</p>
+      <h2 class="sp__section-title">Преимущества нашей мастерской</h2>
+      <div class="sp__guarantees">
+        {guarantees.map((g) => (
+          <div class="sp__guarantee">
+            <div class="sp__guarantee-num">{g.num}</div>
+            <div class="sp__guarantee-title">{g.title}</div>
+            <div class="sp__guarantee-text">{g.text}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <div class="sp__section">
+      <p class="sp__label">Вопросы и ответы</p>
+      <h2 class="sp__section-title">Часто задаваемые вопросы</h2>
+      <div class="sp__faq">
+        {faqs.map((item, i) => (
+          <div class="sp__faq-item">
+            <button class="sp__faq-q" type="button" aria-expanded="false" aria-controls={`faq-panel-${i}`}>
+              <span class="sp__faq-q-index">{String(i + 1).padStart(2, '0')}</span>
+              <span class="sp__faq-q-text">{item.q}</span>
+              <span class="sp__faq-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="sp__faq-a" id={`faq-panel-${i}`} role="region">
+              <div class="sp__faq-a-inner"><p>{item.a}</p></div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+  </div>
+</InnerPage>
+
+<script>
+  document.querySelectorAll<HTMLElement>('.sp__faq-item').forEach(item => {
+    const btn = item.querySelector<HTMLButtonElement>('.sp__faq-q')!;
+    const answer = item.querySelector<HTMLElement>('.sp__faq-a')!;
+    btn.addEventListener('click', () => {
+      if (item.classList.contains('is-open')) {
+        item.classList.add('is-closing');
+        item.classList.remove('is-open');
+        btn.setAttribute('aria-expanded', 'false');
+        answer.addEventListener('transitionend', () => { item.classList.remove('is-closing'); }, { once: true });
+      } else {
+        item.classList.remove('is-closing');
+        item.classList.add('is-open');
+        btn.setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
+</script>

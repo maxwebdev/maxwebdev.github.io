@@ -1,4 +1,255 @@
 ---
-import PlaceholderPage from '../../layouts/PlaceholderPage.astro';
+import '../../styles/service-page.css';
+import InnerPage from '../../layouts/InnerPage.astro';
+
+const engravingLinks = [
+  { label: 'Обручальные кольца',     href: '/engraving/gravirovka-obruchalnykh-kolets-spb' },
+  { label: 'Кольца, печатки',         href: '/engraving/rings' },
+  { label: 'Браслеты',                href: '/engraving/bracelets' },
+  { label: 'Кулоны, медальоны',       href: '/engraving/pendants' },
+  { label: 'Часы',                    href: '/engraving/gravirovka-na-chasah' },
+  { label: 'Лазерная гравировка',     href: '/engraving/laser' },
+  { label: 'Ручная гравировка',       href: '/engraving/manual' },
+  { label: 'Корпоративная',           href: '/engraving/corporate' },
+];
+
+const crumbs = [
+  { label: 'Главная', href: '/' },
+  { label: 'Гравёрные работы', href: '/engraving' },
+  { label: 'Ручная гравировка' },
+];
+
+const advantages = [
+  { num: '01', title: 'Объёмность и живая фактура',  text: 'Мастер контролирует силу нажима штихеля — рельеф получается разной интенсивности. Линии приобретают характерный объём и выразительность, которые невозможно получить машиной.' },
+  { num: '02', title: 'Уникальность каждого изделия',  text: 'Невозможно создать две идентичные работы — каждое изделие уникально. Это превращает украшение в авторскую вещь, которая со временем становится семейной реликвией.' },
+  { num: '03', title: 'Сложные и хрупкие формы',  text: 'Ручная гравировка применима к предметам, недоступным для лазера: маленьким, изогнутым, с хрупкими покрытиями. Мастер аккуратно работает там, где машина невозможна.' },
+  { num: '04', title: 'Каллиграфические шрифты',  text: 'Ручная работа позволяет наносить особые каллиграфические шрифты — английскую гравёрную, римские капителлы, готическую вязь — придающие изделию благородство и роскошь.' },
+];
+
+const tools = [
+  { num: '01', title: 'Штихели',  text: 'Узкие, короткие клинки с острыми, косо срезанными лезвиями, вставленные в деревянные ручки округлой формы. Имеют разную форму сечения: квадратные, лезвийные, шпицштихели, флахштихели. Каждый предназначен для своих линий.' },
+  { num: '02', title: 'Бормашина',  text: 'Современный инструмент с вращающейся фрезой. Применяется для деликатных работ — например, нанесения монограмм на нестандартные поверхности или гравировки бормашиной по гаджетам, посуде, инструментам.' },
+  { num: '03', title: 'Бургштихель и боллштихель',  text: 'Специальные штихели для выборки фона и теневой штриховки. Используются при создании сложных композиций — гербов, охотничьих сцен, портретов на печатках.' },
+  { num: '04', title: 'Лупа и микроскоп',  text: 'Мастер работает с увеличением 8–20× — это позволяет наносить буквы высотой меньше миллиметра. Особенно критично для гравировки на тонких кольцах и швейцарских часах.' },
+];
+
+const applications = [
+  { num: '01', title: 'Авторские монограммы и вензеля',  text: 'Переплетённые инициалы в виде сложной композиции — традиция, идущая от Фаберже и царских ремесленников. Каждая монограмма прорисовывается вручную под конкретное изделие.' },
+  { num: '02', title: 'Гербы, фамильные знаки, печатки',  text: 'Высокая геральдика требует ручной работы — машина не передаст игру теней и объёмы в полях герба. Печатки с фамильным знаком — классический пример авторской ручной гравировки.' },
+  { num: '03', title: 'Антикварные и старинные изделия',  text: 'Реставрация и дополнение надписей на старинных предметах — серебряных ложках, табакерках, медальонах. Лазер здесь неуместен: важно сохранить старую технику и стиль.' },
+  { num: '04', title: 'Дорогие именные подарки',  text: 'Часы Patek Philippe, перстни Cartier, оружие — авторская ручная гравировка как знак исключительности владельца. Стоимость работы оправдывается уникальностью результата.' },
+  { num: '05', title: 'Хрусталь, фарфор, агат',  text: 'Мастер с алмазным резцом аккуратно наносит надписи и узоры на хрупкие материалы. Идеальный метод для свадебных бокалов и юбилейных кубков из хрусталя.' },
+  { num: '06', title: 'Эксклюзивный декор интерьера',  text: 'Авторские орнаменты на серебряной посуде, табличках, шкатулках, рамах зеркал. Каждый предмет становится произведением искусства.' },
+];
+
+const limits = [
+  { title: 'Серийные партии нерентабельны', text: 'Ручная работа над одним изделием занимает 30 минут — несколько часов. Для партии корпоративных подарков ручная гравировка экономически нецелесообразна — там лазер.' },
+  { title: 'Стоимость выше',                 text: 'Авторская работа оплачивается по времени мастера. Стоимость ручной гравировки в 2–5 раз выше лазерной — но взамен вы получаете уникальный авторский предмет.' },
+  { title: 'Долгий срок выполнения',         text: 'Сложная ручная гравировка с гербом или композицией может занять 1–3 рабочих дня. Простая монограмма — 10–20 минут при мастере. Срок согласуем заранее, исходя из сложности.' },
+];
+
+const guarantees = [
+  { num: '01', title: 'Опыт мастеров от 30 лет', text: 'У наших граверов опыт работы не менее 30 лет — каждое изделие выполняется с вложением частички души.' },
+  { num: '02', title: 'Любая поверхность',        text: 'Гравируем железо, золото, бронзу, медь, латунь, алюминий, серебро, платину — а также стекло, хрусталь, агат, дерево.' },
+  { num: '03', title: 'Авторские шрифты',          text: 'Английская гравёрная, римские капителлы, готическая вязь — наносим любые каллиграфические шрифты по индивидуальному заказу.' },
+  { num: '04', title: 'Гарантия 1 год',            text: 'Письменная гарантия на каждую работу. Если что-то не так — переделаем за свой счёт.' },
+];
+
+const faqs = [
+  { q: 'Чем ручная гравировка отличается от лазерной?',         a: 'Лазерная управляется компьютером, выжигает тонкий слой — даёт 100% точное повторение макета, высокую скорость, одинаковую глубину рельефа. Ручная создаётся мастером физически — занимает больше времени, стоит дороже, но каждая линия приобретает особый объём, глубину и неповторимый художественный характер. Машиной такое сымитировать невозможно.' },
+  { q: 'Сколько времени занимает ручная гравировка?',           a: 'Простая монограмма — 10–20 минут при клиенте. Сложная композиция с гербом, охотничьей сценой или портретом — от 1 до 3 рабочих дней. Срок согласуем заранее, после оценки эскиза и сложности работы.' },
+  { q: 'Можно ли заказать ручную работу с моим эскизом?',       a: 'Да, более того — мы поощряем индивидуальные эскизы. Принимаем как готовые векторные файлы (CorelDraw, Illustrator), так и от руки нарисованные эскизы — мастер их адаптирует под технологию ручной гравировки.' },
+  { q: 'На каких материалах вы делаете ручную гравировку?',      a: 'Практически на всех основных металлах — железо, золото, бронза, медь, латунь, алюминий, серебро, платина. А также на хрустале, фарфоре, агате, стекле и дереве. Ручная гравировка обрабатывает поверхности, недоступные другим методам — маленькие, изогнутые, хрупкие.' },
+  { q: 'Сохраняется ли надпись со временем?',                    a: 'Ручная гравировка не уступает лазерной по долговечности. Мастер делает рельеф достаточно глубоким, чтобы он сохранялся десятилетиями. Если изделие активно носится — со временем края слегка сглаживаются, но рисунок остаётся читаемым.' },
+];
 ---
-<PlaceholderPage title="Ручная гравировка" />
+
+<InnerPage
+  title="Ручная гравировка"
+  description="Авторская ручная гравировка штихелем в Санкт-Петербурге. Монограммы, вензеля, гербы, печатки. Опыт мастеров — от 30 лет. Каллиграфические шрифты, индивидуальные эскизы."
+  crumbs={crumbs}
+  sidebarLinks={engravingLinks}
+  sidebarTitle="Виды гравировки"
+  activeHref="/engraving/manual"
+>
+  <div class="sp">
+
+    <div class="sp__hero">
+      <div class="sp__hero-content">
+        <p class="sp__hero-label">Ювелирная мастерская «Артель» · Санкт-Петербург</p>
+        <h1 class="sp__title">Ручная гравировка</h1>
+        <p class="sp__lead">
+          Искусство в чистом виде. Мастер-гравёр создаёт рисунок специальными
+          резцами-штихелями, используя силу рук и точность глаза. Каждое
+          изделие получается уникальным — невозможно создать две идентичные
+          работы. Ручная гравировка придаёт линиям характерный объём и
+          выразительность, превращая украшение в семейную реликвию.
+        </p>
+        <div class="sp__hero-cta">
+          <a href="https://wa.me/+79319616090?text=Здравствуйте%2C%20нужна%20ручная%20гравировка" class="btn btn--primary" target="_blank" rel="noopener">Прислать эскиз</a>
+          <p class="sp__hero-hint">Авторская работа, любые шрифты</p>
+        </div>
+      </div>
+
+      <div class="sp__hero-image">
+        <div class="sp__hero-img-placeholder"><span>Фото — мастер со штихелем за работой</span></div>
+      </div>
+
+      <div class="sp__hero-stats">
+        <div class="sp__hero-stat">
+          <span class="sp__hero-stat-num">30+</span>
+          <div class="sp__hero-stat-info">
+            <span class="sp__hero-stat-unit">лет</span>
+            <span class="sp__hero-stat-label">опыт мастеров</span>
+          </div>
+        </div>
+        <span class="sp__hero-stat-sep" aria-hidden="true"></span>
+        <div class="sp__hero-stat">
+          <span class="sp__hero-stat-num">10–20</span>
+          <div class="sp__hero-stat-info">
+            <span class="sp__hero-stat-unit">мин</span>
+            <span class="sp__hero-stat-label">монограмма при клиенте</span>
+          </div>
+        </div>
+        <span class="sp__hero-stat-sep" aria-hidden="true"></span>
+        <div class="sp__hero-stat">
+          <span class="sp__hero-stat-num">1</span>
+          <div class="sp__hero-stat-info">
+            <span class="sp__hero-stat-unit">в мире</span>
+            <span class="sp__hero-stat-label">каждое изделие уникально</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sp__section">
+      <p class="sp__label">Преимущества</p>
+      <h2 class="sp__section-title">Почему ручная работа</h2>
+      <div class="sp__cases">
+        {advantages.map((a) => (
+          <div class="sp__case">
+            <span class="sp__case-num">{a.num}</span>
+            <div class="sp__case-title">{a.title}</div>
+            <p class="sp__case-text">{a.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <div class="sp__section sp__section--warm">
+      <p class="sp__label">Инструменты</p>
+      <h2 class="sp__section-title">Чем работает мастер</h2>
+      <p class="sp__section-lead">
+        Ручная гравировка — старинное искусство со своими инструментами,
+        отточенными веками: каждый имеет своё назначение.
+      </p>
+      <div class="sp__methods">
+        {tools.map((t) => (
+          <div class="sp__method">
+            <div class="sp__method-index">{t.num}</div>
+            <div class="sp__method-title">{t.title}</div>
+            <p class="sp__method-text">{t.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <div class="sp__section">
+      <p class="sp__label">Сферы применения</p>
+      <h2 class="sp__section-title">Что мы гравируем вручную</h2>
+      <div class="sp__cases">
+        {applications.map((a) => (
+          <div class="sp__case">
+            <span class="sp__case-num">{a.num}</span>
+            <div class="sp__case-title">{a.title}</div>
+            <p class="sp__case-text">{a.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <div class="sp__section">
+      <p class="sp__label">Ограничения</p>
+      <h2 class="sp__section-title">Когда лучше выбрать лазер</h2>
+      <div class="sp__limits">
+        {limits.map((l) => (
+          <div class="sp__limit">
+            <div class="sp__limit-title">{l.title}</div>
+            <p class="sp__limit-text">{l.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <div class="sp__deadline">
+      <div class="sp__deadline-time">
+        <span class="sp__deadline-num">1–3</span>
+        <span class="sp__deadline-unit">дня</span>
+      </div>
+      <div class="sp__deadline-divider" aria-hidden="true"></div>
+      <div class="sp__deadline-body">
+        <p class="sp__label">Время выполнения</p>
+        <h2 class="sp__deadline-title">Сложные работы — до 3 дней</h2>
+        <p class="sp__deadline-text">
+          Простая монограмма штихелем — <strong>10–20 минут</strong> при
+          клиенте. Сложная композиция с гербом, охотничьей сценой или
+          портретом — <strong>от 1 до 3 рабочих дней</strong>. Срок
+          согласуем после оценки эскиза.
+        </p>
+      </div>
+    </div>
+
+    <div class="sp__section">
+      <p class="sp__label">Обязательства</p>
+      <h2 class="sp__section-title">Наши гарантии</h2>
+      <div class="sp__guarantees">
+        {guarantees.map((g) => (
+          <div class="sp__guarantee">
+            <div class="sp__guarantee-num">{g.num}</div>
+            <div class="sp__guarantee-title">{g.title}</div>
+            <div class="sp__guarantee-text">{g.text}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <div class="sp__section">
+      <p class="sp__label">Вопросы и ответы</p>
+      <h2 class="sp__section-title">Частые вопросы</h2>
+      <div class="sp__faq">
+        {faqs.map((item, i) => (
+          <div class="sp__faq-item">
+            <button class="sp__faq-q" type="button" aria-expanded="false" aria-controls={`faq-panel-${i}`}>
+              <span class="sp__faq-q-index">{String(i + 1).padStart(2, '0')}</span>
+              <span class="sp__faq-q-text">{item.q}</span>
+              <span class="sp__faq-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="sp__faq-a" id={`faq-panel-${i}`} role="region">
+              <div class="sp__faq-a-inner"><p>{item.a}</p></div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+  </div>
+</InnerPage>
+
+<script>
+  document.querySelectorAll<HTMLElement>('.sp__faq-item').forEach(item => {
+    const btn = item.querySelector<HTMLButtonElement>('.sp__faq-q')!;
+    const answer = item.querySelector<HTMLElement>('.sp__faq-a')!;
+    btn.addEventListener('click', () => {
+      if (item.classList.contains('is-open')) {
+        item.classList.add('is-closing');
+        item.classList.remove('is-open');
+        btn.setAttribute('aria-expanded', 'false');
+        answer.addEventListener('transitionend', () => { item.classList.remove('is-closing'); }, { once: true });
+      } else {
+        item.classList.remove('is-closing');
+        item.classList.add('is-open');
+        btn.setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
+</script>

@@ -1,4 +1,261 @@
 ---
-import PlaceholderPage from '../../layouts/PlaceholderPage.astro';
+import '../../styles/service-page.css';
+import InnerPage from '../../layouts/InnerPage.astro';
+import StaticPriceTable from '../../components/StaticPriceTable.astro';
+
+const engravingLinks = [
+  { label: 'Обручальные кольца',     href: '/engraving/gravirovka-obruchalnykh-kolets-spb' },
+  { label: 'Кольца, печатки',         href: '/engraving/rings' },
+  { label: 'Браслеты',                href: '/engraving/bracelets' },
+  { label: 'Кулоны, медальоны',       href: '/engraving/pendants' },
+  { label: 'Часы',                    href: '/engraving/gravirovka-na-chasah' },
+  { label: 'Лазерная гравировка',     href: '/engraving/laser' },
+  { label: 'Ручная гравировка',       href: '/engraving/manual' },
+  { label: 'Корпоративная',           href: '/engraving/corporate' },
+];
+
+const crumbs = [
+  { label: 'Главная', href: '/' },
+  { label: 'Гравёрные работы', href: '/engraving' },
+  { label: 'Гравировка на браслетах' },
+];
+
+const priceRows = [
+  { type: 'section', label: 'Браслеты' },
+  { label: 'Браслет (латунь, алюминий, медь, бронза, сталь)', cells: ['от 800 ₽'] },
+  { label: 'Браслет из драгметаллов (золото, серебро)',         cells: ['от 1 500 ₽'] },
+  { label: 'Свадебный браслет (текст до 20 букв)',              cells: ['от 1 600 ₽'] },
+  { type: 'section', label: 'Дополнительные опции' },
+  { label: 'Нанесение рисунка на драгметалл (за см²)',           cells: ['от 1 500 ₽'] },
+  { label: 'Нанесение рисунка на цветной металл (за см²)',       cells: ['от 800 ₽'] },
+  { label: 'Гравировка монограммы / фамильного герба',           cells: ['от 3 000 ₽'] },
+  { label: 'Выпильная/накладная монограмма на драгметалл',      cells: ['от 4 500 ₽'] },
+];
+
+const cases = [
+  { num: '01', title: 'Имена детей',         text: 'Популярный выбор для родителей, желающих всегда носить с собой напоминание о самом дорогом. Имена наносим красивым шрифтом на внешнюю или внутреннюю сторону браслета — он превращается в семейную реликвию.' },
+  { num: '02', title: 'Инициалы пары',       text: 'Идеально для парных украшений в знак любви. Инициалы часто дополняют важной датой или символом (знаком бесконечности, переплетёнными сердцами) — получается стильная и лаконичная композиция.' },
+  { num: '03', title: 'Координаты места',    text: 'Увековечивает географию вашей истории: место первого свидания, свадьбы, рождения ребёнка. На браслете достаточно места, чтобы цифры легко читались, оставаясь при этом личным секретом.' },
+  { num: '04', title: 'Фамилии и монограммы', text: 'Гравировка фамилии превращает украшение в подарок с глубоким смыслом — такие изделия часто передаются по наследству. Монограммы из переплетённых букв подчёркивают индивидуальность владельца.' },
+  { num: '05', title: 'Посвящения родителям', text: 'Тёплые слова благодарности маме или папе остаются на металле навсегда и каждый день согревают сердце. Особенно популярны в подарок на юбилей или к большому семейному событию.' },
+];
+
+const methods = [
+  { num: '01', title: 'Плоская и слабоизогнутая поверхность', text: 'Для качественного нанесения текста поверхность должна быть относительно ровной. На сильно гранёных участках лазерный луч может искажать геометрию рисунка, поэтому мастер выберет оптимальный сегмент браслета.' },
+  { num: '02', title: 'Лазер на серебре и золоте',             text: 'Сфокусированный луч испаряет тонкий слой металла, не нагревая изделие в целом. Это безопасно для тонких звеньев и шарниров, и позволяет наносить надписи микронной точности — буквы выглядят чётко на любом изгибе.' },
+  { num: '03', title: 'Керамические браслеты',                 text: 'Лазер работает и с керамикой, но требует деликатного подхода и правильно подобранной мощности (обычно CO₂-лазер) — иначе возможны сколы. Подгонка и гравировка керамики стоят дороже металлических аналогов.' },
+  { num: '04', title: 'Эластичные и резиновые',                text: 'На браслетах-резинках или растягивающихся звеньях сплошную надпись сделать не получится. Гравировку выполняем только на жёстких металлических вставках, шильдиках или плоских пластинах, если они есть на изделии.' },
+];
+
+const limits = [
+  { title: 'Сильно гранёные и неровные поверхности', text: 'На рельефных или фасеточных звеньях лазер не может равномерно сфокусироваться. Гравировку выполняем на отдельной плашке или внутренней ровной стороне.' },
+  { title: 'Хрупкие покрытия — эмаль, мелкие камни', text: 'Гравировка не рекомендуется на участках, покрытых эмалью или с россыпью мелких камней — есть риск повредить декоративный слой. Подбираем свободное место без декора.' },
+  { title: 'Слишком длинный текст на маленькой плашке', text: 'Шрифт станет нечитаемым, а линии быстро сольются. Мастер согласует с вами оптимальное число символов с учётом размера поверхности — обычно до 20–30 знаков на стандартной плашке.' },
+  { title: 'Глубокая гравировка внутри браслета',    text: 'Излишне глубокий рельеф на внутренней стороне (прилегающей к коже) может натирать запястье при ношении. Делаем мягкую глубину 0,03–0,05 мм — достаточно для долговечности и без дискомфорта.' },
+];
+
+const guarantees = [
+  { num: '01', title: 'Гарантия 1 год',           text: 'На каждую работу выдаём письменную гарантию. Если надпись окажется с дефектом или потеряет четкость — переделаем бесплатно.' },
+  { num: '02', title: 'Делаем при вас',            text: 'Гравировка на готовом браслете занимает 10–20 минут. Можете подождать с чашкой кофе или вернуться позже — выбирайте удобно.' },
+  { num: '03', title: 'Пробный макет',             text: 'Перед нанесением показываем макет на экране: видно расположение, шрифт, размер. Если что-то не нравится — корректируем до нанесения.' },
+  { num: '04', title: 'Точность до 0,1 мм',        text: 'Лазер не пропускает деталей: рельеф одинаковой глубины везде, без перепадов и заусенцев. Подходит даже для тонких шинок и узких плашек.' },
+];
+
+const faqs = [
+  { q: 'Можно ли сделать гравировку на уже готовом браслете?',          a: 'Да, мы часто работаем с готовыми украшениями клиентов. Перед работой мастер оценит материал и форму изделия, чтобы подобрать оптимальный метод нанесения. Иногда форма или сплав могут ограничить возможности — тогда подскажем рабочий вариант.' },
+  { q: 'Сколько времени занимает процесс гравировки?',                  a: 'В большинстве случаев работа выполняется в вашем присутствии и занимает 10–20 минут на стандартный текст. Сложные монограммы и партии от 10 изделий — от 1,5 часов.' },
+  { q: 'Сотрётся ли надпись со временем?',                              a: 'Нет. Лазерная или механическая гравировка снимает тонкий слой металла или меняет его структуру, поэтому надпись не сотрётся и не поблекнет даже при ежедневной носке. На внутренней стороне браслета сохранится десятилетиями.' },
+  { q: 'Можно ли нанести свой рисунок или почерк?',                     a: 'Да. Современное оборудование позволяет перенести на браслет любые изображения, символы, логотипы и даже отпечаток пальца. Принимаем макеты в форматах CorelDraw (.cdr) или Adobe Illustrator (.eps). Если нет файла — наш дизайнер подготовит макет по вашему эскизу.' },
+  { q: 'Что делать, если я не знаю, какую фразу выбрать?',              a: 'У нас есть готовые подборки фраз на русском, английском и латыни — для детей, родителей, любимых, на свадьбу. Мастер поможет определиться с текстом и подберёт красивый шрифт под ваш браслет.' },
+];
 ---
-<PlaceholderPage title="Гравировка на браслетах" />
+
+<InnerPage
+  title="Гравировка на браслетах"
+  description="Лазерная и ручная гравировка на браслетах из золота, серебра, стали и керамики. Имена, координаты, монограммы. От 800 ₽, при клиенте за 10–20 минут."
+  crumbs={crumbs}
+  sidebarLinks={engravingLinks}
+  sidebarTitle="Виды гравировки"
+  activeHref="/engraving/bracelets"
+>
+  <div class="sp">
+
+    <div class="sp__hero">
+      <div class="sp__hero-content">
+        <p class="sp__hero-label">Ювелирная мастерская «Артель» · Санкт-Петербург</p>
+        <h1 class="sp__title">Гравировка на браслетах</h1>
+        <p class="sp__lead">
+          Гравировка на браслете превращает стандартный аксессуар в особенное
+          украшение, наполненное личным смыслом. Наносим памятные надписи,
+          координаты, имена детей и монограммы на изделия из золота, серебра,
+          платины, а также стали, латуни и керамики. Лазерная гравировка
+          получается ювелирно точной, не тускнеет и не стирается со временем.
+        </p>
+        <div class="sp__hero-cta">
+          <a href="https://wa.me/+79319616090?text=Здравствуйте%2C%20хочу%20гравировку%20на%20браслете" class="btn btn--primary" target="_blank" rel="noopener">Прислать фото браслета</a>
+          <p class="sp__hero-hint">Работаем с готовыми изделиями клиента</p>
+        </div>
+      </div>
+
+      <div class="sp__hero-image">
+        <div class="sp__hero-img-placeholder"><span>Фото — гравировка на браслете</span></div>
+      </div>
+
+      <div class="sp__hero-stats">
+        <div class="sp__hero-stat">
+          <span class="sp__hero-stat-num">10–20</span>
+          <div class="sp__hero-stat-info">
+            <span class="sp__hero-stat-unit">мин</span>
+            <span class="sp__hero-stat-label">при клиенте</span>
+          </div>
+        </div>
+        <span class="sp__hero-stat-sep" aria-hidden="true"></span>
+        <div class="sp__hero-stat">
+          <span class="sp__hero-stat-num">от 800</span>
+          <div class="sp__hero-stat-info">
+            <span class="sp__hero-stat-unit">₽</span>
+            <span class="sp__hero-stat-label">сталь, латунь</span>
+          </div>
+        </div>
+        <span class="sp__hero-stat-sep" aria-hidden="true"></span>
+        <div class="sp__hero-stat">
+          <span class="sp__hero-stat-num">от 1 500</span>
+          <div class="sp__hero-stat-info">
+            <span class="sp__hero-stat-unit">₽</span>
+            <span class="sp__hero-stat-label">золото, серебро</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <StaticPriceTable
+      title="Прайс на гравировку браслетов"
+      subtitle="Стандартная глубина гравировки 0,03–0,05 мм. Если нужна глубокая (0,15–0,2 мм) — стоимость умножается на 2."
+      colHeaders={['Услуга', 'Цена']}
+      rows={priceRows}
+      footnote="Цены за работу. Базовая стоимость — за одну гравировку площадью до 10 см² на единой поверхности."
+    />
+
+    <div class="sp__section">
+      <p class="sp__label">Идеи</p>
+      <h2 class="sp__section-title">Что гравируем на браслетах</h2>
+      <p class="sp__section-lead">
+        Браслет — это полотно, на котором длинная надпись помещается комфортно,
+        в отличие от тонкого кольца. Поэтому здесь популярны не только инициалы,
+        но и целые посвящения и координаты места.
+      </p>
+      <div class="sp__cases">
+        {cases.map((c) => (
+          <div class="sp__case">
+            <span class="sp__case-num">{c.num}</span>
+            <div class="sp__case-title">{c.title}</div>
+            <p class="sp__case-text">{c.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <div class="sp__section sp__section--warm">
+      <p class="sp__label">Технические нюансы</p>
+      <h2 class="sp__section-title">Особенности браслетов разной формы</h2>
+      <p class="sp__section-lead">
+        Не каждое место на браслете годится для гравировки. Лазер требует
+        ровной поверхности, керамика — особой мощности, эластичные звенья —
+        отдельной плашки.
+      </p>
+      <div class="sp__methods">
+        {methods.map((m) => (
+          <div class="sp__method">
+            <div class="sp__method-index">{m.num}</div>
+            <div class="sp__method-title">{m.title}</div>
+            <p class="sp__method-text">{m.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <div class="sp__section">
+      <p class="sp__label">Ограничения</p>
+      <h2 class="sp__section-title">Когда гравировка на браслете невозможна или ограничена</h2>
+      <div class="sp__limits">
+        {limits.map((l) => (
+          <div class="sp__limit">
+            <div class="sp__limit-title">{l.title}</div>
+            <p class="sp__limit-text">{l.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <div class="sp__deadline">
+      <div class="sp__deadline-time">
+        <span class="sp__deadline-num">10–20</span>
+        <span class="sp__deadline-unit">мин</span>
+      </div>
+      <div class="sp__deadline-divider" aria-hidden="true"></div>
+      <div class="sp__deadline-body">
+        <p class="sp__label">Время выполнения</p>
+        <h2 class="sp__deadline-title">При клиенте</h2>
+        <p class="sp__deadline-text">
+          Стандартную гравировку на одном браслете мастер делает
+          <strong>за 10–20 минут</strong> прямо в вашем присутствии.
+          Партия от 10 браслетов или сложная монограмма — от 1,5 часов.
+          Срок скажем сразу после согласования макета.
+        </p>
+      </div>
+    </div>
+
+    <div class="sp__section">
+      <p class="sp__label">Обязательства</p>
+      <h2 class="sp__section-title">Наши гарантии</h2>
+      <div class="sp__guarantees">
+        {guarantees.map((g) => (
+          <div class="sp__guarantee">
+            <div class="sp__guarantee-num">{g.num}</div>
+            <div class="sp__guarantee-title">{g.title}</div>
+            <div class="sp__guarantee-text">{g.text}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <div class="sp__section">
+      <p class="sp__label">Вопросы и ответы</p>
+      <h2 class="sp__section-title">Частые вопросы</h2>
+      <div class="sp__faq">
+        {faqs.map((item, i) => (
+          <div class="sp__faq-item">
+            <button class="sp__faq-q" type="button" aria-expanded="false" aria-controls={`faq-panel-${i}`}>
+              <span class="sp__faq-q-index">{String(i + 1).padStart(2, '0')}</span>
+              <span class="sp__faq-q-text">{item.q}</span>
+              <span class="sp__faq-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="sp__faq-a" id={`faq-panel-${i}`} role="region">
+              <div class="sp__faq-a-inner"><p>{item.a}</p></div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+  </div>
+</InnerPage>
+
+<script>
+  document.querySelectorAll<HTMLElement>('.sp__faq-item').forEach(item => {
+    const btn = item.querySelector<HTMLButtonElement>('.sp__faq-q')!;
+    const answer = item.querySelector<HTMLElement>('.sp__faq-a')!;
+    btn.addEventListener('click', () => {
+      if (item.classList.contains('is-open')) {
+        item.classList.add('is-closing');
+        item.classList.remove('is-open');
+        btn.setAttribute('aria-expanded', 'false');
+        answer.addEventListener('transitionend', () => { item.classList.remove('is-closing'); }, { once: true });
+      } else {
+        item.classList.remove('is-closing');
+        item.classList.add('is-open');
+        btn.setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
+</script>

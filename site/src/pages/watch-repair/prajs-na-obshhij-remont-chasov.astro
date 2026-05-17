@@ -1,4 +1,739 @@
 ---
-import PlaceholderPage from '../../layouts/PlaceholderPage.astro';
+import InnerPage from '../../layouts/InnerPage.astro';
+import StaticPriceTable from '../../components/StaticPriceTable.astro';
+
+const watchRepairLinks = [
+  { label: 'Общий ремонт часов', href: '/watch-repair/prajs-na-obshhij-remont-chasov' },
+  { label: 'Мелкий ремонт',      href: '/watch-repair/prajs-na-melkij-remont' },
+  { label: 'Замена батареек',    href: '/watch-repair/prajs-na-zamenu-batareek' },
+  { label: 'Замена стёкол',      href: '/watch-repair/prajs-na-zamenu-stjokol' },
+];
+
+const crumbs = [
+  { label: 'Главная', href: '/' },
+  { label: 'Ремонт часов', href: '/watch-repair' },
+  { label: 'Прайс на общий ремонт часов' },
+];
+
+const colHeaders = ['Наименование', 'Россия', 'Импортные (кроме швейцарских)', 'Швейцария'];
+
+const mechanicalRows = [
+  { type: 'section', label: 'Наручные' },
+  { label: 'без календаря',                       cells: ['от 600 ₽',  'от 700 ₽',  'от 1 500 ₽'] },
+  { label: 'простой календарь',                    cells: ['от 800 ₽',  'от 1 500 ₽','от 2 150 ₽'] },
+  { label: 'с автоподзаводом',                     cells: ['от 900 ₽',  'от 1 250 ₽','от 2 550 ₽'] },
+  { label: 'хронографы',                           cells: ['от 1 800 ₽','от 6 000 ₽','от 8 000 ₽'] },
+  { label: 'в золотом, серебряных корпусах',       cells: ['от 1 500 ₽','от 2 500 ₽','от 4 500 ₽'] },
+  { type: 'section', label: 'Настольные и настенные' },
+  { label: 'без боя',                              cells: ['от 700 ₽',  'от 1 500 ₽','от 3 500 ₽'] },
+  { label: 'с боем',                               cells: ['от 1 200 ₽','от 3 000 ₽','от 5 000 ₽'] },
+  { label: 'с «Кукушкой»',                         cells: ['от 1 500 ₽','По договорённости','По договорённости'] },
+  { label: 'с четвертичным боем',                  cells: ['от 6 000 ₽','По договорённости','По договорённости'] },
+  { type: 'section', label: 'Будильники и прочие' },
+  { label: 'Будильники',                           cells: ['от 400 ₽',  'от 700 ₽',  'от 1 500 ₽'] },
+  { label: 'Минибудильники',                       cells: ['от 600 ₽',  'от 1 000 ₽','от 1 800 ₽'] },
+  { label: 'Карманные',                            cells: ['от 600 ₽',  'По договорённости','По договорённости'] },
+  { label: 'Секундомеры',                          cells: ['от 900 ₽',  'По договорённости','По договорённости'] },
+  { label: 'Антикварные',                          cells: ['от 3 000 ₽','от 3 000 ₽','от 3 000 ₽'] },
+];
+
+const quartzRows = [
+  { type: 'section', label: 'Наручные' },
+  { label: 'без календаря',                        cells: ['от 500 ₽',  'от 800 ₽',  'от 1 500 ₽'] },
+  { label: 'простой календарь',                     cells: ['от 600 ₽',  'от 1 000 ₽','от 2 000 ₽'] },
+  { label: 'сложный календарь, мультифункции',      cells: ['от 800 ₽',  'от 1 500 ₽','от 3 500 ₽'] },
+  { label: 'хронограф',                             cells: ['от 2 800 ₽','от 3 500 ₽','от 6 000 ₽'] },
+  { label: 'в золотом, серебряном корпусе',         cells: ['от 1 200 ₽','от 2 500 ₽','от 3 500 ₽'] },
+  { label: 'аккумулятор, конденсатор, автокварц',   cells: ['',          'от 3 000 ₽','от 4 500 ₽'] },
+  { type: 'section', label: 'Настольные и настенные' },
+  { label: 'Настольные, настенные, будильники',     cells: ['от 500 ₽',  'от 800 ₽',  'от 3 000 ₽'] },
+  { type: 'section', label: 'Замена механизма' },
+  { label: 'наручные',                              cells: ['от 500 ₽',  'от 500 ₽',  'от 800 ₽'] },
+  { label: 'настольные, настенные, будильники',     cells: ['от 500 ₽',  'от 800 ₽',  'от 800 ₽'] },
+];
+
+const guarantees = [
+  {
+    num: '01',
+    title: 'Гарантия 1 год',
+    text: 'Выдаём письменную гарантию на каждую работу по ремонту механизма — от полной переборки до настройки точности хода.',
+  },
+  {
+    num: '02',
+    title: 'Часовщики с образованием',
+    text: 'Профильное образование и стаж от 8 до 40 лет. Работаем с любыми механизмами — российскими, японскими, швейцарскими и редкими калибрами.',
+  },
+  {
+    num: '03',
+    title: 'Регулировка на таймграфере',
+    text: 'После сборки настраиваем «выкачку» и точность хода на приборе. Ошибка хода в норме — до 0,5 мс. Часы идут устойчиво при любом положении.',
+  },
+  {
+    num: '04',
+    title: 'Проверка перед выдачей',
+    text: 'Контрольный прогон механизма, проверка корпуса и герметичности. Возвращаем часы с детальной описью того, что было сделано.',
+  },
+];
+
+const faqs = [
+  {
+    q: 'По каким причинам часы могут внезапно остановиться?',
+    a: 'У кварцевых самая частая причина — разрядка батарейки. У механических — естественный износ деталей, пересыхание смазки или попадание внутрь влаги и пыли. Загрязнение механизма приводит к тому, что часы сначала начинают отставать, спешить или останавливаются. Точную причину покажет диагностика 3–5 дней.',
+  },
+  {
+    q: 'Что значит «пересохла смазка» и почему её нужно менять?',
+    a: 'Часовая смазка с годами теряет вязкость и испаряется — трение в опорах баланса и колёсной системе возрастает, амплитуда хода падает, часы начинают останавливаться при малейшем перекосе. Поэтому полный сервис механических часов («репассаж») рекомендуется раз в 5–7 лет: разборка, чистка ультразвуком, новая смазка по точкам, сборка.',
+  },
+  {
+    q: 'Сколько занимает диагностика и сам ремонт?',
+    a: 'Срок ремонта часовщик обозначит после проведения диагностики, она занимает 3–5 дней. Во время диагностики мастер исследует, есть ли в часах внутренние повреждения и какие они. В среднем ремонт занимает от 2 дней. Если требуется заказ редких запчастей — сообщим заранее, до начала работы.',
+  },
+  {
+    q: 'Можно ли отремонтировать антикварные часы?',
+    a: 'Да. Принцип реставрации старинных часов — минимальное вмешательство и максимальное сохранение оригинального исторического механизма. Заводских запчастей на антиквариат давно не выпускают, поэтому недостающие детали вытачиваем вручную. Восстановление затрагивает и внешний вид: устраняем сколы на эмалевых циферблатах, восстанавливаем позолоту гальваническим методом, реставрируем деревянную резьбу корпуса.',
+  },
+  {
+    q: 'Возьмётесь ли вы за швейцарские часы (Tissot, Tag Heuer, Longines, Breitling)?',
+    a: 'Да, опыт у часовщиков большой, в том числе с премиум-классом и моделями с усложнениями: хронографами, фазами луны, вечными календарями. Перед началом работы проверим серийный номер и подскажем, не лучше ли в вашем случае обратиться в авторизованный фирменный сервис — например, если на часы ещё действует заводская гарантия (вскрытие у нас её аннулирует).',
+  },
+  {
+    q: 'Сохранится ли водонепроницаемость после ремонта?',
+    a: 'Да, если ремонт выполняется профессионально. В процессе обслуживания мы восстанавливаем герметичность путём замены резиновых уплотнителей под крышку, стекло и заводную головку. После сборки проводим обязательную проверку на герметичность двумя методами: «сухим» вакуумным тестом на приборе WITSCHI и «мокрым» — погружением в жидкость на BERGEON 5555. Резиновые прокладки в любом случае рекомендуется менять минимум раз в три года.',
+  },
+  {
+    q: 'Что делать, если часы намокли — попали в море или в стиралку?',
+    a: 'Несите как можно скорее, желательно в тот же день. Влага — особенно агрессивная морская вода — моментально запускает коррозию, которая разрушает механизм, циферблат и стрелки. Если откладывать ремонт, цена восстановления может сравняться со стоимостью новых часов. Сначала часы отдают на просушку в специальной среде, потом разбирают, чистят, меняют пострадавшие детали и восстанавливают герметичность.',
+  },
+];
 ---
-<PlaceholderPage title="Прайс на общий ремонт часов" />
+
+<InnerPage
+  title="Прайс на общий ремонт часов"
+  description="Полная диагностика и ремонт механических и кварцевых часов в Санкт-Петербурге — наручных, настольных, настенных, антикварных. Гарантия 1 год."
+  crumbs={crumbs}
+  sidebarLinks={watchRepairLinks}
+  sidebarTitle="Услуги по часам"
+  activeHref="/watch-repair/prajs-na-obshhij-remont-chasov"
+>
+  <div class="wo">
+
+    <!-- ── Hero ── -->
+    <div class="wo__hero">
+      <div class="wo__hero-content">
+        <p class="wo__hero-label">
+          Ювелирная мастерская «Артель» · Санкт-Петербург
+        </p>
+        <h1 class="wo__title">Общий ремонт часов</h1>
+        <p class="wo__lead">
+          В часовую мастерскую Artel вы можете прийти по разным причинам.
+          Если часы встали, а причина не в севшей батарейке. Если механические
+          часы перестали держать завод, как раньше, а может они постоянно
+          спешат или отстают.
+        </p>
+        <p class="wo__lead">
+          Наши мастера проведут диагностику ваших часов, выяснят в чём причина
+          неполадок и устранят их. Мы найдем подход ко всем видам часов:
+          от наручных и будильников — до больших напольных часов, от современных —
+          до раритетных из позапрошлого века, от заказанных на «Алиэкспресс» —
+          до дорогих брендовых.
+        </p>
+        <div class="wo__hero-cta">
+          <a
+            href="https://wa.me/+79319616090?text=Здравствуйте%2C%20хочу%20отдать%20часы%20в%20общий%20ремонт%2C%20отправляю%20фото"
+            class="btn btn--primary"
+            target="_blank"
+            rel="noopener"
+          >
+            Прислать фото часов
+          </a>
+          <p class="wo__hero-hint">
+            Ответим в течение нескольких минут и согласуем диагностику
+          </p>
+        </div>
+      </div>
+
+      <div class="wo__hero-image">
+        <div class="wo__hero-img-placeholder">
+          <span>Фото — разборка механизма</span>
+        </div>
+      </div>
+
+      <div class="wo__hero-stats">
+        <div class="wo__hero-stat">
+          <span class="wo__hero-stat-num">3–5</span>
+          <div class="wo__hero-stat-info">
+            <span class="wo__hero-stat-unit">дней</span>
+            <span class="wo__hero-stat-label">диагностика</span>
+          </div>
+        </div>
+        <span class="wo__hero-stat-sep" aria-hidden="true"></span>
+        <div class="wo__hero-stat">
+          <span class="wo__hero-stat-num">1</span>
+          <div class="wo__hero-stat-info">
+            <span class="wo__hero-stat-unit">год</span>
+            <span class="wo__hero-stat-label">гарантия на работу</span>
+          </div>
+        </div>
+        <span class="wo__hero-stat-sep" aria-hidden="true"></span>
+        <div class="wo__hero-stat">
+          <span class="wo__hero-stat-num">0,5</span>
+          <div class="wo__hero-stat-info">
+            <span class="wo__hero-stat-unit">мс</span>
+            <span class="wo__hero-stat-label">точность хода</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Цены: механические часы ── -->
+    <StaticPriceTable
+      title="Механические часы"
+      subtitle="Цены за полный ремонт механизма: разборка, чистка, смазка, сборка, настройка точности хода. Без стоимости запчастей, если они требуются."
+      colHeaders={colHeaders}
+      rows={mechanicalRows}
+      footnote="Точную стоимость называем после диагностики (3–5 дней). Срочные работы и редкие калибры — отдельно по договорённости."
+    />
+
+    <!-- ── Цены: кварцевые часы ── -->
+    <StaticPriceTable
+      title="Кварцевые часы"
+      subtitle="Ремонт электронной части, чистка корпуса, замена шестерён, регулировка стрелочной системы. Замена самого механизма — отдельной строкой."
+      colHeaders={colHeaders}
+      rows={quartzRows}
+      footnote="Если батарейка протекла и повредила механизм — оцениваем дополнительно. Цена замены платы зависит от модели."
+    />
+
+    <!-- ── От чего зависит цена ── -->
+    <div class="wo__section">
+      <p class="wo__label">Стоимость работы</p>
+      <h2 class="wo__section-title">От чего зависит цена ремонта</h2>
+      <p class="wo__section-lead">
+        Полный «общий ремонт» — это не одна операция, а цепочка из 4–6 шагов.
+        Цена складывается из сложности механизма, происхождения часов, наличия
+        усложнений и состояния корпуса.
+      </p>
+      <div class="wo__cases">
+        <div class="wo__case">
+          <span class="wo__case-num">01</span>
+          <div class="wo__case-title">Тип механизма</div>
+          <p class="wo__case-text">
+            Простой механический калибр без календаря — самая дешёвая работа.
+            Хронограф с автоподзаводом — на порядок дороже: больше шестерён,
+            рычагов, точек смазки и каскадов сцепления. У кварцевых начальная
+            цена ниже, но при повреждении платы стоимость растёт.
+          </p>
+        </div>
+        <div class="wo__case">
+          <span class="wo__case-num">02</span>
+          <div class="wo__case-title">Происхождение часов</div>
+          <p class="wo__case-text">
+            Российский ширпотреб ремонтируется быстрее и дешевле — детали взаимозаменяемы,
+            запчасти доступны. Импортный масс-маркет — средняя категория. Швейцария —
+            самая дорогая: оригинальные запчасти заказываются от поставщика,
+            работа выполняется под микроскопом по фирменным регламентам.
+          </p>
+        </div>
+        <div class="wo__case">
+          <span class="wo__case-num">03</span>
+          <div class="wo__case-title">Усложнения</div>
+          <p class="wo__case-text">
+            Календарь, секундомер, GMT, автоподзавод, репетир, фазы луны —
+            каждое усложнение добавляет узел, который нужно отдельно разобрать,
+            почистить, смазать и проверить. Цена растёт пропорционально количеству
+            функций, которые часы умеют.
+          </p>
+        </div>
+        <div class="wo__case">
+          <span class="wo__case-num">04</span>
+          <div class="wo__case-title">Замена запчастей</div>
+          <p class="wo__case-text">
+            Если износ деталей превысил норму — нужны новые: пружина баланса,
+            анкерная вилка, заводная пружина. Их стоимость считается отдельно.
+            На антиквариат запчастей нет в природе: ось баланса, шестерню или
+            винт мастер вытачивает вручную, что увеличивает срок и цену.
+          </p>
+        </div>
+        <div class="wo__case">
+          <span class="wo__case-num">05</span>
+          <div class="wo__case-title">Корпус и герметичность</div>
+          <p class="wo__case-text">
+            Полировка корпуса, замена уплотнителей, восстановление гидроизоляции,
+            тестирование на герметичность — это отдельные операции. Для дайверских
+            и пилотских часов они обязательны, для повседневных моделей делаются
+            по запросу. Прокладки рекомендуем менять минимум раз в три года.
+          </p>
+        </div>
+        <div class="wo__case">
+          <span class="wo__case-num">06</span>
+          <div class="wo__case-title">Срочность</div>
+          <p class="wo__case-text">
+            Стандартный срок — 2 дня после диагностики, если запчасти есть на
+            складе. Если нужно срочно (например, к свадьбе или подарку) —
+            можем сделать быстрее за отдельную плату. Заказ редких деталей —
+            до 45 дней, как разрешает закон о защите прав потребителей.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Что входит в полный сервис ── -->
+    <div class="wo__section wo__section--warm">
+      <p class="wo__label">Что входит в полный сервис</p>
+      <h2 class="wo__section-title">7 этапов «общего ремонта»</h2>
+      <p class="wo__section-lead">
+        Полный профессиональный сервис («репассаж») — это не одна процедура,
+        а комплекс. Если часовщик называет очень низкую цену, скорее всего,
+        он делает только часть работ. Ниже — что должно входить в нормальный
+        полный ремонт.
+      </p>
+      <div class="wo__methods">
+        <div class="wo__method">
+          <div class="wo__method-index">01</div>
+          <div class="wo__method-title">Разборка под микроскопом</div>
+          <p class="wo__method-text">
+            Механизм аккуратно разбирается на отдельные детали — мост баланса,
+            анкер, колёсная система, заводной узел. Каждая деталь осматривается
+            на предмет износа, трещин, следов коррозии.
+          </p>
+        </div>
+        <div class="wo__method">
+          <div class="wo__method-index">02</div>
+          <div class="wo__method-title">Ультразвуковая чистка</div>
+          <p class="wo__method-text">
+            Детали моются в ультразвуковой ванне со специальной жидкостью.
+            Удаляются старая смазка, металлическая пыль и грязь из подшипниковых
+            гнёзд. Корпус и браслет — отдельно, в другой ванне.
+          </p>
+        </div>
+        <div class="wo__method">
+          <div class="wo__method-index">03</div>
+          <div class="wo__method-title">Изготовление запчастей</div>
+          <p class="wo__method-text">
+            Если износ детали превысил норму, её меняют. Для антикварных и
+            редких калибров недостающие шестерни, оси и винты вытачиваем вручную.
+            Это самая трудоёмкая часть работы.
+          </p>
+        </div>
+        <div class="wo__method">
+          <div class="wo__method-index">04</div>
+          <div class="wo__method-title">Смазка по точкам</div>
+          <p class="wo__method-text">
+            В часовом механизме около 15 точек смазки, и для каждой нужно
+            подходящее масло — общее, для опор баланса, для триба, для
+            ходовой пружины. Излишек масла так же вреден, как и его нехватка.
+          </p>
+        </div>
+        <div class="wo__method">
+          <div class="wo__method-index">05</div>
+          <div class="wo__method-title">Сборка и контроль</div>
+          <p class="wo__method-text">
+            Механизм собирается обратно в обратной последовательности.
+            После сборки часовщик проверяет, что баланс свободно качается,
+            анкерная вилка стоит ровно между ограничителями, заводной узел
+            крутит без рывков.
+          </p>
+        </div>
+        <div class="wo__method">
+          <div class="wo__method-index">06</div>
+          <div class="wo__method-title">Регулировка на таймграфере</div>
+          <p class="wo__method-text">
+            Часы ставятся на таймграфер. Сначала рычажком «выкачки» добиваются
+            симметричности колебаний баланса — на экране две линии сливаются
+            в одну. Затем «градусником» настраивается суточная точность хода.
+            В норме ошибка хода — до 0,5 мс.
+          </p>
+        </div>
+        <div class="wo__method">
+          <div class="wo__method-index">07</div>
+          <div class="wo__method-title">Проверка герметичности</div>
+          <p class="wo__method-text">
+            Для водонепроницаемых моделей — обязательная финальная процедура.
+            «Сухой» тест в WITSCHI: давление меняется, прибор замеряет деформацию
+            корпуса. Если корпус герметичен, проходит и «мокрый» тест в BERGEON 5555.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Сроки ── -->
+    <div class="wo__deadline">
+      <div class="wo__deadline-time">
+        <span class="wo__deadline-num">3–5</span>
+        <span class="wo__deadline-unit">дней</span>
+      </div>
+      <div class="wo__deadline-divider" aria-hidden="true"></div>
+      <div class="wo__deadline-body">
+        <p class="wo__label">Время выполнения</p>
+        <h2 class="wo__deadline-title">Сроки</h2>
+        <p class="wo__deadline-text">
+          Срок ремонта часовщик обозначит после проведения диагностики, она
+          занимает <strong>3–5 дней</strong>. Во время диагностики мастер
+          исследует, есть ли в часах внутренние повреждения и какие они.
+          В среднем ремонт занимает <strong>от 2 дней</strong>. Если требуется
+          заказ редких деталей, срок может быть до 45 дней — как разрешает закон
+          о защите прав потребителей.
+        </p>
+      </div>
+    </div>
+
+    <!-- ── Гарантии ── -->
+    <div class="wo__section">
+      <p class="wo__label">Обязательства</p>
+      <h2 class="wo__section-title">Наши гарантии</h2>
+      <div class="wo__guarantees">
+        {guarantees.map((g) => (
+          <div class="wo__guarantee">
+            <div class="wo__guarantee-num">{g.num}</div>
+            <div class="wo__guarantee-title">{g.title}</div>
+            <div class="wo__guarantee-text">{g.text}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- ── FAQ ── -->
+    <div class="wo__section">
+      <p class="wo__label">Вопросы и ответы</p>
+      <h2 class="wo__section-title">Частые вопросы</h2>
+      <div class="wo__faq">
+        {faqs.map((item, i) => (
+          <div class="wo__faq-item">
+            <button
+              class="wo__faq-q"
+              type="button"
+              aria-expanded="false"
+              aria-controls={`faq-panel-${i}`}
+            >
+              <span class="wo__faq-q-index">{String(i + 1).padStart(2, '0')}</span>
+              <span class="wo__faq-q-text">{item.q}</span>
+              <span class="wo__faq-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="wo__faq-a" id={`faq-panel-${i}`} role="region">
+              <div class="wo__faq-a-inner">
+                <p>{item.a}</p>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+  </div>
+</InnerPage>
+
+<script>
+  document.querySelectorAll<HTMLElement>('.wo__faq-item').forEach(item => {
+    const btn = item.querySelector<HTMLButtonElement>('.wo__faq-q')!;
+    const answer = item.querySelector<HTMLElement>('.wo__faq-a')!;
+
+    btn.addEventListener('click', () => {
+      if (item.classList.contains('is-open')) {
+        item.classList.add('is-closing');
+        item.classList.remove('is-open');
+        btn.setAttribute('aria-expanded', 'false');
+        answer.addEventListener('transitionend', () => {
+          item.classList.remove('is-closing');
+        }, { once: true });
+      } else {
+        item.classList.remove('is-closing');
+        item.classList.add('is-open');
+        btn.setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
+</script>
+
+<style>
+  .wo { display: flex; flex-direction: column; gap: var(--spacing-64); }
+
+  .wo__hero {
+    background: linear-gradient(154.68deg, var(--color-gold-300) 0%, var(--color-gold-600) 100%);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr auto;
+    overflow: hidden;
+  }
+  .wo__hero-content {
+    grid-column: 1; grid-row: 1;
+    padding: var(--spacing-48);
+    display: flex; flex-direction: column; gap: var(--spacing-16);
+  }
+  .wo__hero-image {
+    grid-column: 2; grid-row: 1 / 3;
+    position: relative; min-height: 420px;
+  }
+  .wo__hero-img-placeholder {
+    position: absolute; inset: 0;
+    background: rgba(0, 0, 0, 0.10);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .wo__hero-img-placeholder span {
+    font-family: var(--font-body);
+    font-size: var(--font-size-sm);
+    text-transform: uppercase; letter-spacing: 0.1em;
+    color: rgba(0, 0, 0, 0.35);
+  }
+  .wo__hero-stats {
+    grid-column: 1; grid-row: 2;
+    display: flex; align-items: center; gap: 0;
+    padding: var(--spacing-24) var(--spacing-48);
+    border-top: 1px solid var(--color-gold-600);
+  }
+  .wo__hero-stat { display: flex; align-items: baseline; gap: var(--spacing-8); flex: 1; }
+  .wo__hero-stat-num {
+    font-family: var(--font-heading); font-size: var(--font-size-h3);
+    font-weight: 600; font-style: italic; color: var(--color-dark-900); line-height: 1;
+  }
+  .wo__hero-stat-info { display: flex; flex-direction: column; gap: 2px; }
+  .wo__hero-stat-unit {
+    font-family: var(--font-body); font-size: var(--font-size-sm); font-weight: 500;
+    text-transform: uppercase; letter-spacing: 0.06em; color: var(--color-dark-900);
+  }
+  .wo__hero-stat-label {
+    font-family: var(--font-body); font-size: var(--font-size-sm);
+    color: var(--color-gold-900); line-height: 1.3; white-space: nowrap;
+  }
+  .wo__hero-stat-sep {
+    width: 1px; height: 40px; background: var(--color-gold-600);
+    flex-shrink: 0; margin: 0 var(--spacing-24);
+  }
+  .wo__hero-label {
+    font-family: var(--font-body); font-size: var(--font-size-sm);
+    text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-gold-900);
+  }
+  .wo__title {
+    font-family: var(--font-heading); font-size: var(--font-size-h2);
+    font-weight: 600; color: var(--color-dark-900); line-height: 1;
+  }
+  .wo__lead {
+    font-family: var(--font-body); font-size: var(--font-size-lg);
+    line-height: 1.6; color: var(--color-text-muted); max-width: 540px;
+  }
+  .wo__hero-cta { display: flex; align-items: center; gap: var(--spacing-24); margin-top: auto; }
+  .wo__hero-hint {
+    font-family: var(--font-body); font-size: var(--font-size-sm);
+    color: var(--color-gold-900); line-height: 1.4; max-width: 160px;
+  }
+
+  .wo__section { display: flex; flex-direction: column; gap: var(--spacing-24); }
+  .wo__section--warm {
+    background: var(--color-gold-600);
+    border-radius: var(--radius-sm);
+    padding: var(--spacing-48);
+  }
+  .wo__label {
+    font-family: var(--font-body); font-size: var(--font-size-sm);
+    text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-gold-900);
+  }
+  .wo__section-title {
+    font-family: var(--font-heading); font-size: var(--font-size-h3);
+    font-weight: 600; color: var(--color-dark-900); line-height: 1.05;
+    margin-top: calc(var(--spacing-24) * -1);
+  }
+  .wo__section-lead {
+    font-family: var(--font-body); font-size: var(--font-size-lg);
+    line-height: 1.7; color: var(--color-text-muted); max-width: 720px;
+  }
+
+  .wo__cases, .wo__methods {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--spacing-24);
+  }
+  .wo__case, .wo__method {
+    background-color: var(--color-white);
+    border: 1px solid var(--color-gold-600);
+    border-radius: var(--radius-sm);
+    padding: var(--spacing-32);
+    display: flex; flex-direction: column; gap: var(--spacing-16);
+    transition: transform 200ms ease, box-shadow 200ms ease;
+  }
+  .wo__case:hover, .wo__method:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(199, 125, 23, 0.18);
+  }
+  .wo__case-num, .wo__method-index {
+    font-family: var(--font-heading); font-size: var(--font-size-h4);
+    font-weight: 600; font-style: italic; color: var(--color-gold-600); line-height: 1;
+  }
+  .wo__case-title, .wo__method-title {
+    font-family: var(--font-body); font-size: var(--font-size-base);
+    font-weight: 500; color: var(--color-dark-900); line-height: 1.3;
+  }
+  .wo__case-text, .wo__method-text {
+    font-family: var(--font-body); font-size: var(--font-size-base);
+    line-height: 1.6; color: var(--color-text-muted);
+  }
+
+  .wo__deadline {
+    background: var(--color-dark-900);
+    border-radius: var(--radius-sm);
+    padding: var(--spacing-48);
+    display: flex; align-items: center; gap: var(--spacing-48);
+  }
+  .wo__deadline-time { display: flex; align-items: baseline; gap: var(--spacing-8); flex-shrink: 0; }
+  .wo__deadline-num {
+    font-family: var(--font-heading); font-size: 96px; font-weight: 600;
+    font-style: italic; color: var(--color-gold-600); line-height: 1;
+  }
+  .wo__deadline-unit {
+    font-family: var(--font-heading); font-size: var(--font-size-h3);
+    font-weight: 600; font-style: italic; color: var(--color-gold-600); line-height: 1;
+  }
+  .wo__deadline-divider {
+    width: 1px; height: 80px; background: rgba(240, 219, 190, 0.2); flex-shrink: 0;
+  }
+  .wo__deadline-body { display: flex; flex-direction: column; gap: var(--spacing-8); }
+  .wo__deadline-body .wo__label { color: var(--color-gold-600); }
+  .wo__deadline-title {
+    font-family: var(--font-heading); font-size: var(--font-size-h3);
+    font-weight: 600; color: var(--color-gold-600); line-height: 1.05;
+  }
+  .wo__deadline-text {
+    font-family: var(--font-body); font-size: var(--font-size-base);
+    line-height: 1.7; color: rgba(252, 248, 243, 0.7); max-width: 620px;
+  }
+  .wo__deadline-text strong { color: var(--color-gold-600); font-weight: 500; }
+
+  .wo__guarantees {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    background-color: var(--color-white);
+    border: 1px solid var(--color-gold-600);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+  }
+  .wo__guarantee {
+    padding: var(--spacing-32);
+    display: flex; flex-direction: column; gap: var(--spacing-16);
+    position: relative;
+    transition: background-color 200ms ease;
+  }
+  .wo__guarantee:hover { background-color: var(--color-gold-300); }
+  .wo__guarantee + .wo__guarantee::before {
+    content: ''; position: absolute; left: 0;
+    top: var(--spacing-32); bottom: var(--spacing-32);
+    width: 1px; background: var(--color-gold-600);
+  }
+  .wo__guarantee-num {
+    font-family: var(--font-heading); font-size: var(--font-size-h2);
+    font-weight: 600; font-style: italic; color: var(--color-gold-600); line-height: 1;
+  }
+  .wo__guarantee-title {
+    font-family: var(--font-body); font-size: var(--font-size-lg);
+    font-weight: 400; color: var(--color-dark-900); line-height: 1.3;
+  }
+  .wo__guarantee-text {
+    font-family: var(--font-body); font-size: var(--font-size-base);
+    line-height: 1.5; color: var(--color-text-muted);
+  }
+
+  .wo__faq {
+    display: flex; flex-direction: column;
+    border-top: 1px solid var(--color-gold-600);
+  }
+  .wo__faq-item { border-bottom: 1px solid var(--color-gold-600); }
+  .wo__faq-q {
+    display: flex; align-items: center; gap: var(--spacing-16);
+    width: 100%; background: none; border: none;
+    cursor: pointer; text-align: left; padding: var(--spacing-24) 0;
+  }
+  .wo__faq-q-index {
+    font-family: var(--font-heading); font-size: var(--font-size-h4);
+    font-weight: 600; font-style: italic; color: var(--color-gold-600); line-height: 1;
+    flex-shrink: 0; width: 44px; transition: color 200ms ease;
+  }
+  .wo__faq-item.is-open .wo__faq-q-index { color: var(--color-gold-900); }
+  .wo__faq-q-text {
+    flex: 1; font-family: var(--font-body); font-size: var(--font-size-lg);
+    font-weight: 500; color: var(--color-dark-900); line-height: 1.4;
+  }
+  .wo__faq-icon {
+    font-size: 24px; color: var(--color-gold-900); flex-shrink: 0;
+    display: inline-block;
+    transition: transform 0.42s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .wo__faq-item.is-open .wo__faq-icon { transform: rotate(45deg); }
+  .wo__faq-item.is-closing .wo__faq-icon {
+    transform: rotate(0deg);
+    transition: transform 0.22s ease-in;
+  }
+  .wo__faq-a {
+    display: grid; grid-template-rows: 0fr;
+    transition: grid-template-rows 0.42s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .wo__faq-item.is-open .wo__faq-a { grid-template-rows: 1fr; }
+  .wo__faq-item.is-closing .wo__faq-a {
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.22s ease-in;
+  }
+  .wo__faq-a-inner {
+    overflow: hidden;
+    padding-left: 60px; padding-bottom: 0;
+    max-width: 680px;
+    transition: padding-bottom 0.42s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .wo__faq-item.is-open .wo__faq-a-inner { padding-bottom: var(--spacing-24); }
+  .wo__faq-item.is-closing .wo__faq-a-inner {
+    padding-bottom: 0; transition: padding-bottom 0.22s ease-in;
+  }
+  .wo__faq-a-inner p {
+    font-family: var(--font-body); font-size: var(--font-size-base);
+    line-height: 1.7; color: var(--color-text-muted);
+    opacity: 0; transition: opacity 0.12s ease;
+  }
+  .wo__faq-item.is-open .wo__faq-a-inner p {
+    opacity: 1; transition: opacity 0.28s ease 0.16s;
+  }
+  .wo__faq-item.is-closing .wo__faq-a-inner p {
+    opacity: 0; transition: opacity 0.1s ease;
+  }
+
+  @media (max-width: 1100px) {
+    .wo__cases, .wo__methods { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 760px) {
+    .wo { gap: var(--spacing-48); }
+    .wo__hero, .wo__deadline, .wo__section--warm {
+      margin-left: calc(var(--spacing-16) * -1);
+      margin-right: calc(var(--spacing-16) * -1);
+    }
+    .wo__hero {
+      grid-template-columns: 1fr;
+      grid-template-rows: 220px auto auto;
+    }
+    .wo__hero-image { grid-column: 1; grid-row: 1; min-height: unset; }
+    .wo__hero-content { grid-column: 1; grid-row: 2; padding: var(--spacing-32) var(--spacing-16); }
+    .wo__hero-stats {
+      grid-column: 1; grid-row: 3;
+      padding: var(--spacing-16); flex-wrap: wrap; gap: var(--spacing-16);
+    }
+    .wo__hero-stat-sep { display: none; }
+    .wo__hero-stat { flex: 0 0 auto; }
+    .wo__hero-cta { flex-direction: column; align-items: flex-start; }
+    .wo__title { font-size: var(--font-size-h3); }
+    .wo__section-title { font-size: var(--font-size-h4); }
+    .wo__section--warm {
+      border-radius: 0;
+      padding: var(--spacing-32) var(--spacing-16);
+    }
+    .wo__cases, .wo__methods { grid-template-columns: 1fr; }
+    .wo__deadline {
+      border-radius: 0; flex-direction: column; align-items: flex-start;
+      gap: var(--spacing-24); padding: var(--spacing-32) var(--spacing-16);
+    }
+    .wo__deadline-divider { width: 40px; height: 1px; }
+    .wo__deadline-num { font-size: 72px; }
+    .wo__guarantees { grid-template-columns: repeat(2, 1fr); }
+    .wo__guarantee + .wo__guarantee::before { display: none; }
+    .wo__guarantee:nth-child(odd) { border-right: 1px solid var(--color-gold-600); }
+    .wo__guarantee:nth-child(1), .wo__guarantee:nth-child(2) {
+      border-bottom: 1px solid var(--color-gold-600);
+    }
+    .wo__faq-q-index { width: 32px; font-size: var(--font-size-h6, 25px); }
+    .wo__faq-a-inner { padding-left: 48px; }
+  }
+  @media (max-width: 500px) {
+    .wo__guarantees { grid-template-columns: 1fr; }
+    .wo__guarantee:nth-child(odd) { border-right: none; }
+    .wo__guarantee + .wo__guarantee { border-top: 1px solid var(--color-gold-600); }
+    .wo__guarantee:nth-child(1), .wo__guarantee:nth-child(2) { border-bottom: none; }
+  }
+</style>

@@ -1,4 +1,326 @@
 ---
-import PlaceholderPage from '../../layouts/PlaceholderPage.astro';
+import '../../styles/service-page.css';
+import InnerPage from '../../layouts/InnerPage.astro';
+
+const engravingLinks = [
+  { label: 'Обручальные кольца',     href: '/engraving/gravirovka-obruchalnykh-kolets-spb' },
+  { label: 'Кольца, печатки',         href: '/engraving/rings' },
+  { label: 'Браслеты',                href: '/engraving/bracelets' },
+  { label: 'Кулоны, медальоны',       href: '/engraving/pendants' },
+  { label: 'Часы',                    href: '/engraving/gravirovka-na-chasah' },
+  { label: 'Лазерная гравировка',     href: '/engraving/laser' },
+  { label: 'Ручная гравировка',       href: '/engraving/manual' },
+  { label: 'Корпоративная',           href: '/engraving/corporate' },
+];
+
+const crumbs = [
+  { label: 'Главная', href: '/' },
+  { label: 'Гравёрные работы' },
+];
+
+const services = [
+  { label: 'Обручальные кольца',  href: '/engraving/gravirovka-obruchalnykh-kolets-spb', desc: 'от 1 200 ₽ · от 15 мин', icon: '/icons/nav/ico_eng-wedding.svg' },
+  { label: 'Часы',                href: '/engraving/gravirovka-na-chasah',                desc: 'от 600 ₽ · от 5 мин',    icon: '/icons/nav/ico_eng-watch.svg' },
+  { label: 'Кольца, печатки',     href: '/engraving/rings',                               desc: 'от 600 ₽ · от 15 мин',   icon: '/icons/nav/ico_eng-ring.svg' },
+  { label: 'Браслеты',            href: '/engraving/bracelets',                           desc: 'от 800 ₽ · от 15 мин',   icon: '/icons/nav/ico_eng-bracelet.svg' },
+  { label: 'Кулоны, медальоны',   href: '/engraving/pendants',                            desc: 'от 1 000 ₽ · от 15 мин', icon: '/icons/nav/ico_eng-pendant.svg' },
+  { label: 'Лазерная гравировка', href: '/engraving/laser',                               desc: 'высокая точность',        icon: '/icons/nav/ico_eng-laser.svg' },
+  { label: 'Ручная гравировка',   href: '/engraving/manual',                              desc: 'штихель, авторская работа', icon: '/icons/nav/ico_eng-manual.svg' },
+  { label: 'Корпоративная',       href: '/engraving/corporate',                           desc: 'логотипы, оптовые заказы', icon: '/icons/nav/ico_eng-corporate.svg' },
+];
+
+const technologies = [
+  {
+    num: '01',
+    title: 'Лазерная гравировка',
+    text: 'Сфокусированный лазерный луч испаряет тончайший слой металла под управлением компьютера. Безупречная точность микродеталей, одинаковая глубина рельефа, отсутствие механического контакта — изделие не деформируется. Подходит для колец, сувениров, оружия, ювелирных изделий из любых металлов, стекла, дерева, пластика.',
+  },
+  {
+    num: '02',
+    title: 'Ручная (штихельная) гравировка',
+    text: 'Искусство в чистом виде — мастер вырезает рисунок специальными резцами-штихелями, снимая тонкую стружку металла. Глубина и толщина линий зависят от силы нажима, что придаёт рельефу уникальную «живую» выразительность и объём. Идеально для благородных металлов, хрупких предметов сложной формы и эксклюзивных подарков.',
+  },
+  {
+    num: '03',
+    title: 'Алмазная гравировка',
+    text: 'Изображение создаётся физическим процарапыванием поверхности фрезой с алмазным напылением. Оставляет красивый блестящий след и выраженный рельеф, не подверженный истиранию. Применяется для декорирования стеклянных бокалов, зеркал, ювелирных украшений и часов.',
+  },
+  {
+    num: '04',
+    title: 'Монограммы и выпильные элементы',
+    text: 'Уникальный художественный знак из переплетённых начальных букв имени и фамилии — либо как гравировка, либо как накладной/выпильный элемент. Требует соблюдения исторических и шрифтовых традиций. Подходит для печаток, кулонов, дорогой посуды, визитных карточек и интерьерного декора.',
+  },
+];
+
+const cases = [
+  {
+    num: '01',
+    title: 'Украшения из драгметаллов',
+    text: 'Наносим памятные тексты и узоры на золото, серебро и платину. Гравировка превращает стандартное украшение в эксклюзивную фамильную реликвию, подчёркивая благородство металла.',
+  },
+  {
+    num: '02',
+    title: 'Часы',
+    text: 'Наручные, карманные и настенные часы украшаем пожеланиями или инициалами на задней крышке, ребре корпуса или ремешке. Современные методы абсолютно безопасны: не нагревают корпус и не требуют разборки механизма.',
+  },
+  {
+    num: '03',
+    title: 'Корпоративные сувениры и посуда',
+    text: 'Брендирование ручек, фляг, столового серебра, бокалов, клинков ножей — для бизнес-подарков и юбилейных серий. Изображение ложится с высокой точностью на различные материалы, создавая долговечную статусную вещь.',
+  },
+  {
+    num: '04',
+    title: 'Кулоны и медальоны',
+    text: 'Личные пожелания, инициалы, портреты, детские рисунки и подписи родных. Высокая точность оборудования позволяет переносить детализированные изображения на ровные и сложные поверхности золотых и серебряных подвесок.',
+  },
+  {
+    num: '05',
+    title: 'Обручальные и помолвочные кольца',
+    text: 'Имена, даты, тайные послания. Текст или узор можно разместить как на внешней, так и на скрытой внутренней стороне кольца, при этом структурная прочность изделия не страдает.',
+  },
+  {
+    num: '06',
+    title: 'Печатки и перстни',
+    text: 'Гравировка на печатке подчёркивает индивидуальность, характер и статус владельца. На таких изделиях вырезают инициалы, сложные монограммы или фамильные гербы — традиция, идущая из эпохи геральдики.',
+  },
+];
+
+const guarantees = [
+  { num: '01', title: 'Точность до 0,1 мм',         text: 'Лазерное оборудование наносит надписи с микронной точностью. Любые шрифты, монограммы, рисунки и логотипы — без потерь детализации.' },
+  { num: '02', title: 'Делаем при вас',              text: 'Большинство простых работ — гравировку на часах, кольце, кулоне — мастер выполняет за 5–30 минут прямо в вашем присутствии.' },
+  { num: '03', title: 'Не повреждаем оригинал',      text: 'Не наносим гравировку поверх заводских клейм, серийных номеров и логотипов производителя. Сохраняем оригинальный дизайн.' },
+  { num: '04', title: 'Гарантия 1 год',              text: 'Письменная гарантия на каждую работу. Если надпись окажется некачественной — переделаем или вернём деньги.' },
+];
+
+const faqs = [
+  {
+    q: 'Что можно выгравировать?',
+    a: 'Имена, даты, крылатые фразы, географические координаты, монограммы, логотипы, сложные рисунки, звуковые волны вашего голоса и даже отпечатки пальцев. Ручная гравировка позволяет наносить особыми каллиграфическими шрифтами имена, цитаты и поздравительные тексты — они придают изделию неповторимость, благородство и изысканность.',
+  },
+  {
+    q: 'На каких материалах вы работаете?',
+    a: 'Со всеми видами драгоценных и обычных металлов: золото, серебро, платина, сталь, латунь, медь, бронза, титан. Также гравировка ложится на стекло, кожу, дерево, камень, керамику, хрусталь, фарфор и различные пластики. Старый прайс предусматривал десятки категорий изделий — от автомобильных зеркал до клинков охотничьих ножей.',
+  },
+  {
+    q: 'Сколько символов поместится на изделии?',
+    a: 'На стандартном обручальном кольце шириной 4–6 мм комфортно помещается 20–30 символов. Не пытайтесь втиснуть длинный текст на маленькую поверхность: через год такую надпись будет трудно разобрать. Для широких колец, ремешков часов и медальонов количество символов больше — мастер скажет точно после осмотра.',
+  },
+  {
+    q: 'Можно ли удалить или исправить гравировку?',
+    a: 'Гравировка предполагает удаление микронного слоя самого материала, поэтому стереть её как краску невозможно — она остаётся навсегда. Если надпись критически нужно убрать, ювелиру придётся физически сошлифовать слой металла, что приведёт к изменению веса изделия. Также при изменении размера обручального кольца гравировку придётся делать заново.',
+  },
+  {
+    q: 'Чем лазерная гравировка отличается от ручной?',
+    a: 'Лазерная управляется компьютером, выжигает тонкий слой — 100% точность переноса макета, высокая скорость, одинаковая глубина рельефа. Ручная создаётся мастером физически: занимает больше времени и стоит дороже, зато каждая линия приобретает особый объём, глубину и неповторимый художественный характер, который невозможно сымитировать машиной.',
+  },
+  {
+    q: 'Что будет с гарантией на брендовые часы или украшения?',
+    a: 'При лазерной гравировке луч действует мгновенно и не нагревает корпус — механизмы часов остаются в безопасности, разбирать их не нужно. Мы не наносим гравировку поверх оригинальных клейм, серийных номеров и логотипов: для вашего послания всегда подбираем достойное свободное место рядом, чтобы сохранить аутентичность изделия.',
+  },
+];
 ---
-<PlaceholderPage title="Гравировка" />
+
+<InnerPage
+  title="Гравёрные работы"
+  description="Лазерная и ручная гравировка в Санкт-Петербурге. Кольца, часы, браслеты, кулоны, корпоративные сувениры, посуда, ножи. Работаем с золотом, серебром, платиной, сталью, стеклом, деревом."
+  crumbs={crumbs}
+  sidebarLinks={engravingLinks}
+  sidebarTitle="Виды гравировки"
+  activeHref="/engraving"
+>
+  <div class="sp">
+
+    <div class="sp__hero">
+      <div class="sp__hero-content">
+        <p class="sp__hero-label">Ювелирная мастерская «Артель» · Санкт-Петербург</p>
+        <h1 class="sp__title">Гравёрные работы</h1>
+        <p class="sp__lead">
+          Наши ювелиры предлагают услуги гравировки на украшениях и изделиях
+          из металла, стекла, пластика. Дорогим сердцу людям всегда хочется
+          преподнести приятный и оригинальный подарок. Сделать такой подарок,
+          который останется надолго в памяти любимых, родных, друзей, коллег,
+          Вам поможет профессиональный гравер. Преимущество гравировки
+          заключается в том, что она не стирается и не исчезает со временем,
+          а значит, всегда будет служить напоминанием о человеке или событии,
+          знаком внимания и доброго отношения.
+        </p>
+        <div class="sp__hero-cta">
+          <a
+            href="https://wa.me/+79319616090?text=Здравствуйте%2C%20хочу%20заказать%20гравировку%2C%20отправляю%20фото%20изделия"
+            class="btn btn--primary"
+            target="_blank"
+            rel="noopener"
+          >
+            Прислать фото изделия
+          </a>
+          <p class="sp__hero-hint">Ответим в течение нескольких минут и назовём цену</p>
+        </div>
+      </div>
+
+      <div class="sp__hero-image">
+        <div class="sp__hero-img-placeholder"><span>Фото — мастер за работой</span></div>
+      </div>
+
+      <div class="sp__hero-stats">
+        <div class="sp__hero-stat">
+          <span class="sp__hero-stat-num">15–30</span>
+          <div class="sp__hero-stat-info">
+            <span class="sp__hero-stat-unit">мин</span>
+            <span class="sp__hero-stat-label">срочные работы при вас</span>
+          </div>
+        </div>
+        <span class="sp__hero-stat-sep" aria-hidden="true"></span>
+        <div class="sp__hero-stat">
+          <span class="sp__hero-stat-num">0,1</span>
+          <div class="sp__hero-stat-info">
+            <span class="sp__hero-stat-unit">мм</span>
+            <span class="sp__hero-stat-label">точность лазера</span>
+          </div>
+        </div>
+        <span class="sp__hero-stat-sep" aria-hidden="true"></span>
+        <div class="sp__hero-stat">
+          <span class="sp__hero-stat-num">1</span>
+          <div class="sp__hero-stat-info">
+            <span class="sp__hero-stat-unit">год</span>
+            <span class="sp__hero-stat-label">гарантия на работу</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sp__section">
+      <p class="sp__label">Что мы гравируем</p>
+      <h2 class="sp__section-title">Услуги по гравировке</h2>
+      <ul class="sp__grid">
+        {services.map((s) => (
+          <li>
+            <a href={s.href} class="sp__card">
+              <div class="sp__card-icon">
+                <img src={s.icon} alt="" width="48" height="48" loading="lazy" />
+              </div>
+              <div class="sp__card-body">
+                <span class="sp__card-label">{s.label}</span>
+                <span class="sp__card-desc">{s.desc}</span>
+              </div>
+              <svg class="sp__card-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+
+    <div class="sp__section">
+      <p class="sp__label">Виды изделий</p>
+      <h2 class="sp__section-title">На чём мы делаем гравировку</h2>
+      <p class="sp__section-lead">
+        Гравировка может быть выполнена на ювелирных украшениях из драгоценных
+        металлов, часах, медальонах, монетах, табличках, жетонах для животных,
+        всевозможных аксессуарах (зажигалка, пепельница, ручка, пряжка, футляр,
+        брелок), зеркалах, вазах, фарфоровой, стеклянной и металлической посуде,
+        в том числе столовом серебре.
+      </p>
+      <div class="sp__cases">
+        {cases.map((c) => (
+          <div class="sp__case">
+            <span class="sp__case-num">{c.num}</span>
+            <div class="sp__case-title">{c.title}</div>
+            <p class="sp__case-text">{c.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <div class="sp__section sp__section--warm">
+      <p class="sp__label">Технологии</p>
+      <h2 class="sp__section-title">4 метода гравировки</h2>
+      <p class="sp__section-lead">
+        У каждого метода свой характер, своя точность и свои сильные стороны.
+        Подбираем тот, что подходит именно вашему изделию и задаче.
+      </p>
+      <div class="sp__methods">
+        {technologies.map((t) => (
+          <div class="sp__method">
+            <div class="sp__method-index">{t.num}</div>
+            <div class="sp__method-title">{t.title}</div>
+            <p class="sp__method-text">{t.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <div class="sp__deadline">
+      <div class="sp__deadline-time">
+        <span class="sp__deadline-num">15–30</span>
+        <span class="sp__deadline-unit">мин</span>
+      </div>
+      <div class="sp__deadline-divider" aria-hidden="true"></div>
+      <div class="sp__deadline-body">
+        <p class="sp__label">Время выполнения</p>
+        <h2 class="sp__deadline-title">Срочная гравировка — при вас</h2>
+        <p class="sp__deadline-text">
+          Срочные заказы — инициалы, даты, простые надписи на часах, кольцах,
+          браслетах — выполняем <strong>за 15–30 минут в вашем присутствии</strong>.
+          Сложные работы (ручная штихельная гравировка, монограммы по
+          индивидуальному рисунку, обработка партии корпоративных изделий)
+          занимают <strong>от 1,5 часов до 1 рабочего дня</strong>. Срок
+          скажем сразу после осмотра изделия.
+        </p>
+      </div>
+    </div>
+
+    <div class="sp__section">
+      <p class="sp__label">Обязательства</p>
+      <h2 class="sp__section-title">Наши гарантии</h2>
+      <div class="sp__guarantees">
+        {guarantees.map((g) => (
+          <div class="sp__guarantee">
+            <div class="sp__guarantee-num">{g.num}</div>
+            <div class="sp__guarantee-title">{g.title}</div>
+            <div class="sp__guarantee-text">{g.text}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <div class="sp__section">
+      <p class="sp__label">Вопросы и ответы</p>
+      <h2 class="sp__section-title">Частые вопросы</h2>
+      <div class="sp__faq">
+        {faqs.map((item, i) => (
+          <div class="sp__faq-item">
+            <button class="sp__faq-q" type="button" aria-expanded="false" aria-controls={`faq-panel-${i}`}>
+              <span class="sp__faq-q-index">{String(i + 1).padStart(2, '0')}</span>
+              <span class="sp__faq-q-text">{item.q}</span>
+              <span class="sp__faq-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="sp__faq-a" id={`faq-panel-${i}`} role="region">
+              <div class="sp__faq-a-inner"><p>{item.a}</p></div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+  </div>
+</InnerPage>
+
+<script>
+  document.querySelectorAll<HTMLElement>('.sp__faq-item').forEach(item => {
+    const btn = item.querySelector<HTMLButtonElement>('.sp__faq-q')!;
+    const answer = item.querySelector<HTMLElement>('.sp__faq-a')!;
+    btn.addEventListener('click', () => {
+      if (item.classList.contains('is-open')) {
+        item.classList.add('is-closing');
+        item.classList.remove('is-open');
+        btn.setAttribute('aria-expanded', 'false');
+        answer.addEventListener('transitionend', () => { item.classList.remove('is-closing'); }, { once: true });
+      } else {
+        item.classList.remove('is-closing');
+        item.classList.add('is-open');
+        btn.setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
+</script>

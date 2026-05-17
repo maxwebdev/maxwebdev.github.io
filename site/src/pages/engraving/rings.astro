@@ -1,4 +1,255 @@
 ---
-import PlaceholderPage from '../../layouts/PlaceholderPage.astro';
+import '../../styles/service-page.css';
+import InnerPage from '../../layouts/InnerPage.astro';
+import StaticPriceTable from '../../components/StaticPriceTable.astro';
+
+const engravingLinks = [
+  { label: 'Обручальные кольца',     href: '/engraving/gravirovka-obruchalnykh-kolets-spb' },
+  { label: 'Кольца, печатки',         href: '/engraving/rings' },
+  { label: 'Браслеты',                href: '/engraving/bracelets' },
+  { label: 'Кулоны, медальоны',       href: '/engraving/pendants' },
+  { label: 'Часы',                    href: '/engraving/gravirovka-na-chasah' },
+  { label: 'Лазерная гравировка',     href: '/engraving/laser' },
+  { label: 'Ручная гравировка',       href: '/engraving/manual' },
+  { label: 'Корпоративная',           href: '/engraving/corporate' },
+];
+
+const crumbs = [
+  { label: 'Главная', href: '/' },
+  { label: 'Гравёрные работы', href: '/engraving' },
+  { label: 'Гравировка на кольцах' },
+];
+
+const priceRows = [
+  { type: 'section', label: 'Стандартные кольца' },
+  { label: 'Кольцо из латуни, стали (текст до 15 букв)',    cells: ['от 600 ₽'] },
+  { label: 'Кольцо из золота/серебра без вставок',          cells: ['от 1 800 ₽'] },
+  { label: 'Кольцо со вставками',                            cells: ['от 2 000 ₽'] },
+  { type: 'section', label: 'Печатки' },
+  { label: 'Печатка из латуни (текст до 10 букв)',          cells: ['от 2 000 ₽'] },
+  { label: 'Печатка из золота/серебра',                       cells: ['от 1 500 ₽'] },
+  { label: 'Печатка с гербом / монограммой',                 cells: ['от 3 000 ₽'] },
+  { type: 'section', label: 'Перстни и помолвочные' },
+  { label: 'Перстень из золота',                              cells: ['от 1 800 ₽'] },
+  { label: 'Помолвочное кольцо (внутри)',                    cells: ['от 1 800 ₽'] },
+  { label: 'Помолвочное со сложной шинкой',                  cells: ['от 2 500 ₽'] },
+];
+
+const types = [
+  { num: '01', title: 'Помолвочные кольца',     text: 'Самое популярное место для тайной надписи — внутренняя сторона. Имена партнёров, дата предложения, координаты значимого места. Гравировка остаётся защищённой от истирания и видна только владельцу.' },
+  { num: '02', title: 'Печатки мужские',         text: 'Классически — герб, монограмма или фамильный знак на печати. На нижней стороне (внутри) добавляем дату вступления в наследство или имя владельца. Печатки чаще делают ручной гравировкой штихелем — это традиция.' },
+  { num: '03', title: 'Печатки женские',         text: 'Мелкие изящные печатки с инициалами, маленькими гербами или короткими символами. Лазер позволяет наносить очень тонкие линии — буквы высотой 1–2 мм с хорошей читаемостью.' },
+  { num: '04', title: 'Перстни',                 text: 'Гравировка по ободку или на верхней поверхности камня (если он плоский — например, оникс, агат, гематит). Часто наносим инициалы по сторонам от центрального элемента.' },
+  { num: '05', title: 'Повседневные кольца',     text: 'Простые широкие кольца, кольца-обереги, кольца с короткими цитатами. Лазерная гравировка на внешней стороне создаёт орнамент, который виден всем, или скрытое послание внутри.' },
+  { num: '06', title: 'Кольца-наследие',         text: 'Старинные кольца, которые передаются из поколения в поколение. Добавляем дату передачи и имя нового владельца на гладкой части — лазер мягко работает с антикварным металлом, не повреждая патину.' },
+];
+
+const places = [
+  { num: '01', title: 'Внутри кольца',  text: 'Личное послание, ваш секрет. Защищена от истирания, остаётся читаемой десятилетиями. Стандартная глубина 0,03–0,05 мм — не натирает кожу. Здесь помещается 15–25 символов.' },
+  { num: '02', title: 'Снаружи на шинке', text: 'Декоративный элемент, видимый всем. Для широких ободков (от 4 мм) — узор, монограмма, цитата по всему периметру. Лазер ровно обводит окружность кольца.' },
+  { num: '03', title: 'На печати',       text: 'Центральная плоская часть печатки — для герба, монограммы, инициалов. Обычно ручная гравировка штихелем — глубокий рельеф, который красиво читается на сургуче.' },
+  { num: '04', title: 'На камне',        text: 'Если камень плоский и матовый (оникс, агат, гематит) — наносим лёгкую гравировку лазером. Прозрачные камни (бриллиант, сапфир) обычно не гравируем — теряется их игра света.' },
+];
+
+const limits = [
+  { title: 'Тонкие шинки меньше 1,5 мм', text: 'Глубокая гравировка на очень тонком кольце ослабит конструкцию. Делаем только мелкие надписи минимальной глубины (0,02 мм) — буквы получатся крошечными, но кольцо останется прочным.' },
+  { title: 'Дорожка камней (Eternity)',   text: 'Камни по всей окружности — гравировке негде разместиться. Можем нанести надпись только на внутренней стороне между крапанами, но место очень ограничено.' },
+  { title: 'Вольфрам, керамика, титан',   text: 'Эти материалы гравируются только лазером. Получается мелкая, неглубокая, но долговечная гравировка. Ручная штихельная работа невозможна — материалы слишком твёрдые.' },
+  { title: 'Кольца с эмалью',             text: 'Эмалевый слой можно повредить. Подбираем участок без эмали или используем щадящий режим. На широких кольцах с эмалью часто оставляем тонкую полоску гладкого металла специально для гравировки.' },
+];
+
+const guarantees = [
+  { num: '01', title: 'Гарантия 1 год',           text: 'Письменная гарантия на каждую работу. Если что-то не так — переделаем бесплатно.' },
+  { num: '02', title: 'Лазерная и ручная',         text: 'Выбираем метод под задачу: лазер — для серий и тонких надписей, ручная — для гербов, монограмм, авторских печаток.' },
+  { num: '03', title: 'Любой металл',              text: 'Золото, серебро, платина, белое золото, сталь, латунь, медь, бронза, титан, вольфрам, керамика — берёмся за всё.' },
+  { num: '04', title: 'Делаем при вас',            text: 'Стандартная гравировка занимает 15–30 минут — пока вы пьёте кофе. Сложные печатки с гербом — 1–3 рабочих дня.' },
+];
+
+const faqs = [
+  { q: 'Можно ли гравировать на кольце с камнем?',          a: 'Да, мы гравируем кольца со вставками. Главное — чтобы рядом с камнем была свободная гладкая поверхность. Мощность лазера калибруем так, чтобы не нагревать оправу — особенно осторожны с изумрудами, опалами и жемчугом. Если камень крупный и обнимает весь ободок (как в Eternity) — гравировка невозможна.' },
+  { q: 'Сколько символов помещается внутри кольца?',         a: 'На стандартном помолвочном кольце 3–4 мм — 15–20 символов. На широком (от 5 мм) — 25–30 символов или две строки. Чем шире кольцо, тем крупнее можно сделать шрифт. Точное число согласуем с мастером, покажем макет до нанесения.' },
+  { q: 'Что лучше — лазер или ручная гравировка для печатки?', a: 'Для серьёзных печаток с гербом и фамильной символикой — ручная работа штихелем. Это традиция, идущая от Фаберже, и линии получаются живыми, объёмными. Для простых печаток с инициалами — подходит лазер: быстрее и дешевле. Подскажем оптимальный метод после осмотра.' },
+  { q: 'Делаете ли вы гравировку на готовом кольце клиента?', a: 'Да, мы часто работаем с готовыми украшениями. Перед работой осматриваем кольцо: проверяем толщину шинки, наличие свободного места, состояние камней. Если есть сложности — предупредим заранее.' },
+  { q: 'Сохранится ли гравировка при увеличении размера кольца?', a: 'При работе по увеличению/уменьшению кольца ювелир разрезает шинку — гравировка в зоне реза, скорее всего, потеряется. На «пятке» (нижней части кольца) она обычно остаётся целой. Если планируете изменить размер — сначала размер, потом гравировка.' },
+];
 ---
-<PlaceholderPage title="Гравировка на кольцах" />
+
+<InnerPage
+  title="Гравировка на кольцах, печатках и перстнях"
+  description="Лазерная и ручная гравировка на кольцах в Санкт-Петербурге — помолвочные, печатки, перстни. Имена, гербы, монограммы. От 600 ₽, при клиенте за 15–30 минут."
+  crumbs={crumbs}
+  sidebarLinks={engravingLinks}
+  sidebarTitle="Виды гравировки"
+  activeHref="/engraving/rings"
+>
+  <div class="sp">
+
+    <div class="sp__hero">
+      <div class="sp__hero-content">
+        <p class="sp__hero-label">Ювелирная мастерская «Артель» · Санкт-Петербург</p>
+        <h1 class="sp__title">Гравировка на кольцах</h1>
+        <p class="sp__lead">
+          Большой популярностью пользуется гравировка на помолвочных кольцах,
+          как знак любви и особого отношения. Индивидуальность мужчины
+          подчеркнёт гравировка на печатке и перстне. Работаем со всеми
+          типами колец — от классических обручальных до антикварных перстней.
+          Делаем при клиенте за 15–30 минут.
+        </p>
+        <div class="sp__hero-cta">
+          <a href="https://wa.me/+79319616090?text=Здравствуйте%2C%20хочу%20гравировку%20на%20кольце" class="btn btn--primary" target="_blank" rel="noopener">Прислать фото кольца</a>
+          <p class="sp__hero-hint">Подскажем шрифт и расположение</p>
+        </div>
+      </div>
+
+      <div class="sp__hero-image">
+        <div class="sp__hero-img-placeholder"><span>Фото — печатка с гравировкой герба</span></div>
+      </div>
+
+      <div class="sp__hero-stats">
+        <div class="sp__hero-stat">
+          <span class="sp__hero-stat-num">15–30</span>
+          <div class="sp__hero-stat-info">
+            <span class="sp__hero-stat-unit">мин</span>
+            <span class="sp__hero-stat-label">стандарт</span>
+          </div>
+        </div>
+        <span class="sp__hero-stat-sep" aria-hidden="true"></span>
+        <div class="sp__hero-stat">
+          <span class="sp__hero-stat-num">от 600</span>
+          <div class="sp__hero-stat-info">
+            <span class="sp__hero-stat-unit">₽</span>
+            <span class="sp__hero-stat-label">за работу</span>
+          </div>
+        </div>
+        <span class="sp__hero-stat-sep" aria-hidden="true"></span>
+        <div class="sp__hero-stat">
+          <span class="sp__hero-stat-num">2</span>
+          <div class="sp__hero-stat-info">
+            <span class="sp__hero-stat-unit">метода</span>
+            <span class="sp__hero-stat-label">лазер и ручная</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <StaticPriceTable
+      title="Прайс на гравировку колец"
+      subtitle="Цена зависит от металла, типа кольца и сложности работы. Для обручальных колец — отдельная страница с детальным прайсом."
+      colHeaders={['Услуга', 'Цена']}
+      rows={priceRows}
+      footnote="Гербы и сложные монограммы выполняем ручной гравировкой штихелем — это занимает 1–3 рабочих дня."
+    />
+
+    <div class="sp__section">
+      <p class="sp__label">Типы колец</p>
+      <h2 class="sp__section-title">С какими кольцами работаем</h2>
+      <div class="sp__cases">
+        {types.map((t) => (
+          <div class="sp__case">
+            <span class="sp__case-num">{t.num}</span>
+            <div class="sp__case-title">{t.title}</div>
+            <p class="sp__case-text">{t.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <div class="sp__section sp__section--warm">
+      <p class="sp__label">Расположение</p>
+      <h2 class="sp__section-title">Где разместить гравировку</h2>
+      <div class="sp__methods">
+        {places.map((p) => (
+          <div class="sp__method">
+            <div class="sp__method-index">{p.num}</div>
+            <div class="sp__method-title">{p.title}</div>
+            <p class="sp__method-text">{p.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <div class="sp__section">
+      <p class="sp__label">Ограничения</p>
+      <h2 class="sp__section-title">Когда гравировка ограничена</h2>
+      <div class="sp__limits">
+        {limits.map((l) => (
+          <div class="sp__limit">
+            <div class="sp__limit-title">{l.title}</div>
+            <p class="sp__limit-text">{l.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <div class="sp__deadline">
+      <div class="sp__deadline-time">
+        <span class="sp__deadline-num">15–30</span>
+        <span class="sp__deadline-unit">мин</span>
+      </div>
+      <div class="sp__deadline-divider" aria-hidden="true"></div>
+      <div class="sp__deadline-body">
+        <p class="sp__label">Время выполнения</p>
+        <h2 class="sp__deadline-title">При клиенте</h2>
+        <p class="sp__deadline-text">
+          Стандартную гравировку на кольце делаем <strong>за 15–30 минут</strong>
+          в вашем присутствии. Печатки с гербом или сложной монограммой —
+          ручная работа, занимает 1–3 рабочих дня. Срок согласуем после
+          оценки эскиза.
+        </p>
+      </div>
+    </div>
+
+    <div class="sp__section">
+      <p class="sp__label">Обязательства</p>
+      <h2 class="sp__section-title">Наши гарантии</h2>
+      <div class="sp__guarantees">
+        {guarantees.map((g) => (
+          <div class="sp__guarantee">
+            <div class="sp__guarantee-num">{g.num}</div>
+            <div class="sp__guarantee-title">{g.title}</div>
+            <div class="sp__guarantee-text">{g.text}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <div class="sp__section">
+      <p class="sp__label">Вопросы и ответы</p>
+      <h2 class="sp__section-title">Частые вопросы</h2>
+      <div class="sp__faq">
+        {faqs.map((item, i) => (
+          <div class="sp__faq-item">
+            <button class="sp__faq-q" type="button" aria-expanded="false" aria-controls={`faq-panel-${i}`}>
+              <span class="sp__faq-q-index">{String(i + 1).padStart(2, '0')}</span>
+              <span class="sp__faq-q-text">{item.q}</span>
+              <span class="sp__faq-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="sp__faq-a" id={`faq-panel-${i}`} role="region">
+              <div class="sp__faq-a-inner"><p>{item.a}</p></div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+  </div>
+</InnerPage>
+
+<script>
+  document.querySelectorAll<HTMLElement>('.sp__faq-item').forEach(item => {
+    const btn = item.querySelector<HTMLButtonElement>('.sp__faq-q')!;
+    const answer = item.querySelector<HTMLElement>('.sp__faq-a')!;
+    btn.addEventListener('click', () => {
+      if (item.classList.contains('is-open')) {
+        item.classList.add('is-closing');
+        item.classList.remove('is-open');
+        btn.setAttribute('aria-expanded', 'false');
+        answer.addEventListener('transitionend', () => { item.classList.remove('is-closing'); }, { once: true });
+      } else {
+        item.classList.remove('is-closing');
+        item.classList.add('is-open');
+        btn.setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
+</script>

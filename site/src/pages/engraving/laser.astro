@@ -1,4 +1,255 @@
 ---
-import PlaceholderPage from '../../layouts/PlaceholderPage.astro';
+import '../../styles/service-page.css';
+import InnerPage from '../../layouts/InnerPage.astro';
+
+const engravingLinks = [
+  { label: 'Обручальные кольца',     href: '/engraving/gravirovka-obruchalnykh-kolets-spb' },
+  { label: 'Кольца, печатки',         href: '/engraving/rings' },
+  { label: 'Браслеты',                href: '/engraving/bracelets' },
+  { label: 'Кулоны, медальоны',       href: '/engraving/pendants' },
+  { label: 'Часы',                    href: '/engraving/gravirovka-na-chasah' },
+  { label: 'Лазерная гравировка',     href: '/engraving/laser' },
+  { label: 'Ручная гравировка',       href: '/engraving/manual' },
+  { label: 'Корпоративная',           href: '/engraving/corporate' },
+];
+
+const crumbs = [
+  { label: 'Главная', href: '/' },
+  { label: 'Гравёрные работы', href: '/engraving' },
+  { label: 'Лазерная гравировка' },
+];
+
+const advantages = [
+  { num: '01', title: 'Точность до 0,01 мм',  text: 'Сфокусированный лазерный луч формирует надписи и рисунки с микронной точностью. Линия, толщиной с человеческий волос, остаётся читаемой через десятилетия — детализация на уровне, недостижимом для механики.' },
+  { num: '02', title: 'Без контакта с изделием', text: 'Луч не касается металла физически — испаряет тончайший слой. Изделие не деформируется, давление на корпус нулевое. Поэтому лазером можно работать на хрупких часах, тонких кольцах и драгоценных оправах.' },
+  { num: '03', title: 'Работает на любом материале', text: 'Металлы (золото, серебро, платина, сталь, латунь, титан), стекло, кожа, картон, хрусталь, дерево, керамика, пластик — каждому материалу подбираем длину волны и мощность. CO₂ для органики, волоконный для металлов.' },
+  { num: '04', title: 'Управляется компьютером', text: 'Макет загружается из CorelDraw, Illustrator, AutoCAD. Машина повторяет рисунок с 100% точностью — без ошибки человека. Партии получаются абсолютно идентичными, даже если их сотни.' },
+  { num: '05', title: 'Скорость и одинаковая глубина',  text: 'Стандартная гравировка — 5–30 минут. Глубина рельефа везде одинаковая — нет «провалов» и «возвышений» из-за дрожащей руки. Это критично для серийных партий и аккуратных надписей.' },
+  { num: '06', title: 'Долговечность',          text: 'Лазерная гравировка не стирается и не выцветает даже при ежедневной носке. Проверено клиентами, чьи кольца с лазерными надписями носятся 20+ лет без потери качества.' },
+];
+
+const methods = [
+  { num: '01', title: 'Волоконный лазер (1064 нм)',  text: 'Стандарт для металлов. Длина волны 1064 нм отлично поглощается металлами — даёт чёткий контрастный рельеф. Используем для гравировки на кольцах, часах, медалях, ножах, всех ювелирных изделиях.' },
+  { num: '02', title: 'CO₂-лазер (10 600 нм)',  text: 'Для неметаллических материалов — стекла, дерева, кожи, бумаги, пластика, керамики. Длина волны 10 600 нм поглощается органикой, оставляя матовый чёткий след. Идеален для бокалов, шкатулок, ежедневников.' },
+  { num: '03', title: 'MOPA-лазер (цветная гравировка)', text: 'Современная разновидность волоконного лазера с настраиваемой длительностью импульса. Позволяет получать на нержавеющей стали и титане цветную гравировку — синюю, фиолетовую, золотистую, без красок.' },
+  { num: '04', title: 'Ротационная приставка',  text: 'Специальный держатель, который вращает цилиндрические изделия (кольца, кружки, фляги) под лазером. Так получается гравировать по всей окружности изделия — например, надпись по всему ободку кольца.' },
+];
+
+const applications = [
+  { num: '01', title: 'Ювелирные украшения', text: 'Кольца, браслеты, кулоны, печатки. Тончайшие надписи внутри и снаружи, монограммы, фамильные гербы. Драгоценные камни не повреждаются — мощность калибруется под безопасность.' },
+  { num: '02', title: 'Часы',                text: 'На задней крышке, ремешке, циферблате. Без вскрытия корпуса — гарантия производителя сохраняется. Подходит даже для Rolex и других премиум-марок.' },
+  { num: '03', title: 'Корпоративные сувениры', text: 'Логотипы на ручках, фляжках, кружках, ноутбуках. Партии от 10 до 1 000 штук с одинаковым результатом — лазер не устаёт и не теряет точности.' },
+  { num: '04', title: 'Стекло и хрусталь',    text: 'Бокалы, графины, наградные кубки, бутылки шампанского. Матовая гравировка читается на любом фоне, не стирается от мытья.' },
+];
+
+const limits = [
+  { title: 'Антибликовое покрытие (AR) на стёклах',  text: 'Если на часовом стекле есть AR-покрытие — гравировка снимет его в зоне нанесения. Поэтому работаем только по корпусу или крышке часов.' },
+  { title: 'Очень мягкие материалы',                  text: 'Воск, очень мягкие пластики, нежная резина могут плавиться от тепла лазера — гравировка получается нечёткой. Подбираем щадящий режим или предлагаем другой метод.' },
+  { title: 'Не наносим поверх заводских клейм',        text: 'Логотипы Apple, Parker, Rolex, серийные номера, пробирные клейма — сохраняем неприкосновенными. Это сохраняет аутентичность и гарантию.' },
+];
+
+const guarantees = [
+  { num: '01', title: 'Точность до 0,01 мм',     text: 'Любой шрифт, монограмма, рисунок или логотип без потерь детализации.' },
+  { num: '02', title: 'Не повреждает изделие',    text: 'Бесконтактный метод — нет царапин, деформации, нагрева.' },
+  { num: '03', title: 'Гарантия 1 год',           text: 'Письменная гарантия на работу. Переделаем или вернём деньги, если что-то не так.' },
+  { num: '04', title: 'Делаем при вас',           text: 'Простые работы — за 5–30 минут прямо в мастерской.' },
+];
+
+const faqs = [
+  { q: 'Чем лазер лучше ручной гравировки?',                   a: 'Лазер даёт 100% точное повторение макета, одинаковую глубину рельефа везде, высокую скорость. Подходит для серийных работ и сложных шрифтов. Ручная гравировка ценится за уникальность и художественную выразительность — каждое изделие неповторимо. Выбор зависит от задачи: для серии — лазер, для авторской работы — рука.' },
+  { q: 'Не повредит ли лазер драгоценные камни?',              a: 'Нет. Стандартная мощность лазера рассчитана так, что испаряет только верхний слой металла, не доходя до камня. Бриллианты и сапфиры не поглощают лазерное излучение, поэтому ничего им не угрожает. Изумруды и опалы более хрупкие — для них настраиваем минимальную мощность.' },
+  { q: 'Сколько символов помещается на украшении?',             a: 'Зависит от размера. На обручальном кольце 4–6 мм — 20–30 символов. На широком браслете — до 50. На задней крышке часов — 20–30 символов в одну-две строки. Если нужно больше — обсудим формат и расположение.' },
+  { q: 'Можно ли отполировать кольцо после лазерной гравировки?', a: 'Можно, но осторожно. Полировка снимет верхний слой металла — глубокая гравировка останется, а очень мелкая может затереться. Лучше полировать корпус, аккуратно обходя зону гравировки.' },
+  { q: 'Какие форматы файлов вы принимаете?',                   a: 'Идеально — векторные: CorelDraw (.cdr), Adobe Illustrator (.eps, .ai). Также AutoCAD (.dxf) и PostScript (.ps). Растровые (JPG, PNG) — принимаем, но качество гравировки будет ниже. Если нет файла — наш дизайнер подготовит макет за дополнительную плату.' },
+];
 ---
-<PlaceholderPage title="Лазерная гравировка" />
+
+<InnerPage
+  title="Лазерная гравировка"
+  description="Лазерная гравировка в Санкт-Петербурге: ювелирные украшения, часы, корпоративные сувениры, стекло, кожа, дерево. Волоконный и CO₂ лазер, точность 0,01 мм. От 500 ₽."
+  crumbs={crumbs}
+  sidebarLinks={engravingLinks}
+  sidebarTitle="Виды гравировки"
+  activeHref="/engraving/laser"
+>
+  <div class="sp">
+
+    <div class="sp__hero">
+      <div class="sp__hero-content">
+        <p class="sp__hero-label">Ювелирная мастерская «Артель» · Санкт-Петербург</p>
+        <h1 class="sp__title">Лазерная гравировка</h1>
+        <p class="sp__lead">
+          Современный бесконтактный метод. Сфокусированный лазерный луч
+          испаряет тончайший слой материала под управлением компьютера —
+          получается ювелирно точная, долговечная надпись или рисунок.
+          Работаем с любыми металлами, стеклом, кожей, деревом и пластиком.
+          Большинство работ — за 5–30 минут в вашем присутствии.
+        </p>
+        <div class="sp__hero-cta">
+          <a href="https://wa.me/+79319616090?text=Здравствуйте%2C%20нужна%20лазерная%20гравировка" class="btn btn--primary" target="_blank" rel="noopener">Прислать ТЗ или фото</a>
+          <p class="sp__hero-hint">Точность до 0,01 мм, любые форматы файлов</p>
+        </div>
+      </div>
+
+      <div class="sp__hero-image">
+        <div class="sp__hero-img-placeholder"><span>Фото — лазерный гравёр в работе</span></div>
+      </div>
+
+      <div class="sp__hero-stats">
+        <div class="sp__hero-stat">
+          <span class="sp__hero-stat-num">0,01</span>
+          <div class="sp__hero-stat-info">
+            <span class="sp__hero-stat-unit">мм</span>
+            <span class="sp__hero-stat-label">точность</span>
+          </div>
+        </div>
+        <span class="sp__hero-stat-sep" aria-hidden="true"></span>
+        <div class="sp__hero-stat">
+          <span class="sp__hero-stat-num">5–30</span>
+          <div class="sp__hero-stat-info">
+            <span class="sp__hero-stat-unit">мин</span>
+            <span class="sp__hero-stat-label">при клиенте</span>
+          </div>
+        </div>
+        <span class="sp__hero-stat-sep" aria-hidden="true"></span>
+        <div class="sp__hero-stat">
+          <span class="sp__hero-stat-num">20+</span>
+          <div class="sp__hero-stat-info">
+            <span class="sp__hero-stat-unit">лет</span>
+            <span class="sp__hero-stat-label">служит надпись</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sp__section">
+      <p class="sp__label">Преимущества</p>
+      <h2 class="sp__section-title">Почему именно лазер</h2>
+      <div class="sp__cases">
+        {advantages.map((a) => (
+          <div class="sp__case">
+            <span class="sp__case-num">{a.num}</span>
+            <div class="sp__case-title">{a.title}</div>
+            <p class="sp__case-text">{a.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <div class="sp__section sp__section--warm">
+      <p class="sp__label">Технологии</p>
+      <h2 class="sp__section-title">Типы лазеров, которые мы используем</h2>
+      <p class="sp__section-lead">
+        Под каждый материал — свой лазер. Это позволяет получать чёткий,
+        контрастный результат и не повреждать изделие.
+      </p>
+      <div class="sp__methods">
+        {methods.map((m) => (
+          <div class="sp__method">
+            <div class="sp__method-index">{m.num}</div>
+            <div class="sp__method-title">{m.title}</div>
+            <p class="sp__method-text">{m.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <div class="sp__section">
+      <p class="sp__label">Сферы применения</p>
+      <h2 class="sp__section-title">Где используем лазер</h2>
+      <div class="sp__cases">
+        {applications.map((a) => (
+          <div class="sp__case">
+            <span class="sp__case-num">{a.num}</span>
+            <div class="sp__case-title">{a.title}</div>
+            <p class="sp__case-text">{a.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <div class="sp__section">
+      <p class="sp__label">Ограничения</p>
+      <h2 class="sp__section-title">Когда лазер не подходит</h2>
+      <div class="sp__limits">
+        {limits.map((l) => (
+          <div class="sp__limit">
+            <div class="sp__limit-title">{l.title}</div>
+            <p class="sp__limit-text">{l.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <div class="sp__deadline">
+      <div class="sp__deadline-time">
+        <span class="sp__deadline-num">5–30</span>
+        <span class="sp__deadline-unit">мин</span>
+      </div>
+      <div class="sp__deadline-divider" aria-hidden="true"></div>
+      <div class="sp__deadline-body">
+        <p class="sp__label">Время выполнения</p>
+        <h2 class="sp__deadline-title">Делаем при вас</h2>
+        <p class="sp__deadline-text">
+          Стандартная гравировка занимает <strong>5–30 минут</strong>.
+          Сложные монограммы и партии — от 1,5 часов. Машина не устаёт:
+          партия из 50 одинаковых изделий получится с идентичной точностью
+          до 0,01 мм.
+        </p>
+      </div>
+    </div>
+
+    <div class="sp__section">
+      <p class="sp__label">Обязательства</p>
+      <h2 class="sp__section-title">Наши гарантии</h2>
+      <div class="sp__guarantees">
+        {guarantees.map((g) => (
+          <div class="sp__guarantee">
+            <div class="sp__guarantee-num">{g.num}</div>
+            <div class="sp__guarantee-title">{g.title}</div>
+            <div class="sp__guarantee-text">{g.text}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <div class="sp__section">
+      <p class="sp__label">Вопросы и ответы</p>
+      <h2 class="sp__section-title">Частые вопросы</h2>
+      <div class="sp__faq">
+        {faqs.map((item, i) => (
+          <div class="sp__faq-item">
+            <button class="sp__faq-q" type="button" aria-expanded="false" aria-controls={`faq-panel-${i}`}>
+              <span class="sp__faq-q-index">{String(i + 1).padStart(2, '0')}</span>
+              <span class="sp__faq-q-text">{item.q}</span>
+              <span class="sp__faq-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="sp__faq-a" id={`faq-panel-${i}`} role="region">
+              <div class="sp__faq-a-inner"><p>{item.a}</p></div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+  </div>
+</InnerPage>
+
+<script>
+  document.querySelectorAll<HTMLElement>('.sp__faq-item').forEach(item => {
+    const btn = item.querySelector<HTMLButtonElement>('.sp__faq-q')!;
+    const answer = item.querySelector<HTMLElement>('.sp__faq-a')!;
+    btn.addEventListener('click', () => {
+      if (item.classList.contains('is-open')) {
+        item.classList.add('is-closing');
+        item.classList.remove('is-open');
+        btn.setAttribute('aria-expanded', 'false');
+        answer.addEventListener('transitionend', () => { item.classList.remove('is-closing'); }, { once: true });
+      } else {
+        item.classList.remove('is-closing');
+        item.classList.add('is-open');
+        btn.setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
+</script>

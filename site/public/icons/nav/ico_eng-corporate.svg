@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none">
+  <rect x="20" y="34" width="60" height="48" stroke="#c77d17" stroke-width="2.5"/>
+  <line x1="20" y1="46" x2="80" y2="46" stroke="#c77d17" stroke-width="2"/>
+  <rect x="42" y="22" width="16" height="12" stroke="#c77d17" stroke-width="2"/>
+  <line x1="30" y1="58" x2="42" y2="58" stroke="#c77d17" stroke-width="2"/>
+  <line x1="30" y1="66" x2="50" y2="66" stroke="#c77d17" stroke-width="2"/>
+  <text x="62" y="72" text-anchor="middle" font-family="Cormorant Garamond, serif" font-size="14" font-style="italic" font-weight="600" fill="#c77d17">№</text>
+</svg>

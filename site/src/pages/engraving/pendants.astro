@@ -1,4 +1,251 @@
 ---
-import PlaceholderPage from '../../layouts/PlaceholderPage.astro';
+import '../../styles/service-page.css';
+import InnerPage from '../../layouts/InnerPage.astro';
+import StaticPriceTable from '../../components/StaticPriceTable.astro';
+
+const engravingLinks = [
+  { label: 'Обручальные кольца',     href: '/engraving/gravirovka-obruchalnykh-kolets-spb' },
+  { label: 'Кольца, печатки',         href: '/engraving/rings' },
+  { label: 'Браслеты',                href: '/engraving/bracelets' },
+  { label: 'Кулоны, медальоны',       href: '/engraving/pendants' },
+  { label: 'Часы',                    href: '/engraving/gravirovka-na-chasah' },
+  { label: 'Лазерная гравировка',     href: '/engraving/laser' },
+  { label: 'Ручная гравировка',       href: '/engraving/manual' },
+  { label: 'Корпоративная',           href: '/engraving/corporate' },
+];
+
+const crumbs = [
+  { label: 'Главная', href: '/' },
+  { label: 'Гравёрные работы', href: '/engraving' },
+  { label: 'Гравировка на кулонах и медальонах' },
+];
+
+const priceRows = [
+  { type: 'section', label: 'Кулоны и подвески' },
+  { label: 'Кулон/медальон на латуни (текст до 15–30 букв)', cells: ['от 1 000 ₽'] },
+  { label: 'Кулон/медальон из золота, серебра (до 10 букв)',  cells: ['от 1 500 ₽'] },
+  { label: 'Жетон для животных (имя + контакт)',              cells: ['от 600 ₽'] },
+  { type: 'section', label: 'Дополнительные опции' },
+  { label: 'Нанесение рисунка / портрета (за см²)',           cells: ['от 1 500 ₽'] },
+  { label: 'Гравировка с двух сторон',                        cells: ['×1.7 от базовой'] },
+  { label: 'Гравировка по контуру открывающегося медальона',  cells: ['+ 30%'] },
+];
+
+const ideas = [
+  { num: '01', title: 'Имена детей и даты рождения',  text: 'Самый популярный вариант: имя ребёнка на одной стороне, дата рождения и вес/рост — на другой. Кулон превращается в семейный талисман, который мама носит близко к сердцу.' },
+  { num: '02', title: 'Портреты и силуэты',           text: 'Современная лазерная техника позволяет наносить чёрно-белые портреты с фотографическим качеством. Особенно популярны портреты ушедших родных — кулон становится памятным предметом.' },
+  { num: '03', title: 'Детские рисунки и почерк',     text: 'Перенесём на металл рисунок ребёнка, подпись бабушки, первые буквы внука. Сохраним в металле то, что иначе исчезло бы с возрастом — ценность такого предмета невозможно переоценить.' },
+  { num: '04', title: 'Координаты значимых мест',     text: 'Координаты места рождения, где жили предки, или особенного места из вашей жизни. На круглом кулоне выглядит как «секретная карта», понятная только вам.' },
+  { num: '05', title: 'Тайные надписи внутри',        text: 'На открывающихся медальонах гравируем послание внутри — увидеть его можно только открыв. Идеально для романтических секретов и пожеланий близким.' },
+  { num: '06', title: 'Звуковые волны и аудио',       text: 'Записываем голос близкого человека (например, «Я люблю тебя» бабушки или первый плач ребёнка) и переносим визуализацию звуковой волны на кулон. Уникальный мемориальный предмет.' },
+];
+
+const types = [
+  { num: '01', title: 'Плоские кулоны',          text: 'Простая в гравировке форма — лазер легко наносит надпись на ровной поверхности. На круглых и прямоугольных кулонах помещается длинный текст с двух сторон.' },
+  { num: '02', title: 'Открывающиеся медальоны', text: 'Внутри храним фото или записку, снаружи — гравировка с именем. Если медальон с фотографией — фото вкладывается под защитное стекло, гравировка вокруг.' },
+  { num: '03', title: 'Жетоны для животных',     text: 'Имя, кличка, телефон владельца. Стандартный размер — 25 × 35 мм. На обороте можно добавить медицинскую информацию (диабет, аллергии). Делаем за 10 минут при клиенте.' },
+  { num: '04', title: 'Кулоны с камнями',        text: 'Гравируем на ободке или задней стороне кулона, не задевая камни. Мощность лазера калибруем так, чтобы не повредить вставки — особенно эмаль, опал, жемчуг.' },
+];
+
+const limits = [
+  { title: 'Сложные узорные кулоны',  text: 'Если поверхность сильно гранёная или украшена скульптурным декором — гравировка возможна только на отдельной плашке (например, на гладкой задней стороне).' },
+  { title: 'Очень мелкие кулоны',      text: 'На кулоне меньше 10×10 мм гравировка получится микроскопической. Лучше выбрать другой подарок или гравировать только инициалы (2–4 символа).' },
+  { title: 'Эмалевое покрытие',        text: 'Гравировка поверх эмали может её повредить. Если кулон с эмалевой работой — наносим только на свободные металлические участки.' },
+  { title: 'Открывающиеся медальоны с тонким металлом', text: 'Если стенка медальона тоньше 0,3 мм, глубокая гравировка может прорезать металл. Мы используем щадящую глубину и предварительно осматриваем изделие.' },
+];
+
+const guarantees = [
+  { num: '01', title: 'Гарантия 1 год',          text: 'Письменная гарантия на каждую работу. Если надпись окажется некачественной — переделаем бесплатно.' },
+  { num: '02', title: 'Двусторонняя гравировка', text: 'Делаем гравировку с двух сторон — на одной стороне имя, на другой дата или фраза. Оплачивается как 1,7 от базовой стоимости.' },
+  { num: '03', title: 'Перенос рукописного текста', text: 'Принимаем сканы детских рисунков, рукописных записок, подписей. Дизайнер подготовит вектор для лазера за 1 рабочий день.' },
+  { num: '04', title: 'Безопасно для камней',     text: 'Калибруем мощность лазера так, чтобы вставки не пострадали. Эмаль, опал, жемчуг, бирюза — гравируем только в безопасных зонах изделия.' },
+];
+
+const faqs = [
+  { q: 'Можно ли нанести фото на кулон?',                       a: 'Да. Современный лазер наносит чёрно-белые изображения с фотографическим качеством — нужно только хорошее исходное фото в высоком разрешении. Мы конвертируем его в полутоновое и наносим на кулон. Для портретов рекомендуем контрастный снимок с одним лицом и нейтральным фоном.' },
+  { q: 'Сколько символов помещается на медальон?',              a: 'На стандартный круглый кулон диаметром 20 мм — 20–30 символов в одну строку или 40–50 в две строки. На прямоугольный или овальный кулон 25×35 мм — до 60 символов. Точное число зависит от шрифта и размера букв.' },
+  { q: 'Можно ли гравировать рисунок ребёнка?',                  a: 'Да. Принесите оригинал рисунка или сфотографируйте на ровном фоне — мы переведём в вектор и нанесём на кулон. Это очень популярный заказ: рисунок ребёнка остаётся в металле на десятилетия. Простой рисунок переводим в вектор бесплатно, сложный — за дополнительную плату.' },
+  { q: 'Делаете ли вы жетоны для собак и кошек?',                a: 'Да. Гравируем имя, контактный телефон владельца, медицинскую информацию (особенно важно для аллергиков). Стандартный жетон 25×35 мм — от 600 ₽, выполняем за 10 минут при вас. Можно нанести с двух сторон.' },
+  { q: 'Можно ли гравировать на открывающемся медальоне внутри?', a: 'Да. Гравировку наносим как снаружи, так и внутри открывающейся части. Внутри обычно делают тайную надпись — её увидит только владелец, когда откроет медальон. Если медальон с фоторамкой — гравируем на свободной металлической части.' },
+];
 ---
-<PlaceholderPage title="Гравировка на подвесках" />
+
+<InnerPage
+  title="Гравировка на кулонах и медальонах"
+  description="Лазерная гравировка на кулонах, подвесках, открывающихся медальонах в Санкт-Петербурге. Имена детей, портреты, детские рисунки, координаты, звуковые волны. От 1 000 ₽."
+  crumbs={crumbs}
+  sidebarLinks={engravingLinks}
+  sidebarTitle="Виды гравировки"
+  activeHref="/engraving/pendants"
+>
+  <div class="sp">
+
+    <div class="sp__hero">
+      <div class="sp__hero-content">
+        <p class="sp__hero-label">Ювелирная мастерская «Артель» · Санкт-Петербург</p>
+        <h1 class="sp__title">Гравировка на кулонах и медальонах</h1>
+        <p class="sp__lead">
+          Кулоны — прекрасное место для личных пожеланий, инициалов, портретов
+          или даже звуковых волн любимого голоса. Высокая точность оборудования
+          позволяет переносить детализированные изображения на ровные и сложные
+          поверхности золотых и серебряных подвесок. Принимаем рукописные
+          надписи, детские рисунки, фотографии — всё переносим в металл.
+        </p>
+        <div class="sp__hero-cta">
+          <a href="https://wa.me/+79319616090?text=Здравствуйте%2C%20нужна%20гравировка%20на%20кулоне" class="btn btn--primary" target="_blank" rel="noopener">Прислать идею</a>
+          <p class="sp__hero-hint">Принимаем рисунки и фото</p>
+        </div>
+      </div>
+
+      <div class="sp__hero-image">
+        <div class="sp__hero-img-placeholder"><span>Фото — кулон с гравировкой</span></div>
+      </div>
+
+      <div class="sp__hero-stats">
+        <div class="sp__hero-stat">
+          <span class="sp__hero-stat-num">15–30</span>
+          <div class="sp__hero-stat-info">
+            <span class="sp__hero-stat-unit">мин</span>
+            <span class="sp__hero-stat-label">при клиенте</span>
+          </div>
+        </div>
+        <span class="sp__hero-stat-sep" aria-hidden="true"></span>
+        <div class="sp__hero-stat">
+          <span class="sp__hero-stat-num">от 600</span>
+          <div class="sp__hero-stat-info">
+            <span class="sp__hero-stat-unit">₽</span>
+            <span class="sp__hero-stat-label">жетон для питомца</span>
+          </div>
+        </div>
+        <span class="sp__hero-stat-sep" aria-hidden="true"></span>
+        <div class="sp__hero-stat">
+          <span class="sp__hero-stat-num">2</span>
+          <div class="sp__hero-stat-info">
+            <span class="sp__hero-stat-unit">стороны</span>
+            <span class="sp__hero-stat-label">гравировка с обеих</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <StaticPriceTable
+      title="Прайс на гравировку кулонов"
+      subtitle="Гравировку с двух сторон оплачиваем как 1,7 от базовой стоимости. Перенос детского рисунка в вектор — отдельная услуга, обсуждаем индивидуально."
+      colHeaders={['Услуга', 'Цена']}
+      rows={priceRows}
+      footnote="Стандартная глубина гравировки 0,03–0,05 мм. Для кулонов с тонкими стенками подбираем щадящий режим, чтобы не прорезать металл."
+    />
+
+    <div class="sp__section">
+      <p class="sp__label">Идеи</p>
+      <h2 class="sp__section-title">Что часто гравируют на кулонах</h2>
+      <div class="sp__cases">
+        {ideas.map((i) => (
+          <div class="sp__case">
+            <span class="sp__case-num">{i.num}</span>
+            <div class="sp__case-title">{i.title}</div>
+            <p class="sp__case-text">{i.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <div class="sp__section sp__section--warm">
+      <p class="sp__label">Типы изделий</p>
+      <h2 class="sp__section-title">С какими кулонами работаем</h2>
+      <div class="sp__methods">
+        {types.map((t) => (
+          <div class="sp__method">
+            <div class="sp__method-index">{t.num}</div>
+            <div class="sp__method-title">{t.title}</div>
+            <p class="sp__method-text">{t.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <div class="sp__section">
+      <p class="sp__label">Ограничения</p>
+      <h2 class="sp__section-title">Когда гравировка ограничена</h2>
+      <div class="sp__limits">
+        {limits.map((l) => (
+          <div class="sp__limit">
+            <div class="sp__limit-title">{l.title}</div>
+            <p class="sp__limit-text">{l.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <div class="sp__deadline">
+      <div class="sp__deadline-time">
+        <span class="sp__deadline-num">15–30</span>
+        <span class="sp__deadline-unit">мин</span>
+      </div>
+      <div class="sp__deadline-divider" aria-hidden="true"></div>
+      <div class="sp__deadline-body">
+        <p class="sp__label">Время выполнения</p>
+        <h2 class="sp__deadline-title">При клиенте</h2>
+        <p class="sp__deadline-text">
+          Стандартную гравировку на одном кулоне делаем
+          <strong>за 15–30 минут</strong> в вашем присутствии. Перенос
+          детского рисунка или подписи в вектор — 1 рабочий день
+          (требуется наш дизайнер). Затем нанесение — снова при клиенте.
+        </p>
+      </div>
+    </div>
+
+    <div class="sp__section">
+      <p class="sp__label">Обязательства</p>
+      <h2 class="sp__section-title">Наши гарантии</h2>
+      <div class="sp__guarantees">
+        {guarantees.map((g) => (
+          <div class="sp__guarantee">
+            <div class="sp__guarantee-num">{g.num}</div>
+            <div class="sp__guarantee-title">{g.title}</div>
+            <div class="sp__guarantee-text">{g.text}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <div class="sp__section">
+      <p class="sp__label">Вопросы и ответы</p>
+      <h2 class="sp__section-title">Частые вопросы</h2>
+      <div class="sp__faq">
+        {faqs.map((item, i) => (
+          <div class="sp__faq-item">
+            <button class="sp__faq-q" type="button" aria-expanded="false" aria-controls={`faq-panel-${i}`}>
+              <span class="sp__faq-q-index">{String(i + 1).padStart(2, '0')}</span>
+              <span class="sp__faq-q-text">{item.q}</span>
+              <span class="sp__faq-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="sp__faq-a" id={`faq-panel-${i}`} role="region">
+              <div class="sp__faq-a-inner"><p>{item.a}</p></div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+  </div>
+</InnerPage>
+
+<script>
+  document.querySelectorAll<HTMLElement>('.sp__faq-item').forEach(item => {
+    const btn = item.querySelector<HTMLButtonElement>('.sp__faq-q')!;
+    const answer = item.querySelector<HTMLElement>('.sp__faq-a')!;
+    btn.addEventListener('click', () => {
+      if (item.classList.contains('is-open')) {
+        item.classList.add('is-closing');
+        item.classList.remove('is-open');
+        btn.setAttribute('aria-expanded', 'false');
+        answer.addEventListener('transitionend', () => { item.classList.remove('is-closing'); }, { once: true });
+      } else {
+        item.classList.remove('is-closing');
+        item.classList.add('is-open');
+        btn.setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
+</script>
